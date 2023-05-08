@@ -1,0 +1,227 @@
+{
+    "videos": "视频",
+    "images": "图片",
+    "forum": "论坛",
+    "video": "视频",
+    "image": "图片",
+    "users": "用户",
+    "all": "全部",
+    "view_more": "查看更多",
+    "details": "详情",
+    "open": "打开",
+    "language": "语言",
+    "subscriptions": "订阅",
+    "me": "我",
+    "email": "邮箱",
+    "login": "登录",
+    "password": "密码",
+    "captcha": "验证码",
+    "logout": "登出",
+    "register": "注册",
+    "register_captcha": "验证码",
+    "delete": "删除",
+    "meida_private": "私有",
+    "meida_page_more_from_uploader": "作者的其他作品",
+    "meida_page_more_like_this": "相似作品",
+    "video_page_share": "分享",
+    "video_page_download": "缓存",
+    "video_page_favorite": "收藏",
+    "video_page_add_to": "添加到",
+    "video_page_external_video": "外部视频",
+    "apply": "应用",
+    "ok": "好的",
+    "cancel": "取消",
+    "confirm": "确认",
+    "filter": "筛选",
+    "filter_by_rating": "按分级筛选",
+    "filter_by_tags": "按标签筛选",
+    "filter_by_date": "按日期筛选",
+    "filter_general": "全年龄",
+    "filter_ecchi": "成人",
+    "filter_select_rating": "选择分级",
+    "filter_select_year": "选择年份",
+    "filter_select_month": "选择月份",
+    "comments": "评论",
+    "comment": "评论",
+    "comments_send_comment": "发条友善的评论",
+    "comments_see_all_replies": "查看全部 {num} 条回复",
+    "@comments_see_all_replies": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "num": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "send": "发送",
+    "replies": "回复",
+    "expand": "展开",
+    "collapse": "收起",
+    "search": "搜索",
+    "search_history": "搜索历史",
+    "search_history_delete_all": "删除全部搜索历史",
+    "sort_latest": "最新",
+    "sort_trending": "流行",
+    "sort_popularity": "人气",
+    "sort_most_views": "最多观看",
+    "sort_most_likes": "最多点赞",
+    "profile": "个人资料",
+    "profile_nickname": "昵称",
+    "profile_username": "用户名",
+    "profile_user_id": "用户 ID",
+    "profile_description": "个人简介",
+    "profile_no_description": "该用户是个神秘人，不喜欢被人围观。",
+    "profile_join_date": "加入时间",
+    "profile_last_active_time": "最后在线时间",
+    "profile_online": "在线",
+    "profile_message": "私信",
+    "follow": "关注",
+    "following": "关注中",
+    "followers": "粉丝",
+    "friend_add": "加好友",
+    "friend_pending": "等待同意",
+    "friended": "已是好友",
+    "playlist_title": "播放列表标题",
+    "playlist_create": "创建播放列表",
+    "playlist_select": "选择播放列表",
+    "playlist_videos_count": "{num} 个视频",
+    "@playlist_videos_count": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "num": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "playlist_videos_count_plural": "{num} 个视频",
+    "@playlist_videos_count_plural": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "num": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "user_history": "历史记录",
+    "user_friends": "好友",
+    "user_downloads": "缓存",
+    "user_favorites": "收藏",
+    "user_playlists": "播放列表",
+    "user_settings": "设置",
+    "user_about": "关于",
+    "time_seconds_ago": "{time} 秒前",
+    "@time_seconds_ago": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "time_minutes_ago": "{time} 分钟前",
+    "@time_minutes_ago": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "time_hours_ago": "{time} 小时前",
+    "@time_hours_ago": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "time_days_ago": "{time} 天前",
+    "@time_days_ago": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "setting_appearance": "外观",
+    "setting_cover_blur": "模糊 R-18 内容封面",
+    "setting_security": "安全",
+    "setting_auto_lock": "自动锁定",
+    "unlock_by_biometric": "使用生物识别解锁",
+    "set_password": "设置密码",
+    "repeat_password": "请重复密码",
+    "authenticate_to_continue": "验证以继续",
+    "authenticate_required": "需要认证",
+    "theme": "主题",
+    "theme_system": "跟随系统",
+    "theme_light_mode": "浅色模式",
+    "theme_dark_mode": "深色模式",
+    "success": "成功",
+    "error": "错误",
+    "loading": "加载中...",
+    "message_require_login": "需要登录",
+    "message_login_password_longer_than_6": "密码长度至少为 6 位",
+    "message_please_type_email": "请输入邮箱",
+    "message_please_type_valid_email": "请输入正确的邮箱",
+    "message_please_type_password": "请输入密码",
+    "message_please_type_captcha": "请输入验证码",
+    "message_history_delete_all_confirm": "确定要删除全部历史记录吗？该操作无法取消。",
+    "message_search_history_delete_confirm": "确定要删除这个搜索历史吗？该操作无法取消。",
+    "message_search_history_delete_all_confirm": "确定要删除全部搜索历史吗？该操作无法取消。",
+    "message_deleted_item": "删除了 \"{title}\"。",
+    "@message_deleted_item": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "thread": "帖子",
+    "channel_administration": "管理者",
+    "channel_announcements": "公告",
+    "channel_feedback": "反馈",
+    "channel_support": "支持",
+    "channel_global": "常规",
+    "channel_general": "普通",
+    "channel_guides": "指南",
+    "channel_questions": "帮助/问题",
+    "channel_requests": "请求",
+    "channel_sharing": "分享",
+    "channel_label": "{numThread} 个帖子 {numPosts} 个回复",
+    "@channel_label": {
+      "description": "A message with 2 parameters",
+      "placeholders": {
+        "numThread": {
+            "type": "String",
+            "example": "Bob"
+        },
+        "numPosts": {
+            "type": "String",
+            "example": "Bob"
+        }
+      }
+    },
+    "message_empty_comment": "评论不能为空。",
+    "message_comment_sent": "评论已发送。",
+    "message_empty_playlist_title": "播放列表标题不能为空。",
+    "message_playlist_created": "播放列表已创建。",
+    "message_login_success": "登入成功！",
+    "message_register_success": "注册成功，请查看邮箱激活账号。",
+    "message_authenticate_to_continue": "认证以继续",
+    "message_authenticate_to_enable_biometric": "认证以启用生物识别",
+    "error_retry": "加载失败，点击重试",
+    "error_fetch_failed": "无法获取视频链接",
+    "error_invalid_login": "邮箱或密码错误",
+    "error_invalid_captcha": "验证码错误"
+}
