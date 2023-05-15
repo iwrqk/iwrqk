@@ -85,21 +85,27 @@ class HomePage extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 7.5, 15, 7.5),
               child: InkWell(
-                child: Badge(
-                  label: controller.userService.notificationsCounts != null
-                      ? controller.userService.notificationsCounts!.total > 0
-                          ? Text(
-                              controller.userService.notificationsCounts!.total
-                                  .toString(),
-                              style: TextStyle(color: Colors.white),
-                            )
-                          : null
-                      : null,
-                  child: FaIcon(
-                    FontAwesomeIcons.solidEnvelope,
-                    color: Colors.grey,
-                  ),
-                ),
+                child: controller.userService.notificationsCounts != null
+                    ? Badge(
+                        label:
+                            controller.userService.notificationsCounts!.total >
+                                    0
+                                ? Text(
+                                    controller
+                                        .userService.notificationsCounts!.total
+                                        .toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                : null,
+                        child: FaIcon(
+                          FontAwesomeIcons.solidEnvelope,
+                          color: Colors.grey,
+                        ),
+                      )
+                    : FaIcon(
+                        FontAwesomeIcons.solidEnvelope,
+                        color: Colors.grey,
+                      ),
               ),
             ),
           ],

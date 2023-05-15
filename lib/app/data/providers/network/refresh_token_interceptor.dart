@@ -70,7 +70,8 @@ class RefreshTokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    if (options.path == IwaraConst.apiHost + IwaraConst.accessTokenPath) {
+    if (options.path ==
+        "https://${IwaraConst.apiHost}${IwaraConst.accessTokenPath}") {
       options.headers["authorization"] = "Bearer ${accountService.token}";
     } else {
       String? accessToken = await getAccessToken();

@@ -29,7 +29,7 @@ dependencies:
   provider: ^6.0.5
   flutter_secure_storage: ^8.0.0
   oktoast: ^3.3.1
-  video_player: ^2.4.7
+  better_player: ^0.0.83
   wakelock: ^0.6.2
   local_auth: ^2.1.6
   local_auth_android: ^1.0.24

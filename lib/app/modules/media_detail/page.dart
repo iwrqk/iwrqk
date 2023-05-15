@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/app/core/const/iwara.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -26,7 +27,7 @@ import 'controller.dart';
 import 'widgets/add_to_playlist_bottom_sheet/widget.dart';
 import 'widgets/create_video_download_task_dialog/widget.dart';
 import 'widgets/iwr_gallery.dart';
-import 'widgets/iwr_player/iwr_video_player.dart';
+import 'widgets/iwr_player/widget.dart';
 
 class MediaDetailPage extends StatefulWidget {
   MediaDetailPage({
@@ -205,8 +206,15 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
             ],
           ));
     } else {
-      child = IwrVideoPlayer(
-        controller: _controller.iwrVideoController!,
+      Map<String, String> resolutions = {};
+      for (var resolution in _controller.resolutions) {
+        resolutions.addAll({resolution.name: resolution.src.viewUrl});
+      }
+      child = IwrPlayer(
+        key: ValueKey(_controller.media.id),
+        resolutions: resolutions,
+        author: _controller.media.user.name,
+        title: _controller.media.title,
       );
     }
     return AspectRatio(aspectRatio: 16 / 9, child: child);
@@ -430,32 +438,33 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       final Widget result = Offstage(
         offstage: closed,
         child: TickerMode(
-            enabled: !closed,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IwrMarkdown(
-                  selectable: true,
-                  data: _controller.media.body ?? "",
-                ),
-                if (_controller.media.tags.isNotEmpty)
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Wrap(
-                          spacing: 5,
-                          runSpacing: 5,
-                          children: List.generate(
-                            _controller.media.tags.length,
-                            (index) => _buildTagClip(context, index),
-                          ),
+          enabled: !closed,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IwrMarkdown(
+                selectable: true,
+                data: _controller.media.body ?? "",
+              ),
+              if (_controller.media.tags.isNotEmpty)
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Wrap(
+                        spacing: 5,
+                        runSpacing: 5,
+                        children: List.generate(
+                          _controller.media.tags.length,
+                          (index) => _buildTagClip(context, index),
                         ),
                       ),
-                    ],
-                  )
-              ],
-            )),
+                    ),
+                  ],
+                )
+            ],
+          ),
+        ),
       );
 
       return AnimatedBuilder(
@@ -518,11 +527,11 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               ),
               onPressed: () {
                 if (_controller.mediaType == MediaType.video) {
-                  Share.share(
-                      "https://www.iwara.tv/video/${_controller.media.id}");
+                  Share.share(IwaraConst.videoPageUrl
+                      .replaceAll("{id}", _controller.media.id));
                 } else {
-                  Share.share(
-                      "https://www.iwara.tv/image/${_controller.media.id}");
+                  Share.share(IwaraConst.imagePageUrl
+                      .replaceAll("{id}", _controller.media.id));
                 }
               }),
           MaterialButton(

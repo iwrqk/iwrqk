@@ -42,7 +42,9 @@ class AccountService extends GetxService {
   }
 
   void notifyTokenExpired() {
-    showToast(DisplayUtil.messageNeedLogin);
+    if (token != null && _isExpired(token!)) {
+      showToast(DisplayUtil.messageNeedLogin);
+    }
   }
 
   Future<ApiResult<void>> _login(String email, String password) async {

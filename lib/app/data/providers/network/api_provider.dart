@@ -1,3 +1,5 @@
+import 'package:iwrqk/app/core/const/iwara.dart';
+
 import '../../../core/utils/log_util.dart';
 import '../../enums/result.dart';
 import '../../enums/types.dart';
@@ -272,8 +274,9 @@ class ApiProvider {
     String? message;
     List<ResolutionModel> resolutions = [];
 
-    await networkProvider
-        .getFullUrl(url, headers: {"x-version": xversion}).then((value) {
+    await networkProvider.getFullUrl(url, headers: {
+      "x-version": xversion,
+    }).then((value) {
       if (value.data is List) {
         resolutions =
             List.from(value.data.map((e) => ResolutionModel.fromJson(e)));
@@ -285,9 +288,17 @@ class ApiProvider {
       message = e.toString();
     });
 
+    List<ResolutionModel> finalResolutions = [];
+
+    for (ResolutionModel resolution in resolutions) {
+      if (resolution.name != "preview") {
+        finalResolutions.add(resolution);
+      }
+    }
+
     return ApiResult(
-      data: resolutions,
-      success: message == null,
+      data: finalResolutions,
+      success: resolutions.isNotEmpty,
       message: message,
     );
   }

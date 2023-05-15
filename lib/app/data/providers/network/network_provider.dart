@@ -18,6 +18,7 @@ class NetworkProvider {
     _dio.options.validateStatus = (status) => (status ?? 0) < 500;
     _dio.options.headers = {
       "accept": "application/json",
+      "referer": IwaraConst.referer,
       "accept-encoding": "gzip, deflate, br",
       "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
       "content-type": "application/json",
@@ -27,7 +28,6 @@ class NetworkProvider {
     _dio.options.sendTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
     _dio.options.connectTimeout = const Duration(seconds: 15);
-    _dio.options.baseUrl = "https://";
     _dio.interceptors.add(RefreshTokenInterceptor(_dio));
     _dio.interceptors.add(LogInterceptor());
   }
@@ -42,7 +42,7 @@ class NetworkProvider {
     Map<String, dynamic>? headers,
   }) =>
       getFullUrl(
-        "${IwaraConst.apiHost}$path",
+        "https://${IwaraConst.apiHost}$path",
         queryParameters: queryParameters,
         headers: headers,
       );
@@ -84,7 +84,7 @@ class NetworkProvider {
     dynamic data,
   }) =>
       postFullUrl(
-        "${IwaraConst.apiHost}$path",
+        "https://${IwaraConst.apiHost}$path",
         queryParameters: queryParameters,
         headers: headers,
         data: data,
@@ -113,7 +113,7 @@ class NetworkProvider {
     dynamic data,
   }) =>
       deleteFullUrl(
-        "${IwaraConst.apiHost}$path",
+        "https://${IwaraConst.apiHost}$path",
         queryParameters: queryParameters,
         headers: headers,
         data: data,

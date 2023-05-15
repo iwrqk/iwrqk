@@ -9,7 +9,7 @@ import '../../data/models/resolution.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
-import 'widgets/iwr_player/iwr_video_player.dart';
+import 'widgets/iwr_player/controller.dart';
 
 class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
@@ -23,8 +23,6 @@ class MediaDetailController extends GetxController
   late OfflineMediaModel offlineMedia;
 
   List<ResolutionModel> resolutions = [];
-
-  IwrVideoController? _iwrVideoController;
 
   late Rx<AnimationController> _animationController;
   final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
@@ -48,8 +46,6 @@ class MediaDetailController extends GetxController
   late List<MediaModel> moreFromUser;
 
   late List<MediaModel> moreLikeThis;
-
-  IwrVideoController? get iwrVideoController => _iwrVideoController;
 
   AnimationController get animationController => _animationController.value;
   Animation<double> get iconTurn => _iconTurn;
@@ -150,16 +146,9 @@ class MediaDetailController extends GetxController
     }
   }
 
-  void _initializePlayerController() {
-    _iwrVideoController = IwrVideoController(
-      availableResolutions: resolutions,
-      initResolutionindex: resolutions.length - 1,
-      callbackAfterInit: () {},
-    );
-  }
-
   void pauseVideo() {
-    _iwrVideoController?.pauseVideo();
+    IwrPlayerController _iwrPlayerController = Get.find<IwrPlayerController>();
+    _iwrPlayerController.pause();
   }
 
   Future<void> refectchVideos() async {
@@ -175,7 +164,6 @@ class MediaDetailController extends GetxController
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;
           _fetchFailed.value = false;
-          _initializePlayerController();
         }
       }
     });

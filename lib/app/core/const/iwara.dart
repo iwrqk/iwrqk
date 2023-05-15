@@ -1,9 +1,13 @@
 class IwaraConst {
   static const referer = "https://www.iwara.tv/";
+  static const origin = "https://www.iwara.tv";
 
   static const apiHost = "api.iwara.tv";
 
   static const salt = "5nFp9kmbNnHdAFhaqMvt";
+
+  static const videoPageUrl = "https://www.iwara.tv/video/{id}";
+  static const imagePageUrl = "https://www.iwara.tv/image/{id}";
 
   static const defaultAvatarUrl =
       "https://www.iwara.tv/images/default-avatar.jpg";
