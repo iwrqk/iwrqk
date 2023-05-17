@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,7 @@ import 'controller.dart';
 import 'widgets/add_to_playlist_bottom_sheet/widget.dart';
 import 'widgets/create_video_download_task_dialog/widget.dart';
 import 'widgets/iwr_gallery.dart';
-import 'widgets/iwr_player/widget.dart';
+import 'widgets/iwr_player/controller.dart';
 
 class MediaDetailPage extends StatefulWidget {
   MediaDetailPage({
@@ -206,15 +207,13 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
             ],
           ));
     } else {
-      Map<String, String> resolutions = {};
-      for (var resolution in _controller.resolutions) {
-        resolutions.addAll({resolution.name: resolution.src.viewUrl});
-      }
-      child = IwrPlayer(
-        key: ValueKey(_controller.media.id),
-        resolutions: resolutions,
-        author: _controller.media.user.name,
-        title: _controller.media.title,
+      child = GetBuilder<IwrPlayerController>(
+        init: _controller.iwrPlayerController,
+        builder: (controller) {
+          return BetterPlayer(
+            controller: controller.betterPlayerController,
+          );
+        },
       );
     }
     return AspectRatio(aspectRatio: 16 / 9, child: child);

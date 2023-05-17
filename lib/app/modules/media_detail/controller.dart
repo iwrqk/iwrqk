@@ -15,6 +15,8 @@ class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
   final MediaDetailRepository repository = MediaDetailRepository();
 
+  IwrPlayerController? iwrPlayerController;
+
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
 
@@ -141,14 +143,26 @@ class MediaDetailController extends GetxController
 
     if (media is VideoModel) {
       if ((media as VideoModel).embedUrl == null) {
-        refectchVideos();
+        await refectchVideos();
       }
     }
   }
 
+  void _initPlayer() {
+    Map<String, String> resolutionsMap = {};
+    for (var resolution in resolutions) {
+      resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
+    }
+
+    iwrPlayerController = IwrPlayerController(
+      resolutions: resolutionsMap,
+      title: media.title,
+      author: media.user.name,
+    );
+  }
+
   void pauseVideo() {
-    IwrPlayerController _iwrPlayerController = Get.find<IwrPlayerController>();
-    _iwrPlayerController.pause();
+    iwrPlayerController?.pause();
   }
 
   Future<void> refectchVideos() async {
@@ -164,6 +178,7 @@ class MediaDetailController extends GetxController
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;
           _fetchFailed.value = false;
+          _initPlayer();
         }
       }
     });

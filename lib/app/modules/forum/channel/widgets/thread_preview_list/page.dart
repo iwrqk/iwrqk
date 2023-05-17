@@ -69,7 +69,8 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 subtitle: Text(
-                  "@${thread.user.username}",
+                  DisplayUtil.getDisplayDate(DateTime.parse(
+                      thread.lastPost?.createAt ?? thread.createdAt)),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),

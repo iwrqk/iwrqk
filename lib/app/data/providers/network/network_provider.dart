@@ -17,13 +17,11 @@ class NetworkProvider {
 
     _dio.options.validateStatus = (status) => (status ?? 0) < 500;
     _dio.options.headers = {
-      "accept": "application/json",
+      "origin": IwaraConst.origin,
       "referer": IwaraConst.referer,
-      "accept-encoding": "gzip, deflate, br",
-      "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-      "content-type": "application/json",
+      "accept-encoding": "gzip",
       "user-agent":
-          "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Mobile Safari/537.36"
+          "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5672.76 Mobile Safari/537.36"
     };
     _dio.options.sendTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);

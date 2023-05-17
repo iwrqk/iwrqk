@@ -110,6 +110,6 @@ class VideoModel extends MediaModel {
         RegExp(r'file/(\w+-\w+-\w+-\w+-\w+)\?').firstMatch(fileUrl!)?.group(1);
     var expires = RegExp(r'expires=(\d+)').firstMatch(fileUrl!)?.group(1);
 
-    return CryptoUtil.getHash('${vid}_$expires${IwaraConst.salt}');
+    return CryptoUtil.getHash('${vid}_${expires}_${IwaraConst.salt}');
   }
 }
