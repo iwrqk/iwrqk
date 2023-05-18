@@ -33,6 +33,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
     super.initState();
     _controller =
         Get.find<DownloadsMediaPreviewListController>(tag: widget.tag);
+    _controller.initConfig(widget.filterType);
     _parentController.childrenControllers[widget.tag] = _controller;
   }
 

@@ -875,12 +875,12 @@ class ApiProvider {
     await networkProvider.get("/light/playlists", queryParameters: {
       "id": videoId,
     }).then((value) {
-      message = value.data["message"];
-
-      if (message == null) {
-        playlists = (value.data["results"] as List)
+      if (value.data is List) {
+        playlists = (value.data as List)
             .map((e) => LightPlaylistModel.fromJson(e))
             .toList();
+      } else {
+        message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);

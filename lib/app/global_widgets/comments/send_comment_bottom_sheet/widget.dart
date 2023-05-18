@@ -41,16 +41,21 @@ class SendCommentBottomSheet
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextField(
-                    controller: controller.contentController,
-                    minLines: 2,
-                    maxLines: 5,
-                    maxLength: 1000,
-                    autofocus: true,
-                    cursorColor: Theme.of(context).primaryColor,
-                    decoration: InputDecoration(
-                      hintText: L10n.of(context).comments_send_comment,
-                      border: InputBorder.none,
+                  child: Theme(
+                    data: Theme.of(context).brightness == Brightness.light
+                        ? ThemeData.light()
+                        : ThemeData.dark(),
+                    child: TextField(
+                      controller: controller.contentController,
+                      minLines: 2,
+                      maxLines: 5,
+                      maxLength: 1000,
+                      autofocus: true,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: InputDecoration(
+                        hintText: L10n.of(context).comments_send_comment,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),

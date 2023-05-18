@@ -23,6 +23,7 @@ import '../modules/home/binding.dart';
 import '../modules/home/page.dart';
 import '../modules/media_detail/binding.dart';
 import '../modules/media_detail/page.dart';
+import '../modules/playlists/playlist_detail/binding.dart';
 import '../modules/playlists/playlist_detail/page.dart';
 import '../modules/playlists/playlists_preview/binding.dart';
 import '../modules/playlists/playlists_preview/page.dart';
@@ -88,6 +89,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.playlistDetail,
       page: () => PlaylistDetailPage(),
+      binding: PlayListDetailBinding(),
       preventDuplicates: false,
     ),
     GetPage(

@@ -735,20 +735,22 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 ),
               ),
             ),
-            margin:
-                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(1000),
-              ),
-              child: AutoSizeText(
-                L10n.of(context).comments_send_comment,
-                maxLines: 1,
-                style: TextStyle(color: Colors.grey),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(1000),
+                ),
+                child: AutoSizeText(
+                  L10n.of(context).comments_send_comment,
+                  maxLines: 1,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
             ),
           ),

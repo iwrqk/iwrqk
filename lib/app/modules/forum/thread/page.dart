@@ -28,24 +28,26 @@ class ThreadPage extends GetWidget<ThreadController> {
                 ),
               ),
             ),
-            margin:
-                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.lock,
-                  color: Colors.grey,
-                  size: 20,
-                ),
-                SizedBox(width: 10),
-                AutoSizeText(
-                  L10n.of(context).thread_locked,
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
+            child: Container(
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.lock,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                  SizedBox(width: 10),
+                  AutoSizeText(
+                    L10n.of(context).thread_locked,
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
           )
         : InkWell(
@@ -67,20 +69,22 @@ class ThreadPage extends GetWidget<ThreadController> {
                   ),
                 ),
               ),
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: BorderRadius.circular(1000),
-                ),
-                child: AutoSizeText(
-                  L10n.of(context).comments_send_comment,
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.grey),
+                margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(1000),
+                  ),
+                  child: AutoSizeText(
+                    L10n.of(context).comments_send_comment,
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
             ),

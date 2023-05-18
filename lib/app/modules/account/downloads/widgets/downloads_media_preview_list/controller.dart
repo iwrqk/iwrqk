@@ -10,7 +10,7 @@ import 'repository.dart';
 
 class DownloadsMediaPreviewListController
     extends SliverRefreshController<MediaDownloadTask> {
-  final DownloadMediaPreviewListRepository repository = Get.find();
+  final DownloadMediaPreviewListRepository repository = DownloadMediaPreviewListRepository();
 
   final DownloadService _downloadService = Get.find();
 
