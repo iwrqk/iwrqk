@@ -14,39 +14,41 @@ class ThreadPage extends GetWidget<ThreadController> {
   final String starterUserName = Get.arguments['starterUserName'];
   final String channelName = Get.arguments['channelName'];
   final String threadId = Get.arguments['threadId'];
+  final bool locked = Get.arguments['locked'];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: FaIcon(FontAwesomeIcons.chevronLeft),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          L10n.of(context).thread,
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: PostList(
-              title: title,
-              starterUserName: starterUserName,
-              channelName: channelName,
-              threadId: threadId,
+  Widget _buildCommentButton(BuildContext context) {
+    return locked
+        ? Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).canvasColor,
+              border: Border(
+                top: BorderSide(
+                  color: Theme.of(context).dividerColor,
+                  width: 1,
+                ),
+              ),
             ),
-          ),
-          InkWell(
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.lock,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+                SizedBox(width: 10),
+                AutoSizeText(
+                  L10n.of(context).thread_locked,
+                  maxLines: 1,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          )
+        : InkWell(
             onTap: () {
               // Get.bottomSheet(SendCommentBottomSheet(
               //   sourceId: _controller.media.id,
@@ -82,7 +84,41 @@ class ThreadPage extends GetWidget<ThreadController> {
                 ),
               ),
             ),
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: FaIcon(FontAwesomeIcons.chevronLeft),
+        ),
+        shape: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 0,
           ),
+        ),
+        centerTitle: true,
+        title: Text(
+          L10n.of(context).thread,
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: PostList(
+              title: title,
+              starterUserName: starterUserName,
+              channelName: channelName,
+              threadId: threadId,
+            ),
+          ),
+          _buildCommentButton(context),
         ],
       ),
     );

@@ -15,10 +15,14 @@ class DownloadsPage extends GetView<DownloadsController> {
   Widget _buildTabBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          border: Border(
-              bottom:
-                  BorderSide(color: Theme.of(context).cardColor, width: 1))),
+        color: Theme.of(context).canvasColor,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 1,
+          ),
+        ),
+      ),
       alignment: Alignment.centerLeft,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         TabBar(

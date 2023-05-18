@@ -21,10 +21,14 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
   Widget _buildTabBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          border: Border(
-              bottom:
-                  BorderSide(color: Theme.of(context).cardColor, width: 1))),
+        color: Theme.of(context).canvasColor,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 1,
+          ),
+        ),
+      ),
       alignment: Alignment.centerLeft,
       child: Row(children: [
         TabBar(
@@ -106,6 +110,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
                             child: FaIcon(
                               FontAwesomeIcons.solidCircleXmark,
                               color: Colors.grey,
+                              size: 15,
                             ),
                           ),
                         ),

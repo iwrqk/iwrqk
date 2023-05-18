@@ -17,10 +17,12 @@ import '../controller.dart';
 
 class IwrPlayerControls extends StatefulWidget {
   final BetterPlayerControlsConfiguration controlsConfiguration;
+  final String id;
 
   const IwrPlayerControls({
     super.key,
     required this.controlsConfiguration,
+    required this.id,
   });
 
   @override
@@ -29,7 +31,7 @@ class IwrPlayerControls extends StatefulWidget {
 
 class _IwrPlayerControlsState
     extends BetterPlayerControlsState<IwrPlayerControls> {
-  final IwrPlayerController _state = Get.find<IwrPlayerController>();
+  late IwrPlayerController _state;
   VideoPlayerValue? _latestValue;
   bool _hideStuff = true;
   Timer? _hideTimer;
@@ -57,6 +59,12 @@ class _IwrPlayerControlsState
   double get barHeight => _state.isFullScreen
       ? _controlsConfiguration.controlBarHeight + 10
       : _controlsConfiguration.controlBarHeight;
+
+  @override
+  void initState() {
+    super.initState();
+    _state = Get.find<IwrPlayerController>(tag: widget.id);
+  }
 
   @override
   void dispose() {

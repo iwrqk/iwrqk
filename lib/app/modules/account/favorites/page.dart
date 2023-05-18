@@ -21,10 +21,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget _buildTabBar() {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          border: Border(
-              bottom:
-                  BorderSide(color: Theme.of(context).cardColor, width: 1))),
+        color: Theme.of(context).canvasColor,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 1,
+          ),
+        ),
+      ),
       alignment: Alignment.centerLeft,
       child: TabBar(
         isScrollable: true,

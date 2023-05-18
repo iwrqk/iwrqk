@@ -155,9 +155,11 @@ class MediaDetailController extends GetxController
     }
 
     iwrPlayerController = IwrPlayerController(
+      id: media.id,
       resolutions: resolutionsMap,
       title: media.title,
       author: media.user.name,
+      thumbnail: media.hasCover() ? media.getCoverUrl() : null,
     );
   }
 

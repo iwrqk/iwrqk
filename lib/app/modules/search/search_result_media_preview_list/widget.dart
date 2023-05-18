@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
@@ -19,8 +20,6 @@ class SearchResultMediaPreviewList extends StatefulWidget {
     required this.initKeyword,
   }) : super(key: PageStorageKey<String>(tag));
 
-  get scrollController => null;
-
   @override
   State<SearchResultMediaPreviewList> createState() =>
       _SearchResultMediaPreviewListState();
@@ -29,7 +28,7 @@ class SearchResultMediaPreviewList extends StatefulWidget {
 class _SearchResultMediaPreviewListState
     extends State<SearchResultMediaPreviewList>
     with AutomaticKeepAliveClientMixin {
-  final ScrollController scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   late SearchResultMediaPreviewListController _controller;
   final NormalSearchResultController _parentController = Get.find();
 
@@ -46,33 +45,36 @@ class _SearchResultMediaPreviewListState
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: widget.scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              reachBottomCallback(index);
+    return CupertinoScrollbar(
+      controller: _scrollController,
+      child: SliverRefresh(
+        controller: _controller,
+        scrollController: _scrollController,
+        builder: (data, reachBottomCallback) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                reachBottomCallback(index);
 
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: Container(
-                  height: 100,
-                  color: Theme.of(context).canvasColor,
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: MediaFlatPreview(
-                    meida: data[index],
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: Container(
+                    height: 100,
+                    color: Theme.of(context).canvasColor,
                   ),
-                ),
-              );
-            },
-            childCount: data.length,
-          ),
-        );
-      },
+                  child: SizedBox(
+                    height: 100,
+                    child: MediaFlatPreview(
+                      meida: data[index],
+                    ),
+                  ),
+                );
+              },
+              childCount: data.length,
+            ),
+          );
+        },
+      ),
     );
   }
 

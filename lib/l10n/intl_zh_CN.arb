@@ -187,7 +187,9 @@
             }
         }
     },
+    "create_download_task": "创建下载任务",
     "thread": "帖子",
+    "thread_locked": "改帖子已锁定",
     "channel_administration": "管理者",
     "channel_announcements": "公告",
     "channel_feedback": "反馈",

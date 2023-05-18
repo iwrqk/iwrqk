@@ -56,10 +56,13 @@ class IwrPlayerController extends GetxController {
   set gesturesDragTotalDelta(double value) =>
       _gesturesDragTotalDelta.value = value;
 
-  IwrPlayerController(
-      {required this.resolutions,
-      required String title,
-      required String author}) {
+  IwrPlayerController({
+    required this.resolutions,
+    required String id,
+    required String title,
+    required String author,
+    String? thumbnail,
+  }) {
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
       resolutions.values.first,
@@ -67,6 +70,7 @@ class IwrPlayerController extends GetxController {
         showNotification: true,
         title: title,
         author: author,
+        imageUrl: thumbnail,
       ),
     );
 
@@ -78,6 +82,7 @@ class IwrPlayerController extends GetxController {
           playerTheme: BetterPlayerTheme.custom,
           customControlsBuilder: (controller, onPlayerVisibilityChanged) {
             return IwrPlayerControls(
+              id: id,
               controlsConfiguration:
                   controller.betterPlayerConfiguration.controlsConfiguration,
             );

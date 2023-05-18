@@ -46,6 +46,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
             'starterUserName': thread.user.username,
             'channelName': channelName,
             'threadId': thread.id,
+            'locked': thread.locked,
           });
         },
         child: Padding(

@@ -259,6 +259,12 @@ class SettingsPage extends GetView<SettingsController> {
           },
           icon: FaIcon(FontAwesomeIcons.chevronLeft),
         ),
+        shape: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 0,
+          ),
+        ),
         centerTitle: true,
         title: Text(
           L10n.of(context).user_settings,

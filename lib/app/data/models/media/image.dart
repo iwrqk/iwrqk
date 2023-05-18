@@ -34,8 +34,8 @@ class ImageModel extends MediaModel {
   List<String> get galleryFileUrls {
     return files
         .map((e) => IwaraConst.galleryFileUrl
-          .replaceFirst("{id}", e.id)
-          .replaceFirst("{name}", e.name!))
+            .replaceFirst("{id}", e.id)
+            .replaceFirst("{name}", e.name!))
         .toList();
   }
 
@@ -52,7 +52,9 @@ class ImageModel extends MediaModel {
       numLikes: json['numLikes'],
       numViews: json['numViews'],
       numComments: json['numComments'],
-      customThumbnail: json['customThumbnail'],
+      customThumbnail: json['customThumbnail'] != null
+          ? FileModel.fromJson(json['customThumbnail'])
+          : null,
       user: UserModel.fromJson(json['user']),
       tags: List.from(json['tags'].map((tag) => TagModel.fromJson(tag))),
       createdAt: json['createdAt'],
@@ -83,14 +85,22 @@ class ImageModel extends MediaModel {
       if (thumbnail!.numThumbnails != 0) {
         flag = true;
       }
+    } else if (customThumbnail != null) {
+      flag = true;
     }
     return flag;
   }
 
   @override
   String getCoverUrl() {
-    return IwaraConst.imageCoverUrl
-      .replaceFirst("{id}", thumbnail!.id)
-      .replaceFirst("{name}", thumbnail!.name!);
+    if (customThumbnail != null) {
+      return IwaraConst.imageCoverUrl
+          .replaceFirst("{id}", customThumbnail!.id)
+          .replaceFirst("{name}", customThumbnail!.name!);
+    } else {
+      return IwaraConst.imageCoverUrl
+          .replaceFirst("{id}", thumbnail!.id)
+          .replaceFirst("{name}", thumbnail!.name!);
+    }
   }
 }

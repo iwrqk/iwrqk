@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
@@ -26,7 +27,7 @@ class UsersPreviewList extends StatefulWidget {
 class _UsersPreviewListState extends State<UsersPreviewList>
     with AutomaticKeepAliveClientMixin {
   late UsersPreviewListController _controller;
-  final ScrollController scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -38,31 +39,34 @@ class _UsersPreviewListState extends State<UsersPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              reachBottomCallback(index);
+    return CupertinoScrollbar(
+      controller: _scrollController,
+      child: SliverRefresh(
+        controller: _controller,
+        scrollController: _scrollController,
+        builder: (data, reachBottomCallback) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                reachBottomCallback(index);
 
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: SizedBox(height: 100),
-                child: Container(
-                  color: Theme.of(context).canvasColor,
-                  height: 100,
-                  child: UserPreview(
-                    user: data[index],
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: SizedBox(height: 100),
+                  child: Container(
+                    color: Theme.of(context).canvasColor,
+                    height: 100,
+                    child: UserPreview(
+                      user: data[index],
+                    ),
                   ),
-                ),
-              );
-            },
-            childCount: data.length,
-          ),
-        );
-      },
+                );
+              },
+              childCount: data.length,
+            ),
+          );
+        },
+      ),
     );
   }
 

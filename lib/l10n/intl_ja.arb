@@ -152,7 +152,9 @@
             }
         }
     },
+    "create_download_task": "ダウンロードタスクを作成",
     "thread": "スレッド",
+    "thread_locked": "このスレッドはロックされています",
     "channel_administration": "管理者",
     "channel_announcements": "お知らせ",
     "channel_feedback": "フィードバック",

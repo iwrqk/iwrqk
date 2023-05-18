@@ -49,7 +49,9 @@ class VideoModel extends MediaModel {
       numLikes: json['numLikes'],
       numViews: json['numViews'],
       numComments: json['numComments'],
-      customThumbnail: json['customThumbnail'],
+      customThumbnail: json['customThumbnail'] != null
+          ? FileModel.fromJson(json['customThumbnail'])
+          : null,
       user: UserModel.fromJson(json['user']),
       tags: List.from(json['tags'].map((tag) => TagModel.fromJson(tag))),
       createdAt: json['createdAt'],
@@ -88,6 +90,11 @@ class VideoModel extends MediaModel {
   String getCoverUrl() {
     if (embedUrl == null) {
       return IwaraConst.videoCoverUrl.replaceFirst('{id}', file!.id);
+    }
+    if (customThumbnail != null) {
+      return IwaraConst.imageCoverUrl
+          .replaceFirst("{id}", customThumbnail!.id)
+          .replaceFirst("{name}", customThumbnail!.name!);
     } else {
       if (embedUrl!.contains("youtu")) {
         RegExp regExp = RegExp(

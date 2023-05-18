@@ -7,6 +7,7 @@ import '../../../../../data/models/forum/post.dart';
 import '../../../../../global_widgets/iwr_markdown.dart';
 import '../../../../../global_widgets/reloadable_image.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
+import '../../../../../routes/pages.dart';
 import '../post.dart';
 import 'controller.dart';
 
@@ -70,29 +71,38 @@ class _PostListState extends State<PostList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: ClipOval(
-              child: ReloadableImage(
-                imageUrl: post.user.avatarUrl,
-                width: 45,
-                height: 45,
-              ),
-            ),
-            title: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  post.user.name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(
+                AppRoutes.profile,
+                arguments: post.user.username,
+                preventDuplicates: false,
+              );
+            },
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: ClipOval(
+                child: ReloadableImage(
+                  imageUrl: post.user.avatarUrl,
+                  width: 45,
+                  height: 45,
                 ),
-                if (widget.starterUserName == post.user.username)
-                  _buildStarterBadge(context)
-              ],
-            ),
-            subtitle: Text(
-              DisplayUtil.getDisplayTime(DateTime.parse(post.createAt)),
-              style: TextStyle(color: Colors.grey, fontSize: 12.5),
+              ),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    post.user.name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  if (widget.starterUserName == post.user.username)
+                    _buildStarterBadge(context)
+                ],
+              ),
+              subtitle: Text(
+                DisplayUtil.getDisplayTime(DateTime.parse(post.createAt)),
+                style: TextStyle(color: Colors.grey, fontSize: 12.5),
+              ),
             ),
           ),
           Text(

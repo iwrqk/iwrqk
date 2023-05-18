@@ -209,6 +209,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
     } else {
       child = GetBuilder<IwrPlayerController>(
         init: _controller.iwrPlayerController,
+        tag: _controller.media.id,
         builder: (controller) {
           return BetterPlayer(
             controller: controller.betterPlayerController,
@@ -801,6 +802,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               Get.back();
             },
             icon: FaIcon(FontAwesomeIcons.chevronLeft),
+          ),
+          shape: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: 0,
+            ),
           ),
           centerTitle: true,
           title: Text(_getTitle()),

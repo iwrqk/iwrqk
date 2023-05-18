@@ -152,7 +152,9 @@
         }
       }
     },
+    "create_download_task": "Create download task",
     "thread": "Thread",
+    "thread_locked": "This thread is locked",
     "channel_administration": "Administration",
     "channel_announcements": "Announcements",
     "channel_feedback": "Feedback",

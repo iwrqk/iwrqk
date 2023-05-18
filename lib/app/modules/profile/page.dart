@@ -289,8 +289,16 @@ class ProfilePage extends GetWidget<ProfileController> {
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).canvasColor,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 1,
+          ),
+        ),
+      ),
       alignment: Alignment.centerLeft,
-      color: Theme.of(context).canvasColor,
       child: TabBar(
         isScrollable: true,
         indicator: TabIndicator(context),

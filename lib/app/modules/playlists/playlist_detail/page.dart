@@ -23,6 +23,12 @@ class PlaylistDetailPage extends StatelessWidget {
             FontAwesomeIcons.chevronLeft,
           ),
         ),
+        shape: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            width: 0,
+          ),
+        ),
         centerTitle: true,
         title: Text(L10n.of(context).user_playlists),
       ),

@@ -1,3 +1,4 @@
+import '../file.dart';
 import '../tag.dart';
 import '../user.dart';
 
@@ -13,7 +14,7 @@ abstract class MediaModel {
   int numLikes;
   int numViews;
   int numComments;
-  String? customThumbnail;
+  FileModel? customThumbnail;
   UserModel user;
   List<TagModel> tags;
   String createdAt;
@@ -51,7 +52,7 @@ abstract class MediaModel {
       'numLikes': numLikes,
       'numViews': numViews,
       'numComments': numComments,
-      'customThumbnail': customThumbnail,
+      'customThumbnail': customThumbnail?.toJson(),
       'user': user.toJson(),
       'tags': List.from(tags.map((tag) => tag.toJson())),
       'createdAt': createdAt,

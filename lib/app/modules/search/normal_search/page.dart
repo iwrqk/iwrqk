@@ -92,7 +92,15 @@ class NormalSearchPage extends GetView<NormalSearchController> {
           kTextTabBarHeight + MediaQuery.of(context).padding.top),
       child: Container(
         height: kTextTabBarHeight + MediaQuery.of(context).padding.top,
-        color: Theme.of(context).canvasColor,
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: 1,
+            ),
+          ),
+        ),
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Row(
           children: [
@@ -148,6 +156,7 @@ class NormalSearchPage extends GetView<NormalSearchController> {
                             child: FaIcon(
                               FontAwesomeIcons.solidCircleXmark,
                               color: Colors.grey,
+                              size: 15,
                             ),
                           ),
                         ),

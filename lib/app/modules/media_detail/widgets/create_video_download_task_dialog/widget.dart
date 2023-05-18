@@ -28,7 +28,7 @@ class CreateVideoDownloadDialog
         borderRadius: BorderRadius.circular(10),
       ),
       title: Text(
-        L10n.of(context).playlist_create,
+        L10n.of(context).create_download_task,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Container(
