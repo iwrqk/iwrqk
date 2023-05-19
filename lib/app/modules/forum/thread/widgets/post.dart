@@ -110,9 +110,10 @@ class Post extends StatelessWidget {
     return Container(
       color: Theme.of(context).canvasColor,
       padding: EdgeInsets.fromLTRB(20, 15, 15, 15),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_buildUserWidget(context), _buildContent(context)]),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        _buildUserWidget(context),
+        _buildContent(context),
+      ]),
     );
   }
 }

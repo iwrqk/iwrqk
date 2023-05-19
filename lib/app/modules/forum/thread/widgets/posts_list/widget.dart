@@ -137,10 +137,20 @@ class _PostListState extends State<PostList> {
                   return _buildStarter(widget.title, data[index]);
                 }
 
-                return Post(
-                  post: data[index],
-                  index: index,
-                  starterUserName: widget.starterUserName,
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Theme.of(context).dividerColor,
+                        width: 0.5,
+                      ),
+                    ),
+                  ),
+                  child: Post(
+                    post: data[index],
+                    index: index,
+                    starterUserName: widget.starterUserName,
+                  ),
                 );
               },
               childCount: data.length,

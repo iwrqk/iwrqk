@@ -99,7 +99,6 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
           Expanded(
             child: SizeCacheWidget(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
                 controller: _controller.tabController,
                 children: List.generate(
                   widget.tabTagList.length,

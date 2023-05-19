@@ -693,7 +693,6 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         controller: _detailController,
         child: ListView(
           controller: _detailController,
-          physics: BouncingScrollPhysics(),
           children: children,
         ),
       );
@@ -785,7 +784,6 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                     _buildTabBar(),
                     Expanded(
                       child: TabBarView(
-                        physics: BouncingScrollPhysics(),
                         children: [
                           _buildDetailTab(),
                           _buildCommentsTab(),

@@ -106,7 +106,6 @@ class HistoryPage extends GetView<HistoryController> {
             _buildTabBar(context),
             Expanded(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
                 children: [
                   HistoryMediaPreviewList(
                     tag: controller.childrenControllerTags[0],

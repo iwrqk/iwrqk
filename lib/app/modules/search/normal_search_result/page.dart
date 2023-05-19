@@ -155,7 +155,6 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
             _buildTabBar(context),
             Expanded(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
                 children: [
                   SearchResultMediaPreviewList(
                     type: MediaType.video,

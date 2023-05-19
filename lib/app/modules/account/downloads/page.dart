@@ -106,7 +106,6 @@ class DownloadsPage extends GetView<DownloadsController> {
             _buildTabBar(context),
             Expanded(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
                 children: [
                   DownloadsMediaPreviewList(
                     filterType: MediaType.video,

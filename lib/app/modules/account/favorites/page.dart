@@ -67,7 +67,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
             _buildTabBar(),
             Expanded(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
                 children: [
                   FavoriteMediaPreviewList(
                     mediaType: MediaType.video,

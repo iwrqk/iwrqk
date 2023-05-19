@@ -709,7 +709,7 @@ class ApiProvider {
     String? message;
     FriendRelationType relationType = FriendRelationType.none;
 
-    await networkProvider.get("/user/$userId/friends").then((value) {
+    await networkProvider.get("/user/$userId/friends/status").then((value) {
       message = value.data["message"];
 
       if (message == null) {
