@@ -160,6 +160,10 @@ class MediaDetailController extends GetxController
       title: media.title,
       author: media.user.name,
       thumbnail: media.hasCover() ? media.getCoverUrl() : null,
+      setting: configService.playerSetting,
+      onPlayerSettingSaved: (setting) {
+        configService.playerSetting = setting;
+      },
     );
   }
 

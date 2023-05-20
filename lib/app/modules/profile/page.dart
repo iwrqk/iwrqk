@@ -107,9 +107,11 @@ class ProfilePage extends GetWidget<ProfileController> {
   Widget _buildJoinSeenAtDate(BuildContext context) {
     Widget? lastActiveWidget;
 
-    if (controller.profile.seenAt != null) {
+    String? seenAt = controller.profile.user!.seenAt;
+
+    if (seenAt != null) {
       Duration difference =
-          DateTime.now().difference(DateTime.parse(controller.profile.seenAt!));
+          DateTime.now().difference(DateTime.parse(seenAt));
       if (difference.inMinutes <= 5) {
         lastActiveWidget = Row(
           children: [
@@ -127,7 +129,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         );
       } else {
         lastActiveWidget = AutoSizeText(
-          "${L10n.of(context).profile_last_active_time}：${DisplayUtil.getDisplayDate(DateTime.parse(controller.profile.seenAt!))}",
+          "${L10n.of(context).profile_last_active_time}：${DisplayUtil.getDisplayDate(DateTime.parse(seenAt))}",
           style: TextStyle(fontSize: 12.5),
         );
       }
@@ -139,7 +141,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           AutoSizeText(
-            "${L10n.of(context).profile_join_date}：${DisplayUtil.getDisplayDate(DateTime.parse(controller.profile.createdAt))}",
+            "${L10n.of(context).profile_join_date}：${DisplayUtil.getDisplayDate(DateTime.parse(controller.profile.user!.createdAt))}",
             style: TextStyle(fontSize: 12.5),
           ),
           if (lastActiveWidget != null) lastActiveWidget

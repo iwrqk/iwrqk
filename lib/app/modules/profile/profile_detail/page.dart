@@ -116,11 +116,11 @@ class ProfileDetailPage extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
             child: Text(
               DisplayUtil.getDetailedTime(
-                DateTime.parse(profile.createdAt),
+                DateTime.parse(profile.user!.createdAt),
               ),
             ),
           ),
-          if (profile.seenAt != null)
+          if (profile.user!.seenAt != null)
             Text(
               L10n.of(context).profile_last_active_time,
               style: TextStyle(
@@ -128,12 +128,12 @@ class ProfileDetailPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          if (profile.seenAt != null)
+          if (profile.user!.seenAt != null)
             Padding(
               padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
               child: Text(
                 DisplayUtil.getDetailedTime(
-                  DateTime.parse(profile.seenAt!),
+                  DateTime.parse(profile.user!.seenAt!),
                 ),
               ),
             ),

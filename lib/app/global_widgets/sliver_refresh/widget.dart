@@ -65,7 +65,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
   Widget _buildDataWidget(IwrState footerIndicatorState) {
     return CustomScrollView(
       controller: widget.scrollController,
-      cacheExtent: 100,
+      cacheExtent: 150,
       clipBehavior: Clip.none,
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),

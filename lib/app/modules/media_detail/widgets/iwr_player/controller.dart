@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/settings/player_setting.dart';
 import 'widgets/iwr_player_controls.dart';
 
 enum QuickGestures {
@@ -15,6 +18,9 @@ enum QuickGestures {
 
 class IwrPlayerController extends GetxController {
   late BetterPlayerController betterPlayerController;
+  int _qualityIndexToSave = 0;
+  int _volumeToSave = 100;
+  final Function(PlayerSetting setting)? _onPlayerSettingSaved;
   final Map<String, String> resolutions;
   final Map<String, double> availablePlaybackSpeeds = {
     '0.5x': 0.5,
@@ -62,10 +68,26 @@ class IwrPlayerController extends GetxController {
     required String title,
     required String author,
     String? thumbnail,
-  }) {
+    PlayerSetting? setting,
+    dynamic Function(PlayerSetting)? onPlayerSettingSaved,
+  }) : _onPlayerSettingSaved = onPlayerSettingSaved {
+    int resolutionIndex = 0;
+    int volume = 100;
+
+    if (setting != null) {
+      int index = setting.qualityIndex;
+      resolutionIndex = min(index, resolutions.length);
+      _qualityIndexToSave = index;
+
+      volume = setting.volume;
+      _volumeToSave = volume;
+    }
+
+    _currentResolutionIndex.value = resolutionIndex;
+
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
-      resolutions.values.first,
+      resolutions.values.elementAt(resolutionIndex),
       notificationConfiguration: BetterPlayerNotificationConfiguration(
         showNotification: true,
         title: title,
@@ -78,6 +100,7 @@ class IwrPlayerController extends GetxController {
       BetterPlayerConfiguration(
         aspectRatio: 16 / 9,
         fit: BoxFit.contain,
+        autoDetectFullscreenDeviceOrientation: true,
         controlsConfiguration: BetterPlayerControlsConfiguration(
           playerTheme: BetterPlayerTheme.custom,
           customControlsBuilder: (controller, onPlayerVisibilityChanged) {
@@ -91,6 +114,8 @@ class IwrPlayerController extends GetxController {
       ),
       betterPlayerDataSource: betterPlayerDataSource,
     );
+
+    betterPlayerController.setVolume(volume / 100);
 
     betterPlayerController.addEventsListener((event) {
       if (event.betterPlayerEventType == BetterPlayerEventType.openFullscreen) {
@@ -106,6 +131,13 @@ class IwrPlayerController extends GetxController {
     String? key = resolutions.keys.elementAt(index);
     betterPlayerController.setResolution(resolutions[key]!);
     currentResolutionIndex = index;
+
+    if (index == resolutions.length - 1) {
+      // source
+      _qualityIndexToSave = 2;
+    } else {
+      _qualityIndexToSave = index;
+    }
   }
 
   void changePlaybackSpeed(int index) {
@@ -128,6 +160,7 @@ class IwrPlayerController extends GetxController {
 
   void setVolume(double volume) {
     betterPlayerController.setVolume(volume);
+    _volumeToSave = (volume * 100).round();
   }
 
   void toggleFullScreen() {
@@ -136,6 +169,15 @@ class IwrPlayerController extends GetxController {
     } else {
       betterPlayerController.enterFullScreen();
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _onPlayerSettingSaved?.call(PlayerSetting(
+      qualityIndex: _qualityIndexToSave,
+      volume: _volumeToSave,
+    ));
   }
 
   @override

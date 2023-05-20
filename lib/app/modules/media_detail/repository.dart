@@ -30,7 +30,11 @@ class MediaDetailRepository {
       queryParameters: {"user": userId, "exclude": mediaId, "limit": 6},
       type: type,
     );
-    return ApiResult(data: result.data?.results, success: result.success);
+    return ApiResult(
+      data: result.data?.results,
+      message: result.message,
+      success: result.success,
+    );
   }
 
   Future<ApiResult<List<MediaModel>>> getMoreLikeThis({
@@ -40,6 +44,10 @@ class MediaDetailRepository {
     ApiResult<GroupResult<MediaModel>> result = await ApiProvider.getMedia(
         path: "/${type.value}/$mediaId/related", type: type);
 
-    return ApiResult(data: result.data?.results, success: result.success);
+    return ApiResult(
+      data: result.data?.results,
+      message: result.message,
+      success: result.success,
+    );
   }
 }

@@ -17,6 +17,7 @@ class MediaPreviewGridRepository {
     String path = "";
     MediaType mediaType = MediaType.video;
     Map<String, dynamic> query = {};
+    bool isSubscribed = false;
 
     query = {"page": currentPage};
 
@@ -44,17 +45,19 @@ class MediaPreviewGridRepository {
       case MediaSourceType.subscribedVideos:
         query.addAll({"subscribed": true});
         path = "/videos";
+        isSubscribed = true;
         break;
       case MediaSourceType.subscribedImages:
         mediaType = MediaType.image;
         query.addAll({"subscribed": true});
         path = "/images";
+        isSubscribed = true;
         break;
       default:
         break;
     }
 
-    if (!(filterSetting?.isEmpty() ?? true)) {
+    if (!(filterSetting?.isEmpty() ?? true) && !isSubscribed) {
       query.addAll({
         "rating": filterSetting!.ratingType?.value ?? RatingType.all.value,
       });

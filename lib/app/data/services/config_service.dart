@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/app/data/models/settings/player_setting.dart';
 
 import '../../core/const/widget.dart';
 import '../models/settings/filter_setting.dart';
@@ -7,8 +8,12 @@ import '../providers/storage_provider.dart';
 
 abstract class ConfigKey {
   static const String firstRun = "firstRun";
+
   static const String themeMode = "themeMode";
   static const String localeCode = "localeCode";
+
+  static const String playerSetting = "playerSetting";
+
   static const String filterSetting = "filterSetting";
   static const String adultCoverBlur = "adultCoverBlur";
 }
@@ -42,6 +47,15 @@ class ConfigService extends GetxService {
   set filterSetting(FilterSettingModel filterSetting) {
     _filterSetting.value = filterSetting;
     StorageProvider.setConfig(ConfigKey.filterSetting, filterSetting.toJson());
+  }
+
+  PlayerSetting _playerSetting = PlayerSetting();
+
+  PlayerSetting get playerSetting => _playerSetting;
+
+  set playerSetting(PlayerSetting playerSetting) {
+    _playerSetting = playerSetting;
+    StorageProvider.setConfig(ConfigKey.playerSetting, playerSetting.toJson());
   }
 
   final RxString _localeCode = "en".obs;
@@ -89,10 +103,16 @@ class ConfigService extends GetxService {
       _localeCode.value =
           StorageProvider.getConfigByKey(ConfigKey.localeCode) ?? "en";
     }
+
     _themeMode.value = ThemeMode
         .values[StorageProvider.getConfigByKey(ConfigKey.themeMode) ?? 0];
     _audltCoverBlur.value =
         StorageProvider.getConfigByKey(ConfigKey.adultCoverBlur) ?? false;
+    var playerSettingJson =
+        StorageProvider.getConfigByKey(ConfigKey.playerSetting);
+    if (playerSettingJson != null) {
+      _playerSetting = PlayerSetting.fromJson(playerSettingJson);
+    }
   }
 
   Locale? localeListResolutionCallback(
