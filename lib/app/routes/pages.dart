@@ -128,6 +128,7 @@ abstract class AppPages {
       name: AppRoutes.lock,
       page: () => LockPage(),
       binding: LockBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: AppRoutes.setPassword,

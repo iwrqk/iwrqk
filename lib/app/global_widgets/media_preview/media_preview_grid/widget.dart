@@ -44,7 +44,6 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     bool requireLogin = false;
 
     if (widget.sourceType == MediaSourceType.subscribedVideos ||
@@ -57,30 +56,33 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
       controller: _controller,
       scrollController: widget.scrollController,
       builder: (data, reachBottomCallback) {
-        return SliverPadding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          sliver: SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                reachBottomCallback(index);
+        return Obx(() {
+          return SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  reachBottomCallback(index);
 
-                return FrameSeparateWidget(
-                  index: index,
-                  child: MediaPreview(
-                    media: data[index],
-                  ),
-                );
-              },
-              childCount: data.length,
+                  return FrameSeparateWidget(
+                    index: index,
+                    child: MediaPreview(
+                      media: data[index],
+                    ),
+                  );
+                },
+                childCount: data.length,
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio:
+                    _controller.configService.gridChildAspectRatio,
+                crossAxisCount: _controller.configService.crossAxisCount,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
             ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: _controller.configService.gridChildAspectRatio,
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-          ),
-        );
+          );
+        });
       },
     );
   }

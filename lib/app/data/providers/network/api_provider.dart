@@ -237,20 +237,21 @@ class ApiProvider {
     );
   }
 
-  static Future<ApiResult<VideoModel>> getVideo(String id) async {
+  static Future<ApiResult<Object>> getVideo(String id) async {
     String? message;
-    VideoModel? video;
+    Object? data;
     await networkProvider.get("/video/$id").then((value) {
       if (value.data["message"] != null) {
         message = value.data["message"];
+        data = UserModel.fromJson(value.data["data"]["user"]);
       } else {
-        video = VideoModel.fromJson(value.data);
+        data = VideoModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
     });
-    return ApiResult(data: video, success: message == null, message: message);
+    return ApiResult(data: data, success: message == null, message: message);
   }
 
   static Future<ApiResult<ImageModel>> getImage(String id) async {

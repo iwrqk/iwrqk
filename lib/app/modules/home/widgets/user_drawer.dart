@@ -213,7 +213,7 @@ class UserDrawer extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 25),
+                      padding: EdgeInsets.symmetric(vertical: 25),
                       child: _buildUserItem(
                         context,
                         title: L10n.of(context).user_settings,

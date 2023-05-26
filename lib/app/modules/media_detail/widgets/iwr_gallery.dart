@@ -131,7 +131,7 @@ class _IwrGalleryState extends State<IwrGallery> {
               color: Colors.white,
             ),
           ),
-          title: widget.imageUrls.length > 15 ? _buildTextPageFooter() : null,
+          title: widget.imageUrls.length > 1 ? _buildTextPageFooter() : null,
           centerTitle: true,
         ),
         body: Padding(
@@ -139,13 +139,6 @@ class _IwrGalleryState extends State<IwrGallery> {
           child: Stack(
             children: [
               _buildGallery(),
-              if (widget.imageUrls.length <= 15 && widget.imageUrls.length > 1)
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: _buildDotPageFooter(),
-                ),
             ],
           ),
         ),
@@ -175,6 +168,31 @@ class _IwrGalleryState extends State<IwrGallery> {
             alignment: Alignment.center,
             children: [
               _buildGallery(),
+              Positioned(
+                top: 5,
+                left: 5,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                        child: FaIcon(
+                          FontAwesomeIcons.chevronLeft,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               if (widget.imageUrls.length > 15)
                 Positioned(
                     bottom: 10,

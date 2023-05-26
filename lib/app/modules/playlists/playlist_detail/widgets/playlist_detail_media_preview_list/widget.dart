@@ -70,7 +70,7 @@ class _PlaylistDetailMediaPreviewListState
                 child: SizedBox(
                   height: 100,
                   child: MediaFlatPreview(
-                    meida: item,
+                    media: item,
                   ),
                 ),
               );

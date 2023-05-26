@@ -360,7 +360,23 @@ class _IwrPlayerControlsState
           ),
         ),
         child: Row(
-          children: [if (_state.isFullScreen) _buildExitButton()],
+          children: [
+            _buildExitButton(),
+            if (_state.isFullScreen)
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 25),
+                  child: Text(
+                    _state.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              )
+          ],
         ),
       ),
     );
@@ -376,7 +392,11 @@ class _IwrPlayerControlsState
         child: IconButton(
           iconSize: 30,
           onPressed: () {
-            _onExpandCollapse();
+            if (_state.isFullScreen) {
+              _onExpandCollapse();
+            } else {
+              Get.back();
+            }
           },
           icon: FaIcon(
             FontAwesomeIcons.chevronLeft,
@@ -907,9 +927,16 @@ class _IwrPlayerControlsState
   Widget build(BuildContext context) {
     _wasLoading = isLoading(_latestValue);
     if (_latestValue?.hasError == true) {
-      return Container(
-        color: Colors.black,
-        child: _buildErrorWidget(),
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          _buildErrorWidget(),
+          Column(
+            children: [
+              _buildTopBar(),
+            ],
+          )
+        ],
       );
     }
     return Stack(

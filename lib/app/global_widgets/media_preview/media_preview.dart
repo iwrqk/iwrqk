@@ -283,6 +283,9 @@ class MediaPreview extends StatelessWidget {
         child: Column(
           children: _buildFullVerison(context),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7.5),
+        ),
       ),
       onTap: () {
         StorageProvider.addHistoryItem(

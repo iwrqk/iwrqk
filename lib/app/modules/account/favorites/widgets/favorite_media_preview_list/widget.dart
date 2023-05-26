@@ -75,7 +75,7 @@ class _FavoriteMediaPreviewListState extends State<FavoriteMediaPreviewList>
                 child: SizedBox(
                   height: 100,
                   child: MediaFlatPreview(
-                    meida: item,
+                    media: item,
                   ),
                 ),
               );

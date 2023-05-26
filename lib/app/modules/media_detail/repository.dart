@@ -7,7 +7,7 @@ import '../../data/providers/network/api_provider.dart';
 class MediaDetailRepository {
   MediaDetailRepository();
 
-  Future<ApiResult<MediaModel>> getMeida(String id, MediaType type) async {
+  Future<ApiResult<Object>> getMeida(String id, MediaType type) async {
     return type == MediaType.video
         ? ApiProvider.getVideo(id)
         : ApiProvider.getImage(id);

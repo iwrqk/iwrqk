@@ -1,4 +1,5 @@
 class WidgetConst {
+  static const int mediaPreviewPerferedWidth = 200;
   static const int mediaPreviewTitleHeight = 70;
 
   static const int pageLimit = 32;

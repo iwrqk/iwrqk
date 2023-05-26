@@ -145,7 +145,7 @@ class ProfileDetailPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+            padding: EdgeInsets.fromLTRB(10, 10, 0, 50),
             child: IwrMarkdown(
               selectable: true,
               data: profile.body.isEmpty

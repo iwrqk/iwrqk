@@ -129,6 +129,8 @@ class AddToPlaylistBottomSheet
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height / 2.5,
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
           child: Column(
             children: [
               Container(
@@ -166,7 +168,9 @@ class AddToPlaylistBottomSheet
                 child: controller.obx(
                   (state) {
                     if (!controller.userService.accountService.isLogin) {
-                      return _buildRequireLoginWidget(context);
+                      return ListView(
+                        children: [_buildRequireLoginWidget(context)],
+                      );
                     }
                     return _buildDataWidget(context);
                   },

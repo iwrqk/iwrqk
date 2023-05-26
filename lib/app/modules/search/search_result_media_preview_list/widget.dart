@@ -65,7 +65,7 @@ class _SearchResultMediaPreviewListState
                   child: SizedBox(
                     height: 100,
                     child: MediaFlatPreview(
-                      meida: data[index],
+                      media: data[index],
                     ),
                   ),
                 );

@@ -74,7 +74,8 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
             footerIndicatorState == IwrState.fail))
           IwrSliverRefreshControl(
             onRefresh: () async {
-              await widget.controller.refreshData(showFooter: false);
+              await widget.controller
+                  .refreshData(showFooter: false, showFooterAtFail: true);
             },
           ),
         widget.builder(

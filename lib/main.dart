@@ -17,9 +17,6 @@ import 'getx.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   await StorageProvider.init();
   await LogUtil.init();
 
@@ -51,6 +48,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _configService.calculateGridChildAspectRatio(
+        MediaQuery.of(Get.context!).size,
+        MediaQuery.of(Get.context!).orientation,
+      );
+    });
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state != AppLifecycleState.resumed) {
@@ -75,7 +83,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           supportedLocales: AppLocalizations.supportedLocales,
           initialRoute: AppRoutes.root,
           initialBinding: SplashBinding(),
-          defaultTransition: Transition.cupertino,
+          defaultTransition: Transition.native,
           getPages: AppPages.pages,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,

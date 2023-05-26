@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../l10n.dart';
+import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import '../../routes/pages.dart';
 import '../tabs/forum_tab/page.dart';
@@ -59,6 +60,7 @@ class TabPages {
 
 class HomeController extends GetxController {
   final UserService userService = Get.find<UserService>();
+  final ConfigService configService = Get.find<ConfigService>();
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final CupertinoTabController tabController = CupertinoTabController();
@@ -110,7 +112,7 @@ class HomeController extends GetxController {
           mediaGridTabControllers[index].scrollToTopRefresh();
         },
         duration: const Duration(milliseconds: 300),
-        awaitComplete: true,
+        awaitComplete: false,
       );
     } else {
       _currentIndex.value = index;

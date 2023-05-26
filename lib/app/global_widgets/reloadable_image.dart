@@ -98,7 +98,7 @@ class _ReloadableImageState extends State<ReloadableImage> {
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
-        httpHeaders: {"referer": "https://www.iwara.tv/"},
+        httpHeaders: const {"referer": IwaraConst.referer},
         imageBuilder: widget.isAdult && _configService.adultCoverBlur
             ? (context, imageProvider) {
                 Widget image = Container(

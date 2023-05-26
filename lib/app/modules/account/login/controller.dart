@@ -42,7 +42,7 @@ class LoginController extends GetxController {
   void login(BuildContext context) {
     if (!formKey.currentState!.validate()) return;
     formKey.currentState!.save();
-    
+
     Get.dialog(
       LoadingDialog(
         task: () async {

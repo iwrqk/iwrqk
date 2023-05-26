@@ -1,4 +1,5 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../data/enums/types.dart';
@@ -6,6 +7,7 @@ import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
 import '../../data/models/offline/offline_meida.dart';
 import '../../data/models/resolution.dart';
+import '../../data/models/user.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
@@ -16,6 +18,18 @@ class MediaDetailController extends GetxController
   final MediaDetailRepository repository = MediaDetailRepository();
 
   IwrPlayerController? iwrPlayerController;
+
+  Size? windowSize;
+
+  Orientation currentOrientation = Orientation.portrait;
+
+  double get currentVideoAspectRatio =>
+      currentOrientation == Orientation.portrait
+          ? 16 / 9
+          : landscapeAspectRatio;
+
+  double get landscapeAspectRatio =>
+      (windowSize!.longestSide - 300) / windowSize!.shortestSide;
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
@@ -44,6 +58,7 @@ class MediaDetailController extends GetxController
   bool get isProcessingFavorite => _isProcessingFavorite.value;
 
   late MediaModel media;
+  late UserModel user;
 
   late List<MediaModel> moreFromUser;
 
@@ -122,14 +137,14 @@ class MediaDetailController extends GetxController
   Future<void> loadData() async {
     await repository.getMeida(id, mediaType).then((value) {
       if (value.success) {
-        media = value.data!;
+        media = value.data! as MediaModel;
         _isLoading.value = false;
-        _isFavorite.value = value.data!.liked;
+        _isFavorite.value = media.liked;
 
         refectchRecommendation();
       } else {
         if (value.message! == "errors.privateVideo") {
-          media = value.data!;
+          user = value.data! as UserModel;
           _errorMessage.value = value.message!;
         } else {
           _errorMessage.value = value.message!;
@@ -154,17 +169,23 @@ class MediaDetailController extends GetxController
       resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
     }
 
-    iwrPlayerController = IwrPlayerController(
-      id: media.id,
-      resolutions: resolutionsMap,
-      title: media.title,
-      author: media.user.name,
-      thumbnail: media.hasCover() ? media.getCoverUrl() : null,
-      setting: configService.playerSetting,
-      onPlayerSettingSaved: (setting) {
-        configService.playerSetting = setting;
-      },
+    Get.put(
+      IwrPlayerController(
+        id: media.id,
+        resolutions: resolutionsMap,
+        title: media.title,
+        author: media.user.name,
+        thumbnail: media.hasCover() ? media.getCoverUrl() : null,
+        setting: configService.playerSetting,
+        onPlayerSettingSaved: (setting) {
+          configService.playerSetting = setting;
+        },
+        initAspectRatio: currentVideoAspectRatio,
+      ),
+      tag: media.id,
     );
+
+    iwrPlayerController = Get.find<IwrPlayerController>(tag: media.id);
   }
 
   void pauseVideo() {
@@ -173,7 +194,7 @@ class MediaDetailController extends GetxController
 
   Future<void> refectchVideos() async {
     _isFectchingResolution.value = true;
-    _fetchFailed.value = true;
+    _fetchFailed.value = false;
 
     VideoModel video = media as VideoModel;
 
@@ -183,12 +204,19 @@ class MediaDetailController extends GetxController
       if (value.success) {
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;
-          _fetchFailed.value = false;
           _initPlayer();
+          return;
         }
       }
+      _fetchFailed.value = true;
     });
+
     _isFectchingResolution.value = false;
+  }
+
+  void resetPlayerAspectRatio() {
+    iwrPlayerController?.betterPlayerController
+        .setOverriddenAspectRatio(currentVideoAspectRatio);
   }
 
   Future<void> refectchRecommendation() async {
@@ -217,7 +245,6 @@ class MediaDetailController extends GetxController
     } else {
       errorMessageRecommendation = result.message!;
       _isFectchingRecommendation.value = false;
-      _fetchFailed.value = true;
       return;
     }
 

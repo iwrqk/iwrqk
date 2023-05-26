@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iwrqk/app/data/models/settings/player_setting.dart';
 
 import '../../core/const/widget.dart';
+import '../../core/utils/log_util.dart';
 import '../models/settings/filter_setting.dart';
 import '../providers/storage_provider.dart';
 
@@ -82,12 +83,28 @@ class ConfigService extends GetxService {
     return Locale(locale);
   }
 
-  late double gridChildAspectRatio;
+  final RxDouble _gridChildAspectRatio = 1.0.obs;
+  double get gridChildAspectRatio => _gridChildAspectRatio.value;
+  set gridChildAspectRatio(double gridChildAspectRatio) {
+    _gridChildAspectRatio.value = gridChildAspectRatio;
+  }
 
-  void calculateGridChildAspectRatio(BuildContext context) {
-    var width = (MediaQuery.of(context).size.width - 3 * 8) / 2;
+  int crossAxisCount = 2;
+
+  void calculateGridChildAspectRatio(Size size, Orientation orientation) {
+    int number = size.width / WidgetConst.mediaPreviewPerferedWidth ~/ 1;
+
+    if (orientation == Orientation.landscape) {
+      number = size.width / WidgetConst.mediaPreviewPerferedWidth ~/ 1;
+    } else {
+      number = 2;
+    }
+
+    var width = (size.width - (number + 1) * 8) / number;
     var height = width * 9 / 16 + WidgetConst.mediaPreviewTitleHeight;
+
     gridChildAspectRatio = width / height;
+    crossAxisCount = number;
   }
 
   @override

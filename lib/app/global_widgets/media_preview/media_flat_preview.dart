@@ -16,9 +16,14 @@ import '../../routes/pages.dart';
 import '../reloadable_image.dart';
 
 class MediaFlatPreview extends StatelessWidget {
-  final MediaModel meida;
+  final MediaModel media;
+  final Function? beforeNavigation;
 
-  const MediaFlatPreview({Key? key, required this.meida}) : super(key: key);
+  const MediaFlatPreview({
+    Key? key,
+    required this.media,
+    this.beforeNavigation,
+  }) : super(key: key);
 
   Widget _buildViewsAndRating(BuildContext context) {
     return Column(
@@ -42,13 +47,13 @@ class MediaFlatPreview extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(left: 2),
                   child: Text(
-                    DisplayUtil.compactBigNumber(meida.numViews),
+                    DisplayUtil.compactBigNumber(media.numViews),
                     style: TextStyle(fontSize: 12.5, color: Colors.white),
                   ))
             ],
           ),
         ),
-        if (meida.rating == "ecchi")
+        if (media.rating == "ecchi")
           Container(
             padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
@@ -70,11 +75,11 @@ class MediaFlatPreview extends StatelessWidget {
     Duration? duration;
     int? galleryLength;
 
-    if ((meida is VideoModel)) {
-      int? seconds = (meida as VideoModel).file?.duration;
+    if ((media is VideoModel)) {
+      int? seconds = (media as VideoModel).file?.duration;
       if (seconds != null) duration = Duration(seconds: seconds);
     } else {
-      galleryLength = (meida as ImageModel).numImages;
+      galleryLength = (media as ImageModel).numImages;
     }
 
     return Column(
@@ -98,7 +103,7 @@ class MediaFlatPreview extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(left: 2),
                   child: Text(
-                    DisplayUtil.compactBigNumber(meida.numLikes),
+                    DisplayUtil.compactBigNumber(media.numLikes),
                     style: TextStyle(fontSize: 12.5, color: Colors.white),
                   ))
             ],
@@ -170,12 +175,12 @@ class MediaFlatPreview extends StatelessWidget {
               child: Container(
                 color: Colors.black,
                 alignment: Alignment.center,
-                child: meida.hasCover()
+                child: media.hasCover()
                     ? ReloadableImage(
-                        imageUrl: meida.getCoverUrl(),
+                        imageUrl: media.getCoverUrl(),
                         aspectRatio: 16 / 9,
                         fit: BoxFit.cover,
-                        isAdult: meida.rating == RatingType.ecchi.value,
+                        isAdult: media.rating == RatingType.ecchi.value,
                       )
                     : AspectRatio(aspectRatio: 16 / 9),
               ),
@@ -190,15 +195,15 @@ class MediaFlatPreview extends StatelessWidget {
                 top: 5,
                 bottom: 5,
                 child: _buildLikesAndGallery(context)),
-            if (meida is VideoModel)
-              if ((meida as VideoModel).private)
+            if (media is VideoModel)
+              if ((media as VideoModel).private)
                 Positioned(
                   right: 0,
                   left: 0,
                   child: Container(
                     color: Colors.black.withAlpha(175),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 2.5),
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     child: AutoSizeText(
                       L10n.of(context).meida_private,
                       style: TextStyle(
@@ -220,7 +225,7 @@ class MediaFlatPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                meida.title,
+                media.title,
                 maxLines: 2,
                 style: TextStyle(
                   fontSize: 12.5,
@@ -239,7 +244,7 @@ class MediaFlatPreview extends StatelessWidget {
                             onTap: () {
                               Get.toNamed(
                                 AppRoutes.profile,
-                                arguments: meida.user.username,
+                                arguments: media.user.username,
                                 preventDuplicates: true,
                               );
                             },
@@ -259,7 +264,7 @@ class MediaFlatPreview extends StatelessWidget {
                                   child: Container(
                                     margin: EdgeInsets.only(left: 2, right: 2),
                                     child: Text(
-                                      meida.user.name,
+                                      media.user.name,
                                       maxLines: 1,
                                       style: TextStyle(
                                         fontSize: 12.5,
@@ -292,7 +297,7 @@ class MediaFlatPreview extends StatelessWidget {
                           margin: EdgeInsets.only(left: 2),
                           child: Text(
                             DisplayUtil.getDisplayDate(
-                              DateTime.parse(meida.createdAt),
+                              DateTime.parse(media.createdAt),
                             ),
                             maxLines: 1,
                             style: TextStyle(
@@ -326,13 +331,20 @@ class MediaFlatPreview extends StatelessWidget {
       ),
       onTap: () {
         StorageProvider.addHistoryItem(
-            HistoryMediaModel.fromMediaPreviewData(meida));
+            HistoryMediaModel.fromMediaPreviewData(media));
 
-        Get.toNamed(AppRoutes.mediaDetail, arguments: {
-          "mediaType": meida is VideoModel ? MediaType.video : MediaType.image,
-          "id": meida.id,
-          "offlineMedia": OfflineMediaModel.fromMediaModel(meida),
-        });
+        beforeNavigation?.call();
+
+        Get.toNamed(
+          AppRoutes.mediaDetail,
+          arguments: {
+            "mediaType":
+                media is VideoModel ? MediaType.video : MediaType.image,
+            "id": media.id,
+            "offlineMedia": OfflineMediaModel.fromMediaModel(media),
+          },
+          preventDuplicates: false,
+        );
       },
     );
   }

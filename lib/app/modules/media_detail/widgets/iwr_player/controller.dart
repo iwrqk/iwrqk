@@ -31,6 +31,8 @@ class IwrPlayerController extends GetxController {
     '2.0x': 2
   };
 
+  final String title;
+
   final RxBool _isFullScreen = false.obs;
   bool get isFullScreen => _isFullScreen.value;
   set isFullScreen(bool value) => _isFullScreen.value = value;
@@ -65,8 +67,9 @@ class IwrPlayerController extends GetxController {
   IwrPlayerController({
     required this.resolutions,
     required String id,
-    required String title,
+    required this.title,
     required String author,
+    double initAspectRatio = 16 / 9,
     String? thumbnail,
     PlayerSetting? setting,
     dynamic Function(PlayerSetting)? onPlayerSettingSaved,
@@ -98,8 +101,11 @@ class IwrPlayerController extends GetxController {
 
     betterPlayerController = BetterPlayerController(
       BetterPlayerConfiguration(
-        aspectRatio: 16 / 9,
+        aspectRatio: initAspectRatio,
         fit: BoxFit.contain,
+        handleLifecycle: false,
+        autoDispose: false,
+        expandToFill: false,
         autoDetectFullscreenDeviceOrientation: true,
         controlsConfiguration: BetterPlayerControlsConfiguration(
           playerTheme: BetterPlayerTheme.custom,

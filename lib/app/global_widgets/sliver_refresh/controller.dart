@@ -33,16 +33,28 @@ abstract class SliverRefreshController<T> extends GetxController
     }
   }
 
-  Future<void> refreshData({showSplash = false, showFooter = true}) async {
+  Future<void> refreshData({
+    showSplash = false,
+    showFooter = true,
+    showFooterAtFail = false,
+  }) async {
     _noMore = false;
     _currentPage = 0;
     _data.value = [];
-    await loadData(showSplash: showSplash, showFooter: showFooter);
+    await loadData(
+      showSplash: showSplash,
+      showFooter: showFooter,
+      showFooterAtFail: showFooterAtFail,
+    );
   }
 
   Future<GroupResult<T>> getNewData(int currentPage);
 
-  Future<void> loadData({showSplash = false, showFooter = true}) async {
+  Future<void> loadData({
+    showSplash = false,
+    showFooter = true,
+    showFooterAtFail = false,
+  }) async {
     if (showSplash) {
       change(IwrState.none, status: RxStatus.loading());
     } else if (showFooter) {
@@ -79,7 +91,7 @@ abstract class SliverRefreshController<T> extends GetxController
 
       if (showSplash) {
         change(IwrState.none, status: RxStatus.error(e.toString()));
-      } else if (showFooter) {
+      } else if (showFooter || showFooterAtFail) {
         showToast(e.toString());
         change(IwrState.fail, status: RxStatus.success());
       }
