@@ -33,6 +33,10 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   void init(BuildContext context) {
     DisplayUtil.init(context);
     _runInitTask();
+    _configService.calculateGridChildAspectRatio(
+      MediaQuery.of(context).size,
+      MediaQuery.of(context).orientation,
+    );
   }
 
   Future<void> _runInitTask() async {

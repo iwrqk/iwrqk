@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -7,6 +8,8 @@ import '../../../data/providers/network/api_provider.dart';
 class ForumTabController extends GetxController with StateMixin {
   List<ChannelModel> adminChannelModels = [];
   List<ChannelModel> globalChannelModels = [];
+
+  ScrollController scrollController = ScrollController();
 
   @override
   void onInit() {
@@ -51,6 +54,20 @@ class ForumTabController extends GetxController with StateMixin {
       return;
     } else {
       change(null, status: RxStatus.success());
+    }
+  }
+
+  void scrollToTop() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(0,
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
+    }
+  }
+
+  void scrollToTopRefresh() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(-100,
+          duration: Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 }

@@ -9,6 +9,8 @@ import '../modules/account/history/binding.dart';
 import '../modules/account/history/page.dart';
 import '../modules/account/login/binding.dart';
 import '../modules/account/login/page.dart';
+import '../modules/account/messages/conversations_preview/binding.dart';
+import '../modules/account/messages/conversations_preview/page.dart';
 import '../modules/account/register/binding.dart';
 import '../modules/account/register/page.dart';
 import '../modules/auto_lock/binding.dart';
@@ -90,6 +92,12 @@ abstract class AppPages {
       name: AppRoutes.playlistDetail,
       page: () => PlaylistDetailPage(),
       binding: PlayListDetailBinding(),
+      preventDuplicates: false,
+    ),
+    GetPage(
+      name: AppRoutes.conversationsPreview,
+      page: () => ConversationsPreviewPage(),
+      binding: ConversationsPreviewBinding(),
       preventDuplicates: false,
     ),
     GetPage(

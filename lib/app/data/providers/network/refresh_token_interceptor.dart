@@ -13,6 +13,9 @@ class RefreshTokenInterceptor extends Interceptor {
   AccountService accountService = Get.find<AccountService>();
   Queue queue = new Queue();
 
+  String accessTokenUrl =
+      "https://${IwaraConst.apiHost}${IwaraConst.accessTokenPath}";
+
   Future<String?> getAccessToken() async {
     if (accountService.isTokenExpired()) {
       accountService.notifyTokenExpired();
@@ -28,7 +31,19 @@ class RefreshTokenInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    bool needRegetAccessToken = false;
+
     if (response.statusCode == 401) {
+      needRegetAccessToken = true;
+    } else {
+      if (accountService.isLogin && response.requestOptions.path != accessTokenUrl) {
+        if (await getAccessToken() == null) {
+          needRegetAccessToken = true;
+        }
+      }
+    }
+
+    if (needRegetAccessToken) {
       bool success = await queue.add(() async {
         var requestToken = response.requestOptions.headers["authorization"];
         var globalToken = "Bearer ${accountService.accessToken}";
@@ -70,8 +85,7 @@ class RefreshTokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    if (options.path ==
-        "https://${IwaraConst.apiHost}${IwaraConst.accessTokenPath}") {
+    if (options.path == accessTokenUrl) {
       options.headers["authorization"] = "Bearer ${accountService.token}";
     } else {
       String? accessToken = await getAccessToken();

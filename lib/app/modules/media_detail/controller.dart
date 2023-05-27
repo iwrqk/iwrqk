@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
+import '../../data/models/offline/history_meida.dart';
 import '../../data/models/offline/offline_meida.dart';
 import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
+import '../../data/providers/storage_provider.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
@@ -36,7 +38,6 @@ class MediaDetailController extends GetxController
 
   late MediaType mediaType;
   late String id;
-  late OfflineMediaModel offlineMedia;
 
   List<ResolutionModel> resolutions = [];
 
@@ -72,6 +73,8 @@ class MediaDetailController extends GetxController
   bool get isFectchingResolution => _isFectchingResolution.value;
   bool get isFectchingRecommendation => _isFectchingRecommendation.value;
   bool get detailExpanded => _detailExpanded.value;
+
+  OfflineMediaModel get offlineMedia => OfflineMediaModel.fromMediaModel(media);
 
   set detailExpanded(bool value) {
     _detailExpanded.value = value;
@@ -113,7 +116,6 @@ class MediaDetailController extends GetxController
 
     mediaType = arguments["mediaType"];
     id = arguments["id"];
-    offlineMedia = arguments["offlineMedia"];
 
     _animationController = AnimationController(
       duration: Duration(milliseconds: 200),
@@ -140,6 +142,9 @@ class MediaDetailController extends GetxController
         media = value.data! as MediaModel;
         _isLoading.value = false;
         _isFavorite.value = media.liked;
+
+        StorageProvider.addHistoryItem(
+            HistoryMediaModel.fromMediaData(media));
 
         refectchRecommendation();
       } else {

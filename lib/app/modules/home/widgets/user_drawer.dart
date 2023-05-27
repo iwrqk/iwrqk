@@ -126,7 +126,7 @@ class UserDrawer extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 15),
+                                    margin: EdgeInsets.symmetric(horizontal: 15),
                                     child: AutoSizeText(
                                       !_accountService.isLogin ||
                                               _userService.user == null

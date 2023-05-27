@@ -39,7 +39,7 @@ class HistoryMediaModel extends OfflineMediaModel {
     return map;
   }
 
-  factory HistoryMediaModel.fromMediaPreviewData(MediaModel model) {
+  factory HistoryMediaModel.fromMediaData(MediaModel model) {
     MediaType type;
     bool? private;
     int? duration;

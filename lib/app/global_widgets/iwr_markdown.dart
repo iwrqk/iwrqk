@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../core/utils/url_util.dart';
+
 class IwrMarkdown extends StatelessWidget {
   final String data;
   final bool selectable;
@@ -21,7 +23,11 @@ class IwrMarkdown extends StatelessWidget {
         if (href == null) return;
         var regex = RegExp(r"^http[s]?:\/\/");
         if (regex.hasMatch(href)) {
-          launchUrlString(href);
+          if (href.contains("iwara.tv")) {
+            UrlUtil.jumpTo(href);
+          } else {
+            launchUrlString(href);
+          }
         }
       },
       padding: padding,

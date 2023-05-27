@@ -65,92 +65,102 @@ class RegisterPage extends GetView<RegisterController> {
       body: controller.obx(
         (state) {
           return Center(
-            child: Form(
-              key: controller.formKey,
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 25),
-                    child: ClipOval(
-                      child: Image.asset(
-                        "assets/app_icon.png",
-                        width: 100,
-                        height: 100,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: TextFormField(
-                      validator: (input) {
-                        if (input != null) {
-                          if (input.isNotEmpty &&
-                              controller.emailRegExp.hasMatch(input)) {
-                            return null;
-                          }
-                        }
-                        return L10n.of(context).message_please_type_email;
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(FontAwesomeIcons.solidEnvelope),
-                        border: OutlineInputBorder(),
-                        labelText: L10n.of(context).email,
-                      ),
-                      onSaved: (input) => controller.email = input,
-                      onEditingComplete: () {
-                        FocusScope.of(context).requestFocus(focusNode);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      child: AspectRatio(
-                        aspectRatio: 30 / 4,
-                        child: Image.memory(
-                          controller.imageData,
-                          fit: BoxFit.fill,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 500,
+              ),
+              child: Form(
+                key: controller.formKey,
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 25),
+                      child: ClipOval(
+                        child: Image.asset(
+                          "assets/app_icon.png",
+                          width: 100,
+                          height: 100,
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: TextFormField(
-                      validator: (input) {
-                        if (input == null) {
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextFormField(
+                        validator: (input) {
+                          if (input != null) {
+                            if (input.isNotEmpty &&
+                                controller.emailRegExp.hasMatch(input)) {
+                              return null;
+                            }
+                          }
+                          return L10n.of(context).message_please_type_email;
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(FontAwesomeIcons.solidEnvelope),
+                          border: OutlineInputBorder(),
+                          labelText: L10n.of(context).email,
+                        ),
+                        onSaved: (input) => controller.email = input,
+                        onEditingComplete: () {
+                          FocusScope.of(context).requestFocus(focusNode);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        child: AspectRatio(
+                          aspectRatio: 30 / 4,
+                          child: Image.memory(
+                            controller.imageData,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextFormField(
+                        validator: (input) {
+                          if (input != null) {
+                            if (input.isNotEmpty) {
+                              return null;
+                            }
+                          }
                           return L10n.of(context).message_please_type_captcha;
-                        }
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(FontAwesomeIcons.lock),
-                        border: OutlineInputBorder(),
-                        labelText: L10n.of(context).captcha,
-                      ),
-                      onSaved: (input) => controller.captcha = input,
-                      focusNode: focusNode,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15)),
-                      onPressed: () {
-                        FocusScope.of(context).requestFocus(blankNode);
-                        controller.register();
-                      },
-                      child: Text(
-                        L10n.of(context).register,
-                        style: TextStyle(fontSize: 17.5),
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(FontAwesomeIcons.lock),
+                          border: OutlineInputBorder(),
+                          labelText: L10n.of(context).captcha,
+                        ),
+                        onSaved: (input) => controller.captcha = input,
+                        focusNode: focusNode,
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15)),
+                        onPressed: () {
+                          FocusScope.of(context).requestFocus(blankNode);
+                          controller.register();
+                        },
+                        child: Text(
+                          L10n.of(context).register,
+                          style: TextStyle(fontSize: 17.5),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

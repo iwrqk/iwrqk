@@ -86,7 +86,14 @@ class HomePage extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 7.5, 15, 7.5),
               child: InkWell(
-                child: controller.userService.notificationsCounts != null
+                onTap: () {
+                  if (controller.userService.accountService.isLogin) {
+                    Get.toNamed(AppRoutes.conversationsPreview);
+                  } else {
+                    Get.toNamed(AppRoutes.login);
+                  }
+                },
+                child: (controller.userService.notificationsCounts?.total ?? 0) > 0
                     ? Badge(
                         label:
                             controller.userService.notificationsCounts!.total >

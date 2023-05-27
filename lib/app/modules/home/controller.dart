@@ -7,6 +7,7 @@ import '../../../l10n.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import '../../routes/pages.dart';
+import '../tabs/forum_tab/controller.dart';
 import '../tabs/forum_tab/page.dart';
 import '../tabs/images_tab/page.dart';
 import '../tabs/media_grid_tab/controller.dart';
@@ -61,7 +62,7 @@ class TabPages {
 class HomeController extends GetxController {
   final UserService userService = Get.find<UserService>();
   final ConfigService configService = Get.find<ConfigService>();
-  
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final CupertinoTabController tabController = CupertinoTabController();
   final RxInt _currentIndex = 0.obs;
@@ -72,6 +73,7 @@ class HomeController extends GetxController {
   bool tapAwait = false;
 
   late List<MediaGridTabController> mediaGridTabControllers;
+  late ForumTabController forumTabController;
 
   RxList<String> tabNameList = tabPages.tabNameList.obs;
 
@@ -96,6 +98,7 @@ class HomeController extends GetxController {
     mediaGridTabControllers = tabPages.scrollableTabTags
         .map((e) => Get.find<MediaGridTabController>(tag: e))
         .toList();
+    forumTabController = Get.find<ForumTabController>();
   }
 
   void init(BuildContext context) {
@@ -106,10 +109,18 @@ class HomeController extends GetxController {
     if (index == currentIndex) {
       await procressDoubleTap(
         onTap: () {
-          mediaGridTabControllers[index].scrollToTop();
+          if (index == 3) {
+            forumTabController.scrollToTop();
+          } else {
+            mediaGridTabControllers[index].scrollToTop();
+          }
         },
         onDoubleTap: () {
-          mediaGridTabControllers[index].scrollToTopRefresh();
+          if (index == 3) {
+            forumTabController.scrollToTopRefresh();
+          } else {
+            mediaGridTabControllers[index].scrollToTopRefresh();
+          }
         },
         duration: const Duration(milliseconds: 300),
         awaitComplete: false,

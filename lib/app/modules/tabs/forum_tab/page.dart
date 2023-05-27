@@ -177,6 +177,7 @@ class ForumTabPage extends GetView<ForumTabController> {
 
   Widget _buildDataWidget(BuildContext context) {
     return CustomScrollView(
+      controller: controller.scrollController,
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
         IwrSliverRefreshControl(

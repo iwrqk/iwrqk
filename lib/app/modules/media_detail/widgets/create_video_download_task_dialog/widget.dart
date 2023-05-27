@@ -32,21 +32,24 @@ class CreateVideoDownloadDialog
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Container(
-        width: MediaQuery.of(context).size.width / 1.5,
+        width: 300,
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: resolutions.length,
           itemBuilder: (context, index) {
-            return Obx(() => RadioListTile(
+            return Obx(
+              () => RadioListTile(
                 value: index,
                 title: Text(resolutions[index].name),
                 activeColor: Theme.of(context).primaryColor,
                 groupValue: controller.currentResolutionIndex,
                 onChanged: (_) {
                   controller.currentResolutionIndex = index;
-                }));
+                },
+              ),
+            );
           },
         ),
       ),

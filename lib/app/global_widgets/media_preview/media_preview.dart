@@ -288,9 +288,6 @@ class MediaPreview extends StatelessWidget {
         ),
       ),
       onTap: () {
-        StorageProvider.addHistoryItem(
-            HistoryMediaModel.fromMediaPreviewData(media));
-
         beforeNavigation?.call();
 
         Get.toNamed(
@@ -299,7 +296,6 @@ class MediaPreview extends StatelessWidget {
             "mediaType":
                 media is VideoModel ? MediaType.video : MediaType.image,
             "id": media.id,
-            "offlineMedia": OfflineMediaModel.fromMediaModel(media),
           },
           preventDuplicates: false,
         );

@@ -112,7 +112,7 @@ class VideoModel extends MediaModel {
           var videoIdWithPrefix = match.group(0)!;
           var youtubeId =
               videoIdWithPrefix.split("/").last.replaceAll("watch?v=", "");
-          return IwaraConst.videoCoverUrl.replaceFirst('{id}', youtubeId);
+          return IwaraConst.youtubeCoverUrl.replaceFirst('{id}', youtubeId);
         }
       }
     }

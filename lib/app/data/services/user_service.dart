@@ -4,6 +4,7 @@ import 'package:oktoast/oktoast.dart';
 import '../../core/utils/display_util.dart';
 import '../enums/result.dart';
 import '../enums/types.dart';
+import '../models/conversations/conversation.dart';
 import '../models/notifications/counts.dart';
 import '../models/notifications/settings.dart';
 import '../models/playlist/light_playlist.dart';
@@ -79,6 +80,16 @@ class UserService extends GetxService {
       }
       return flag;
     });
+  }
+
+  Future<ApiResult<GroupResult<ConversationModel>>> getConversations(
+      int pageNum) {
+    if (!accountService.isLogin) {
+      showToast(DisplayUtil.messageNeedLogin);
+      return Future.value(ApiResult(
+          data: null, message: DisplayUtil.messageNeedLogin, success: false));
+    }
+    return ApiProvider.getConversations(user!.id, pageNum);
   }
 
   Future<bool> followUser(String userId) async {

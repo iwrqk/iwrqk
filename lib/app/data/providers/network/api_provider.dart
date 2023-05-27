@@ -5,6 +5,7 @@ import '../../enums/result.dart';
 import '../../enums/types.dart';
 import '../../models/app_user.dart';
 import '../../models/comment.dart';
+import '../../models/conversations/conversation.dart';
 import '../../models/forum/channel.dart';
 import '../../models/forum/post.dart';
 import '../../models/forum/thread.dart';
@@ -115,6 +116,34 @@ class ApiProvider {
 
     return ApiResult(
         data: notificationsCounts, success: message == null, message: message);
+  }
+
+  static Future<ApiResult<GroupResult<ConversationModel>>> getConversations(
+      String userId, int pageNum) async {
+    String? message;
+    List<ConversationModel> conversations = [];
+    int count = 0;
+    await networkProvider.get("/user/$userId/conversations", queryParameters: {
+      "page": pageNum,
+    }).then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        count = value.data["count"];
+        for (var conversation in value.data["results"]) {
+          conversations.add(ConversationModel.fromJson(conversation));
+        }
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: GroupResult(results: conversations, count: count),
+      success: message == null,
+      message: message,
+    );
   }
 
   static Future<ApiResult<ProfileModel>> getProfile(String userName) async {
