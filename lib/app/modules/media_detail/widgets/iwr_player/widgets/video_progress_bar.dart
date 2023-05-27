@@ -28,7 +28,7 @@ class IwrVideoProgressBar extends StatefulWidget {
   final int? previewPositionAfterAdjust;
 
   @override
-  _VideoProgressBarState createState() {
+  State<IwrVideoProgressBar> createState() {
     return _VideoProgressBarState();
   }
 }

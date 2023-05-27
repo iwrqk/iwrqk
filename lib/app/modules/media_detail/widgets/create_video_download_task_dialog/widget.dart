@@ -29,13 +29,13 @@ class CreateVideoDownloadDialog
       ),
       title: Text(
         L10n.of(context).create_download_task,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Container(
         width: 300,
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: resolutions.length,
           itemBuilder: (context, index) {
@@ -53,9 +53,9 @@ class CreateVideoDownloadDialog
           },
         ),
       ),
-      contentPadding: EdgeInsets.only(top: 15),
+      contentPadding: const EdgeInsets.only(top: 15),
       actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 5),
+      actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
       actions: [
         Obx(
           () => CupertinoButton(

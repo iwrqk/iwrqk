@@ -22,8 +22,11 @@ class TabPainter extends BoxPainter {
     paint.color = Theme.of(context).primaryColor;
     paint.style = PaintingStyle.fill;
     canvas.drawRRect(
-      RRect.fromRectAndCorners(rect,
-          topRight: Radius.circular(8), topLeft: Radius.circular(8)),
+      RRect.fromRectAndCorners(
+        rect,
+        topRight: const Radius.circular(8),
+        topLeft: const Radius.circular(8),
+      ),
       paint,
     );
   }

@@ -49,10 +49,10 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
       onError: (error) {
         return _buildFirstLoadFailWidget(error!);
       },
-      onLoading: Center(
+      onLoading: const Center(
         child: IwrProgressIndicator(),
       ),
-      onEmpty: Center(
+      onEmpty: const Center(
         child: FaIcon(
           FontAwesomeIcons.boxArchive,
           color: Colors.grey,
@@ -108,7 +108,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: FaIcon(
                   FontAwesomeIcons.userCheck,
@@ -118,7 +118,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
               ),
               Text(
                 L10n.of(context).message_require_login,
-                style: TextStyle(fontSize: 20, color: Colors.grey),
+                style: const TextStyle(fontSize: 20, color: Colors.grey),
               ),
             ],
           ),
@@ -128,7 +128,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
             },
             child: Text(
               L10n.of(context).login,
-              style: TextStyle(fontSize: 17.5),
+              style: const TextStyle(fontSize: 17.5),
             ),
           ),
         ],
@@ -155,11 +155,11 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
                 ),
               )),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
               errorMessage,
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           )
         ],

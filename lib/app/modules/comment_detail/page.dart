@@ -22,7 +22,7 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
             onPressed: () {
               Get.back();
             },
-            icon: FaIcon(FontAwesomeIcons.chevronLeft),
+            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
           ),
           shape: Border(
             bottom: BorderSide(
@@ -37,12 +37,12 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
         ),
         floatingActionButton: controller.showToTopButton
             ? Padding(
-                padding: EdgeInsets.only(bottom: 75),
+                padding: const EdgeInsets.only(bottom: 75),
                 child: FloatingActionButton(
                   onPressed: controller.jumpToTop,
                   backgroundColor: Theme.of(context).canvasColor,
                   foregroundColor: Colors.grey,
-                  child: FaIcon(FontAwesomeIcons.arrowUp),
+                  child: const FaIcon(FontAwesomeIcons.arrowUp),
                 ),
               )
             : null,
@@ -68,12 +68,13 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                     ),
                   ),
                 ),
-                padding: EdgeInsets.fromLTRB(20, 10, 10, 15),
+                padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
                 alignment: Alignment.centerLeft,
                 child: AutoSizeText(
                   L10n.of(context).replies,
                   maxLines: 1,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
             )
@@ -109,11 +110,12 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                   child: Container(
                     margin: EdgeInsets.only(
                         bottom: MediaQuery.of(context).padding.bottom),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
                     child: Container(
                       alignment: Alignment.centerLeft,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(1000),
@@ -121,7 +123,7 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                       child: AutoSizeText(
                         L10n.of(context).comments_send_comment,
                         maxLines: 1,
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ),
                   ),

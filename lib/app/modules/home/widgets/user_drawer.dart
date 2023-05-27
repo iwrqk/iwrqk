@@ -40,7 +40,7 @@ class UserDrawer extends StatelessWidget {
             }
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -56,10 +56,10 @@ class UserDrawer extends StatelessWidget {
                       ),
                       Expanded(
                         child: Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(left: 10),
                           child: Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                             ),
                           ),
@@ -68,7 +68,7 @@ class UserDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.chevronRight,
                   size: 15,
                 ),
@@ -87,7 +87,7 @@ class UserDrawer extends StatelessWidget {
       child: SafeArea(
         child: CustomScrollView(
           physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             SliverToBoxAdapter(
               child: GestureDetector(
@@ -107,15 +107,15 @@ class UserDrawer extends StatelessWidget {
                     color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: Row(
                               children: [
                                 ClipOval(
@@ -126,13 +126,13 @@ class UserDrawer extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 15),
+                                    margin: const EdgeInsets.symmetric(horizontal: 15),
                                     child: AutoSizeText(
                                       !_accountService.isLogin ||
                                               _userService.user == null
                                           ? L10n.of(context).login
                                           : _userService.user!.username,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
                                           overflow: TextOverflow.ellipsis),
@@ -145,8 +145,8 @@ class UserDrawer extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: FaIcon(
+                          margin: const EdgeInsets.only(right: 15),
+                          child: const FaIcon(
                             FontAwesomeIcons.chevronRight,
                           ),
                         )
@@ -158,13 +158,13 @@ class UserDrawer extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
                     _buildUserItem(
                       context,
                       title: L10n.of(context).user_friends,
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.userGroup,
                         size: 25,
                       ),
@@ -173,7 +173,7 @@ class UserDrawer extends StatelessWidget {
                     _buildUserItem(
                       context,
                       title: L10n.of(context).user_history,
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.clockRotateLeft,
                         size: 25,
                       ),
@@ -183,7 +183,7 @@ class UserDrawer extends StatelessWidget {
                     _buildUserItem(
                       context,
                       title: L10n.of(context).user_downloads,
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.download,
                         size: 25,
                       ),
@@ -193,7 +193,7 @@ class UserDrawer extends StatelessWidget {
                     _buildUserItem(
                       context,
                       title: L10n.of(context).user_favorites,
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.solidHeart,
                         size: 25,
                       ),
@@ -202,7 +202,7 @@ class UserDrawer extends StatelessWidget {
                     _buildUserItem(
                       context,
                       title: L10n.of(context).user_playlists,
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.list,
                         size: 25,
                       ),
@@ -213,11 +213,11 @@ class UserDrawer extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 25),
+                      padding: const EdgeInsets.symmetric(vertical: 25),
                       child: _buildUserItem(
                         context,
                         title: L10n.of(context).user_settings,
-                        icon: FaIcon(
+                        icon: const FaIcon(
                           FontAwesomeIcons.gear,
                           size: 25,
                         ),

@@ -58,7 +58,7 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
       builder: (data, reachBottomCallback) {
         return Obx(() {
           return SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

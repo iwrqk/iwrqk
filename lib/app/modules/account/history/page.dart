@@ -10,6 +10,8 @@ import 'controller.dart';
 import 'widgets/history_media_preview_list/widget.dart';
 
 class HistoryPage extends GetView<HistoryController> {
+  const HistoryPage({super.key});
+
   Widget _buildTabBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -40,7 +42,7 @@ class HistoryPage extends GetView<HistoryController> {
           ],
         ),
         IconButton(
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.solidTrashCan,
             size: 20,
           ),
@@ -54,13 +56,13 @@ class HistoryPage extends GetView<HistoryController> {
                 backgroundColor: Theme.of(context).canvasColor,
                 title: Text(
                   L10n.of(context).confirm,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 content:
                     Text(L10n.of(context).message_history_delete_all_confirm),
-                contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+                contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
                 actionsAlignment: MainAxisAlignment.end,
-                actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 10),
+                actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                 actions: [
                   CupertinoButton(
                     onPressed: () async {
@@ -91,7 +93,7 @@ class HistoryPage extends GetView<HistoryController> {
             onPressed: () {
               Get.back();
             },
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.chevronLeft,
             ),
           ),

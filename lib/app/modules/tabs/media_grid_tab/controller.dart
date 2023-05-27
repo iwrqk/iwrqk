@@ -31,7 +31,7 @@ class MediaGridTabController extends GetxController
     ScrollController controller = scrollControllers[tabController.index];
     if (controller.hasClients) {
       controller.animateTo(0,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
@@ -39,7 +39,7 @@ class MediaGridTabController extends GetxController
     ScrollController controller = scrollControllers[tabController.index];
     if (controller.hasClients) {
       controller.animateTo(-100,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 }

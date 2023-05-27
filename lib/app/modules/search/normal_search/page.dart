@@ -22,12 +22,12 @@ class NormalSearchPage extends GetView<NormalSearchController> {
       backgroundColor: Theme.of(context).canvasColor,
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Text(content),
-      contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+      contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
       actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 10),
+      actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
       actions: [
         CupertinoButton(
           onPressed: onConfirm,
@@ -75,12 +75,12 @@ class NormalSearchPage extends GetView<NormalSearchController> {
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           keyword,
-          style: TextStyle(height: 1),
+          style: const TextStyle(height: 1),
         ),
       ),
     );
@@ -108,21 +108,22 @@ class NormalSearchPage extends GetView<NormalSearchController> {
               onPressed: () {
                 Get.back();
               },
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.chevronLeft,
               ),
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(vertical: 5),
-                padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
                 decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 5),
                       child: FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
@@ -147,20 +148,20 @@ class NormalSearchPage extends GetView<NormalSearchController> {
                     ),
                     Obx(
                       () => Visibility(
+                        visible: controller.showSearchSuffix,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5),
                           child: GestureDetector(
                             onTap: () {
                               controller.clearSearchText();
                             },
-                            child: FaIcon(
+                            child: const FaIcon(
                               FontAwesomeIcons.solidCircleXmark,
                               color: Colors.grey,
                               size: 15,
                             ),
                           ),
                         ),
-                        visible: controller.showSearchSuffix,
                       ),
                     ),
                   ],
@@ -168,7 +169,7 @@ class NormalSearchPage extends GetView<NormalSearchController> {
               ),
             ),
             CupertinoButton(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               onPressed: () {
                 String keyword = controller.searchEditingController.text;
                 if (keyword.isEmpty) return;
@@ -195,20 +196,20 @@ class NormalSearchPage extends GetView<NormalSearchController> {
       appBar: _buildAppbar(context),
       body: Obx(
         () => ListView(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           shrinkWrap: false,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     L10n.of(context).user_history,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
@@ -238,7 +239,7 @@ class NormalSearchPage extends GetView<NormalSearchController> {
                       ? controller.searchHistoryList.length
                       : controller.maxExpandedClipsCount,
                   (index) => Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: _buildHistoryClip(context, index),
                   ),
                 ),
@@ -246,8 +247,8 @@ class NormalSearchPage extends GetView<NormalSearchController> {
             if (controller.searchHistoryList.isEmpty)
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: FaIcon(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: const FaIcon(
                   FontAwesomeIcons.boxArchive,
                   size: 50,
                   color: Colors.grey,
@@ -272,16 +273,16 @@ class NormalSearchPage extends GetView<NormalSearchController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FaIcon(
+                    const FaIcon(
                       FontAwesomeIcons.trashCan,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       L10n.of(context).search_history_delete_all,
-                      style: TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),

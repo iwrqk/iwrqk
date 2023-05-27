@@ -14,7 +14,7 @@ import 'controller.dart';
 class ForumTabPage extends GetView<ForumTabController> {
   final String tabTag;
 
-  ForumTabPage({required this.tabTag});
+  const ForumTabPage({super.key, required this.tabTag});
 
   Widget _buildChannelPreview(
     BuildContext context, {
@@ -22,7 +22,7 @@ class ForumTabPage extends GetView<ForumTabController> {
   }) {
     return Card(
       color: Theme.of(context).canvasColor,
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(
         onTap: () {
           Get.toNamed(AppRoutes.channel, arguments: {
@@ -31,7 +31,7 @@ class ForumTabPage extends GetView<ForumTabController> {
           });
         },
         child: Padding(
-          padding: EdgeInsets.fromLTRB(15, 10, 15, 5),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class ForumTabPage extends GetView<ForumTabController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 10),
                     child: SizedBox(
                       width: 30,
                       child: Center(
@@ -117,11 +117,11 @@ class ForumTabPage extends GetView<ForumTabController> {
                 ),
               )),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
               errorMessage,
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           )
         ],
@@ -178,7 +178,8 @@ class ForumTabPage extends GetView<ForumTabController> {
   Widget _buildDataWidget(BuildContext context) {
     return CustomScrollView(
       controller: controller.scrollController,
-      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       slivers: [
         IwrSliverRefreshControl(
           onRefresh: controller.refreshData,
@@ -189,7 +190,7 @@ class ForumTabPage extends GetView<ForumTabController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 25, left: 15, bottom: 5),
+                  padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
                   child: Text(
                     L10n.of(context).channel_administration,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -216,7 +217,7 @@ class ForumTabPage extends GetView<ForumTabController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 25, left: 15, bottom: 5),
+                  padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
                   child: Text(
                     L10n.of(context).channel_global,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -226,7 +227,7 @@ class ForumTabPage extends GetView<ForumTabController> {
             ),
           ),
         SliverPadding(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           sliver: SliverList(
             delegate: SliverChildListDelegate(
               controller.globalChannelModels

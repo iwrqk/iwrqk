@@ -52,7 +52,7 @@ class _UsersPreviewListState extends State<UsersPreviewList>
 
                 return FrameSeparateWidget(
                   index: index,
-                  placeHolder: SizedBox(height: 100),
+                  placeHolder: const SizedBox(height: 100),
                   child: Container(
                     color: Theme.of(context).canvasColor,
                     height: 100,

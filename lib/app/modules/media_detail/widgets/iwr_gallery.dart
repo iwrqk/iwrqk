@@ -66,7 +66,7 @@ class _IwrGalleryState extends State<IwrGallery> {
         );
       },
       itemCount: widget.imageUrls.length,
-      loadingBuilder: (context, event) => Center(
+      loadingBuilder: (context, event) => const Center(
         child: IwrProgressIndicator(),
       ),
       pageController: _pageController,
@@ -87,12 +87,12 @@ class _IwrGalleryState extends State<IwrGallery> {
         return GestureDetector(
           onTap: () {
             _pageController.animateToPage(index,
-                duration: Duration(milliseconds: 150), curve: Curves.bounceIn);
+                duration: const Duration(milliseconds: 150), curve: Curves.bounceIn);
           },
           child: Container(
             width: 8,
             height: 8,
-            margin: EdgeInsets.symmetric(horizontal: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: _currentIndex == index ? Colors.white : Colors.grey,
@@ -107,7 +107,7 @@ class _IwrGalleryState extends State<IwrGallery> {
     return Text(
       "${_currentIndex + 1} / ${widget.imageUrls.length}",
       textAlign: TextAlign.center,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
     );
@@ -126,7 +126,7 @@ class _IwrGalleryState extends State<IwrGallery> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.chevronLeft,
               color: Colors.white,
             ),
@@ -178,12 +178,12 @@ class _IwrGalleryState extends State<IwrGallery> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black.withOpacity(0.5),
                         ),
-                        child: FaIcon(
+                        child: const FaIcon(
                           FontAwesomeIcons.chevronLeft,
                           color: Colors.white,
                           size: 25,

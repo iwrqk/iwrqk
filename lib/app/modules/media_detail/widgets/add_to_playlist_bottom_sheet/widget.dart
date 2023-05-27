@@ -26,7 +26,7 @@ class AddToPlaylistBottomSheet
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: FaIcon(
                   FontAwesomeIcons.userCheck,
@@ -36,7 +36,7 @@ class AddToPlaylistBottomSheet
               ),
               Text(
                 L10n.of(context).message_require_login,
-                style: TextStyle(fontSize: 20, color: Colors.grey),
+                style: const TextStyle(fontSize: 20, color: Colors.grey),
               ),
             ],
           ),
@@ -46,7 +46,7 @@ class AddToPlaylistBottomSheet
             },
             child: Text(
               L10n.of(context).login,
-              style: TextStyle(fontSize: 17.5),
+              style: const TextStyle(fontSize: 17.5),
             ),
           ),
         ],
@@ -70,11 +70,11 @@ class AddToPlaylistBottomSheet
                 ),
               )),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
               errorMessage,
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           )
         ],
@@ -85,8 +85,8 @@ class AddToPlaylistBottomSheet
   Widget _buildDataWidget(BuildContext context) {
     return Obx(
       () => ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         itemCount: controller.data.length,
         itemBuilder: (context, index) => Obx(() {
           LightPlaylistModel playlist = controller.data[index];
@@ -104,7 +104,7 @@ class AddToPlaylistBottomSheet
             ),
             title: Text(
               playlist.title,
-              style: TextStyle(fontSize: 17.5),
+              style: const TextStyle(fontSize: 17.5),
             ),
             subtitle: Text(
               playlist.numVideos == 1
@@ -112,7 +112,7 @@ class AddToPlaylistBottomSheet
                       .playlist_videos_count("${playlist.numVideos}")
                   : L10n.of(context)
                       .playlist_videos_count_plural("${playlist.numVideos}"),
-              style: TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             ),
           );
         }),
@@ -134,7 +134,7 @@ class AddToPlaylistBottomSheet
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -147,7 +147,7 @@ class AddToPlaylistBottomSheet
                   children: [
                     Text(
                       L10n.of(context).playlist_select,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -156,7 +156,7 @@ class AddToPlaylistBottomSheet
                       onTap: controller.addingtoPlaylist
                           ? null
                           : controller.showCreatePlaylistDialog,
-                      child: FaIcon(
+                      child: const FaIcon(
                         FontAwesomeIcons.plus,
                         size: 25,
                       ),
@@ -176,10 +176,10 @@ class AddToPlaylistBottomSheet
                   },
                   onError: (error) =>
                       _buildLoadFailWidget(context, error.toString()),
-                  onLoading: Center(
+                  onLoading: const Center(
                     child: IwrProgressIndicator(),
                   ),
-                  onEmpty: Center(
+                  onEmpty: const Center(
                     child: FaIcon(
                       FontAwesomeIcons.boxArchive,
                       color: Colors.grey,

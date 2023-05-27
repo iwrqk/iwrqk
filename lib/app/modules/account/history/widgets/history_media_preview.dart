@@ -28,13 +28,13 @@ class HistoryMediaPreview extends StatelessWidget {
       children: [
         if (media.ratingType == "ecchi")
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.red.withAlpha(175),
             ),
             height: 25,
-            child: Center(
+            child: const Center(
                 child: Text(
               "R-18",
               style: TextStyle(fontSize: 12.5, color: Colors.white),
@@ -56,7 +56,7 @@ class HistoryMediaPreview extends StatelessWidget {
       children: [
         if (duration != null)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.black.withAlpha(175),
@@ -64,16 +64,16 @@ class HistoryMediaPreview extends StatelessWidget {
             height: 25,
             child: Row(
               children: [
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.play,
                   size: 12.5,
                   color: Colors.white,
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 2),
+                    margin: const EdgeInsets.only(left: 2),
                     child: Text(
                       "${duration.inMinutes}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                      style: TextStyle(fontSize: 12.5, color: Colors.white),
+                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
                     ))
               ],
             ),
@@ -81,7 +81,7 @@ class HistoryMediaPreview extends StatelessWidget {
         if (media.galleryLength != null)
           if (media.galleryLength! > 1)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -89,16 +89,16 @@ class HistoryMediaPreview extends StatelessWidget {
               height: 25,
               child: Row(
                 children: [
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.solidImages,
                     size: 12.5,
                     color: Colors.white,
                   ),
                   Container(
-                      margin: EdgeInsets.only(left: 2),
+                      margin: const EdgeInsets.only(left: 2),
                       child: Text(
                         "${media.galleryLength}",
-                        style: TextStyle(fontSize: 12.5, color: Colors.white),
+                        style: const TextStyle(fontSize: 12.5, color: Colors.white),
                       ))
                 ],
               ),
@@ -110,12 +110,12 @@ class HistoryMediaPreview extends StatelessWidget {
   List<Widget> _buildFullVerison(BuildContext context) {
     return [
       Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 10),
         child: Stack(
           alignment: Alignment.center,
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
                 child: Container(
                   color: Colors.black,
                   alignment: Alignment.center,
@@ -126,7 +126,7 @@ class HistoryMediaPreview extends StatelessWidget {
                           fit: BoxFit.cover,
                           isAdult: media.ratingType == RatingType.ecchi.value,
                         )
-                      : AspectRatio(aspectRatio: 16 / 9),
+                      : const AspectRatio(aspectRatio: 16 / 9),
                 )),
             Positioned(left: 5, bottom: 5, child: _buildRating()),
             Positioned(right: 5, bottom: 5, child: _buildDurationGallery()),
@@ -137,10 +137,10 @@ class HistoryMediaPreview extends StatelessWidget {
                 child: Container(
                   color: Colors.black.withAlpha(175),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 2.5),
+                  padding: const EdgeInsets.symmetric(vertical: 2.5),
                   child: AutoSizeText(
                     L10n.of(context).meida_private,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -153,7 +153,7 @@ class HistoryMediaPreview extends StatelessWidget {
       ),
       Expanded(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +161,7 @@ class HistoryMediaPreview extends StatelessWidget {
               AutoSizeText(
                 media.title,
                 maxLines: 2,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12.5,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -183,7 +183,7 @@ class HistoryMediaPreview extends StatelessWidget {
                               );
                             },
                             child: Row(children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                                 child: Center(
                                   child: FaIcon(
@@ -195,11 +195,11 @@ class HistoryMediaPreview extends StatelessWidget {
                               ),
                               Flexible(
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 2, right: 2),
+                                  margin: const EdgeInsets.only(left: 2, right: 2),
                                   child: Text(
                                     media.uploader.name,
                                     maxLines: 1,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12.5,
                                       color: Colors.grey,
                                       overflow: TextOverflow.ellipsis,
@@ -216,13 +216,13 @@ class HistoryMediaPreview extends StatelessWidget {
                                 ? L10n.of(context).video
                                 : L10n.of(context).image,
                             style:
-                                TextStyle(fontSize: 12.5, color: Colors.grey),
+                                const TextStyle(fontSize: 12.5, color: Colors.grey),
                           )
                       ]),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                         child: Center(
                           child: FaIcon(
@@ -234,10 +234,10 @@ class HistoryMediaPreview extends StatelessWidget {
                       ),
                       Flexible(
                         child: Container(
-                          margin: EdgeInsets.only(left: 2),
+                          margin: const EdgeInsets.only(left: 2),
                           child: Text(
                             DisplayUtil.getDisplayDate(media.viewedDate),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12.5,
                               color: Colors.grey,
                               overflow: TextOverflow.ellipsis,
@@ -262,7 +262,7 @@ class HistoryMediaPreview extends StatelessWidget {
     return GestureDetector(
       child: Container(
         color: Theme.of(context).canvasColor,
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: _buildFullVerison(context),
         ),

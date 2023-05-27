@@ -1,4 +1,3 @@
-
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -24,7 +23,7 @@ class SetPasswordController extends GetxController
     if (_currentPassword.value.length >= 6) return;
     _currentPassword.value += password;
     if (_currentPassword.value.length == 6) {
-      Future.delayed(Duration(milliseconds: 100)).then((value) {
+      Future.delayed(const Duration(milliseconds: 100)).then((value) {
         if (confirmingPassword) {
           _checkPassword();
         } else {

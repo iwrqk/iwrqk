@@ -21,7 +21,7 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),
@@ -45,7 +45,7 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
                   ),
                 );
               },
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.plus,
               ),
             ),

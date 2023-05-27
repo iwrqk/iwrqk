@@ -26,13 +26,13 @@ class DownloadMediaPreview extends StatelessWidget {
       children: [
         if (taskData.offlineMeida.ratingType == "ecchi")
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.red.withAlpha(175),
             ),
             height: 25,
-            child: Center(
+            child: const Center(
                 child: Text(
               "R-18",
               style: TextStyle(fontSize: 12.5, color: Colors.white),
@@ -54,7 +54,7 @@ class DownloadMediaPreview extends StatelessWidget {
       children: [
         if (taskData is VideoDownloadTask)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.black.withAlpha(175),
@@ -62,16 +62,16 @@ class DownloadMediaPreview extends StatelessWidget {
             height: 25,
             child: Row(
               children: [
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.film,
                   size: 12.5,
                   color: Colors.white,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 2),
+                  margin: const EdgeInsets.only(left: 2),
                   child: Text(
                     (taskData as VideoDownloadTask).resolutionName,
-                    style: TextStyle(fontSize: 12.5, color: Colors.white),
+                    style: const TextStyle(fontSize: 12.5, color: Colors.white),
                   ),
                 ),
               ],
@@ -79,7 +79,7 @@ class DownloadMediaPreview extends StatelessWidget {
           ),
         if (duration != null)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.black.withAlpha(175),
@@ -87,16 +87,16 @@ class DownloadMediaPreview extends StatelessWidget {
             height: 25,
             child: Row(
               children: [
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.play,
                   size: 12.5,
                   color: Colors.white,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 2),
+                  margin: const EdgeInsets.only(left: 2),
                   child: Text(
                     "${duration.inMinutes}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                    style: TextStyle(fontSize: 12.5, color: Colors.white),
+                    style: const TextStyle(fontSize: 12.5, color: Colors.white),
                   ),
                 )
               ],
@@ -105,7 +105,7 @@ class DownloadMediaPreview extends StatelessWidget {
         if (taskData.offlineMeida.galleryLength != null)
           if (taskData.offlineMeida.galleryLength! > 1)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -113,16 +113,16 @@ class DownloadMediaPreview extends StatelessWidget {
               height: 25,
               child: Row(
                 children: [
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.solidImages,
                     size: 12.5,
                     color: Colors.white,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 2),
+                    margin: const EdgeInsets.only(left: 2),
                     child: Text(
                       "${taskData.offlineMeida.galleryLength}",
-                      style: TextStyle(fontSize: 12.5, color: Colors.white),
+                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
                     ),
                   )
                 ],
@@ -138,11 +138,11 @@ class DownloadMediaPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(bottom: 5),
           child: AutoSizeText(
             message,
             maxLines: 1,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.5,
               color: Colors.grey,
               overflow: TextOverflow.ellipsis,
@@ -169,7 +169,7 @@ class DownloadMediaPreview extends StatelessWidget {
               Flexible(
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                       child: Center(
                         child: FaIcon(
@@ -181,11 +181,11 @@ class DownloadMediaPreview extends StatelessWidget {
                     ),
                     Flexible(
                       child: Container(
-                        margin: EdgeInsets.only(left: 2, right: 2),
+                        margin: const EdgeInsets.only(left: 2, right: 2),
                         child: Text(
                           taskData.offlineMeida.uploader.name,
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12.5,
                             color: Colors.grey,
                             overflow: TextOverflow.ellipsis,
@@ -200,7 +200,7 @@ class DownloadMediaPreview extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
               child: Center(
                 child: FaIcon(
@@ -212,11 +212,11 @@ class DownloadMediaPreview extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(left: 2),
+                margin: const EdgeInsets.only(left: 2),
                 child: Text(
                   DisplayUtil.getDisplayDate(taskData.createTime),
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12.5,
                     color: Colors.grey,
                     overflow: TextOverflow.ellipsis,
@@ -227,7 +227,7 @@ class DownloadMediaPreview extends StatelessWidget {
             AutoSizeText(
               totalSize,
               maxLines: 1,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12.5,
                 color: Colors.grey,
                 overflow: TextOverflow.ellipsis,
@@ -254,7 +254,7 @@ class DownloadMediaPreview extends StatelessWidget {
               excludeFromSemantics: true,
               onTap: () {
                 _downloadService.pauseTask(downloadTask).then((value) {
-                  print(value);
+                  debugPrint(value.toString());
                 });
               },
               child: _buildStateMessageWithProgress(
@@ -267,7 +267,7 @@ class DownloadMediaPreview extends StatelessWidget {
               excludeFromSemantics: true,
               onTap: () {
                 _downloadService.resumeTask(downloadTask).then((value) {
-                  print(value);
+                  debugPrint(value.toString());
                 });
               },
               child: _buildStateMessageWithProgress(
@@ -283,10 +283,10 @@ class DownloadMediaPreview extends StatelessWidget {
           case TaskStatus.complete:
             return _buildCompleteWidget();
           default:
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
         }
       } else {
-        return AutoSizeText(
+        return const AutoSizeText(
           "Unknow",
           maxLines: 1,
           style: TextStyle(
@@ -302,12 +302,12 @@ class DownloadMediaPreview extends StatelessWidget {
   List<Widget> _buildFullVerison(BuildContext context) {
     return [
       Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 10),
         child: Stack(
           alignment: Alignment.center,
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
                 child: Container(
                   color: Colors.black,
                   alignment: Alignment.center,
@@ -319,7 +319,7 @@ class DownloadMediaPreview extends StatelessWidget {
                           isAdult: taskData.offlineMeida.ratingType ==
                               RatingType.ecchi.value,
                         )
-                      : AspectRatio(aspectRatio: 16 / 9),
+                      : const AspectRatio(aspectRatio: 16 / 9),
                 )),
             Positioned(left: 5, bottom: 5, child: _buildRating()),
             Positioned(
@@ -329,7 +329,7 @@ class DownloadMediaPreview extends StatelessWidget {
       ),
       Expanded(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -337,7 +337,7 @@ class DownloadMediaPreview extends StatelessWidget {
               AutoSizeText(
                 taskData.offlineMeida.title,
                 maxLines: 2,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12.5,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -358,7 +358,7 @@ class DownloadMediaPreview extends StatelessWidget {
     return GestureDetector(
       child: Container(
         color: Theme.of(context).canvasColor,
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: _buildFullVerison(context),
         ),

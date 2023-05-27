@@ -56,7 +56,7 @@ class SetPasswordPage extends GetView<SetPasswordController> {
       child: Container(
         width: 75,
         height: 75,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: Colors.grey),
@@ -88,7 +88,7 @@ class SetPasswordPage extends GetView<SetPasswordController> {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(FontAwesomeIcons.chevronLeft),
+          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
         ),
         shape: Border(
           bottom: BorderSide(
@@ -118,15 +118,15 @@ class SetPasswordPage extends GetView<SetPasswordController> {
                     controller.confirmingPassword
                         ? L10n.of(context).repeat_password
                         : L10n.of(context).set_password,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 50),
+                  padding: const EdgeInsets.only(top: 10, bottom: 50),
                   child: _buildPasswordDots(context),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -137,7 +137,7 @@ class SetPasswordPage extends GetView<SetPasswordController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -148,7 +148,7 @@ class SetPasswordPage extends GetView<SetPasswordController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -159,7 +159,7 @@ class SetPasswordPage extends GetView<SetPasswordController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -174,8 +174,8 @@ class SetPasswordPage extends GetView<SetPasswordController> {
                         child: Container(
                           width: 75,
                           height: 75,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(FontAwesomeIcons.deleteLeft),

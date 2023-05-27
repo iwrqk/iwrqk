@@ -1,15 +1,12 @@
 import 'dart:async';
 
 import 'package:better_player/better_player.dart';
-import 'package:better_player/src/controls/better_player_material_progress_bar.dart';
-import 'package:better_player/src/core/better_player_controller.dart';
 import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:better_player/src/video_player/video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../../../global_widgets/iwr_progress_indicator.dart';
 import 'video_progress_bar.dart';
@@ -26,7 +23,8 @@ class IwrPlayerControls extends StatefulWidget {
   });
 
   @override
-  _IwrPlayerControlsState createState() => _IwrPlayerControlsState();
+  BetterPlayerControlsState<IwrPlayerControls> createState() =>
+      _IwrPlayerControlsState();
 }
 
 class _IwrPlayerControlsState
@@ -37,7 +35,6 @@ class _IwrPlayerControlsState
   Timer? _hideTimer;
   Timer? _initTimer;
   Timer? _showAfterExpandCollapseTimer;
-  bool _displayTapped = false;
   bool _wasLoading = false;
   VideoPlayerController? _controller;
   BetterPlayerController? _betterPlayerController;
@@ -82,12 +79,12 @@ class _IwrPlayerControlsState
 
   @override
   void didChangeDependencies() {
-    final _oldController = _betterPlayerController;
+    final oldController = _betterPlayerController;
     _betterPlayerController = BetterPlayerController.of(context);
     _controller = _betterPlayerController!.videoPlayerController;
     _latestValue = _controller!.value;
 
-    if (_oldController != _betterPlayerController) {
+    if (oldController != _betterPlayerController) {
       _dispose();
       _initialize();
     }
@@ -113,7 +110,6 @@ class _IwrPlayerControlsState
 
     setState(() {
       _hideStuff = false;
-      _displayTapped = true;
     });
   }
 
@@ -330,7 +326,7 @@ class _IwrPlayerControlsState
                   child: AnimatedOpacity(
                     opacity: _hideStuff ? 0.0 : 1.0,
                     duration: _controlsConfiguration.controlsHideTime,
-                    child: Stack(
+                    child: const Stack(
                       fit: StackFit.expand,
                     ),
                   ),
@@ -365,10 +361,10 @@ class _IwrPlayerControlsState
             if (_state.isFullScreen)
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(right: 25),
+                  padding: const EdgeInsets.only(right: 25),
                   child: Text(
                     _state.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       overflow: TextOverflow.ellipsis,
@@ -398,7 +394,7 @@ class _IwrPlayerControlsState
               Get.back();
             }
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
             color: Colors.white,
             size: 25,
@@ -439,7 +435,7 @@ class _IwrPlayerControlsState
       child: Container(
         alignment: Alignment.center,
         height: barHeight,
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: MaterialButton(
           onPressed: () {
             _pushPlaybackSpeedSelectionMune();
@@ -449,7 +445,7 @@ class _IwrPlayerControlsState
           child: Text(
             _state.availablePlaybackSpeeds.keys
                 .toList()[_state.currentPlaybackSpeedIndex],
-            style: TextStyle(color: Colors.white, fontSize: 17.5),
+            style: const TextStyle(color: Colors.white, fontSize: 17.5),
           ),
         ),
       ),
@@ -463,7 +459,7 @@ class _IwrPlayerControlsState
       child: Container(
         alignment: Alignment.center,
         height: barHeight,
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: MaterialButton(
           onPressed: () {
             _pushResolutionsSelectionMune();
@@ -472,7 +468,7 @@ class _IwrPlayerControlsState
           minWidth: 0,
           child: Text(
             _state.resolutions.keys.toList()[_state.currentResolutionIndex],
-            style: TextStyle(color: Colors.white, fontSize: 17.5),
+            style: const TextStyle(color: Colors.white, fontSize: 17.5),
           ),
         ),
       ),
@@ -502,18 +498,18 @@ class _IwrPlayerControlsState
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: barHeight,
               child: IconButton(
                 iconSize: 30,
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 icon: _controller!.value.isPlaying
-                    ? FaIcon(
+                    ? const FaIcon(
                         FontAwesomeIcons.pause,
                         color: Colors.white,
                         size: 25,
                       )
-                    : FaIcon(
+                    : const FaIcon(
                         FontAwesomeIcons.play,
                         color: Colors.white,
                         size: 25,
@@ -557,7 +553,8 @@ class _IwrPlayerControlsState
       pageBuilder: (context, animation, secondaryAnimation) =>
           _buildPlaybackSpeedSelectionMune(context, videoWidth > videoHeight),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = videoWidth > videoHeight ? Offset(1, 0) : Offset(0, 1);
+        var begin =
+            videoWidth > videoHeight ? const Offset(1, 0) : const Offset(0, 1);
         const end = Offset.zero;
         const curve = Curves.ease;
 
@@ -579,9 +576,9 @@ class _IwrPlayerControlsState
       child: Container(
         alignment: Alignment.center,
         child: ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemCount: _state.availablePlaybackSpeeds.length,
             itemBuilder: (context, index) {
               return GestureDetector(
@@ -592,7 +589,7 @@ class _IwrPlayerControlsState
                 },
                 child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       _state.availablePlaybackSpeeds.keys.toList()[index],
                       style: TextStyle(
@@ -625,7 +622,8 @@ class _IwrPlayerControlsState
       pageBuilder: (context, animation, secondaryAnimation) =>
           _buildResolutionsSelectionMune(context, videoWidth > videoHeight),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = videoWidth > videoHeight ? Offset(1, 0) : Offset(0, 1);
+        var begin =
+            videoWidth > videoHeight ? const Offset(1, 0) : const Offset(0, 1);
         const end = Offset.zero;
         const curve = Curves.ease;
 
@@ -647,9 +645,9 @@ class _IwrPlayerControlsState
       child: Container(
         alignment: Alignment.center,
         child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemCount: _state.resolutions.length,
           itemBuilder: (context, index) {
             return GestureDetector(
@@ -662,7 +660,7 @@ class _IwrPlayerControlsState
               },
               child: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   _state.resolutions.keys.toList()[index],
                   style: TextStyle(
@@ -781,12 +779,12 @@ class _IwrPlayerControlsState
       case QuickGestures.accelerate:
         return Container(
           padding: _state.isFullScreen
-              ? EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.forward,
             color: Colors.white,
             size: 20,
@@ -795,12 +793,12 @@ class _IwrPlayerControlsState
       case QuickGestures.fastForward:
         return Container(
           padding: _state.isFullScreen
-              ? EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.forward,
             color: Colors.white,
             size: 20,
@@ -809,12 +807,12 @@ class _IwrPlayerControlsState
       case QuickGestures.fastRewind:
         return Container(
           padding: _state.isFullScreen
-              ? EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.backward,
             color: Colors.white,
             size: 20,
@@ -823,8 +821,8 @@ class _IwrPlayerControlsState
       case QuickGestures.volumeUp:
         return Container(
           padding: _state.isFullScreen
-              ? EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.black.withAlpha(128),
             borderRadius: BorderRadius.circular(10),
@@ -837,7 +835,7 @@ class _IwrPlayerControlsState
               _buildSpeakerIcon(),
               Container(
                 width: _state.isFullScreen ? 150 : 100,
-                margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(left: 10),
                 child: LinearProgressIndicator(
                   value: _getVolumeAfterAdjust(),
                   backgroundColor: Colors.white.withOpacity(0.5),
@@ -851,8 +849,8 @@ class _IwrPlayerControlsState
       case QuickGestures.volumeDown:
         return Container(
           padding: _state.isFullScreen
-              ? EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.black.withAlpha(128),
             borderRadius: BorderRadius.circular(10),
@@ -865,7 +863,7 @@ class _IwrPlayerControlsState
               _buildSpeakerIcon(),
               Container(
                 width: _state.isFullScreen ? 150 : 100,
-                margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(left: 10),
                 child: LinearProgressIndicator(
                   value: _getVolumeAfterAdjust(),
                   backgroundColor: Colors.white.withOpacity(0.5),

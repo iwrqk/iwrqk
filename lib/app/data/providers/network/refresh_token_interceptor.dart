@@ -11,7 +11,7 @@ class RefreshTokenInterceptor extends Interceptor {
   RefreshTokenInterceptor(this._dio);
 
   AccountService accountService = Get.find<AccountService>();
-  Queue queue = new Queue();
+  Queue queue = Queue();
 
   String accessTokenUrl =
       "https://${IwaraConst.apiHost}${IwaraConst.accessTokenPath}";
@@ -36,7 +36,8 @@ class RefreshTokenInterceptor extends Interceptor {
     if (response.statusCode == 401) {
       needRegetAccessToken = true;
     } else {
-      if (accountService.isLogin && response.requestOptions.path != accessTokenUrl) {
+      if (accountService.isLogin &&
+          response.requestOptions.path != accessTokenUrl) {
         if (await getAccessToken() == null) {
           needRegetAccessToken = true;
         }

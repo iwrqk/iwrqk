@@ -22,7 +22,7 @@ class UserPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: GestureDetector(
         onTap: () {
           Get.toNamed(
@@ -46,14 +46,14 @@ class UserPreview extends StatelessWidget {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             user.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17.5,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -61,7 +61,7 @@ class UserPreview extends StatelessWidget {
                           ),
                           Text(
                             '@${user.username}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12.5,
                               color: Colors.grey,
                               overflow: TextOverflow.ellipsis,

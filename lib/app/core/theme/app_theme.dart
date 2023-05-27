@@ -12,6 +12,7 @@ abstract class AppTheme {
         shadowColor: Colors.transparent,
       ),
       primaryColor: primaryColor,
+      primaryColorLight: primaryColor,
       tabBarTheme: const TabBarTheme().copyWith(
         labelColor: primaryColor,
         indicatorColor: primaryColor,
@@ -31,7 +32,7 @@ abstract class AppTheme {
           splashFactory: NoSplash.splashFactory,
         ),
       ),
-      inputDecorationTheme: InputDecorationTheme().copyWith(
+      inputDecorationTheme: const InputDecorationTheme().copyWith(
         prefixIconColor: primaryColor,
         suffixIconColor: primaryColor,
         focusColor: primaryColor,
@@ -43,12 +44,11 @@ abstract class AppTheme {
             color: primaryColor,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
       scaffoldBackgroundColor: CupertinoColors.systemGroupedBackground,
-      accentColor: Colors.white,
       indicatorColor: Colors.grey,
       cardColor: CupertinoColors.systemGroupedBackground,
       canvasColor: CupertinoColors.white,
@@ -72,12 +72,13 @@ abstract class AppTheme {
         backgroundColor: const Color.fromARGB(255, 40, 44, 52),
       ),
       primaryColor: primaryColor,
+      primaryColorLight: primaryColor,
       tabBarTheme: const TabBarTheme().copyWith(
         labelColor: primaryColor,
         indicatorColor: primaryColor,
         unselectedLabelColor: Colors.grey,
       ),
-      inputDecorationTheme: InputDecorationTheme().copyWith(
+      inputDecorationTheme: const InputDecorationTheme().copyWith(
         prefixIconColor: primaryColor,
         suffixIconColor: primaryColor,
         focusColor: primaryColor,
@@ -89,7 +90,7 @@ abstract class AppTheme {
             color: primaryColor,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
@@ -108,7 +109,6 @@ abstract class AppTheme {
         ),
       ),
       scaffoldBackgroundColor: const Color.fromARGB(255, 31, 34, 40),
-      accentColor: Colors.black,
       cardColor: const Color.fromARGB(255, 36, 39, 46),
       indicatorColor: Colors.white,
       canvasColor: const Color.fromARGB(255, 40, 44, 52),

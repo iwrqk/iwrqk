@@ -22,7 +22,7 @@ class IwrFooterIndicator extends StatelessWidget {
         child: () {
           switch (indicatorState) {
             case IwrState.loading:
-              return SizedBox(
+              return const SizedBox(
                 width: 24,
                 height: 24,
                 child: IwrProgressIndicator(
@@ -35,22 +35,22 @@ class IwrFooterIndicator extends StatelessWidget {
               return GestureDetector(
                 onTap: loadMore,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    FaIcon(
+                    const FaIcon(
                       FontAwesomeIcons.circleExclamation,
                       color: CupertinoColors.systemRed,
                     ),
                     Text(
                       L10n.of(context).error_retry,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 12, color: CupertinoColors.inactiveGray),
                     )
                   ]),
                 ),
               );
             case IwrState.noMore:
-              return FaIcon(
+              return const FaIcon(
                 FontAwesomeIcons.boxArchive,
                 color: CupertinoColors.inactiveGray,
               );

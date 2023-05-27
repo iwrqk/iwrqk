@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/utils/display_util.dart';
-import '../../../../../data/models/forum/post.dart';
 import '../../../../../data/models/forum/thread.dart';
 import '../../../../../global_widgets/reloadable_image.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
@@ -38,7 +37,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
   }) {
     return Card(
       color: Theme.of(context).canvasColor,
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(
         onTap: () {
           Get.toNamed(AppRoutes.thread, arguments: {
@@ -50,7 +49,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
           });
         },
         child: Padding(
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +75,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
                   thread.title,
                   style: Theme.of(context).textTheme.titleMedium,
@@ -86,7 +85,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -95,7 +94,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                           size: 15,
                           color: Theme.of(context).primaryColor,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numViews),
                           style:
@@ -107,7 +106,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -116,7 +115,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                           size: 15,
                           color: Theme.of(context).primaryColor,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numPosts),
                           style:

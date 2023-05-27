@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:iwrqk/app/data/models/settings/player_setting.dart';
 
 import '../../core/const/widget.dart';
-import '../../core/utils/log_util.dart';
 import '../models/settings/filter_setting.dart';
 import '../providers/storage_provider.dart';
 

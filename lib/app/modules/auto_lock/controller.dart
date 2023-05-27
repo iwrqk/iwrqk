@@ -35,7 +35,7 @@ class LockController extends GetxController with GetTickerProviderStateMixin {
   String get currentPassword => _currentPassword.value;
 
   void addPassword(String password) {
-    Future.delayed(Duration(milliseconds: 100)).then((value) {
+    Future.delayed(const Duration(milliseconds: 100)).then((value) {
       if (_currentPassword.value.length >= 6) return;
       _currentPassword.value += password;
       if (_currentPassword.value.length == 6) {

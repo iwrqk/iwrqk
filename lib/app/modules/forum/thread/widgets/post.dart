@@ -21,13 +21,13 @@ class Post extends StatelessWidget {
 
   Widget _buildStarterBadge(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 5),
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+      margin: const EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Text(
+      child: const Text(
         "OP",
         style: TextStyle(color: Colors.white, fontSize: 12.5),
       ),
@@ -54,10 +54,10 @@ class Post extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: Text(
               post.user.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           if (starterUserName == post.user.username) _buildStarterBadge(context)
@@ -68,17 +68,17 @@ class Post extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 45),
+      padding: const EdgeInsets.only(left: 45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IwrMarkdown(
-            padding: EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5),
             selectable: true,
             data: post.body,
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: Text.rich(
               TextSpan(
                 children: [
@@ -94,7 +94,7 @@ class Post extends StatelessWidget {
                     text: DisplayUtil.getDisplayTime(
                       DateTime.parse(post.createAt),
                     ),
-                    style: TextStyle(color: Colors.grey, fontSize: 12.5),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12.5),
                   ),
                 ],
               ),
@@ -109,7 +109,7 @@ class Post extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).canvasColor,
-      padding: EdgeInsets.fromLTRB(20, 15, 15, 15),
+      padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         _buildUserWidget(context),
         _buildContent(context),

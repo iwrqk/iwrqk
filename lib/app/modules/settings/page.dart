@@ -11,6 +11,8 @@ import 'controller.dart';
 class SettingsPage extends GetView<SettingsController> {
   final SettingsController _controller = Get.find();
 
+  SettingsPage({super.key});
+
   Widget _buildLanguageSetting(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,7 +20,7 @@ class SettingsPage extends GetView<SettingsController> {
         Flexible(
           child: Text(
             L10n.of(context).language,
-            style: TextStyle(fontSize: 17.5),
+            style: const TextStyle(fontSize: 17.5),
           ),
         ),
         PopupMenuButton(
@@ -28,19 +30,19 @@ class SettingsPage extends GetView<SettingsController> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Theme.of(context).cardColor),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Row(
                 children: [
                   Obx(
                     () => Text(
                       _controller.getCurrentLanguageName(),
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      style: const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.chevronDown,
                     size: 15,
                     color: Colors.grey,
@@ -50,11 +52,11 @@ class SettingsPage extends GetView<SettingsController> {
           itemBuilder: (context) {
             return L10n.languageMap.keys
                 .map((e) => PopupMenuItem(
+                      value: e,
                       child: Text(
                         L10n.languageMap[e]!,
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
-                      value: e,
                     ))
                 .toList();
           },
@@ -73,7 +75,7 @@ class SettingsPage extends GetView<SettingsController> {
         Flexible(
           child: Text(
             L10n.of(context).theme,
-            style: TextStyle(fontSize: 17.5),
+            style: const TextStyle(fontSize: 17.5),
           ),
         ),
         PopupMenuButton(
@@ -83,19 +85,19 @@ class SettingsPage extends GetView<SettingsController> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Theme.of(context).cardColor),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Row(
                 children: [
                   Obx(
                     () => Text(
                       _controller.getCurrentThemeName(context),
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      style: const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.chevronDown,
                     size: 15,
                     color: Colors.grey,
@@ -105,25 +107,25 @@ class SettingsPage extends GetView<SettingsController> {
           itemBuilder: (context) {
             return [
               PopupMenuItem(
+                value: ThemeMode.system,
                 child: Text(
                   L10n.of(context).theme_system,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
-                value: ThemeMode.system,
               ),
               PopupMenuItem(
+                value: ThemeMode.light,
                 child: Text(
                   L10n.of(context).theme_light_mode,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
-                value: ThemeMode.light,
               ),
               PopupMenuItem(
+                value: ThemeMode.dark,
                 child: Text(
                   L10n.of(context).theme_dark_mode,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
-                value: ThemeMode.dark,
               ),
             ];
           },
@@ -142,13 +144,13 @@ class SettingsPage extends GetView<SettingsController> {
         Flexible(
           child: Text(
             L10n.of(context).setting_cover_blur,
-            style: TextStyle(fontSize: 17.5),
+            style: const TextStyle(fontSize: 17.5),
           ),
         ),
         Obx(
           () => Container(
             height: 20,
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
               value: _controller.configService.adultCoverBlur,
               activeColor: Theme.of(context).primaryColor,
@@ -169,13 +171,13 @@ class SettingsPage extends GetView<SettingsController> {
         Flexible(
           child: Text(
             L10n.of(context).unlock_by_biometric,
-            style: TextStyle(fontSize: 17.5),
+            style: const TextStyle(fontSize: 17.5),
           ),
         ),
         Obx(
           () => Container(
             height: 20,
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
               value: _controller.autoLockService.enableAuthByBiometrics,
               activeColor: Theme.of(context).primaryColor,
@@ -202,13 +204,13 @@ class SettingsPage extends GetView<SettingsController> {
         Flexible(
           child: Text(
             L10n.of(context).setting_auto_lock,
-            style: TextStyle(fontSize: 17.5),
+            style: const TextStyle(fontSize: 17.5),
           ),
         ),
         Obx(
           () => Container(
             height: 20,
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
               value: _controller.autoLockService.enableAutoLock,
               activeColor: Theme.of(context).primaryColor,
@@ -239,10 +241,10 @@ class SettingsPage extends GetView<SettingsController> {
           Flexible(
             child: Text(
               L10n.of(context).logout,
-              style: TextStyle(fontSize: 17.5),
+              style: const TextStyle(fontSize: 17.5),
             ),
           ),
-          FaIcon(FontAwesomeIcons.rightToBracket, color: Colors.grey),
+          const FaIcon(FontAwesomeIcons.rightToBracket, color: Colors.grey),
         ],
       ),
     );
@@ -257,7 +259,7 @@ class SettingsPage extends GetView<SettingsController> {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(FontAwesomeIcons.chevronLeft),
+          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
         ),
         shape: Border(
           bottom: BorderSide(
@@ -271,7 +273,8 @@ class SettingsPage extends GetView<SettingsController> {
         ),
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: [
           SettingTitle(title: L10n.of(context).setting_appearance),
           SettingGroup(
@@ -311,10 +314,10 @@ class SettingTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 17.5,
         ),
       ),
@@ -334,14 +337,14 @@ class SettingGroup extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).canvasColor,
         ),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: ListView.separated(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.5),
+              padding: const EdgeInsets.symmetric(vertical: 2.5),
               child: children[index],
             );
           },

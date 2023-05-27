@@ -55,7 +55,7 @@ class _FollowButtonState extends State<FollowButton>
               ),
           onPressed:
               _controller.isProcessing ? null : _controller.unfollowUploader,
-          icon: FaIcon(FontAwesomeIcons.check),
+          icon: const FaIcon(FontAwesomeIcons.check),
           label: widget.labelBuilder != null
               ? widget.labelBuilder!(L10n.of(context).following)
               : Text(
@@ -67,7 +67,7 @@ class _FollowButtonState extends State<FollowButton>
           style: widget.filledStyle,
           onPressed:
               _controller.isProcessing ? null : _controller.followUploader,
-          icon: FaIcon(FontAwesomeIcons.plus),
+          icon: const FaIcon(FontAwesomeIcons.plus),
           label: widget.labelBuilder != null
               ? widget.labelBuilder!(L10n.of(context).follow)
               : Text(

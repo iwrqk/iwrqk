@@ -42,4 +42,11 @@ class FilterSettingModel {
       month: json["month"],
     );
   }
+
+  @override
+  int get hashCode => {
+        "ratingType": ratingType?.value,
+        "year": year,
+        "month": month,
+      }.hashCode;
 }

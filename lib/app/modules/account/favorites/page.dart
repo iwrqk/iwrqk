@@ -54,7 +54,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             onPressed: () {
               Get.back();
             },
-            icon: FaIcon(FontAwesomeIcons.chevronLeft),
+            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
           ),
           centerTitle: true,
           title: Text(

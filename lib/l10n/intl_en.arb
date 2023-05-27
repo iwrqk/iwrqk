@@ -108,6 +108,7 @@
     "user_playlists": "Playlists",
     "user_settings": "Settings",
     "user_about": "About",
+    "conversation": "Conversation",
     "time_seconds_ago": "{time} seconds ago",
     "@time_seconds_ago": {
       "description": "A message with a parameter",

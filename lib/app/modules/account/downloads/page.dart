@@ -39,7 +39,7 @@ class DownloadsPage extends GetView<DownloadsController> {
           ],
         ),
         IconButton(
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.solidTrashCan,
             size: 20,
           ),
@@ -53,13 +53,13 @@ class DownloadsPage extends GetView<DownloadsController> {
                 backgroundColor: Theme.of(context).canvasColor,
                 title: Text(
                   L10n.of(context).confirm,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 content:
                     Text(L10n.of(context).message_history_delete_all_confirm),
-                contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+                contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
                 actionsAlignment: MainAxisAlignment.end,
-                actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 10),
+                actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                 actions: [
                   CupertinoButton(
                     onPressed: () async {
@@ -90,7 +90,7 @@ class DownloadsPage extends GetView<DownloadsController> {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),

@@ -39,7 +39,7 @@ class CommentDetailController extends GetxController {
   void jumpToTop() {
     scrollController.animateTo(
       0,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
   }

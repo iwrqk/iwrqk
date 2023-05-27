@@ -33,7 +33,7 @@ class SplashPage extends GetView<SplashController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 150),
+            padding: const EdgeInsets.fromLTRB(50, 0, 50, 150),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -42,14 +42,14 @@ class SplashPage extends GetView<SplashController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 25),
+                      padding: const EdgeInsets.only(right: 25),
                       child: Image.asset(
                         "assets/app_icon.png",
                         width: 75,
                         height: 75,
                       ),
                     ),
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(

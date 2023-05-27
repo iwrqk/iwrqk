@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -118,7 +117,7 @@ class MediaDetailController extends GetxController
     id = arguments["id"];
 
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     ).obs;
 
@@ -143,8 +142,7 @@ class MediaDetailController extends GetxController
         _isLoading.value = false;
         _isFavorite.value = media.liked;
 
-        StorageProvider.addHistoryItem(
-            HistoryMediaModel.fromMediaData(media));
+        StorageProvider.addHistoryItem(HistoryMediaModel.fromMediaData(media));
 
         refectchRecommendation();
       } else {

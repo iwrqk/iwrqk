@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -55,23 +54,23 @@ class HomePage extends GetView<HomeController> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                      borderRadius: const BorderRadius.all(Radius.circular(15))),
                   child: Row(
                     children: [
-                      FaIcon(
+                      const FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
                         color: Colors.grey,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 5),
+                        padding: const EdgeInsets.only(left: 5),
                         child: AutoSizeText(
                           L10n.of(context).search,
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17.5,
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
@@ -84,7 +83,7 @@ class HomePage extends GetView<HomeController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 7.5, 15, 7.5),
+              padding: const EdgeInsets.fromLTRB(0, 7.5, 15, 7.5),
               child: InkWell(
                 onTap: () {
                   if (controller.userService.accountService.isLogin) {
@@ -102,15 +101,15 @@ class HomePage extends GetView<HomeController> {
                                     controller
                                         .userService.notificationsCounts!.total
                                         .toString(),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   )
                                 : null,
-                        child: FaIcon(
+                        child: const FaIcon(
                           FontAwesomeIcons.solidEnvelope,
                           color: Colors.grey,
                         ),
                       )
-                    : FaIcon(
+                    : const FaIcon(
                         FontAwesomeIcons.solidEnvelope,
                         color: Colors.grey,
                       ),

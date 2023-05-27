@@ -23,12 +23,14 @@ import 'controller.dart';
 import 'profile_detail/page.dart';
 
 class ProfilePage extends GetWidget<ProfileController> {
+  const ProfilePage({super.key});
+
   Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
         _buildAvatarButton(context),
         Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             color: Theme.of(context).canvasColor,
             child: Column(
               children: [
@@ -53,7 +55,7 @@ class ProfilePage extends GetWidget<ProfileController> {
             SelectableText(
               controller.profile.user!.name,
               maxLines: 1,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -61,7 +63,7 @@ class ProfilePage extends GetWidget<ProfileController> {
             SelectableText(
               "@${controller.profile.user!.username}",
               maxLines: 1,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12.5,
                 color: Colors.grey,
               ),
@@ -74,7 +76,7 @@ class ProfilePage extends GetWidget<ProfileController> {
 
   Widget _buildDescription(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: GestureDetector(
         excludeFromSemantics: true,
         onTap: () {
@@ -92,10 +94,11 @@ class ProfilePage extends GetWidget<ProfileController> {
                   ? L10n.of(context).profile_no_description
                   : controller.profile.body,
               maxLines: 1,
-              style: TextStyle(fontSize: 12.5, overflow: TextOverflow.ellipsis),
+              style: const TextStyle(
+                  fontSize: 12.5, overflow: TextOverflow.ellipsis),
             ),
           ),
-          FaIcon(
+          const FaIcon(
             FontAwesomeIcons.chevronRight,
             size: 17.5,
           ),
@@ -110,16 +113,15 @@ class ProfilePage extends GetWidget<ProfileController> {
     String? seenAt = controller.profile.user!.seenAt;
 
     if (seenAt != null) {
-      Duration difference =
-          DateTime.now().difference(DateTime.parse(seenAt));
+      Duration difference = DateTime.now().difference(DateTime.parse(seenAt));
       if (difference.inMinutes <= 5) {
         lastActiveWidget = Row(
           children: [
             Container(
               width: 8,
               height: 8,
-              margin: EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.green,
               ),
@@ -130,19 +132,19 @@ class ProfilePage extends GetWidget<ProfileController> {
       } else {
         lastActiveWidget = AutoSizeText(
           "${L10n.of(context).profile_last_active_time}：${DisplayUtil.getDisplayDate(DateTime.parse(seenAt))}",
-          style: TextStyle(fontSize: 12.5),
+          style: const TextStyle(fontSize: 12.5),
         );
       }
     }
 
     return Padding(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           AutoSizeText(
             "${L10n.of(context).profile_join_date}：${DisplayUtil.getDisplayDate(DateTime.parse(controller.profile.user!.createdAt))}",
-            style: TextStyle(fontSize: 12.5),
+            style: const TextStyle(fontSize: 12.5),
           ),
           if (lastActiveWidget != null) lastActiveWidget
         ],
@@ -154,14 +156,14 @@ class ProfilePage extends GetWidget<ProfileController> {
     bool isMyself = controller.profile.user!.username ==
         controller.userService.user?.username;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       color: Theme.of(context).canvasColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10, right: 25),
+            padding: const EdgeInsets.only(left: 10, right: 25),
             child: ClipOval(
               child: ReloadableImage(
                 imageUrl: controller.profile.user!.avatarUrl,
@@ -192,16 +194,17 @@ class ProfilePage extends GetWidget<ProfileController> {
                       children: [
                         Text(
                           DisplayUtil.compactBigNumber(controller.followingNum),
-                          style: TextStyle(fontSize: 12.5),
+                          style: const TextStyle(fontSize: 12.5),
                         ),
                         Text(
                           L10n.of(context).following,
-                          style: TextStyle(color: Colors.grey, fontSize: 12.5),
+                          style: const TextStyle(
+                              color: Colors.grey, fontSize: 12.5),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   GestureDetector(
@@ -219,11 +222,12 @@ class ProfilePage extends GetWidget<ProfileController> {
                       children: [
                         Text(
                           DisplayUtil.compactBigNumber(controller.followersNum),
-                          style: TextStyle(fontSize: 12.5),
+                          style: const TextStyle(fontSize: 12.5),
                         ),
                         Text(
                           L10n.of(context).followers,
-                          style: TextStyle(color: Colors.grey, fontSize: 12.5),
+                          style: const TextStyle(
+                              color: Colors.grey, fontSize: 12.5),
                         )
                       ],
                     ),
@@ -237,14 +241,14 @@ class ProfilePage extends GetWidget<ProfileController> {
                       child: FollowButton(
                         user: controller.profile.user!,
                         outlineStyle: OutlinedButton.styleFrom(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          minimumSize: Size.fromHeight(0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          minimumSize: const Size.fromHeight(0),
                         ),
                         filledStyle: ElevatedButton.styleFrom(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          minimumSize: Size.fromHeight(0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          minimumSize: const Size.fromHeight(0),
                         ),
                         labelBuilder: (title) => AutoSizeText(
                           title,
@@ -253,17 +257,17 @@ class ProfilePage extends GetWidget<ProfileController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: FriendButtonWidget(
                         user: controller.profile.user!,
                         outlineStyle: OutlinedButton.styleFrom(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                           minimumSize: Size.zero,
                         ),
                         filledStyle: ElevatedButton.styleFrom(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                           minimumSize: Size.zero,
                         ),
                         onlyIcon: true,
@@ -271,12 +275,12 @@ class ProfilePage extends GetWidget<ProfileController> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         minimumSize: Size.zero,
                       ),
                       onPressed: () {},
-                      child: FaIcon(
+                      child: const FaIcon(
                         FontAwesomeIcons.solidEnvelope,
                       ),
                     ),
@@ -374,11 +378,11 @@ class ProfilePage extends GetWidget<ProfileController> {
                 ),
               )),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
               errorMessage,
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           )
         ],
@@ -402,7 +406,7 @@ class ProfilePage extends GetWidget<ProfileController> {
               },
               child: Obx(
                 () => Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: controller.hideAppbarFactor == 0
                       ? null
                       : BoxDecoration(
@@ -446,9 +450,9 @@ class ProfilePage extends GetWidget<ProfileController> {
                     foregroundColor: Colors.grey,
                     heroTag: 'jumpToTopBtn',
                     onPressed: controller.jumpToTop,
-                    child: FaIcon(FontAwesomeIcons.arrowUp),
+                    child: const FaIcon(FontAwesomeIcons.arrowUp),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   if (controller.currentTabIndex == 2)
@@ -464,7 +468,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                           ),
                         );
                       },
-                      child: FaIcon(FontAwesomeIcons.solidComment),
+                      child: const FaIcon(FontAwesomeIcons.solidComment),
                     )
                 ],
               )
@@ -524,7 +528,7 @@ class ProfilePage extends GetWidget<ProfileController> {
               onPressed: () {
                 Get.back();
               },
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.chevronLeft,
               ),
             ),
@@ -540,14 +544,14 @@ class ProfilePage extends GetWidget<ProfileController> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.chevronLeft,
             ),
           ),
           centerTitle: true,
           title: Text(L10n.of(context).profile),
         ),
-        body: Center(
+        body: const Center(
           child: IwrProgressIndicator(),
         ),
       ),

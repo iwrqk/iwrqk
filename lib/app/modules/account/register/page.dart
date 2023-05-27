@@ -9,8 +9,8 @@ import 'controller.dart';
 class RegisterPage extends GetView<RegisterController> {
   RegisterPage({super.key});
 
-  FocusNode blankNode = FocusNode();
-  FocusNode focusNode = FocusNode();
+  final FocusNode blankNode = FocusNode();
+  final FocusNode focusNode = FocusNode();
 
   Widget _buildFailWidget(BuildContext context, String errorMessage) {
     return Center(
@@ -30,11 +30,11 @@ class RegisterPage extends GetView<RegisterController> {
                 ),
               )),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
               errorMessage,
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           )
         ],
@@ -50,7 +50,7 @@ class RegisterPage extends GetView<RegisterController> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: FaIcon(FontAwesomeIcons.chevronLeft),
+            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
           ),
           shape: Border(
             bottom: BorderSide(
@@ -66,17 +66,17 @@ class RegisterPage extends GetView<RegisterController> {
         (state) {
           return Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 500,
               ),
               child: Form(
                 key: controller.formKey,
                 child: ListView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 25),
+                      padding: const EdgeInsets.only(bottom: 25),
                       child: ClipOval(
                         child: Image.asset(
                           "assets/app_icon.png",
@@ -86,7 +86,7 @@ class RegisterPage extends GetView<RegisterController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextFormField(
                         validator: (input) {
                           if (input != null) {
@@ -98,8 +98,8 @@ class RegisterPage extends GetView<RegisterController> {
                           return L10n.of(context).message_please_type_email;
                         },
                         decoration: InputDecoration(
-                          prefixIcon: Icon(FontAwesomeIcons.solidEnvelope),
-                          border: OutlineInputBorder(),
+                          prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
+                          border: const OutlineInputBorder(),
                           labelText: L10n.of(context).email,
                         ),
                         onSaved: (input) => controller.email = input,
@@ -110,9 +110,9 @@ class RegisterPage extends GetView<RegisterController> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        borderRadius: const BorderRadius.all(Radius.circular(5)),
                         child: AspectRatio(
                           aspectRatio: 30 / 4,
                           child: Image.memory(
@@ -123,7 +123,7 @@ class RegisterPage extends GetView<RegisterController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextFormField(
                         validator: (input) {
                           if (input != null) {
@@ -134,8 +134,8 @@ class RegisterPage extends GetView<RegisterController> {
                           return L10n.of(context).message_please_type_captcha;
                         },
                         decoration: InputDecoration(
-                          prefixIcon: Icon(FontAwesomeIcons.lock),
-                          border: OutlineInputBorder(),
+                          prefixIcon: const Icon(FontAwesomeIcons.lock),
+                          border: const OutlineInputBorder(),
                           labelText: L10n.of(context).captcha,
                         ),
                         onSaved: (input) => controller.captcha = input,
@@ -144,10 +144,10 @@ class RegisterPage extends GetView<RegisterController> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 15)),
                         onPressed: () {
                           FocusScope.of(context).requestFocus(blankNode);
@@ -155,7 +155,7 @@ class RegisterPage extends GetView<RegisterController> {
                         },
                         child: Text(
                           L10n.of(context).register,
-                          style: TextStyle(fontSize: 17.5),
+                          style: const TextStyle(fontSize: 17.5),
                         ),
                       ),
                     ),
@@ -165,7 +165,7 @@ class RegisterPage extends GetView<RegisterController> {
             ),
           );
         },
-        onLoading: Center(
+        onLoading: const Center(
           child: IwrProgressIndicator(),
         ),
         onError: (error) => _buildFailWidget(context, error!),

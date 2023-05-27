@@ -44,18 +44,13 @@ class DownloadService extends GetxService {
         _downloadTasks.assign(
           record.task.taskId,
           DownloadTaskStatus(
-            status: record.taskStatus,
+            status: record.status,
             progress: record.progress,
           ).obs,
         );
       }
     }
     _downloadTasks.refresh();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   Future<bool> _checkPermission() async {
@@ -102,7 +97,7 @@ class DownloadService extends GetxService {
     );
     FileDownloader().configureNotificationForTask(
       task,
-      runningNotification: TaskNotification('Downloading', title),
+      running: TaskNotification('Downloading', title),
       progressBar: true,
     );
     await FileDownloader().enqueue(task);

@@ -7,12 +7,12 @@ import '../../../data/services/user_service.dart';
 import '../../../global_widgets/reloadable_image.dart';
 
 class UserAvatar extends StatelessWidget {
-  double? width;
-  double? height;
-  double? aspectRatio;
+  final double? width;
+  final double? height;
+  final double? aspectRatio;
 
   UserAvatar({
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.aspectRatio,

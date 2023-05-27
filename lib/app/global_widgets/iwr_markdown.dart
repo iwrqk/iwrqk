@@ -31,7 +31,7 @@ class IwrMarkdown extends StatelessWidget {
         }
       },
       padding: padding,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       data: data,
     );

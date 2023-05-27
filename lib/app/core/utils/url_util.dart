@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../data/enums/types.dart';
 import '../../routes/pages.dart';
 
 class UrlUtil {
@@ -21,7 +22,7 @@ class UrlUtil {
       String videoid = video.firstMatch(url)!.group(1)!.split("/").last;
       Get.toNamed(
         AppRoutes.mediaDetail,
-        arguments: videoid,
+        arguments: {"mediaType": MediaType.video, "id": videoid},
         preventDuplicates: true,
       );
       return;
@@ -32,7 +33,7 @@ class UrlUtil {
       String imageid = image.firstMatch(url)!.group(1)!.split("/").last;
       Get.toNamed(
         AppRoutes.mediaDetail,
-        arguments: imageid,
+        arguments: {"mediaType": MediaType.image, "id": imageid},
         preventDuplicates: true,
       );
       return;

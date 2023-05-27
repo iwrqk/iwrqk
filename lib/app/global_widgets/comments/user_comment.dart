@@ -39,13 +39,13 @@ class UserComment extends StatelessWidget {
 
   Widget _buildUploaderBadge(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 5),
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+      margin: const EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Text(
+      child: const Text(
         "UP",
         style: TextStyle(color: Colors.white, fontSize: 12.5),
       ),
@@ -68,10 +68,10 @@ class UserComment extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: Text(
               comment.user.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           if (uploaderUserName == comment.user.username)
@@ -83,20 +83,20 @@ class UserComment extends StatelessWidget {
 
   Widget _buildContentWithoutReplies(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 45),
+      padding: const EdgeInsets.only(left: 45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IwrMarkdown(
-            padding: EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5),
             selectable: true,
             data: comment.body,
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: Text(
               DisplayUtil.getDisplayTime(DateTime.parse(comment.createdAt)),
-              style: TextStyle(color: Colors.grey, fontSize: 12.5),
+              style: const TextStyle(color: Colors.grey, fontSize: 12.5),
             ),
           ),
         ],
@@ -111,7 +111,7 @@ class UserComment extends StatelessWidget {
         children: [
           TextSpan(
             text: user.name,
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 _gotoUserProfile(user.username);
@@ -122,30 +122,30 @@ class UserComment extends StatelessWidget {
               alignment: PlaceholderAlignment.middle,
               child: _buildUploaderBadge(context),
             ),
-          TextSpan(text: "："),
+          const TextSpan(text: "："),
           TextSpan(text: comment.children[index].body.replaceAll("\n", ""))
         ],
       ),
-      style: TextStyle(overflow: TextOverflow.ellipsis),
+      style: const TextStyle(overflow: TextOverflow.ellipsis),
       maxLines: 5,
     );
   }
 
   Widget _buildContentWithReplies(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 45),
+        padding: const EdgeInsets.only(left: 45),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             IwrMarkdown(
                 selectable: true,
-                padding: EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 5),
                 data: comment.body),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 DisplayUtil.getDisplayTime(DateTime.parse(comment.createdAt)),
-                style: TextStyle(color: Colors.grey, fontSize: 12.5),
+                style: const TextStyle(color: Colors.grey, fontSize: 12.5),
               ),
             ),
             Container(
@@ -153,14 +153,14 @@ class UserComment extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(5)),
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount:
                           comment.numReplies >= 2 ? 2 : comment.numReplies,
                       itemBuilder: _repliesBuilder),
@@ -169,7 +169,7 @@ class UserComment extends StatelessWidget {
                     child: GestureDetector(
                       onTap: _jumpToDetail,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Text(
                           L10n.of(context).comments_see_all_replies(
                               comment.numReplies.toString()),
@@ -220,7 +220,7 @@ class UserComment extends StatelessWidget {
       onTap: _jumpToDetail,
       child: Container(
         color: Theme.of(context).canvasColor,
-        padding: EdgeInsets.fromLTRB(20, 15, 15, 15),
+        padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

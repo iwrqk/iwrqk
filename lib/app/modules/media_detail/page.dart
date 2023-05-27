@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:iwrqk/app/core/const/iwara.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../l10n.dart';
+import '../../core/const/iwara.dart';
 import '../../core/utils/display_util.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
@@ -20,7 +20,6 @@ import '../../global_widgets/comments/send_comment_bottom_sheet/widget.dart';
 import '../../global_widgets/iwr_markdown.dart';
 import '../../global_widgets/iwr_progress_indicator.dart';
 import '../../global_widgets/media_preview/media_flat_preview.dart';
-import '../../global_widgets/media_preview/media_preview.dart';
 import '../../global_widgets/reloadable_image.dart';
 import '../../global_widgets/tab_indicator.dart';
 import '../../global_widgets/user_preview/user_preview.dart';
@@ -29,10 +28,9 @@ import 'controller.dart';
 import 'widgets/add_to_playlist_bottom_sheet/widget.dart';
 import 'widgets/create_video_download_task_dialog/widget.dart';
 import 'widgets/iwr_gallery.dart';
-import 'widgets/iwr_player/controller.dart';
 
 class MediaDetailPage extends StatefulWidget {
-  MediaDetailPage({
+  const MediaDetailPage({
     Key? key,
   }) : super(key: key);
 
@@ -57,7 +55,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
   Widget _buildLoadingWidget() {
     String errorMessage = _controller.errorMessage;
     if (errorMessage == "") {
-      return Center(
+      return const Center(
         child: IwrProgressIndicator(),
       );
     } else if (errorMessage == "errors.privateVideo") {
@@ -67,11 +65,11 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: FaIcon(
                       FontAwesomeIcons.lock,
@@ -81,13 +79,13 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                   ),
                   Text(
                     L10n.of(context).meida_private,
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
+                    style: const TextStyle(fontSize: 20, color: Colors.grey),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: UserPreview(
                 user: _controller.user,
                 showFriendButton: true,
@@ -117,11 +115,11 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                   ),
                 )),
             Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Text(
                 _controller.errorMessage,
                 textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
               ),
             )
           ],
@@ -142,7 +140,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
             onPressed: () {
               Get.back();
             },
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.chevronLeft,
               color: Colors.white,
               size: 25,
@@ -162,7 +160,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               Obx(
                 () => Center(
                   child: !_controller.fetchFailed
-                      ? IwrProgressIndicator()
+                      ? const IwrProgressIndicator()
                       : Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -180,10 +178,10 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 10),
                               child: Text(
                                 L10n.of(context).error_fetch_failed,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             )
@@ -208,16 +206,16 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 5),
+                        padding: const EdgeInsets.only(bottom: 5),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            FaIcon(
+                            const FaIcon(
                               FontAwesomeIcons.circleInfo,
                               color: Colors.white,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(L10n.of(context).video_page_external_video)
@@ -229,7 +227,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                           launchUrlString(
                               (_controller.media as VideoModel).embedUrl!);
                         },
-                        icon: FaIcon(FontAwesomeIcons.solidShareFromSquare),
+                        icon: const FaIcon(FontAwesomeIcons.solidShareFromSquare),
                         label: Text(L10n.of(context).open),
                       ),
                     ],
@@ -291,12 +289,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Text(
           title,
-          style: TextStyle(height: 1),
+          style: const TextStyle(height: 1),
         ),
       ),
     );
@@ -313,7 +311,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
           ),
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         _buildUploaderWidget(),
         _buildMediaTitle(),
@@ -335,7 +333,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
 
   Widget _buildUploaderWidget() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: 5),
+      contentPadding: const EdgeInsets.symmetric(vertical: 5),
       leading: GestureDetector(
         onTap: _gotoUploaderProfilePage,
         child: ClipOval(
@@ -355,12 +353,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               _controller.media.user.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
               DisplayUtil.getDisplayTime(
                   DateTime.parse(_controller.media.createdAt)),
-              style: TextStyle(color: Colors.grey, fontSize: 12.5),
+              style: const TextStyle(color: Colors.grey, fontSize: 12.5),
             ),
           ],
         ),
@@ -389,7 +387,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
             child: _controller.detailExpanded
                 ? SelectableText(
                     _controller.media.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -397,18 +395,18 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 : Text(
                     _controller.media.title,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5),
             alignment: Alignment.topRight,
             child: RotationTransition(
               turns: _controller.iconTurn,
-              child: FaIcon(FontAwesomeIcons.chevronDown, size: 20),
+              child: const FaIcon(FontAwesomeIcons.chevronDown, size: 20),
             ),
           )
         ],
@@ -418,34 +416,34 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
 
   Widget _buildLikesAndViews() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FaIcon(
+          const FaIcon(
             FontAwesomeIcons.solidEye,
             size: 15,
             color: Colors.grey,
           ),
           Container(
-              margin: EdgeInsets.only(left: 5, right: 15),
+              margin: const EdgeInsets.only(left: 5, right: 15),
               child: Text(
                 DisplayUtil.formatNumberWithCommas(_controller.media.numViews),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
                 ),
               )),
-          FaIcon(
+          const FaIcon(
             FontAwesomeIcons.solidHeart,
             size: 15,
             color: Colors.grey,
           ),
           Container(
-              margin: EdgeInsets.only(left: 5),
+              margin: const EdgeInsets.only(left: 5),
               child: Text(
                 DisplayUtil.formatNumberWithCommas(_controller.media.numLikes),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
                 ),
@@ -473,7 +471,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               ),
               if (_controller.media.tags.isNotEmpty)
                 Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Wrap(
                     spacing: 5,
                     runSpacing: 5,
@@ -505,17 +503,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
 
   Widget _buildFunctionButtons() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: ButtonBar(
         alignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(
             () => InkWell(
-              child: FaIcon(
-                FontAwesomeIcons.solidHeart,
-                size: 30,
-                color: _controller.isFavorite ? Colors.redAccent : null,
-              ),
               onTap: _controller.isProcessingFavorite
                   ? null
                   : () {
@@ -525,11 +518,16 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                         _controller.favroiteMedia();
                       }
                     },
+              child: FaIcon(
+                FontAwesomeIcons.solidHeart,
+                size: 30,
+                color: _controller.isFavorite ? Colors.redAccent : null,
+              ),
             ),
           ),
           if (_controller.mediaType == MediaType.video)
             InkWell(
-              child: FaIcon(
+              child: const FaIcon(
                 FontAwesomeIcons.list,
                 size: 35,
               ),
@@ -542,7 +540,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               },
             ),
           InkWell(
-              child: FaIcon(
+              child: const FaIcon(
                 FontAwesomeIcons.solidShareFromSquare,
                 size: 30,
               ),
@@ -556,7 +554,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 }
               }),
           InkWell(
-            child: FaIcon(
+            child: const FaIcon(
               FontAwesomeIcons.download,
               size: 30,
             ),
@@ -585,17 +583,17 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       if (_controller.moreFromUser.isNotEmpty)
         Container(
           color: Theme.of(context).canvasColor,
-          padding: EdgeInsets.fromLTRB(20, 10, 10, 15),
+          padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
             L10n.of(context).meida_page_more_from_uploader,
             maxLines: 1,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       if (_controller.moreFromUser.isNotEmpty)
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: _controller.moreFromUser.length,
           itemBuilder: (BuildContext context, int index) => SizedBox(
@@ -611,17 +609,17 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       if (_controller.moreLikeThis.isNotEmpty)
         Container(
           color: Theme.of(context).canvasColor,
-          padding: EdgeInsets.fromLTRB(20, 10, 10, 15),
+          padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
             L10n.of(context).meida_page_more_like_this,
             maxLines: 1,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       if (_controller.moreLikeThis.isNotEmpty)
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: _controller.moreLikeThis.length,
           itemBuilder: (BuildContext context, int index) => SizedBox(
@@ -642,7 +640,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       List<Widget> children = [_buildMediaDetail()];
 
       if (_controller.isFectchingRecommendation) {
-        children.add(Center(
+        children.add(const Center(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 50),
             child: IwrProgressIndicator(),
@@ -652,7 +650,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         if (_controller.errorMessageRecommendation != "") {
           children.add(
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 50),
+              padding: const EdgeInsets.symmetric(vertical: 50),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -672,7 +670,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                           ),
                         )),
                     Container(
-                      margin: EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(20),
                       child: Text(
                         _controller.errorMessageRecommendation,
                         textAlign: TextAlign.left,
@@ -686,7 +684,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         } else if (_controller.moreFromUser.isEmpty &&
             _controller.moreLikeThis.isEmpty) {
           children.add(
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 50),
               child: Center(
                 child: FaIcon(
@@ -750,10 +748,10 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
             child: Container(
               margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(1000),
@@ -761,7 +759,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 child: AutoSizeText(
                   L10n.of(context).comments_send_comment,
                   maxLines: 1,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),
@@ -792,7 +790,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               onPressed: () {
                 Get.back();
               },
-              icon: FaIcon(FontAwesomeIcons.chevronLeft),
+              icon: const FaIcon(FontAwesomeIcons.chevronLeft),
             ),
             shape: Border(
               bottom: BorderSide(

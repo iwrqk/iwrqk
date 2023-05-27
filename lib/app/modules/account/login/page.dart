@@ -9,8 +9,8 @@ import 'controller.dart';
 class LoginPage extends GetView<LoginController> {
   LoginPage({super.key});
 
-  FocusNode blankNode = FocusNode();
-  FocusNode focusNode = FocusNode();
+  final FocusNode blankNode = FocusNode();
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LoginPage extends GetView<LoginController> {
             controller.cancel();
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),
@@ -40,15 +40,15 @@ class LoginPage extends GetView<LoginController> {
         child: Form(
           key: controller.formKey,
           child: ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 500,
             ),
             child: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 25),
+                  padding: const EdgeInsets.only(bottom: 25),
                   child: ClipOval(
                     child: Image.asset(
                       "assets/app_icon.png",
@@ -58,7 +58,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     cursorColor: Theme.of(context).primaryColor,
                     controller: controller.emailController,
@@ -75,9 +75,9 @@ class LoginPage extends GetView<LoginController> {
                       return L10n.of(context).message_please_type_email;
                     },
                     decoration: InputDecoration(
-                      prefixIcon: Icon(FontAwesomeIcons.solidEnvelope),
+                      prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
                       labelText: L10n.of(context).email,
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     onSaved: (input) => controller.email = input,
                     onEditingComplete: () {
@@ -86,7 +86,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Obx(
                     () => TextFormField(
                       controller: controller.passwordController,
@@ -103,7 +103,7 @@ class LoginPage extends GetView<LoginController> {
                         return null;
                       },
                       decoration: InputDecoration(
-                        prefixIcon: Icon(FontAwesomeIcons.lock),
+                        prefixIcon: const Icon(FontAwesomeIcons.lock),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             controller.togglePasswordVisibility();
@@ -114,7 +114,7 @@ class LoginPage extends GetView<LoginController> {
                                 : FontAwesomeIcons.solidEyeSlash,
                           ),
                         ),
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText: L10n.of(context).password,
                       ),
                       onSaved: (input) => controller.password = input,
@@ -123,13 +123,13 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
                       Expanded(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 15),
                             side: BorderSide(
                                 color: Theme.of(context).primaryColor),
@@ -140,15 +140,15 @@ class LoginPage extends GetView<LoginController> {
                           },
                           child: Text(
                             L10n.of(context).register,
-                            style: TextStyle(fontSize: 17.5),
+                            style: const TextStyle(fontSize: 17.5),
                           ),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15)),
                           onPressed: () {
                             FocusScope.of(context).requestFocus(blankNode);
@@ -156,7 +156,7 @@ class LoginPage extends GetView<LoginController> {
                           },
                           child: Text(
                             L10n.of(context).login,
-                            style: TextStyle(fontSize: 17.5),
+                            style: const TextStyle(fontSize: 17.5),
                           ),
                         ),
                       ),

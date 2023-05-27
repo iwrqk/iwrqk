@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:iwrqk/app/data/enums/result.dart';
 
 import '../../../../../data/models/forum/thread.dart';

@@ -57,7 +57,7 @@ class LockPage extends GetView<LockController> {
       child: Container(
         width: 75,
         height: 75,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: Colors.grey),
@@ -92,14 +92,14 @@ class LockPage extends GetView<LockController> {
             children: [
               Text(
                 L10n.of(context).authenticate_to_continue,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 50),
+                padding: const EdgeInsets.only(top: 10, bottom: 50),
                 child: _buildPasswordDots(context),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -110,7 +110,7 @@ class LockPage extends GetView<LockController> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -121,7 +121,7 @@ class LockPage extends GetView<LockController> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -132,7 +132,7 @@ class LockPage extends GetView<LockController> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -147,8 +147,8 @@ class LockPage extends GetView<LockController> {
                       child: Container(
                         width: 75,
                         height: 75,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(FontAwesomeIcons.deleteLeft),
@@ -162,7 +162,7 @@ class LockPage extends GetView<LockController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 25),
+                      padding: const EdgeInsets.only(top: 25),
                       child: CupertinoButton(
                         padding: EdgeInsets.zero,
                         borderRadius: BorderRadius.zero,

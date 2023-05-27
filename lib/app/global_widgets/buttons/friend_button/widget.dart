@@ -39,6 +39,7 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Obx(() {
       switch (_controller.relation) {
         case FriendRelationType.unknown:
@@ -51,7 +52,7 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
                       : () {
                           _controller.sendFriendRequest(context);
                         },
-                  child: FaIcon(
+                  child: const FaIcon(
                     FontAwesomeIcons.userGroup,
                   ))
               : ElevatedButton.icon(
@@ -61,7 +62,7 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
                       : () {
                           _controller.sendFriendRequest(context);
                         },
-                  icon: FaIcon(FontAwesomeIcons.userGroup),
+                  icon: const FaIcon(FontAwesomeIcons.userGroup),
                   label: Text(
                     L10n.of(context).friend_add,
                   ),
@@ -71,14 +72,14 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
               ? ElevatedButton(
                   style: widget.filledStyle,
                   onPressed: null,
-                  child: FaIcon(
+                  child: const FaIcon(
                     FontAwesomeIcons.solidClock,
                   ),
                 )
               : ElevatedButton.icon(
                   style: widget.filledStyle,
                   onPressed: null,
-                  icon: FaIcon(
+                  icon: const FaIcon(
                     FontAwesomeIcons.solidClock,
                   ),
                   label: Text(
@@ -105,7 +106,7 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
                       : () {
                           _controller.unfriend(context);
                         },
-                  child: FaIcon(FontAwesomeIcons.userSlash),
+                  child: const FaIcon(FontAwesomeIcons.userSlash),
                 )
               : OutlinedButton.icon(
                   style: widget.outlineStyle?.copyWith(
@@ -125,7 +126,7 @@ class _FriendButtonWidgetState extends State<FriendButtonWidget>
                       : () {
                           _controller.unfriend(context);
                         },
-                  icon: FaIcon(FontAwesomeIcons.check),
+                  icon: const FaIcon(FontAwesomeIcons.check),
                   label: Text(
                     L10n.of(context).friended,
                   ),

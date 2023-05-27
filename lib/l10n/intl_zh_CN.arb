@@ -108,6 +108,7 @@
     "user_playlists": "播放列表",
     "user_settings": "设置",
     "user_about": "关于",
+    "conversation": "对话",
     "time_seconds_ago": "{time} 秒前",
     "@time_seconds_ago": {
         "description": "A message with a parameter",

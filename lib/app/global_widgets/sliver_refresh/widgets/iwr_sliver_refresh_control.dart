@@ -41,16 +41,17 @@ class IwrSliverRefreshControl extends StatelessWidget {
           return Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    value: progress,
-                    valueColor:
-                        AlwaysStoppedAnimation(CupertinoColors.inactiveGray),
-                    strokeWidth: 2,
-                  )),
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  value: progress,
+                  valueColor: const AlwaysStoppedAnimation(
+                      CupertinoColors.inactiveGray),
+                  strokeWidth: 2,
+                ),
+              ),
             ),
           );
         } else if (refreshState == RefreshIndicatorMode.done) {

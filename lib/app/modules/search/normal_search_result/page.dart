@@ -63,21 +63,22 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
               onPressed: () {
                 Get.back();
               },
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.chevronLeft,
               ),
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(vertical: 5),
-                padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
                 decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 5),
                       child: FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
@@ -101,20 +102,20 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
                     ),
                     Obx(
                       () => Visibility(
+                        visible: controller.showSearchSuffix,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5),
                           child: GestureDetector(
                             onTap: () {
                               controller.clearSearchText();
                             },
-                            child: FaIcon(
+                            child: const FaIcon(
                               FontAwesomeIcons.solidCircleXmark,
                               color: Colors.grey,
                               size: 15,
                             ),
                           ),
                         ),
-                        visible: controller.showSearchSuffix,
                       ),
                     ),
                   ],
@@ -122,7 +123,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
               ),
             ),
             CupertinoButton(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               onPressed: () {
                 String keyword = controller.searchEditingController.text;
                 if (keyword.isEmpty) return;

@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/forum/post.dart';

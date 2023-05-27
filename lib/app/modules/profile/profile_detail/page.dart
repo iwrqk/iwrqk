@@ -27,7 +27,7 @@ class ProfileDetailPage extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),
@@ -42,12 +42,12 @@ class ProfileDetailPage extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).canvasColor,
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         shrinkWrap: false,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 50, bottom: 25),
+            margin: const EdgeInsets.only(top: 50, bottom: 25),
             alignment: Alignment.center,
             child: GestureDetector(
               onTap: () {
@@ -68,52 +68,52 @@ class ProfileDetailPage extends StatelessWidget {
           ),
           Text(
             L10n.of(context).profile_nickname,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
             child: SelectableText(
               profile.user!.name,
             ),
           ),
           Text(
             L10n.of(context).profile_username,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
             child: SelectableText(
               "@${profile.user!.username}",
             ),
           ),
           Text(
             L10n.of(context).profile_user_id,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
             child: SelectableText(
               profile.user!.id,
             ),
           ),
           Text(
             L10n.of(context).profile_join_date,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
             child: Text(
               DisplayUtil.getDetailedTime(
                 DateTime.parse(profile.user!.createdAt),
@@ -123,14 +123,14 @@ class ProfileDetailPage extends StatelessWidget {
           if (profile.user!.seenAt != null)
             Text(
               L10n.of(context).profile_last_active_time,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
           if (profile.user!.seenAt != null)
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 0, 15),
+              padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
               child: Text(
                 DisplayUtil.getDetailedTime(
                   DateTime.parse(profile.user!.seenAt!),
@@ -139,13 +139,13 @@ class ProfileDetailPage extends StatelessWidget {
             ),
           Text(
             L10n.of(context).profile_description,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 50),
+            padding: const EdgeInsets.fromLTRB(10, 10, 0, 50),
             child: IwrMarkdown(
               selectable: true,
               data: profile.body.isEmpty
@@ -175,7 +175,7 @@ class FullScreenAvatar extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
             color: Colors.white,
           ),
@@ -183,7 +183,7 @@ class FullScreenAvatar extends StatelessWidget {
       ),
       body: PhotoView(
         imageProvider: CachedNetworkImageProvider(avatarUrl),
-        loadingBuilder: (context, event) => Center(
+        loadingBuilder: (context, event) => const Center(
           child: IwrProgressIndicator(),
         ),
       ),

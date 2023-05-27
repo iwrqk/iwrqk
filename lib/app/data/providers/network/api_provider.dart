@@ -1,4 +1,3 @@
-import 'package:iwrqk/app/core/const/iwara.dart';
 
 import '../../../core/utils/log_util.dart';
 import '../../enums/result.dart';
@@ -845,7 +844,7 @@ class ApiProvider {
   }) async {
     String? message;
 
-    await networkProvider.post("/playlist", data: {
+    await networkProvider.post("/playlists", data: {
       "title": title,
     }).then((value) {
       message = value.data["message"];

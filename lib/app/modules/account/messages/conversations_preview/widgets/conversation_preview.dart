@@ -21,7 +21,7 @@ class ConversationPreview extends StatelessWidget {
       color: conversation.unread
           ? Theme.of(context).canvasColor
           : Theme.of(context).cardColor,
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: ClipOval(
@@ -37,7 +37,7 @@ class ConversationPreview extends StatelessWidget {
               child: Text(
                 user.name,
                 maxLines: 1,
-                style: TextStyle(
+                style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -45,7 +45,7 @@ class ConversationPreview extends StatelessWidget {
             Text(
               ' (${conversation.title})',
               maxLines: 1,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -57,7 +57,7 @@ class ConversationPreview extends StatelessWidget {
           children: [
             Text(
               conversation.lastMessage.body,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15,
                 color: Colors.grey,
                 overflow: TextOverflow.ellipsis,
@@ -67,7 +67,7 @@ class ConversationPreview extends StatelessWidget {
             Text(
               DisplayUtil.getDisplayTime(
                   DateTime.parse(conversation.updatedAt)),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
               ),

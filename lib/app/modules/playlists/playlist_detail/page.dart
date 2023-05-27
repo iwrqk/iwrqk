@@ -19,7 +19,7 @@ class PlaylistDetailPage extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),

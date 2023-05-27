@@ -18,7 +18,7 @@ class ChannelPage extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),
@@ -35,7 +35,7 @@ class ChannelPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         onPressed: () {},
-        child: FaIcon(
+        child: const FaIcon(
           FontAwesomeIcons.plus,
         ),
       ),

@@ -82,8 +82,8 @@ class _ReloadableImageState extends State<ReloadableImage> {
           progressIndicatorBuilder: (context, url, progress) {
             return Center(
                 child: Container(
-              margin: EdgeInsets.all(5),
-              child: IwrProgressIndicator(),
+              margin: const EdgeInsets.all(5),
+              child: const IwrProgressIndicator(),
             ));
           },
           errorWidget: (_, __, ___) {
@@ -115,8 +115,8 @@ class _ReloadableImageState extends State<ReloadableImage> {
         progressIndicatorBuilder: (context, url, progress) {
           return Center(
               child: Container(
-            margin: EdgeInsets.all(5),
-            child: IwrProgressIndicator(),
+            margin: const EdgeInsets.all(5),
+            child: const IwrProgressIndicator(),
           ));
         },
         errorWidget: (_, __, ___) {

@@ -9,9 +9,6 @@ import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
-import '../../data/models/offline/history_meida.dart';
-import '../../data/models/offline/offline_meida.dart';
-import '../../data/providers/storage_provider.dart';
 import '../../routes/pages.dart';
 import '../reloadable_image.dart';
 
@@ -31,7 +28,7 @@ class MediaPreview extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.5),
             color: Colors.black.withAlpha(175),
@@ -39,16 +36,16 @@ class MediaPreview extends StatelessWidget {
           height: 25,
           child: Row(
             children: [
-              FaIcon(
+              const FaIcon(
                 FontAwesomeIcons.solidEye,
                 size: 12.5,
                 color: Colors.white,
               ),
               Container(
-                margin: EdgeInsets.only(left: 2),
+                margin: const EdgeInsets.only(left: 2),
                 child: Text(
                   DisplayUtil.compactBigNumber(media.numViews),
-                  style: TextStyle(fontSize: 12.5, color: Colors.white),
+                  style: const TextStyle(fontSize: 12.5, color: Colors.white),
                 ),
               )
             ],
@@ -56,13 +53,13 @@ class MediaPreview extends StatelessWidget {
         ),
         if (media.rating == RatingType.ecchi.value)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.red.withAlpha(175),
             ),
             height: 25,
-            child: Center(
+            child: const Center(
                 child: Text(
               "R-18",
               style: TextStyle(fontSize: 12.5, color: Colors.white),
@@ -87,7 +84,7 @@ class MediaPreview extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+          padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.5),
             color: Colors.black.withAlpha(175),
@@ -95,23 +92,23 @@ class MediaPreview extends StatelessWidget {
           height: 25,
           child: Row(
             children: [
-              FaIcon(
+              const FaIcon(
                 FontAwesomeIcons.solidHeart,
                 size: 12.5,
                 color: Colors.white,
               ),
               Container(
-                  margin: EdgeInsets.only(left: 2),
+                  margin: const EdgeInsets.only(left: 2),
                   child: Text(
                     DisplayUtil.compactBigNumber(media.numLikes),
-                    style: TextStyle(fontSize: 12.5, color: Colors.white),
+                    style: const TextStyle(fontSize: 12.5, color: Colors.white),
                   ))
             ],
           ),
         ),
         if (duration != null)
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.5),
               color: Colors.black.withAlpha(175),
@@ -119,16 +116,16 @@ class MediaPreview extends StatelessWidget {
             height: 25,
             child: Row(
               children: [
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.play,
                   size: 12.5,
                   color: Colors.white,
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 2),
+                    margin: const EdgeInsets.only(left: 2),
                     child: Text(
                       "${duration.inMinutes}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                      style: TextStyle(fontSize: 12.5, color: Colors.white),
+                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
                     ))
               ],
             ),
@@ -136,7 +133,7 @@ class MediaPreview extends StatelessWidget {
         if (galleryLength != null)
           if (galleryLength > 1)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -144,16 +141,16 @@ class MediaPreview extends StatelessWidget {
               height: 25,
               child: Row(
                 children: [
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.solidImages,
                     size: 12.5,
                     color: Colors.white,
                   ),
                   Container(
-                      margin: EdgeInsets.only(left: 2),
+                      margin: const EdgeInsets.only(left: 2),
                       child: Text(
                         "$galleryLength",
-                        style: TextStyle(fontSize: 12.5, color: Colors.white),
+                        style: const TextStyle(fontSize: 12.5, color: Colors.white),
                       ))
                 ],
               ),
@@ -168,7 +165,7 @@ class MediaPreview extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(7.5)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(7.5)),
             child: Container(
               color: Colors.black,
               alignment: Alignment.center,
@@ -179,7 +176,7 @@ class MediaPreview extends StatelessWidget {
                       fit: BoxFit.cover,
                       isAdult: media.rating == RatingType.ecchi.value,
                     )
-                  : AspectRatio(aspectRatio: 16 / 9),
+                  : const AspectRatio(aspectRatio: 16 / 9),
             ),
           ),
           Positioned(
@@ -194,11 +191,11 @@ class MediaPreview extends StatelessWidget {
               Container(
                 color: Colors.black.withAlpha(175),
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: AutoSizeText(
                   L10n.of(context).meida_private,
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -213,11 +210,11 @@ class MediaPreview extends StatelessWidget {
           children: [
             Flexible(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
                 child: AutoSizeText(
                   media.title,
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12.5,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -225,7 +222,7 @@ class MediaPreview extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(7.5, 0, 7.5, 5),
+              padding: const EdgeInsets.fromLTRB(7.5, 0, 7.5, 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -240,18 +237,18 @@ class MediaPreview extends StatelessWidget {
                         );
                       },
                       child: Row(children: [
-                        FaIcon(
+                        const FaIcon(
                           FontAwesomeIcons.solidUser,
                           size: 12.5,
                           color: Colors.grey,
                         ),
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.only(left: 2, right: 2),
+                            padding: const EdgeInsets.only(left: 2, right: 2),
                             child: Text(
                               media.user.name,
                               maxLines: 1,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 10,
                                 color: Colors.grey,
                                 overflow: TextOverflow.ellipsis,
@@ -264,7 +261,7 @@ class MediaPreview extends StatelessWidget {
                   ),
                   Text(
                     DisplayUtil.getDisplayDate(DateTime.parse(media.createdAt)),
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
                   )
                 ],
               ),
@@ -280,11 +277,11 @@ class MediaPreview extends StatelessWidget {
     return GestureDetector(
       child: Card(
         color: Theme.of(context).canvasColor,
-        child: Column(
-          children: _buildFullVerison(context),
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(7.5),
+        ),
+        child: Column(
+          children: _buildFullVerison(context),
         ),
       ),
       onTap: () {

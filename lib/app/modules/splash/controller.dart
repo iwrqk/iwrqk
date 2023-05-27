@@ -21,7 +21,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     super.onInit();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2))
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..repeat();
     animation = Tween<double>(begin: 0, end: 2)
         .chain(

@@ -22,18 +22,21 @@ class CreatePlaylistDialog extends GetWidget<CreatePlaylistDialogController> {
       ),
       title: Text(
         L10n.of(context).playlist_create,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: TextField(
         cursorColor: Theme.of(context).primaryColor,
         controller: controller.titleEditingController,
         decoration: InputDecoration(
+          focusedBorder: const UnderlineInputBorder(),
+          enabledBorder: const UnderlineInputBorder(),
           hintText: L10n.of(context).playlist_title,
+          border: const UnderlineInputBorder(),
         ),
       ),
-      contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+      contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
       actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: EdgeInsets.fromLTRB(15, 10, 15, 5),
+      actionsPadding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
       actions: [
         Obx(
           () => CupertinoButton(

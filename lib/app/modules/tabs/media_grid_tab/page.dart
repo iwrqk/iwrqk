@@ -19,7 +19,7 @@ class MediaGridTabPage extends StatefulWidget {
   final MediaSourceType? sourceType;
   final List<MediaSourceType>? customSourceTypeList;
 
-  MediaGridTabPage({
+  const MediaGridTabPage({
     Key? key,
     this.showFilter = true,
     required this.tag,
@@ -92,6 +92,7 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Column(
         children: [

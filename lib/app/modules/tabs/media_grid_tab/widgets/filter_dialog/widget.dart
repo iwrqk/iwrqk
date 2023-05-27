@@ -34,30 +34,30 @@ class FilterDialog extends GetWidget<FilterDialogController> {
 
   Widget _buildRatingTypeButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: PopupMenuButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Theme.of(context).cardColor),
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Obx(
                 () => Text(
-                  controller.selectedRatingType != ""
+                  controller.selectedRatingType.value != ""
                       ? _getRatingLocalName(
                           context, controller.selectedRatingType)
                       : L10n.of(context).filter_select_rating,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
               ),
-              SizedBox(width: 10),
-              FaIcon(
+              const SizedBox(width: 10),
+              const FaIcon(
                 FontAwesomeIcons.chevronDown,
                 size: 20,
                 color: Colors.grey,
@@ -70,21 +70,21 @@ class FilterDialog extends GetWidget<FilterDialogController> {
             value: RatingType.all,
             child: Text(
               _getRatingLocalName(context, RatingType.all),
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           ),
           PopupMenuItem<RatingType>(
             value: RatingType.general,
             child: Text(
               _getRatingLocalName(context, RatingType.general),
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           ),
           PopupMenuItem<RatingType>(
             value: RatingType.ecchi,
             child: Text(
               _getRatingLocalName(context, RatingType.ecchi),
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           ),
         ],
@@ -97,14 +97,14 @@ class FilterDialog extends GetWidget<FilterDialogController> {
 
   Widget _buildYearButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: PopupMenuButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Theme.of(context).cardColor),
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -113,13 +113,13 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                   controller.selectedYear != 0
                       ? controller.selectedYear.toString()
                       : L10n.of(context).filter_select_year,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
               ),
-              SizedBox(width: 10),
-              FaIcon(
+              const SizedBox(width: 10),
+              const FaIcon(
                 FontAwesomeIcons.chevronDown,
                 size: 20,
                 color: Colors.grey,
@@ -135,7 +135,7 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                 value: 0,
                 child: Text(
                   L10n.of(context).filter_select_year,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               );
             }
@@ -144,7 +144,7 @@ class FilterDialog extends GetWidget<FilterDialogController> {
               value: year,
               child: Text(
                 year.toString(),
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
               ),
             );
           },
@@ -158,14 +158,14 @@ class FilterDialog extends GetWidget<FilterDialogController> {
 
   Widget _buildMonthButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+      padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
       child: PopupMenuButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Theme.of(context).cardColor),
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -175,13 +175,13 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                       ? DateFormat('MMM', L10n.of(context).localeName)
                           .format(DateTime(2000, controller.selectedMonth))
                       : L10n.of(context).filter_select_month,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
               ),
-              SizedBox(width: 10),
-              FaIcon(
+              const SizedBox(width: 10),
+              const FaIcon(
                 FontAwesomeIcons.chevronDown,
                 size: 20,
                 color: Colors.grey,
@@ -199,7 +199,7 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                 value: 0,
                 child: Text(
                   L10n.of(context).filter_select_month,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               );
             }
@@ -208,7 +208,7 @@ class FilterDialog extends GetWidget<FilterDialogController> {
               child: Text(
                 DateFormat('MMM', L10n.of(context).localeName)
                     .format(DateTime(2000, index)),
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
               ),
             );
           },
@@ -262,12 +262,12 @@ class FilterDialog extends GetWidget<FilterDialogController> {
       backgroundColor: Theme.of(context).canvasColor,
       title: Text(
         L10n.of(context).filter,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: _buildContent(context),
-      contentPadding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+      contentPadding: const EdgeInsets.fromLTRB(25, 15, 25, 0),
       actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 10),
+      actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
       actions: [
         CupertinoButton(
           onPressed: () {

@@ -27,11 +27,11 @@ class PlaylistPreview extends StatelessWidget {
       },
       child: Container(
         color: Theme.of(context).canvasColor,
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 2.5, 0, 2.5),
+              padding: const EdgeInsets.fromLTRB(10, 2.5, 0, 2.5),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: AspectRatio(
@@ -39,7 +39,7 @@ class PlaylistPreview extends StatelessWidget {
                   child: Container(
                     color: Colors.black,
                     alignment: Alignment.center,
-                    child: ReloadableImage(
+                    child: const ReloadableImage(
                       imageUrl: IwaraConst.defaultCoverUrl,
                       aspectRatio: 16 / 9,
                       fit: BoxFit.cover,
@@ -50,7 +50,8 @@ class PlaylistPreview extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +63,7 @@ class PlaylistPreview extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17.5,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -74,7 +75,7 @@ class PlaylistPreview extends StatelessWidget {
                                     .playlist_videos_count("$videosCount")
                                 : L10n.of(context).playlist_videos_count_plural(
                                     "$videosCount"),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12.5,
                               color: Colors.grey,
                               overflow: TextOverflow.ellipsis,
@@ -84,7 +85,7 @@ class PlaylistPreview extends StatelessWidget {
                         ],
                       ),
                     ),
-                    FaIcon(
+                    const FaIcon(
                       FontAwesomeIcons.chevronRight,
                       size: 25,
                       color: Colors.grey,

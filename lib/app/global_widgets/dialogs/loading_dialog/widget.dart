@@ -34,12 +34,12 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
         ),
         title: Text(
           L10n.of(context).success,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         content: Text(successMessage ?? "Success"),
-        contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+        contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
         actionsAlignment: MainAxisAlignment.end,
-        actionsPadding: EdgeInsets.fromLTRB(15, 10, 15, 5),
+        actionsPadding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
         actions: [
           CupertinoButton(
             onPressed: () {
@@ -73,12 +73,12 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
                 Container(
                   width: 50,
                   height: 50,
-                  margin: EdgeInsets.only(top: 5, bottom: 15),
-                  child: IwrProgressIndicator(),
+                  margin: const EdgeInsets.only(top: 5, bottom: 15),
+                  child: const IwrProgressIndicator(),
                 ),
                 Text(
                   L10n.of(context).loading,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                   ),
                 ),
@@ -94,12 +94,12 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
         ),
         title: Text(
           L10n.of(context).error,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         content: Text(errorMessage ?? error ?? "Unknow error"),
-        contentPadding: EdgeInsets.fromLTRB(30, 15, 30, 0),
+        contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
         actionsAlignment: MainAxisAlignment.end,
-        actionsPadding: EdgeInsets.fromLTRB(15, 0, 15, 10),
+        actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
         actions: [
           CupertinoButton(
             onPressed: () {

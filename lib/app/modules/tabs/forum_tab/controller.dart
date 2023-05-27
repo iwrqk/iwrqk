@@ -60,14 +60,14 @@ class ForumTabController extends GetxController with StateMixin {
   void scrollToTop() {
     if (scrollController.hasClients) {
       scrollController.animateTo(0,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
   void scrollToTopRefresh() {
     if (scrollController.hasClients) {
       scrollController.animateTo(-100,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 }

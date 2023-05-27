@@ -43,13 +43,13 @@ class _PostListState extends State<PostList> {
 
   Widget _buildStarterBadge(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 5),
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+      margin: const EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Text(
+      child: const Text(
         "OP",
         style: TextStyle(color: Colors.white, fontSize: 12.5),
       ),
@@ -67,7 +67,7 @@ class _PostListState extends State<PostList> {
           ),
         ),
       ),
-      padding: EdgeInsets.fromLTRB(20, 15, 15, 15),
+      padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,7 +93,7 @@ class _PostListState extends State<PostList> {
                 children: [
                   Text(
                     post.user.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   if (widget.starterUserName == post.user.username)
                     _buildStarterBadge(context)
@@ -101,7 +101,7 @@ class _PostListState extends State<PostList> {
               ),
               subtitle: Text(
                 DisplayUtil.getDisplayTime(DateTime.parse(post.createAt)),
-                style: TextStyle(color: Colors.grey, fontSize: 12.5),
+                style: const TextStyle(color: Colors.grey, fontSize: 12.5),
               ),
             ),
           ),
@@ -111,7 +111,7 @@ class _PostListState extends State<PostList> {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           IwrMarkdown(
-            padding: EdgeInsets.fromLTRB(5, 10, 0, 10),
+            padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
             selectable: true,
             data: post.body,
           ),

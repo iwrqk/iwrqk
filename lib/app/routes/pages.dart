@@ -46,12 +46,12 @@ abstract class AppPages {
   static final pages = [
     GetPage(
       name: AppRoutes.root,
-      page: () => SplashPage(),
+      page: () => const SplashPage(),
       binding: SplashBinding(),
     ),
     GetPage(
       name: AppRoutes.home,
-      page: () => HomePage(),
+      page: () => const HomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -66,25 +66,25 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.profile,
-      page: () => ProfilePage(),
+      page: () => const ProfilePage(),
       binding: ProfileBinding(),
       preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.mediaDetail,
-      page: () => MediaDetailPage(),
+      page: () => const MediaDetailPage(),
       binding: MediaDetailBinding(),
       preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.commentDetail,
-      page: () => CommentDetailPage(),
+      page: () => const CommentDetailPage(),
       binding: CommentDetailBinding(),
       preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.playlistsPreview,
-      page: () => PlaylistsPreviewPage(),
+      page: () => const PlaylistsPreviewPage(),
       binding: PlaylistsPreviewBinding(),
       preventDuplicates: false,
     ),
@@ -96,13 +96,13 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.conversationsPreview,
-      page: () => ConversationsPreviewPage(),
+      page: () => const ConversationsPreviewPage(),
       binding: ConversationsPreviewBinding(),
       preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.normalSearch,
-      page: () => NormalSearchPage(),
+      page: () => const NormalSearchPage(),
       binding: NormalSearchBinding(),
       preventDuplicates: false,
     ),
@@ -114,17 +114,17 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.history,
-      page: () => HistoryPage(),
+      page: () => const HistoryPage(),
       binding: HistoryBinding(),
     ),
     GetPage(
       name: AppRoutes.downloads,
-      page: () => DownloadsPage(),
+      page: () => const DownloadsPage(),
       binding: DownloadsBinding(),
     ),
     GetPage(
       name: AppRoutes.favorites,
-      page: () => FavoritesPage(),
+      page: () => const FavoritesPage(),
       binding: FavoritesBinding(),
     ),
     GetPage(
@@ -134,13 +134,13 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.lock,
-      page: () => LockPage(),
+      page: () => const LockPage(),
       binding: LockBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
       name: AppRoutes.setPassword,
-      page: () => SetPasswordPage(),
+      page: () => const SetPasswordPage(),
       binding: SetPasswordBinding(),
     ),
     GetPage(

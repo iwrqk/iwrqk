@@ -19,7 +19,7 @@ class ConversationsPreviewPage extends GetView<ConversationsPreviewController> {
           onPressed: () {
             Get.back();
           },
-          icon: FaIcon(
+          icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
           ),
         ),
@@ -30,11 +30,11 @@ class ConversationsPreviewPage extends GetView<ConversationsPreviewController> {
           ),
         ),
         centerTitle: true,
-        title: Text(L10n.of(context).user_playlists),
+        title: Text(L10n.of(context).conversation),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.plus,
             ),
           ),

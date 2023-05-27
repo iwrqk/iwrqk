@@ -108,6 +108,7 @@
     "user_playlists": "プレイリスト",
     "user_settings": "設定",
     "user_about": "アバウト",
+    "conversation": "会話",
     "time_seconds_ago": "{time} 秒前",
     "@time_seconds_ago": {
         "description": "A message with a parameter",

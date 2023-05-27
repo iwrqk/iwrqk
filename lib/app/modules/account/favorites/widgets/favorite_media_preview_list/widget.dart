@@ -64,10 +64,10 @@ class _FavoriteMediaPreviewListState extends State<FavoriteMediaPreviewList>
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(right: 20),
                       child: Text(
                         L10n.of(context).delete,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

@@ -31,7 +31,7 @@ class _IwrProgressIndicatorState extends State<IwrProgressIndicator>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     )..repeat();
     _animation = Tween(begin: -1.0, end: 1.0).animate(_animationController);
   }
@@ -48,7 +48,7 @@ class _IwrProgressIndicatorState extends State<IwrProgressIndicator>
       animation: _animation,
       builder: (context, child) {
         return Container(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 72,
               maxHeight: 72,
             ),
