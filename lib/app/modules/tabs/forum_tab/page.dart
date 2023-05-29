@@ -254,7 +254,9 @@ class ForumTabPage extends GetView<ForumTabController> {
     return controller.obx(
       (state) {
         return Scaffold(
-          body: _buildDataWidget(context),
+          body: SafeArea(
+            child: _buildDataWidget(context),
+          ),
         );
       },
       onError: (error) {

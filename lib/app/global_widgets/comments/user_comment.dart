@@ -133,7 +133,6 @@ class _UserCommentState extends State<UserComment>
                   value: "translate",
                   child: Text(
                     L10n.of(context).translate,
-                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
               ];
@@ -145,7 +144,7 @@ class _UserCommentState extends State<UserComment>
             },
             child: FaIcon(
               FontAwesomeIcons.ellipsis,
-              size: 12.5,
+              size: 15,
               color: Theme.of(context).primaryColor,
             ),
           )

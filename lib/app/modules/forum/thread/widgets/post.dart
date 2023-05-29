@@ -137,7 +137,6 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                   value: "translate",
                   child: Text(
                     L10n.of(context).translate,
-                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
               ];
@@ -149,7 +148,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
             },
             child: FaIcon(
               FontAwesomeIcons.ellipsis,
-              size: 12.5,
+              size: 15,
               color: Theme.of(context).primaryColor,
             ),
           )

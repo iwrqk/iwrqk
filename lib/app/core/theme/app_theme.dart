@@ -48,6 +48,14 @@ abstract class AppTheme {
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
+      popupMenuTheme: const PopupMenuThemeData().copyWith(
+        color: CupertinoColors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        textStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15,
+        ),
+      ),
       scaffoldBackgroundColor: CupertinoColors.systemGroupedBackground,
       indicatorColor: Colors.grey,
       cardColor: CupertinoColors.systemGroupedBackground,
@@ -106,6 +114,14 @@ abstract class AppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
           splashFactory: NoSplash.splashFactory,
+        ),
+      ),
+      popupMenuTheme: const PopupMenuThemeData().copyWith(
+        color: const Color.fromARGB(255, 36, 39, 46),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        textStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15,
         ),
       ),
       scaffoldBackgroundColor: const Color.fromARGB(255, 31, 34, 40),

@@ -150,11 +150,7 @@ class HomePage extends GetView<HomeController> {
             ),
           ),
           tabBuilder: (context, index) => CupertinoTabView(
-            builder: (BuildContext context) => SafeArea(
-              top: false,
-              bottom: false,
-              child: controller.pageList[index],
-            ),
+            builder: (BuildContext context) => controller.pageList[index],
           ),
         ),
       ),

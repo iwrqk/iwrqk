@@ -39,7 +39,7 @@ class TranslatedContent extends StatelessWidget {
                 AutoSizeText.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: "Powered by ",
                         style: TextStyle(
                           color: Colors.grey,

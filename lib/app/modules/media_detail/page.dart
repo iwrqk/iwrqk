@@ -152,7 +152,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
     );
 
     return Obx(() {
-      if (_controller.isFectchingResolution) {
+      if (_controller.isFectchingResolution || _controller.fetchFailed) {
         child = Container(
           color: Colors.black,
           child: Stack(
@@ -303,24 +303,25 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
   }
 
   Widget _buildMediaDetail() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
+    return Card(
+      color: Theme.of(context).canvasColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildUploaderWidget(),
+            _buildMediaTitle(),
+            _buildLikesAndViews(),
+            _buildDescription(),
+            _buildFunctionButtons()
+          ],
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _buildUploaderWidget(),
-        _buildMediaTitle(),
-        _buildLikesAndViews(),
-        _buildDescription(),
-        _buildFunctionButtons()
-      ]),
     );
   }
 
@@ -477,28 +478,6 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     translatedContent: _controller.translatedContent,
                   ),
-                if ((_controller.media.body ?? "").isNotEmpty)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          _controller.getTranslatedContent();
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.language,
-                          size: 15,
-                        ),
-                        label: Text(
-                          L10n.of(context).translate,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 if (_controller.media.tags.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
@@ -536,11 +515,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ButtonBar(
-        alignment: MainAxisAlignment.spaceBetween,
+        buttonPadding: EdgeInsets.zero,
+        alignment: MainAxisAlignment.spaceEvenly,
         children: [
           Obx(
-            () => InkWell(
-              onTap: _controller.isProcessingFavorite
+            () => IconButton(
+              onPressed: _controller.isProcessingFavorite
                   ? null
                   : () {
                       if (_controller.isFavorite) {
@@ -549,20 +529,20 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                         _controller.favroiteMedia();
                       }
                     },
-              child: FaIcon(
+              icon: FaIcon(
                 FontAwesomeIcons.solidHeart,
-                size: 30,
+                size: 22.5,
                 color: _controller.isFavorite ? Colors.redAccent : null,
               ),
             ),
           ),
           if (_controller.mediaType == MediaType.video)
-            InkWell(
-              child: const FaIcon(
+            IconButton(
+              icon: const FaIcon(
                 FontAwesomeIcons.list,
-                size: 35,
+                size: 22.5,
               ),
-              onTap: () {
+              onPressed: () {
                 Get.bottomSheet(
                   AddToPlaylistBottomSheet(
                     videoId: _controller.media.id,
@@ -570,26 +550,12 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 );
               },
             ),
-          InkWell(
-              child: const FaIcon(
-                FontAwesomeIcons.solidShareFromSquare,
-                size: 30,
-              ),
-              onTap: () {
-                if (_controller.mediaType == MediaType.video) {
-                  Share.share(IwaraConst.videoPageUrl
-                      .replaceAll("{id}", _controller.media.id));
-                } else {
-                  Share.share(IwaraConst.imagePageUrl
-                      .replaceAll("{id}", _controller.media.id));
-                }
-              }),
-          InkWell(
-            child: const FaIcon(
+          IconButton(
+            icon: const FaIcon(
               FontAwesomeIcons.download,
-              size: 30,
+              size: 22.5,
             ),
-            onTap: () {
+            onPressed: () {
               if (_controller.mediaType == MediaType.video) {
                 if (_controller.resolutions.isEmpty) {
                   showToast(L10n.of(context).error_fetch_failed);
@@ -604,6 +570,32 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               }
             },
           ),
+          IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.language,
+              size: 22.5,
+            ),
+            onPressed: () {
+              if ((_controller.media.body ?? "").isNotEmpty) {
+                _controller.getTranslatedContent();
+              }
+            },
+          ),
+          IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.solidShareFromSquare,
+              size: 22.5,
+            ),
+            onPressed: () {
+              if (_controller.mediaType == MediaType.video) {
+                Share.share(IwaraConst.videoPageUrl
+                    .replaceAll("{id}", _controller.media.id));
+              } else {
+                Share.share(IwaraConst.imagePageUrl
+                    .replaceAll("{id}", _controller.media.id));
+              }
+            },
+          ),
         ],
       ),
     );
@@ -613,8 +605,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
     return [
       if (_controller.moreFromUser.isNotEmpty)
         Container(
-          color: Theme.of(context).canvasColor,
-          padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
+          padding: const EdgeInsets.fromLTRB(20, 10, 10, 5),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
             L10n.of(context).meida_page_more_from_uploader,
@@ -639,8 +630,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         ),
       if (_controller.moreLikeThis.isNotEmpty)
         Container(
-          color: Theme.of(context).canvasColor,
-          padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
+          padding: const EdgeInsets.fromLTRB(20, 10, 10, 5),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
             L10n.of(context).meida_page_more_like_this,
@@ -671,12 +661,14 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
       List<Widget> children = [_buildMediaDetail()];
 
       if (_controller.isFectchingRecommendation) {
-        children.add(const Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 50),
-            child: IwrProgressIndicator(),
+        children.add(
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 50),
+              child: IwrProgressIndicator(),
+            ),
           ),
-        ));
+        );
       } else {
         if (_controller.errorMessageRecommendation != "") {
           children.add(
@@ -745,15 +737,19 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
     return Column(
       children: [
         Expanded(
-          child: CupertinoScrollbar(
-            controller: _commentsController,
-            child: CommentsList(
-              uploaderUserName: _controller.media.user.username,
-              sourceId: _controller.media.id,
-              scrollController: _commentsController,
-              sourceType: _controller.mediaType == MediaType.video
-                  ? CommentsSourceType.video
-                  : CommentsSourceType.image,
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: CupertinoScrollbar(
+              controller: _commentsController,
+              child: CommentsList(
+                uploaderUserName: _controller.media.user.username,
+                sourceId: _controller.media.id,
+                scrollController: _commentsController,
+                sourceType: _controller.mediaType == MediaType.video
+                    ? CommentsSourceType.video
+                    : CommentsSourceType.image,
+              ),
             ),
           ),
         ),
@@ -777,8 +773,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               ),
             ),
             child: Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom),
+              margin: MediaQuery.of(context).padding.copyWith(top: 0),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -842,11 +837,16 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
           child: Column(children: [
             _buildTabBar(),
             Expanded(
-              child: TabBarView(
-                children: [
-                  _buildDetailTab(),
-                  _buildCommentsTab(),
-                ],
+              child: SafeArea(
+                top: false,
+                left: false,
+                bottom: false,
+                child: TabBarView(
+                  children: [
+                    _buildDetailTab(),
+                    _buildCommentsTab(),
+                  ],
+                ),
               ),
             ),
           ]),
@@ -874,7 +874,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                 children: [
                   Expanded(child: mediaWidget!),
                   SizedBox(
-                    width: 300,
+                    width: 300 + MediaQuery.of(context).padding.right,
                     child: detailWidget,
                   )
                 ],
@@ -886,6 +886,7 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         return Scaffold(
           body: SafeArea(
             bottom: false,
+            right: false,
             child: body,
           ),
         );

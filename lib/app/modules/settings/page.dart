@@ -24,38 +24,36 @@ class SettingsPage extends GetView<SettingsController> {
           ),
         ),
         PopupMenuButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Theme.of(context).cardColor),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Row(
-                children: [
-                  Obx(
-                    () => Text(
-                      _controller.getCurrentLanguageName(),
-                      style: const TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Theme.of(context).cardColor),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            child: Row(
+              children: [
+                Obx(
+                  () => Text(
+                    _controller.getCurrentLanguageName(),
+                    style: const TextStyle(fontSize: 15, color: Colors.grey),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const FaIcon(
-                    FontAwesomeIcons.chevronDown,
-                    size: 15,
-                    color: Colors.grey,
-                  )
-                ],
-              )),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.chevronDown,
+                  size: 15,
+                  color: Colors.grey,
+                )
+              ],
+            ),
+          ),
           itemBuilder: (context) {
             return L10n.languageMap.keys
                 .map((e) => PopupMenuItem(
                       value: e,
                       child: Text(
                         L10n.languageMap[e]!,
-                        style: const TextStyle(color: Colors.grey),
                       ),
                     ))
                 .toList();
@@ -110,21 +108,18 @@ class SettingsPage extends GetView<SettingsController> {
                 value: ThemeMode.system,
                 child: Text(
                   L10n.of(context).theme_system,
-                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
               PopupMenuItem(
                 value: ThemeMode.light,
                 child: Text(
                   L10n.of(context).theme_light_mode,
-                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
               PopupMenuItem(
                 value: ThemeMode.dark,
                 child: Text(
                   L10n.of(context).theme_dark_mode,
-                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ];

@@ -134,7 +134,8 @@ class MediaFlatPreview extends StatelessWidget {
         if (galleryLength != null)
           if (galleryLength > 1)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -151,7 +152,8 @@ class MediaFlatPreview extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 2),
                       child: Text(
                         "$galleryLength",
-                        style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 12.5, color: Colors.white),
                       ))
                 ],
               ),
@@ -162,57 +164,53 @@ class MediaFlatPreview extends StatelessWidget {
 
   List<Widget> _buildFullVerison(BuildContext context) {
     return [
-      Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              child: Container(
-                color: Colors.black,
-                alignment: Alignment.center,
-                child: media.hasCover()
-                    ? ReloadableImage(
-                        imageUrl: media.getCoverUrl(),
-                        aspectRatio: 16 / 9,
-                        fit: BoxFit.cover,
-                        isAdult: media.rating == RatingType.ecchi.value,
-                      )
-                    : const AspectRatio(aspectRatio: 16 / 9),
-              ),
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(7.5),
             ),
-            Positioned(
-                left: 5,
-                top: 5,
-                bottom: 5,
-                child: _buildViewsAndRating(context)),
-            Positioned(
-                right: 5,
-                top: 5,
-                bottom: 5,
-                child: _buildLikesAndGallery(context)),
-            if (media is VideoModel)
-              if ((media as VideoModel).private)
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  child: Container(
-                    color: Colors.black.withAlpha(175),
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: AutoSizeText(
-                      L10n.of(context).meida_private,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      maxLines: 1,
+            child: Container(
+              color: Colors.black,
+              alignment: Alignment.center,
+              child: media.hasCover()
+                  ? ReloadableImage(
+                      imageUrl: media.getCoverUrl(),
+                      aspectRatio: 16 / 9,
+                      fit: BoxFit.cover,
+                      isAdult: media.rating == RatingType.ecchi.value,
+                    )
+                  : const AspectRatio(aspectRatio: 16 / 9),
+            ),
+          ),
+          Positioned(
+              left: 5, top: 5, bottom: 5, child: _buildViewsAndRating(context)),
+          Positioned(
+              right: 5,
+              top: 5,
+              bottom: 5,
+              child: _buildLikesAndGallery(context)),
+          if (media is VideoModel)
+            if ((media as VideoModel).private)
+              Positioned(
+                right: 0,
+                left: 0,
+                child: Container(
+                  color: Colors.black.withAlpha(175),
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: AutoSizeText(
+                    L10n.of(context).meida_private,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
+                    maxLines: 1,
                   ),
                 ),
-          ],
-        ),
+              ),
+        ],
       ),
       Expanded(
         child: Padding(
@@ -259,7 +257,8 @@ class MediaFlatPreview extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: Container(
-                                    margin: const EdgeInsets.only(left: 2, right: 2),
+                                    margin: const EdgeInsets.only(
+                                        left: 2, right: 2),
                                     child: Text(
                                       media.user.name,
                                       maxLines: 1,
@@ -320,8 +319,7 @@ class MediaFlatPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        color: Theme.of(context).canvasColor,
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Row(
           children: _buildFullVerison(context),
         ),

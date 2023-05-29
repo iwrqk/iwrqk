@@ -36,7 +36,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: PopupMenuButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -99,7 +98,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: PopupMenuButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -135,7 +133,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                 value: 0,
                 child: Text(
                   L10n.of(context).filter_select_year,
-                  style: const TextStyle(color: Colors.grey),
                 ),
               );
             }
@@ -144,7 +141,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
               value: year,
               child: Text(
                 year.toString(),
-                style: const TextStyle(color: Colors.grey),
               ),
             );
           },
@@ -160,11 +156,11 @@ class FilterDialog extends GetWidget<FilterDialogController> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
       child: PopupMenuButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).cardColor),
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).cardColor,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -199,7 +195,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
                 value: 0,
                 child: Text(
                   L10n.of(context).filter_select_month,
-                  style: const TextStyle(color: Colors.grey),
                 ),
               );
             }
@@ -208,7 +203,6 @@ class FilterDialog extends GetWidget<FilterDialogController> {
               child: Text(
                 DateFormat('MMM', L10n.of(context).localeName)
                     .format(DateTime(2000, index)),
-                style: const TextStyle(color: Colors.grey),
               ),
             );
           },
