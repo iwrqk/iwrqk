@@ -56,6 +56,7 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(bottom: 0, top: 0),
       alignment: Alignment.centerLeft,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Expanded(

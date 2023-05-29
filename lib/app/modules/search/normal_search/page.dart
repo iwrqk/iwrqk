@@ -101,7 +101,7 @@ class NormalSearchPage extends GetView<NormalSearchController> {
             ),
           ),
         ),
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: MediaQuery.of(context).padding.copyWith(bottom: 0),
         child: Row(
           children: [
             IconButton(
@@ -195,99 +195,103 @@ class NormalSearchPage extends GetView<NormalSearchController> {
     return Scaffold(
       appBar: _buildAppbar(context),
       body: Obx(
-        () => ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          shrinkWrap: false,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    L10n.of(context).user_history,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.searchHistoryList.length >
-                        controller.maxExpandedClipsCount,
-                    child: GestureDetector(
-                      onTap: controller.toggleClipsExpanded,
-                      child: Text(
-                        controller.clipsExpanded
-                            ? L10n.of(context).collapse
-                            : L10n.of(context).expand,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            textBaseline: TextBaseline.ideographic),
+        () => SafeArea(
+          top: false,
+          bottom: false,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            shrinkWrap: false,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      L10n.of(context).user_history,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            if (controller.searchHistoryList.isNotEmpty)
-              Wrap(
-                children: List.generate(
-                  controller.clipsExpanded
-                      ? controller.searchHistoryList.length
-                      : controller.maxExpandedClipsCount,
-                  (index) => Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: _buildHistoryClip(context, index),
-                  ),
-                ),
-              ),
-            if (controller.searchHistoryList.isEmpty)
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: const FaIcon(
-                  FontAwesomeIcons.boxArchive,
-                  size: 50,
-                  color: Colors.grey,
-                ),
-              )
-            else
-              MaterialButton(
-                onPressed: () {
-                  Get.dialog(
-                    _buildConfirmDialog(
-                      context,
-                      title: L10n.of(context).confirm,
-                      content: L10n.of(context)
-                          .message_search_history_delete_all_confirm,
-                      onConfirm: () async {
-                        await controller.clearSearchHistoryList();
-                        Get.back();
-                      },
-                    ),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.trashCan,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      L10n.of(context).search_history_delete_all,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
+                    Visibility(
+                      visible: controller.searchHistoryList.length >
+                          controller.maxExpandedClipsCount,
+                      child: GestureDetector(
+                        onTap: controller.toggleClipsExpanded,
+                        child: Text(
+                          controller.clipsExpanded
+                              ? L10n.of(context).collapse
+                              : L10n.of(context).expand,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              textBaseline: TextBaseline.ideographic),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
-          ],
+              if (controller.searchHistoryList.isNotEmpty)
+                Wrap(
+                  children: List.generate(
+                    controller.clipsExpanded
+                        ? controller.searchHistoryList.length
+                        : controller.maxExpandedClipsCount,
+                    (index) => Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: _buildHistoryClip(context, index),
+                    ),
+                  ),
+                ),
+              if (controller.searchHistoryList.isEmpty)
+                Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: const FaIcon(
+                    FontAwesomeIcons.boxArchive,
+                    size: 50,
+                    color: Colors.grey,
+                  ),
+                )
+              else
+                MaterialButton(
+                  onPressed: () {
+                    Get.dialog(
+                      _buildConfirmDialog(
+                        context,
+                        title: L10n.of(context).confirm,
+                        content: L10n.of(context)
+                            .message_search_history_delete_all_confirm,
+                        onConfirm: () async {
+                          await controller.clearSearchHistoryList();
+                          Get.back();
+                        },
+                      ),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.trashCan,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        L10n.of(context).search_history_delete_all,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -4,7 +4,7 @@ import 'package:oktoast/oktoast.dart';
 import '../../../../data/models/offline/download_task_media.dart';
 import '../../../../data/models/offline/offline_meida.dart';
 import '../../../../data/models/resolution.dart';
-import '../../../../data/providers/network/api_provider.dart';
+import '../../../../data/providers/api_provider.dart';
 import '../../../../data/providers/storage_provider.dart';
 import '../../../../data/services/download_service.dart';
 

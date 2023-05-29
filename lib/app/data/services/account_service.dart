@@ -5,7 +5,7 @@ import 'package:oktoast/oktoast.dart';
 
 import '../../core/utils/display_util.dart';
 import '../enums/result.dart';
-import '../providers/network/api_provider.dart';
+import '../providers/api_provider.dart';
 import '../providers/storage_provider.dart';
 
 class AccountService extends GetxService {

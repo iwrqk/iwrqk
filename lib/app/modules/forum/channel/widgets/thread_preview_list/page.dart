@@ -37,6 +37,9 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
   }) {
     return Card(
       color: Theme.of(context).canvasColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(
         onTap: () {

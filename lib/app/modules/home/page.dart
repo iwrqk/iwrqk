@@ -33,7 +33,7 @@ class HomePage extends GetView<HomeController> {
                 )
               : null,
         ),
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: MediaQuery.of(context).padding.copyWith(bottom: 0),
         child: Row(
           children: [
             Padding(
@@ -54,11 +54,14 @@ class HomePage extends GetView<HomeController> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(15))),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(15))),
                   child: Row(
                     children: [
                       const FaIcon(
@@ -92,10 +95,11 @@ class HomePage extends GetView<HomeController> {
                     Get.toNamed(AppRoutes.login);
                   }
                 },
-                child: (controller.userService.notificationsCounts?.total ?? 0) > 0
-                    ? Badge(
-                        label:
-                            controller.userService.notificationsCounts!.total >
+                child:
+                    (controller.userService.notificationsCounts?.total ?? 0) > 0
+                        ? Badge(
+                            label: controller.userService.notificationsCounts!
+                                        .total >
                                     0
                                 ? Text(
                                     controller
@@ -104,15 +108,15 @@ class HomePage extends GetView<HomeController> {
                                     style: const TextStyle(color: Colors.white),
                                   )
                                 : null,
-                        child: const FaIcon(
-                          FontAwesomeIcons.solidEnvelope,
-                          color: Colors.grey,
-                        ),
-                      )
-                    : const FaIcon(
-                        FontAwesomeIcons.solidEnvelope,
-                        color: Colors.grey,
-                      ),
+                            child: const FaIcon(
+                              FontAwesomeIcons.solidEnvelope,
+                              color: Colors.grey,
+                            ),
+                          )
+                        : const FaIcon(
+                            FontAwesomeIcons.solidEnvelope,
+                            color: Colors.grey,
+                          ),
               ),
             ),
           ],
@@ -146,7 +150,11 @@ class HomePage extends GetView<HomeController> {
             ),
           ),
           tabBuilder: (context, index) => CupertinoTabView(
-            builder: (BuildContext context) => controller.pageList[index],
+            builder: (BuildContext context) => SafeArea(
+              top: false,
+              bottom: false,
+              child: controller.pageList[index],
+            ),
           ),
         ),
       ),

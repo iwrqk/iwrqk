@@ -86,7 +86,8 @@ class AddToPlaylistBottomSheet
     return Obx(
       () => ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         itemCount: controller.data.length,
         itemBuilder: (context, index) => Obx(() {
           LightPlaylistModel playlist = controller.data[index];
@@ -168,8 +169,17 @@ class AddToPlaylistBottomSheet
                 child: controller.obx(
                   (state) {
                     if (!controller.userService.accountService.isLogin) {
-                      return ListView(
-                        children: [_buildRequireLoginWidget(context)],
+                      return CustomScrollView(
+                        slivers: [
+                          SliverSafeArea(
+                            sliver: SliverFillRemaining(
+                              hasScrollBody: false,
+                              child: Center(
+                                child: _buildRequireLoginWidget(context),
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     }
                     return _buildDataWidget(context);

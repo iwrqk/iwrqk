@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:oktoast/oktoast.dart';
 
 import '../../data/enums/types.dart';
 import '../../data/models/media/media.dart';
@@ -9,6 +10,7 @@ import '../../data/models/offline/offline_meida.dart';
 import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
+import '../../data/providers/translate_provider.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
@@ -85,11 +87,15 @@ class MediaDetailController extends GetxController
 
   final RxString _errorMessageRecommendation = "".obs;
 
+  final RxString _translatedContent = "".obs;
+
   bool get fetchFailed => _fetchFailed.value;
 
   String get errorMessage => _errorMessage.value;
 
   String get errorMessageRecommendation => _errorMessageRecommendation.value;
+
+  String get translatedContent => _translatedContent.value;
 
   set errorMessage(String errorMessage) {
     _errorMessage.value = errorMessage;
@@ -272,6 +278,21 @@ class MediaDetailController extends GetxController
       _isProcessingFavorite.value = false;
       if (value) {
         _isFavorite.value = false;
+      }
+    });
+  }
+
+  void getTranslatedContent() async {
+    if (translatedContent.isNotEmpty || media.body == null) {
+      return;
+    }
+    TranslateProvider.google(
+      text: media.body!,
+    ).then((value) {
+      if (value.success) {
+        _translatedContent.value = value.data!;
+      } else {
+        showToast(value.message!);
       }
     });
   }

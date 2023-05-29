@@ -304,6 +304,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
       child: TabBar(
         isScrollable: true,
@@ -490,7 +491,11 @@ class ProfilePage extends GetWidget<ProfileController> {
               ),
             ),
             SliverToBoxAdapter(
-              child: _buildHeader(context),
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: _buildHeader(context),
+              ),
             ),
             SliverPersistentHeader(
               pinned: true,
@@ -500,14 +505,18 @@ class ProfilePage extends GetWidget<ProfileController> {
               ),
             ),
           ],
-          body: SizeCacheWidget(
-            child: TabBarView(
-              controller: controller.tabController,
-              children: [
-                _buildVideosTab(),
-                _buildImagesTab(),
-                _buildCommentsTab(context),
-              ],
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: SizeCacheWidget(
+              child: TabBarView(
+                controller: controller.tabController,
+                children: [
+                  _buildVideosTab(),
+                  _buildImagesTab(),
+                  _buildCommentsTab(context),
+                ],
+              ),
             ),
           ),
         ),

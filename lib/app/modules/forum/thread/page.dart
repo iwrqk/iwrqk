@@ -72,10 +72,12 @@ class ThreadPage extends GetWidget<ThreadController> {
               child: Container(
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom),
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(1000),
@@ -115,11 +117,15 @@ class ThreadPage extends GetWidget<ThreadController> {
       body: Column(
         children: [
           Expanded(
-            child: PostList(
-              title: title,
-              starterUserName: starterUserName,
-              channelName: channelName,
-              threadId: threadId,
+            child: SafeArea(
+              top: false,
+              bottom: false,
+              child: PostList(
+                title: title,
+                starterUserName: starterUserName,
+                channelName: channelName,
+                threadId: threadId,
+              ),
             ),
           ),
           _buildCommentButton(context),

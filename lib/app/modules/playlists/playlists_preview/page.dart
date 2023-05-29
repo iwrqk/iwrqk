@@ -52,10 +52,14 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
         ],
       ),
       body: SizeCacheWidget(
-        child: PlaylistsPreviewList(
-          userId: controller.userId,
-          requireMyself: controller.requireMyself,
-          tag: controller.tag,
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: PlaylistsPreviewList(
+            userId: controller.userId,
+            requireMyself: controller.requireMyself,
+            tag: controller.tag,
+          ),
         ),
       ),
     );

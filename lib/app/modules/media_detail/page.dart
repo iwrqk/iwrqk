@@ -22,6 +22,7 @@ import '../../global_widgets/iwr_progress_indicator.dart';
 import '../../global_widgets/media_preview/media_flat_preview.dart';
 import '../../global_widgets/reloadable_image.dart';
 import '../../global_widgets/tab_indicator.dart';
+import '../../global_widgets/translated_content.dart';
 import '../../global_widgets/user_preview/user_preview.dart';
 import '../../routes/pages.dart';
 import 'controller.dart';
@@ -227,7 +228,8 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
                           launchUrlString(
                               (_controller.media as VideoModel).embedUrl!);
                         },
-                        icon: const FaIcon(FontAwesomeIcons.solidShareFromSquare),
+                        icon:
+                            const FaIcon(FontAwesomeIcons.solidShareFromSquare),
                         label: Text(L10n.of(context).open),
                       ),
                     ],
@@ -462,26 +464,55 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         offstage: closed,
         child: TickerMode(
           enabled: !closed,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IwrMarkdown(
-                selectable: true,
-                data: _controller.media.body ?? "",
-              ),
-              if (_controller.media.tags.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Wrap(
-                    spacing: 5,
-                    runSpacing: 5,
-                    children: List.generate(
-                      _controller.media.tags.length,
-                      (index) => _buildTagClip(context, index),
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IwrMarkdown(
+                  selectable: true,
+                  data: _controller.media.body ?? "",
+                ),
+                if (_controller.translatedContent.isNotEmpty)
+                  TranslatedContent(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    translatedContent: _controller.translatedContent,
+                  ),
+                if ((_controller.media.body ?? "").isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          _controller.getTranslatedContent();
+                        },
+                        icon: const FaIcon(
+                          FontAwesomeIcons.language,
+                          size: 15,
+                        ),
+                        label: Text(
+                          L10n.of(context).translate,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (_controller.media.tags.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Wrap(
+                      spacing: 5,
+                      runSpacing: 5,
+                      children: List.generate(
+                        _controller.media.tags.length,
+                        (index) => _buildTagClip(context, index),
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       );
@@ -751,7 +782,8 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
                 alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(1000),
@@ -852,7 +884,10 @@ class _MediaDetailPageState extends State<MediaDetailPage> {
         );
 
         return Scaffold(
-          body: SafeArea(child: body),
+          body: SafeArea(
+            bottom: false,
+            child: body,
+          ),
         );
       }
     });

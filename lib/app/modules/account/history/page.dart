@@ -23,6 +23,7 @@ class HistoryPage extends GetView<HistoryController> {
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         TabBar(
@@ -107,20 +108,24 @@ class HistoryPage extends GetView<HistoryController> {
           children: [
             _buildTabBar(context),
             Expanded(
-              child: TabBarView(
-                children: [
-                  HistoryMediaPreviewList(
-                    tag: controller.childrenControllerTags[0],
-                  ),
-                  HistoryMediaPreviewList(
-                    filterType: MediaType.video,
-                    tag: controller.childrenControllerTags[1],
-                  ),
-                  HistoryMediaPreviewList(
-                    filterType: MediaType.image,
-                    tag: controller.childrenControllerTags[2],
-                  ),
-                ],
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: TabBarView(
+                  children: [
+                    HistoryMediaPreviewList(
+                      tag: controller.childrenControllerTags[0],
+                    ),
+                    HistoryMediaPreviewList(
+                      filterType: MediaType.video,
+                      tag: controller.childrenControllerTags[1],
+                    ),
+                    HistoryMediaPreviewList(
+                      filterType: MediaType.image,
+                      tag: controller.childrenControllerTags[2],
+                    ),
+                  ],
+                ),
               ),
             )
           ],

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../../../data/models/forum/channel.dart';
-import '../../../data/providers/network/api_provider.dart';
+import '../../../data/providers/api_provider.dart';
 
 class ForumTabController extends GetxController with StateMixin {
   List<ChannelModel> adminChannelModels = [];
@@ -11,11 +11,14 @@ class ForumTabController extends GetxController with StateMixin {
 
   ScrollController scrollController = ScrollController();
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadData();
-    change(null, status: RxStatus.loading());
+  bool firstLoad = true;
+
+  void checkFirstLoad() {
+    if (firstLoad) {
+      loadData();
+      change(null, status: RxStatus.loading());
+      firstLoad = false;
+    }
   }
 
   Future<void> refreshData({bool showSplash = false}) async {

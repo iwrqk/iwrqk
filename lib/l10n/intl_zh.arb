@@ -50,6 +50,17 @@
             }
         }
     },
+    "translate": "翻译",
+    "updated_at": "更新于 {time}",
+    "@updated_at": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
     "send": "发送",
     "replies": "回复",
     "expand": "展开",
@@ -199,17 +210,17 @@
     "channel_sharing": "分享",
     "channel_label": "{numThread} 个帖子 {numPosts} 个回复",
     "@channel_label": {
-      "description": "A message with 2 parameters",
-      "placeholders": {
-        "numThread": {
-            "type": "String",
-            "example": "Bob"
-        },
-        "numPosts": {
-            "type": "String",
-            "example": "Bob"
+        "description": "A message with 2 parameters",
+        "placeholders": {
+            "numThread": {
+                "type": "String",
+                "example": "Bob"
+            },
+            "numPosts": {
+                "type": "String",
+                "example": "Bob"
+            }
         }
-      }
     },
     "message_empty_comment": "评论不能为空。",
     "message_comment_sent": "评论已发送。",

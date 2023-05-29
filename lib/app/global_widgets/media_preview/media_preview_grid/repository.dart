@@ -3,7 +3,7 @@ import '../../../data/enums/types.dart';
 import '../../../data/models/media/media.dart';
 import '../../../data/models/settings/filter_setting.dart';
 import '../../../data/models/settings/media_sort_setting.dart';
-import '../../../data/providers/network/api_provider.dart';
+import '../../../data/providers/api_provider.dart';
 
 class MediaPreviewGridRepository {
   MediaPreviewGridRepository();

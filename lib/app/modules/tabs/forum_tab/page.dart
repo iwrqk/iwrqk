@@ -22,6 +22,9 @@ class ForumTabPage extends GetView<ForumTabController> {
   }) {
     return Card(
       color: Theme.of(context).canvasColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(
         onTap: () {
@@ -247,6 +250,7 @@ class ForumTabPage extends GetView<ForumTabController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.checkFirstLoad();
     return controller.obx(
       (state) {
         return Scaffold(

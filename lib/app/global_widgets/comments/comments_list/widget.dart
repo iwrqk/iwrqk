@@ -12,6 +12,7 @@ class CommentsList extends StatefulWidget {
   final String uploaderUserName;
   final String? parentId;
   final bool showReplies;
+  final bool canJumpToDetail;
   final ScrollController? scrollController;
 
   const CommentsList({
@@ -21,6 +22,7 @@ class CommentsList extends StatefulWidget {
     required this.uploaderUserName,
     this.parentId,
     this.showReplies = true,
+    this.canJumpToDetail = true,
     this.scrollController,
   }) : super(key: key);
 
@@ -49,22 +51,13 @@ class _CommentsListState extends State<CommentsList>
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               reachBottomCallback(index);
-              return Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).dividerColor,
-                      width: 0.5,
-                    ),
-                  ),
-                ),
-                child: UserComment(
-                  comment: data[index],
-                  uploaderUserName: widget.uploaderUserName,
-                  sourceId: widget.sourceId,
-                  sourceType: widget.sourceType,
-                  showReplies: widget.showReplies,
-                ),
+              return UserComment(
+                comment: data[index],
+                uploaderUserName: widget.uploaderUserName,
+                sourceId: widget.sourceId,
+                sourceType: widget.sourceType,
+                showReplies: widget.showReplies,
+                canJumpToDetail: widget.canJumpToDetail,
               );
             },
             childCount: data.length,

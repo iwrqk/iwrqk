@@ -59,22 +59,15 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
             ),
             SliverToBoxAdapter(
               child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).dividerColor,
-                      width: 1,
-                    ),
-                  ),
-                ),
-                padding: const EdgeInsets.fromLTRB(20, 10, 10, 15),
+                padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
                 alignment: Alignment.centerLeft,
                 child: AutoSizeText(
                   L10n.of(context).replies,
                   maxLines: 1,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             )
@@ -87,6 +80,7 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                   sourceType: controller.sourceType,
                   sourceId: controller.sourceId,
                   parentId: controller.parentComment.id,
+                  canJumpToDetail: false,
                 ),
               ),
               InkWell(

@@ -29,6 +29,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
       child: Row(children: [
         TabBar(
@@ -56,7 +57,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
       child: Container(
         height: kTextTabBarHeight + MediaQuery.of(context).padding.top,
         color: Theme.of(context).canvasColor,
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: MediaQuery.of(context).padding.copyWith(bottom: 0),
         child: Row(
           children: [
             IconButton(
@@ -155,24 +156,29 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
           children: [
             _buildTabBar(context),
             Expanded(
-              child: TabBarView(
-                children: [
-                  SearchResultMediaPreviewList(
-                    type: MediaType.video,
-                    initKeyword: controller.keyword,
-                    tag: controller.childrenMediaControllerTags[0],
-                  ),
-                  SearchResultMediaPreviewList(
-                    type: MediaType.image,
-                    initKeyword: controller.keyword,
-                    tag: controller.childrenMediaControllerTags[1],
-                  ),
-                  UsersPreviewList(
-                    sourceType: UsersSourceType.search,
-                    sortSetting: UsersSortSetting(keyword: controller.keyword),
-                    tag: controller.childUsersControllerTag,
-                  ),
-                ],
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: TabBarView(
+                  children: [
+                    SearchResultMediaPreviewList(
+                      type: MediaType.video,
+                      initKeyword: controller.keyword,
+                      tag: controller.childrenMediaControllerTags[0],
+                    ),
+                    SearchResultMediaPreviewList(
+                      type: MediaType.image,
+                      initKeyword: controller.keyword,
+                      tag: controller.childrenMediaControllerTags[1],
+                    ),
+                    UsersPreviewList(
+                      sourceType: UsersSourceType.search,
+                      sortSetting:
+                          UsersSortSetting(keyword: controller.keyword),
+                      tag: controller.childUsersControllerTag,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

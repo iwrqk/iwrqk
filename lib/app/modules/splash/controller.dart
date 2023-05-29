@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../../core/utils/display_util.dart';
+import '../../data/providers/translate_provider.dart';
 import '../../data/services/auto_lock_service.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
@@ -32,6 +33,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
   void init(BuildContext context) {
     DisplayUtil.init(context);
+    TranslateProvider.init();
     _runInitTask();
     _configService.calculateGridChildAspectRatio(
       MediaQuery.of(context).size,

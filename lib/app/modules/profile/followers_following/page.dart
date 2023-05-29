@@ -45,10 +45,14 @@ class FollowersFollowingPage extends StatelessWidget {
             : L10n.of(context).following),
       ),
       body: SizeCacheWidget(
-        child: UsersPreviewList(
-          sortSetting: UsersSortSetting(userId: parentUserData.id),
-          sourceType: sourceType,
-          tag: "${parentUserData.username}_${sourceType.name}",
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: UsersPreviewList(
+            sortSetting: UsersSortSetting(userId: parentUserData.id),
+            sourceType: sourceType,
+            tag: "${parentUserData.username}_${sourceType.name}",
+          ),
         ),
       ),
     );

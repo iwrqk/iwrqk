@@ -1,7 +1,7 @@
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/enums/types.dart';
 import '../../../../../data/models/media/media.dart';
-import '../../../../../data/providers/network/api_provider.dart';
+import '../../../../../data/providers/api_provider.dart';
 
 class FavoriteMediaPreviewListRepository {
   FavoriteMediaPreviewListRepository();

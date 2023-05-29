@@ -1,23 +1,22 @@
-
-import '../../../core/utils/log_util.dart';
-import '../../enums/result.dart';
-import '../../enums/types.dart';
-import '../../models/app_user.dart';
-import '../../models/comment.dart';
-import '../../models/conversations/conversation.dart';
-import '../../models/forum/channel.dart';
-import '../../models/forum/post.dart';
-import '../../models/forum/thread.dart';
-import '../../models/media/image.dart';
-import '../../models/media/media.dart';
-import '../../models/media/video.dart';
-import '../../models/notifications/counts.dart';
-import '../../models/playlist/light_playlist.dart';
-import '../../models/playlist/playlist.dart';
-import '../../models/profile.dart';
-import '../../models/resolution.dart';
-import '../../models/user.dart';
-import 'network_provider.dart';
+import '../../core/utils/log_util.dart';
+import '../enums/result.dart';
+import '../enums/types.dart';
+import '../models/app_user.dart';
+import '../models/comment.dart';
+import '../models/conversations/conversation.dart';
+import '../models/forum/channel.dart';
+import '../models/forum/post.dart';
+import '../models/forum/thread.dart';
+import '../models/media/image.dart';
+import '../models/media/media.dart';
+import '../models/media/video.dart';
+import '../models/notifications/counts.dart';
+import '../models/playlist/light_playlist.dart';
+import '../models/playlist/playlist.dart';
+import '../models/profile.dart';
+import '../models/resolution.dart';
+import '../models/user.dart';
+import 'network/network_provider.dart';
 
 class ApiProvider {
   static NetworkProvider networkProvider = NetworkProvider();
@@ -1006,6 +1005,32 @@ class ApiProvider {
 
     return ApiResult(
       data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<String>> getMigrationUserName({
+    required String oldUserName,
+  }) async {
+    String? message;
+    String? newUserName;
+
+    await networkProvider
+        .get("/migration/lookup/user/$oldUserName")
+        .then((value) {
+      message = value.data["message"];
+
+      if (message == null) {
+        newUserName = value.data["url"].split("/").last;
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: newUserName,
       success: message == null,
       message: message,
     );

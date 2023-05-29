@@ -274,7 +274,9 @@ class SettingsPage extends GetView<SettingsController> {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        padding: MediaQuery.of(context).padding.copyWith(bottom: 0, top: 0),
         children: [
           SettingTitle(title: L10n.of(context).setting_appearance),
           SettingGroup(

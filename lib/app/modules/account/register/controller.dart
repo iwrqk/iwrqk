@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../../l10n.dart';
 import '../../../core/const/widget.dart';
 import '../../../core/utils/display_util.dart';
-import '../../../data/providers/network/api_provider.dart';
+import '../../../data/providers/api_provider.dart';
 import '../../../global_widgets/dialogs/loading_dialog/widget.dart';
 
 class RegisterController extends GetxController with StateMixin {

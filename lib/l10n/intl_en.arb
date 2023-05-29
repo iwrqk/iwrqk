@@ -1,226 +1,237 @@
 {
-    "videos": "Videos",
-    "images": "Images",
-    "forum": "Forum",
-    "video": "Video",
-    "image": "Image",
-    "users": "Users",
-    "all": "All",
-    "view_more": "View more",
-    "details": "Details",
-    "open": "Open",
-    "language": "Language",
-    "subscriptions": "Subscriptions",
-    "me": "Me",
-    "email": "Email",
-    "login": "Login",
-    "logout": "Logout",
-    "password": "Password",
-    "captcha": "Captcha",
-    "register": "Register",
-    "register_captcha": "Captcha",
-    "delete": "Delete",
-    "meida_private": "Private",
-    "meida_page_more_from_uploader": "More from the uploader",
-    "meida_page_more_like_this": "More like this",
-    "video_page_external_video": "External video",
-    "apply": "Apply",
-    "ok": "OK",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "filter": "Filter",
-    "filter_by_rating": "Filter by rating",
-    "filter_by_tags": "Filter by tags",
-    "filter_by_date": "Filter by date",
-    "filter_general": "General",
-    "filter_ecchi": "Ecchi",
-    "filter_select_rating": "Select rating",
-    "filter_select_year": "Select year",
-    "filter_select_month": "Select month",
-    "comments": "Comments",
-    "comment": "Comment",
-    "comments_send_comment": "Send a comment",
-    "comments_see_all_replies": "See all {num} replies",
-    "@comments_see_all_replies": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "num": {
-            "type": "String",
-            "example": "Bob"
-        }
+  "videos": "Videos",
+  "images": "Images",
+  "forum": "Forum",
+  "video": "Video",
+  "image": "Image",
+  "users": "Users",
+  "all": "All",
+  "view_more": "View more",
+  "details": "Details",
+  "open": "Open",
+  "language": "Language",
+  "subscriptions": "Subscriptions",
+  "me": "Me",
+  "email": "Email",
+  "login": "Login",
+  "logout": "Logout",
+  "password": "Password",
+  "captcha": "Captcha",
+  "register": "Register",
+  "register_captcha": "Captcha",
+  "delete": "Delete",
+  "meida_private": "Private",
+  "meida_page_more_from_uploader": "More from the uploader",
+  "meida_page_more_like_this": "More like this",
+  "video_page_external_video": "External video",
+  "apply": "Apply",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "filter": "Filter",
+  "filter_by_rating": "Filter by rating",
+  "filter_by_tags": "Filter by tags",
+  "filter_by_date": "Filter by date",
+  "filter_general": "General",
+  "filter_ecchi": "Ecchi",
+  "filter_select_rating": "Select rating",
+  "filter_select_year": "Select year",
+  "filter_select_month": "Select month",
+  "comments": "Comments",
+  "comment": "Comment",
+  "comments_send_comment": "Send a comment",
+  "comments_see_all_replies": "See all {num} replies",
+  "@comments_see_all_replies": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "num": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "send": "Send",
-    "replies": "Replies",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "search": "Search",
-    "search_history": "Search history",
-    "search_history_delete_all": "Delete all search history",
-    "sort_latest": "Latest",
-    "sort_trending": "Trending",
-    "sort_popularity": "Popularity",
-    "sort_most_views": "Most views",
-    "sort_most_likes": "Most likes",
-    "profile": "Profile",
-    "profile_nickname": "Nickname",
-    "profile_username": "Username",
-    "profile_user_id": "User ID",
-    "profile_description": "Description",
-    "profile_no_description": "This user prefers to keep an air of mystery around them.",
-    "profile_join_date": "Join date",
-    "profile_last_active_time": "Last active time",
-    "profile_online": "Online",
-    "profile_message": "Message",
-    "follow": "Follow",
-    "following": "Following",
-    "followers": "Followers",
-    "friend_add": "Friend",
-    "friend_pending": "Pending",
-    "friended": "Friended",
-    "playlist_title": "Playlist title",
-    "playlist_create": "Create playlist",
-    "playlist_select": "Select playlist",
-    "playlist_videos_count": "{num} video",
-    "@playlist_videos_count": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "num": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "translate": "Translate",
+  "updated_at": "Update at {time}",
+  "@updated_at": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "playlist_videos_count_plural": "{num} videos",
-    "@playlist_videos_count_plural": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "num": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "send": "Send",
+  "replies": "Replies",
+  "expand": "Expand",
+  "collapse": "Collapse",
+  "search": "Search",
+  "search_history": "Search history",
+  "search_history_delete_all": "Delete all search history",
+  "sort_latest": "Latest",
+  "sort_trending": "Trending",
+  "sort_popularity": "Popularity",
+  "sort_most_views": "Most views",
+  "sort_most_likes": "Most likes",
+  "profile": "Profile",
+  "profile_nickname": "Nickname",
+  "profile_username": "Username",
+  "profile_user_id": "User ID",
+  "profile_description": "Description",
+  "profile_no_description": "This user prefers to keep an air of mystery around them.",
+  "profile_join_date": "Join date",
+  "profile_last_active_time": "Last active time",
+  "profile_online": "Online",
+  "profile_message": "Message",
+  "follow": "Follow",
+  "following": "Following",
+  "followers": "Followers",
+  "friend_add": "Friend",
+  "friend_pending": "Pending",
+  "friended": "Friended",
+  "playlist_title": "Playlist title",
+  "playlist_create": "Create playlist",
+  "playlist_select": "Select playlist",
+  "playlist_videos_count": "{num} video",
+  "@playlist_videos_count": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "num": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "user_history": "History",
-    "user_friends": "Friends",
-    "user_downloads": "Downloads",
-    "user_favorites": "Favorites",
-    "user_playlists": "Playlists",
-    "user_settings": "Settings",
-    "user_about": "About",
-    "conversation": "Conversation",
-    "time_seconds_ago": "{time} seconds ago",
-    "@time_seconds_ago": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "time": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "playlist_videos_count_plural": "{num} videos",
+  "@playlist_videos_count_plural": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "num": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "time_minutes_ago": "{time} minutes ago",
-    "@time_minutes_ago": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "time": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "user_history": "History",
+  "user_friends": "Friends",
+  "user_downloads": "Downloads",
+  "user_favorites": "Favorites",
+  "user_playlists": "Playlists",
+  "user_settings": "Settings",
+  "user_about": "About",
+  "conversation": "Conversation",
+  "time_seconds_ago": "{time} seconds ago",
+  "@time_seconds_ago": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "time_hours_ago": "{time} hours ago",
-    "@time_hours_ago": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "time": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "time_minutes_ago": "{time} minutes ago",
+  "@time_minutes_ago": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "time_days_ago": "{time} days ago",
-    "@time_days_ago": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "time": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "time_hours_ago": "{time} hours ago",
+  "@time_hours_ago": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "create_download_task": "Create download task",
-    "thread": "Thread",
-    "thread_locked": "This thread is locked",
-    "channel_administration": "Administration",
-    "channel_announcements": "Announcements",
-    "channel_feedback": "Feedback",
-    "channel_support": "Support",
-    "channel_global": "Global",
-    "channel_general": "General",
-    "channel_guides": "Guides",
-    "channel_questions": "Questions",
-    "channel_requests": "Requests",
-    "channel_sharing": "Sharing",
-    "channel_label": "{numThread} Threads {numPosts} Posts",
-    "@channel_label": {
-      "description": "A message with 2 parameters",
-      "placeholders": {
-        "numThread": {
-            "type": "String",
-            "example": "Bob"
-        },
-        "numPosts": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "time_days_ago": "{time} days ago",
+  "@time_days_ago": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "setting_appearance": "Appearance",
-    "setting_cover_blur":"R-18 cover blur",
-    "setting_security": "Security",
-    "setting_auto_lock": "Auto lock App",
-    "unlock_by_biometric" : "Unlock by biometric",
-    "set_password": "Set password",
-    "repeat_password": "Repeat password",
-    "authenticate_to_continue": "Authenticate to continue",
-    "authenticate_required": "Authentication required",
-    "theme": "Theme",
-    "theme_system": "Follow system",
-    "theme_light_mode": "Light mode",
-    "theme_dark_mode": "Dark mode",
-    "success": "Success",
-    "error": "Error",
-    "loading": "Loading...",
-    "message_require_login": "Require login",
-    "message_login_password_longer_than_6": "Password must be longer than 6 characters",
-    "message_please_type_email": "Please type your email",
-    "message_please_type_valid_email": "Please type a valid email",
-    "message_please_type_password": "Please type your password",
-    "message_please_type_captcha": "Please type the captcha",
-    "message_history_delete_all_confirm": "Are you sure to delete all history? This action cannot be undone.",
-    "message_search_history_delete_confirm": "Are you sure to delete this search history? This action cannot be undone.",
-    "message_search_history_delete_all_confirm": "Are you sure to delete all search history? This action cannot be undone.",
-    "message_deleted_item": "Deleted \"{title}\".",
-    "@message_deleted_item": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "title": {
-            "type": "String",
-            "example": "Bob"
-        }
+    }
+  },
+  "create_download_task": "Create download task",
+  "thread": "Thread",
+  "thread_locked": "This thread is locked",
+  "channel_administration": "Administration",
+  "channel_announcements": "Announcements",
+  "channel_feedback": "Feedback",
+  "channel_support": "Support",
+  "channel_global": "Global",
+  "channel_general": "General",
+  "channel_guides": "Guides",
+  "channel_questions": "Questions",
+  "channel_requests": "Requests",
+  "channel_sharing": "Sharing",
+  "channel_label": "{numThread} Threads {numPosts} Posts",
+  "@channel_label": {
+    "description": "A message with 2 parameters",
+    "placeholders": {
+      "numThread": {
+        "type": "String",
+        "example": "Bob"
+      },
+      "numPosts": {
+        "type": "String",
+        "example": "Bob"
       }
-    },
-    "message_empty_comment": "Comment can not be empty.",
-    "message_comment_sent": "Comment sent.",
-    "message_empty_playlist_title": "Playlist title can not be empty.",
-    "message_playlist_created": "Playlist created.",
-    "message_login_success": "Login success.",
-    "message_register_success": "Register success, further instructions have been sent to your email.",
-    "message_authenticate_to_continue": "Please authenticate to continue.",
-    "message_authenticate_to_enable_biometric": "Please authenticate to enable biometric unlock.",
-    "error_retry": "Load failed, click to retry.",
-    "error_fetch_failed": "Failed to fetch video links.",
-    "error_invalid_login": "Invalid email or password.",
-    "error_invalid_captcha": "Invalid captcha."
+    }
+  },
+  "setting_appearance": "Appearance",
+  "setting_cover_blur": "R-18 cover blur",
+  "setting_security": "Security",
+  "setting_auto_lock": "Auto lock App",
+  "unlock_by_biometric": "Unlock by biometric",
+  "set_password": "Set password",
+  "repeat_password": "Repeat password",
+  "authenticate_to_continue": "Authenticate to continue",
+  "authenticate_required": "Authentication required",
+  "theme": "Theme",
+  "theme_system": "Follow system",
+  "theme_light_mode": "Light mode",
+  "theme_dark_mode": "Dark mode",
+  "success": "Success",
+  "error": "Error",
+  "loading": "Loading...",
+  "message_require_login": "Require login",
+  "message_login_password_longer_than_6": "Password must be longer than 6 characters",
+  "message_please_type_email": "Please type your email",
+  "message_please_type_valid_email": "Please type a valid email",
+  "message_please_type_password": "Please type your password",
+  "message_please_type_captcha": "Please type the captcha",
+  "message_history_delete_all_confirm": "Are you sure to delete all history? This action cannot be undone.",
+  "message_search_history_delete_confirm": "Are you sure to delete this search history? This action cannot be undone.",
+  "message_search_history_delete_all_confirm": "Are you sure to delete all search history? This action cannot be undone.",
+  "message_deleted_item": "Deleted \"{title}\".",
+  "@message_deleted_item": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "message_empty_comment": "Comment can not be empty.",
+  "message_comment_sent": "Comment sent.",
+  "message_empty_playlist_title": "Playlist title can not be empty.",
+  "message_playlist_created": "Playlist created.",
+  "message_login_success": "Login success.",
+  "message_register_success": "Register success, further instructions have been sent to your email.",
+  "message_authenticate_to_continue": "Please authenticate to continue.",
+  "message_authenticate_to_enable_biometric": "Please authenticate to enable biometric unlock.",
+  "error_retry": "Load failed, click to retry.",
+  "error_fetch_failed": "Failed to fetch video links.",
+  "error_invalid_login": "Invalid email or password.",
+  "error_invalid_captcha": "Invalid captcha."
 }

@@ -41,119 +41,124 @@ class ProfileDetailPage extends StatelessWidget {
         title: Text(L10n.of(context).details),
       ),
       backgroundColor: Theme.of(context).canvasColor,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        shrinkWrap: false,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 50, bottom: 25),
-            alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () {
-                Get.to(
-                  () => FullScreenAvatar(
-                    avatarUrl: profile.user!.avatarUrl,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          shrinkWrap: false,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 50, bottom: 25),
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(
+                    () => FullScreenAvatar(
+                      avatarUrl: profile.user!.avatarUrl,
+                    ),
+                  );
+                },
+                child: ClipOval(
+                  child: ReloadableImage(
+                    imageUrl: profile.user!.avatarUrl,
+                    width: 150,
+                    height: 150,
                   ),
-                );
-              },
-              child: ClipOval(
-                child: ReloadableImage(
-                  imageUrl: profile.user!.avatarUrl,
-                  width: 150,
-                  height: 150,
                 ),
               ),
             ),
-          ),
-          Text(
-            L10n.of(context).profile_nickname,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
-            child: SelectableText(
-              profile.user!.name,
-            ),
-          ),
-          Text(
-            L10n.of(context).profile_username,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
-            child: SelectableText(
-              "@${profile.user!.username}",
-            ),
-          ),
-          Text(
-            L10n.of(context).profile_user_id,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
-            child: SelectableText(
-              profile.user!.id,
-            ),
-          ),
-          Text(
-            L10n.of(context).profile_join_date,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
-            child: Text(
-              DisplayUtil.getDetailedTime(
-                DateTime.parse(profile.user!.createdAt),
-              ),
-            ),
-          ),
-          if (profile.user!.seenAt != null)
             Text(
-              L10n.of(context).profile_last_active_time,
+              L10n.of(context).profile_nickname,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          if (profile.user!.seenAt != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
+              child: SelectableText(
+                profile.user!.name,
+              ),
+            ),
+            Text(
+              L10n.of(context).profile_username,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
+              child: SelectableText(
+                "@${profile.user!.username}",
+              ),
+            ),
+            Text(
+              L10n.of(context).profile_user_id,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
+              child: SelectableText(
+                profile.user!.id,
+              ),
+            ),
+            Text(
+              L10n.of(context).profile_join_date,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
               child: Text(
                 DisplayUtil.getDetailedTime(
-                  DateTime.parse(profile.user!.seenAt!),
+                  DateTime.parse(profile.user!.createdAt),
                 ),
               ),
             ),
-          Text(
-            L10n.of(context).profile_description,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            if (profile.user!.seenAt != null)
+              Text(
+                L10n.of(context).profile_last_active_time,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            if (profile.user!.seenAt != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 0, 15),
+                child: Text(
+                  DisplayUtil.getDetailedTime(
+                    DateTime.parse(profile.user!.seenAt!),
+                  ),
+                ),
+              ),
+            Text(
+              L10n.of(context).profile_description,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 50),
-            child: IwrMarkdown(
-              selectable: true,
-              data: profile.body.isEmpty
-                  ? L10n.of(context).profile_no_description
-                  : profile.body,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 0, 50),
+              child: IwrMarkdown(
+                selectable: true,
+                data: profile.body.isEmpty
+                    ? L10n.of(context).profile_no_description
+                    : profile.body,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

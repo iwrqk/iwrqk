@@ -23,6 +23,7 @@ class DownloadsPage extends GetView<DownloadsController> {
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         TabBar(
@@ -105,17 +106,21 @@ class DownloadsPage extends GetView<DownloadsController> {
           children: [
             _buildTabBar(context),
             Expanded(
-              child: TabBarView(
-                children: [
-                  DownloadsMediaPreviewList(
-                    filterType: MediaType.video,
-                    tag: controller.childrenControllerTags[0],
-                  ),
-                  DownloadsMediaPreviewList(
-                    filterType: MediaType.image,
-                    tag: controller.childrenControllerTags[1],
-                  ),
-                ],
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: TabBarView(
+                  children: [
+                    DownloadsMediaPreviewList(
+                      filterType: MediaType.video,
+                      tag: controller.childrenControllerTags[0],
+                    ),
+                    DownloadsMediaPreviewList(
+                      filterType: MediaType.image,
+                      tag: controller.childrenControllerTags[1],
+                    ),
+                  ],
+                ),
               ),
             )
           ],

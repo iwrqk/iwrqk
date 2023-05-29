@@ -39,7 +39,13 @@ class ChannelPage extends StatelessWidget {
           FontAwesomeIcons.plus,
         ),
       ),
-      body: ThreadPreviewList(channelName: channelName),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ThreadPreviewList(
+          channelName: channelName,
+        ),
+      ),
     );
   }
 }

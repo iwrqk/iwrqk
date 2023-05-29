@@ -9,7 +9,7 @@ import '../models/notifications/counts.dart';
 import '../models/notifications/settings.dart';
 import '../models/playlist/light_playlist.dart';
 import '../models/user.dart';
-import '../providers/network/api_provider.dart';
+import '../providers/api_provider.dart';
 import 'account_service.dart';
 
 class UserService extends GetxService {

@@ -56,6 +56,7 @@ class LoginController extends GetxController {
         },
         onSuccess: () {
           Get.offNamedUntil(AppRoutes.root, (route) => false);
+          StorageProvider.setSavedUserEmailPassword(email!, password!);
         },
         successMessage: L10n.of(context).message_login_success,
       ),

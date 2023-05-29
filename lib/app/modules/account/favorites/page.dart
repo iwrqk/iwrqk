@@ -29,6 +29,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ),
       ),
+      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
       child: TabBar(
         isScrollable: true,
@@ -50,33 +51,38 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
-          ),
-          centerTitle: true,
-          title: Text(
-            L10n.of(context).user_favorites,
-          )),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
+        ),
+        centerTitle: true,
+        title: Text(
+          L10n.of(context).user_favorites,
+        ),
+      ),
       body: DefaultTabController(
         length: 2,
         child: Column(
           children: [
             _buildTabBar(),
             Expanded(
-              child: TabBarView(
-                children: [
-                  FavoriteMediaPreviewList(
-                    mediaType: MediaType.video,
-                    tag: _controller.childrenControllerTags[0],
-                  ),
-                  FavoriteMediaPreviewList(
-                    mediaType: MediaType.image,
-                    tag: _controller.childrenControllerTags[1],
-                  ),
-                ],
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: TabBarView(
+                  children: [
+                    FavoriteMediaPreviewList(
+                      mediaType: MediaType.video,
+                      tag: _controller.childrenControllerTags[0],
+                    ),
+                    FavoriteMediaPreviewList(
+                      mediaType: MediaType.image,
+                      tag: _controller.childrenControllerTags[1],
+                    ),
+                  ],
+                ),
               ),
             )
           ],

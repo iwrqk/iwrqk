@@ -19,13 +19,11 @@ class IwrMarkdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Markdown(
       selectable: selectable,
-      onTapLink: (text, href, title) {
+      onTapLink: (text, href, title) async {
         if (href == null) return;
         var regex = RegExp(r"^http[s]?:\/\/");
         if (regex.hasMatch(href)) {
-          if (href.contains("iwara.tv")) {
-            UrlUtil.jumpTo(href);
-          } else {
+          if (!await UrlUtil.jumpTo(href)) {
             launchUrlString(href);
           }
         }

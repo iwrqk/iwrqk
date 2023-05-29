@@ -50,6 +50,17 @@
             }
         }
     },
+    "translate": "翻訳",
+    "updated_at": "更新日 {time}",
+    "@updated_at": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
     "send": "送信",
     "replies": "返信",
     "expand": "展開",
@@ -164,17 +175,17 @@
     "channel_sharing": "シェア",
     "channel_label": "{numThread} スレッド {numPosts} 投稿",
     "@channel_label": {
-      "description": "A message with 2 parameters",
-      "placeholders": {
-        "numThread": {
-            "type": "String",
-            "example": "Bob"
-        },
-        "numPosts": {
-            "type": "String",
-            "example": "Bob"
+        "description": "A message with 2 parameters",
+        "placeholders": {
+            "numThread": {
+                "type": "String",
+                "example": "Bob"
+            },
+            "numPosts": {
+                "type": "String",
+                "example": "Bob"
+            }
         }
-      }
     },
     "setting_appearance": "外観",
     "setting_cover_blur": "R-18のカバーをぼかす",

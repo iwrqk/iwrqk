@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:oktoast/oktoast.dart';
 
+import '../../../../../l10n.dart';
 import '../../../../core/utils/display_util.dart';
 import '../../../../data/models/forum/post.dart';
+import '../../../../data/providers/translate_provider.dart';
 import '../../../../global_widgets/iwr_markdown.dart';
 import '../../../../global_widgets/reloadable_image.dart';
+import '../../../../global_widgets/translated_content.dart';
 import '../../../../routes/pages.dart';
 
-class Post extends StatelessWidget {
+class Post extends StatefulWidget {
   final PostModel post;
   final int index;
   final String starterUserName;
@@ -18,6 +23,13 @@ class Post extends StatelessWidget {
     required this.index,
     required this.starterUserName,
   }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _PostState();
+}
+
+class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
+  String? translatedContent;
 
   Widget _buildStarterBadge(BuildContext context) {
     return Container(
@@ -39,7 +51,7 @@ class Post extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           AppRoutes.profile,
-          arguments: post.user.username,
+          arguments: widget.post.user.username,
           preventDuplicates: false,
         );
       },
@@ -48,19 +60,99 @@ class Post extends StatelessWidget {
         children: [
           ClipOval(
             child: ReloadableImage(
-              imageUrl: post.user.avatarUrl,
+              imageUrl: widget.post.user.avatarUrl,
               width: 30,
               height: 30,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Text(
-              post.user.name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text(
+                widget.post.user.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 1,
+              ),
             ),
           ),
-          if (starterUserName == post.user.username) _buildStarterBadge(context)
+          if (widget.starterUserName == widget.post.user.username)
+            _buildStarterBadge(context)
+        ],
+      ),
+    );
+  }
+
+  void _getTranslatedContent() async {
+    TranslateProvider.google(
+      text: widget.post.body,
+    ).then((value) {
+      if (value.success) {
+        setState(() {
+          translatedContent = value.data;
+        });
+      } else {
+        showToast(value.message!);
+      }
+    });
+  }
+
+  Widget _buildBottomWidget(BuildContext context) {
+    String text =
+        DisplayUtil.getDisplayTime(DateTime.parse(widget.post.createAt));
+    if (widget.post.createAt != widget.post.updateAt) {
+      text +=
+          "\n${L10n.of(context).updated_at(DisplayUtil.getDisplayTime(DateTime.parse(widget.post.updateAt)))}";
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "#${widget.index} ",
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: text,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: "translate",
+                  child: Text(
+                    L10n.of(context).translate,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ];
+            },
+            onSelected: (String value) {
+              if (value == "translate") {
+                _getTranslatedContent();
+              }
+            },
+            child: FaIcon(
+              FontAwesomeIcons.ellipsis,
+              size: 12.5,
+              color: Theme.of(context).primaryColor,
+            ),
+          )
         ],
       ),
     );
@@ -75,31 +167,14 @@ class Post extends StatelessWidget {
           IwrMarkdown(
             padding: const EdgeInsets.only(top: 5),
             selectable: true,
-            data: post.body,
+            data: widget.post.body,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "#${index + 1} ",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: DisplayUtil.getDisplayTime(
-                      DateTime.parse(post.createAt),
-                    ),
-                    style: const TextStyle(color: Colors.grey, fontSize: 12.5),
-                  ),
-                ],
-              ),
+          if (translatedContent != null)
+            TranslatedContent(
+              padding: const EdgeInsets.only(top: 10),
+              translatedContent: translatedContent!,
             ),
-          ),
+          _buildBottomWidget(context),
         ],
       ),
     );
@@ -107,13 +182,27 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    super.build(context);
+
+    return Card(
       color: Theme.of(context).canvasColor,
-      padding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _buildUserWidget(context),
-        _buildContent(context),
-      ]),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildUserWidget(context),
+            _buildContent(context),
+          ],
+        ),
+      ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -2,7 +2,7 @@ import '../../../data/enums/result.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/settings/users_sort_setting.dart';
 import '../../../data/models/user.dart';
-import '../../../data/providers/network/api_provider.dart';
+import '../../../data/providers/api_provider.dart';
 
 class UsersPreviewListRepository {
   UsersPreviewListRepository();

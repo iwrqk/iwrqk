@@ -33,8 +33,12 @@ class PlaylistDetailPage extends StatelessWidget {
         title: Text(L10n.of(context).user_playlists),
       ),
       body: SizeCacheWidget(
-        child: PlaylistDetailMediaPreviewList(
-          playlistId: playlistId,
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: PlaylistDetailMediaPreviewList(
+            playlistId: playlistId,
+          ),
         ),
       ),
     );
