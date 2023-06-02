@@ -270,7 +270,9 @@ class ApiProvider {
     await networkProvider.get("/video/$id").then((value) {
       if (value.data["message"] != null) {
         message = value.data["message"];
-        data = UserModel.fromJson(value.data["data"]["user"]);
+        if (value.data["data"] != null) {
+          data = UserModel.fromJson(value.data["data"]["user"]);
+        }
       } else {
         data = VideoModel.fromJson(value.data);
       }

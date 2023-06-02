@@ -39,34 +39,31 @@ class _UsersPreviewListState extends State<UsersPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoScrollbar(
-      controller: _scrollController,
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                reachBottomCallback(index);
+    return SliverRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, reachBottomCallback) {
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              reachBottomCallback(index);
 
-                return FrameSeparateWidget(
-                  index: index,
-                  placeHolder: const SizedBox(height: 100),
-                  child: Container(
-                    color: Theme.of(context).canvasColor,
-                    height: 100,
-                    child: UserPreview(
-                      user: data[index],
-                    ),
+              return FrameSeparateWidget(
+                index: index,
+                placeHolder: const SizedBox(height: 100),
+                child: Container(
+                  color: Theme.of(context).canvasColor,
+                  height: 100,
+                  child: UserPreview(
+                    user: data[index],
                   ),
-                );
-              },
-              childCount: data.length,
-            ),
-          );
-        },
-      ),
+                ),
+              );
+            },
+            childCount: data.length,
+          ),
+        );
+      },
     );
   }
 

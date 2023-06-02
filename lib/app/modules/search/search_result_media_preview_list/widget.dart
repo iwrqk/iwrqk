@@ -38,43 +38,39 @@ class _SearchResultMediaPreviewListState
     _controller =
         Get.find<SearchResultMediaPreviewListController>(tag: widget.tag);
     _parentController.childrenControllers[widget.tag] = _controller;
-    _controller.initConfig(widget.type);
-    _controller.resetKeyword(widget.initKeyword);
+    _controller.initConfig(widget.type, widget.initKeyword);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoScrollbar(
-      controller: _scrollController,
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                reachBottomCallback(index);
+    return SliverRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, reachBottomCallback) {
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              reachBottomCallback(index);
 
-                return FrameSeparateWidget(
-                  index: index,
-                  placeHolder: Container(
-                    height: 100,
-                    color: Theme.of(context).canvasColor,
+              return FrameSeparateWidget(
+                index: index,
+                placeHolder: Container(
+                  height: 100,
+                  color: Theme.of(context).canvasColor,
+                ),
+                child: SizedBox(
+                  height: 100,
+                  child: MediaFlatPreview(
+                    media: data[index],
                   ),
-                  child: SizedBox(
-                    height: 100,
-                    child: MediaFlatPreview(
-                      media: data[index],
-                    ),
-                  ),
-                );
-              },
-              childCount: data.length,
-            ),
-          );
-        },
-      ),
+                ),
+              );
+            },
+            childCount: data.length,
+          ),
+        );
+      },
     );
   }
 

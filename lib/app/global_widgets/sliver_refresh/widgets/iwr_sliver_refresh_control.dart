@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' hide RefreshCallback;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../iwr_icon_progress_indicator.dart';
 import '../../iwr_progress_indicator.dart';
 
 class IwrSliverRefreshControl extends StatelessWidget {
@@ -11,17 +10,17 @@ class IwrSliverRefreshControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool refreshing = false;
-
     return CupertinoSliverRefreshControl(
-      builder: (BuildContext context,
-          RefreshIndicatorMode refreshState,
-          double pulledExtent,
-          double refreshTriggerPullDistance,
-          double refreshIndicatorExtent) {
+      builder: (
+        BuildContext context,
+        RefreshIndicatorMode refreshState,
+        double pulledExtent,
+        double refreshTriggerPullDistance,
+        double refreshIndicatorExtent,
+      ) {
         double progress = pulledExtent / refreshTriggerPullDistance;
 
-        if (refreshState == RefreshIndicatorMode.refresh || refreshing) {
+        if (refreshState == RefreshIndicatorMode.refresh) {
           return const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -36,16 +35,23 @@ class IwrSliverRefreshControl extends StatelessWidget {
                   )),
             ),
           );
-        } else if (refreshState == RefreshIndicatorMode.drag ||
+        } else if (
+            refreshState == RefreshIndicatorMode.drag ||
             refreshState == RefreshIndicatorMode.armed) {
+          if (refreshState == RefreshIndicatorMode.done ||
+              refreshState == RefreshIndicatorMode.refresh ||
+              refreshState == RefreshIndicatorMode.armed) {
+            progress = 1;
+          }
+
           return Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
+                width: 36,
+                height: 36,
+                child: IwrIconProgressIndicator(
                   value: progress,
                   valueColor: const AlwaysStoppedAnimation(
                       CupertinoColors.inactiveGray),
@@ -54,25 +60,10 @@ class IwrSliverRefreshControl extends StatelessWidget {
               ),
             ),
           );
-        } else if (refreshState == RefreshIndicatorMode.done) {
-          return const Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 16.0),
-              child: FaIcon(
-                FontAwesomeIcons.check,
-                color: CupertinoColors.inactiveGray,
-              ),
-            ),
-          );
         }
         return const SizedBox.shrink();
       },
-      onRefresh: () async {
-        refreshing = true;
-        await onRefresh?.call();
-        refreshing = false;
-      },
+      onRefresh: onRefresh,
       refreshTriggerPullDistance: 100,
     );
   }

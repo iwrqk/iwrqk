@@ -107,19 +107,16 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
                   controller: _controller.tabController,
                   children: List.generate(
                     widget.tabTagList.length,
-                    (index) => CupertinoScrollbar(
-                      controller: _controller.scrollControllers[index],
-                      child: MediaPreviewGrid(
-                        sourceType: widget.sourceType == null
-                            ? widget.customSourceTypeList![index]
-                            : widget.sourceType!,
-                        sortSetting: MediaSortSettingModel(
-                            orderType: widget.orderTypeList == null
-                                ? null
-                                : widget.orderTypeList![index]),
-                        tag: widget.tabTagList[index],
-                        scrollController: _controller.scrollControllers[index],
-                      ),
+                    (index) => MediaPreviewGrid(
+                      sourceType: widget.sourceType == null
+                          ? widget.customSourceTypeList![index]
+                          : widget.sourceType!,
+                      sortSetting: MediaSortSettingModel(
+                          orderType: widget.orderTypeList == null
+                              ? null
+                              : widget.orderTypeList![index]),
+                      tag: widget.tabTagList[index],
+                      scrollController: _controller.scrollControllers[index],
                     ),
                   ),
                 ),

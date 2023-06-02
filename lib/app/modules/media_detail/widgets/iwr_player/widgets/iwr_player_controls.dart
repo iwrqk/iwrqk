@@ -357,7 +357,7 @@ class _IwrPlayerControlsState
         ),
         child: Row(
           children: [
-            _buildExitButton(),
+            if (_state.isFullScreen) _buildExitButton(),
             if (_state.isFullScreen)
               Expanded(
                 child: Padding(
@@ -779,8 +779,8 @@ class _IwrPlayerControlsState
       case QuickGestures.accelerate:
         return Container(
           padding: _state.isFullScreen
-              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
@@ -793,8 +793,8 @@ class _IwrPlayerControlsState
       case QuickGestures.fastForward:
         return Container(
           padding: _state.isFullScreen
-              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
@@ -807,8 +807,8 @@ class _IwrPlayerControlsState
       case QuickGestures.fastRewind:
         return Container(
           padding: _state.isFullScreen
-              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
               color: Colors.black.withAlpha(128),
               borderRadius: BorderRadius.circular(5)),
@@ -821,8 +821,8 @@ class _IwrPlayerControlsState
       case QuickGestures.volumeUp:
         return Container(
           padding: _state.isFullScreen
-              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.black.withAlpha(128),
             borderRadius: BorderRadius.circular(10),
@@ -849,8 +849,8 @@ class _IwrPlayerControlsState
       case QuickGestures.volumeDown:
         return Container(
           padding: _state.isFullScreen
-              ? const EdgeInsets.symmetric(vertical: 10, horizontal: 30)
-              : const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 30)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.black.withAlpha(128),
             borderRadius: BorderRadius.circular(10),

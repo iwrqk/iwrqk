@@ -186,7 +186,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
     return Card(
       color: Theme.of(context).canvasColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Padding(

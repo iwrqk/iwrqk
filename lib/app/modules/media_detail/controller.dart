@@ -22,17 +22,10 @@ class MediaDetailController extends GetxController
 
   IwrPlayerController? iwrPlayerController;
 
-  Size? windowSize;
+  ScrollController scrollController = ScrollController();
 
-  Orientation currentOrientation = Orientation.portrait;
-
-  double get currentVideoAspectRatio =>
-      currentOrientation == Orientation.portrait
-          ? 16 / 9
-          : landscapeAspectRatio;
-
-  double get landscapeAspectRatio =>
-      (windowSize!.longestSide - 300) / windowSize!.shortestSide;
+  final RxDouble _hideAppbarFactor = 1.0.obs;
+  double get hideAppbarFactor => _hideAppbarFactor.value;
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
@@ -132,7 +125,23 @@ class MediaDetailController extends GetxController
 
     _heightFactor = _animationController.value.drive(_easeInTween);
 
+    scrollController.addListener(_onScroll);
+
     loadData();
+  }
+
+  void _onScroll() {
+    double position = scrollController.position.pixels;
+    double hideAppbarHit = scrollController.position.maxScrollExtent;
+    double newValue = (hideAppbarHit - position) > 0
+        ? (hideAppbarHit - position) / hideAppbarHit
+        : 0;
+    if (hideAppbarFactor - newValue >= 0.25 ||
+        hideAppbarFactor - newValue <= -0.25 ||
+        newValue == 0 ||
+        newValue == 1) {
+      _hideAppbarFactor.value = newValue;
+    }
   }
 
   @override
@@ -189,7 +198,6 @@ class MediaDetailController extends GetxController
         onPlayerSettingSaved: (setting) {
           configService.playerSetting = setting;
         },
-        initAspectRatio: currentVideoAspectRatio,
       ),
       tag: media.id,
     );
@@ -221,11 +229,6 @@ class MediaDetailController extends GetxController
     });
 
     _isFectchingResolution.value = false;
-  }
-
-  void resetPlayerAspectRatio() {
-    iwrPlayerController?.betterPlayerController
-        .setOverriddenAspectRatio(currentVideoAspectRatio);
   }
 
   Future<void> refectchRecommendation() async {

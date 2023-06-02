@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/utils/display_util.dart';
 import '../../../../../data/models/forum/thread.dart';
+import '../../../../../global_widgets/keep_alive_wrapper.dart';
 import '../../../../../global_widgets/reloadable_image.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../../../../routes/pages.dart';
@@ -38,7 +39,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
     return Card(
       color: Theme.of(context).canvasColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(
@@ -140,27 +141,26 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoScrollbar(
-      controller: _scrollController,
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                reachBottomCallback(index);
+    return SliverRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, reachBottomCallback) {
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              reachBottomCallback(index);
 
-                return _buildThreadPreview(
+              return KeepAliveWrapper(
+                child: _buildThreadPreview(
                   thread: data[index],
                   channelName: widget.channelName,
-                );
-              },
-              childCount: data.length,
-            ),
-          );
-        },
-      ),
+                ),
+              );
+            },
+            childCount: data.length,
+          ),
+        );
+      },
     );
   }
 }

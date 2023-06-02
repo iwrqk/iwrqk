@@ -67,6 +67,7 @@ class HomePage extends GetView<HomeController> {
                       const FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
                         color: Colors.grey,
+                        size: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 5),

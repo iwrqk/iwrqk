@@ -12,8 +12,9 @@ class SearchResultMediaPreviewListController
   late MediaType _type;
   late String _keyword;
 
-  void initConfig(MediaType type) {
+  void initConfig(MediaType type, String keyword) {
     _type = type;
+    _keyword = keyword;
   }
 
   Future<void> resetKeyword(String keyword) async {

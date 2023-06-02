@@ -38,51 +38,48 @@ class _PostListState extends State<PostList> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoScrollbar(
-      controller: _scrollController,
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                reachBottomCallback(index);
+    return SliverRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, reachBottomCallback) {
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              reachBottomCallback(index);
 
-                Widget child = Post(
-                  post: data[index],
-                  index: index,
-                  starterUserName: widget.starterUserName,
-                );
+              Widget child = Post(
+                post: data[index],
+                index: index,
+                starterUserName: widget.starterUserName,
+              );
 
-                if (index == 0) {
-                  child = Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.fromLTRB(
-                          20,
-                          15,
-                          15,
-                          5,
-                        ),
-                        child: Text(
-                          widget.title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+              if (index == 0) {
+                child = Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.fromLTRB(
+                        20,
+                        15,
+                        15,
+                        5,
                       ),
-                      child,
-                    ],
-                  );
-                }
+                      child: Text(
+                        widget.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    child,
+                  ],
+                );
+              }
 
-                return child;
-              },
-              childCount: data.length,
-            ),
-          );
-        },
-      ),
+              return child;
+            },
+            childCount: data.length,
+          ),
+        );
+      },
     );
   }
 }

@@ -87,7 +87,8 @@ class _IwrGalleryState extends State<IwrGallery> {
         return GestureDetector(
           onTap: () {
             _pageController.animateToPage(index,
-                duration: const Duration(milliseconds: 150), curve: Curves.bounceIn);
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.bounceIn);
           },
           child: Container(
             width: 8,
@@ -168,31 +169,6 @@ class _IwrGalleryState extends State<IwrGallery> {
             alignment: Alignment.center,
             children: [
               _buildGallery(),
-              Positioned(
-                top: 5,
-                left: 5,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                        child: const FaIcon(
-                          FontAwesomeIcons.chevronLeft,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               if (widget.imageUrls.length > 15)
                 Positioned(
                     bottom: 10,

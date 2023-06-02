@@ -232,13 +232,14 @@ class _UserCommentState extends State<UserComment>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.comment.numReplies >= 2
-                        ? 2
-                        : widget.comment.numReplies,
-                    itemBuilder: _repliesBuilder),
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: widget.comment.numReplies >= 2
+                      ? 2
+                      : widget.comment.numReplies,
+                  itemBuilder: _repliesBuilder,
+                ),
                 Visibility(
                   visible: widget.comment.numReplies > 2,
                   child: GestureDetector(
@@ -297,7 +298,7 @@ class _UserCommentState extends State<UserComment>
       child: Card(
         color: Theme.of(context).canvasColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
         ),
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Padding(

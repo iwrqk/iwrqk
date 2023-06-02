@@ -30,15 +30,22 @@ class ProfilePage extends GetWidget<ProfileController> {
       children: [
         _buildAvatarButton(context),
         Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            color: Theme.of(context).canvasColor,
-            child: Column(
-              children: [
-                _buildUploadName(),
-                _buildDescription(context),
-                _buildJoinSeenAtDate(context)
-              ],
-            ))
+          color: Theme.of(context).canvasColor,
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  _buildUploadName(),
+                  _buildDescription(context),
+                  _buildJoinSeenAtDate(context)
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -156,139 +163,147 @@ class ProfilePage extends GetWidget<ProfileController> {
     bool isMyself = controller.profile.user!.username ==
         controller.userService.user?.username;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       color: Theme.of(context).canvasColor,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 25),
-            child: ClipOval(
-              child: ReloadableImage(
-                imageUrl: controller.profile.user!.avatarUrl,
-                width: 60,
-                height: 60,
-              ),
-            ),
-          ),
-          Expanded(
-              child: Column(
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.followersFollowing,
-                        arguments: {
-                          "parentUser": controller.profile.user,
-                          "sourceType": UsersSourceType.following,
-                        },
-                        preventDuplicates: false,
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Text(
-                          DisplayUtil.compactBigNumber(controller.followingNum),
-                          style: const TextStyle(fontSize: 12.5),
-                        ),
-                        Text(
-                          L10n.of(context).following,
-                          style: const TextStyle(
-                              color: Colors.grey, fontSize: 12.5),
-                        )
-                      ],
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 25),
+                child: ClipOval(
+                  child: ReloadableImage(
+                    imageUrl: controller.profile.user!.avatarUrl,
+                    width: 60,
+                    height: 60,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.followersFollowing,
-                        arguments: {
-                          "parentUser": controller.profile.user,
-                          "sourceType": UsersSourceType.followers,
-                        },
-                        preventDuplicates: false,
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Text(
-                          DisplayUtil.compactBigNumber(controller.followersNum),
-                          style: const TextStyle(fontSize: 12.5),
-                        ),
-                        Text(
-                          L10n.of(context).followers,
-                          style: const TextStyle(
-                              color: Colors.grey, fontSize: 12.5),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
-              if (!isMyself)
-                Row(
-                  children: [
-                    Flexible(
-                      child: FollowButton(
-                        user: controller.profile.user!,
-                        outlineStyle: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          minimumSize: const Size.fromHeight(0),
-                        ),
-                        filledStyle: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          minimumSize: const Size.fromHeight(0),
-                        ),
-                        labelBuilder: (title) => AutoSizeText(
-                          title,
-                          maxLines: 1,
+              Expanded(
+                  child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.followersFollowing,
+                            arguments: {
+                              "parentUser": controller.profile.user,
+                              "sourceType": UsersSourceType.following,
+                            },
+                            preventDuplicates: false,
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Text(
+                              DisplayUtil.compactBigNumber(
+                                  controller.followingNum),
+                              style: const TextStyle(fontSize: 12.5),
+                            ),
+                            Text(
+                              L10n.of(context).following,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12.5),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: FriendButtonWidget(
-                        user: controller.profile.user!,
-                        outlineStyle: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          minimumSize: Size.zero,
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.followersFollowing,
+                            arguments: {
+                              "parentUser": controller.profile.user,
+                              "sourceType": UsersSourceType.followers,
+                            },
+                            preventDuplicates: false,
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Text(
+                              DisplayUtil.compactBigNumber(
+                                  controller.followersNum),
+                              style: const TextStyle(fontSize: 12.5),
+                            ),
+                            Text(
+                              L10n.of(context).followers,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12.5),
+                            )
+                          ],
                         ),
-                        filledStyle: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          minimumSize: Size.zero,
+                      )
+                    ],
+                  ),
+                  if (!isMyself)
+                    Row(
+                      children: [
+                        Flexible(
+                          child: FollowButton(
+                            user: controller.profile.user!,
+                            outlineStyle: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              minimumSize: const Size.fromHeight(0),
+                            ),
+                            filledStyle: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              minimumSize: const Size.fromHeight(0),
+                            ),
+                            labelBuilder: (title) => AutoSizeText(
+                              title,
+                              maxLines: 1,
+                            ),
+                          ),
                         ),
-                        onlyIcon: true,
-                      ),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        minimumSize: Size.zero,
-                      ),
-                      onPressed: () {},
-                      child: const FaIcon(
-                        FontAwesomeIcons.solidEnvelope,
-                      ),
-                    ),
-                  ],
-                )
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: FriendButtonWidget(
+                            user: controller.profile.user!,
+                            outlineStyle: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              minimumSize: Size.zero,
+                            ),
+                            filledStyle: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              minimumSize: Size.zero,
+                            ),
+                            onlyIcon: true,
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            minimumSize: Size.zero,
+                          ),
+                          onPressed: () {},
+                          child: const FaIcon(
+                            FontAwesomeIcons.solidEnvelope,
+                          ),
+                        ),
+                      ],
+                    )
+                ],
+              ))
             ],
-          ))
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -304,25 +319,28 @@ class ProfilePage extends GetWidget<ProfileController> {
           ),
         ),
       ),
-      padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
-      child: TabBar(
-        isScrollable: true,
-        indicator: TabIndicator(context),
-        indicatorSize: TabBarIndicatorSize.label,
-        labelColor: Theme.of(context).primaryColor,
-        unselectedLabelColor: Colors.grey,
-        indicatorColor: Theme.of(context).primaryColor,
-        tabs: [
-          Tab(text: L10n.of(context).videos),
-          Tab(
-            text: L10n.of(context).images,
-          ),
-          Tab(
-            text: L10n.of(context).comments,
-          ),
-        ],
-        controller: controller.tabController,
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: TabBar(
+          isScrollable: true,
+          indicator: TabIndicator(context),
+          indicatorSize: TabBarIndicatorSize.label,
+          labelColor: Theme.of(context).primaryColor,
+          unselectedLabelColor: Colors.grey,
+          indicatorColor: Theme.of(context).primaryColor,
+          tabs: [
+            Tab(text: L10n.of(context).videos),
+            Tab(
+              text: L10n.of(context).images,
+            ),
+            Tab(
+              text: L10n.of(context).comments,
+            ),
+          ],
+          controller: controller.tabController,
+        ),
       ),
     );
   }
@@ -397,8 +415,8 @@ class ProfilePage extends GetWidget<ProfileController> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Theme.of(context).canvasColor.withAlpha(
-                ((1 - controller.hideAppbarFactor) * 255).toInt(),
+          backgroundColor: Theme.of(context).canvasColor.withOpacity(
+                1 - controller.hideAppbarFactor,
               ),
           leading: Center(
             child: GestureDetector(
@@ -412,8 +430,8 @@ class ProfilePage extends GetWidget<ProfileController> {
                       ? null
                       : BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.black.withAlpha(
-                            (255 * controller.hideAppbarFactor).toInt(),
+                          color: Colors.black.withOpacity(
+                            controller.hideAppbarFactor,
                           ),
                         ),
                   child: FaIcon(
@@ -435,8 +453,8 @@ class ProfilePage extends GetWidget<ProfileController> {
                     : (Theme.of(context).brightness == Brightness.light
                             ? Colors.black
                             : Colors.white)
-                        .withAlpha(
-                        255 - (255 * controller.hideAppbarFactor).toInt(),
+                        .withOpacity(
+                        1 - controller.hideAppbarFactor,
                       ),
               ),
             ),
@@ -490,13 +508,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                 fit: BoxFit.cover,
               ),
             ),
-            SliverToBoxAdapter(
-              child: SafeArea(
-                top: false,
-                bottom: false,
-                child: _buildHeader(context),
-              ),
-            ),
+            SliverToBoxAdapter(child: _buildHeader(context)),
             SliverPersistentHeader(
               pinned: true,
               delegate: _SliverPersistentHeaderDelegate(

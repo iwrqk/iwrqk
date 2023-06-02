@@ -23,7 +23,7 @@ class ForumTabPage extends GetView<ForumTabController> {
     return Card(
       color: Theme.of(context).canvasColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: GestureDetector(

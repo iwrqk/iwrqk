@@ -128,6 +128,7 @@ class NormalSearchPage extends GetView<NormalSearchController> {
                       child: FaIcon(
                         FontAwesomeIcons.magnifyingGlass,
                         color: Colors.grey,
+                        size: 20,
                       ),
                     ),
                     Expanded(
