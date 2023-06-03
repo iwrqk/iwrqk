@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:iwrqk/app/modules/search/normal_search/page.dart';
 
 import '../modules/account/downloads/binding.dart';
 import '../modules/account/downloads/page.dart';
@@ -9,6 +8,8 @@ import '../modules/account/history/binding.dart';
 import '../modules/account/history/page.dart';
 import '../modules/account/login/binding.dart';
 import '../modules/account/login/page.dart';
+import '../modules/account/messages/conversation_detail/binding.dart';
+import '../modules/account/messages/conversation_detail/page.dart';
 import '../modules/account/messages/conversations_preview/binding.dart';
 import '../modules/account/messages/conversations_preview/page.dart';
 import '../modules/account/register/binding.dart';
@@ -33,6 +34,7 @@ import '../modules/profile/binding.dart';
 import '../modules/profile/page.dart';
 import '../modules/profile/followers_following/page.dart';
 import '../modules/search/normal_search/binding.dart';
+import '../modules/search/normal_search/page.dart';
 import '../modules/search/normal_search_result/binding.dart';
 import '../modules/search/normal_search_result/page.dart';
 import '../modules/settings/binding.dart';
@@ -99,6 +101,11 @@ abstract class AppPages {
       page: () => const ConversationsPreviewPage(),
       binding: ConversationsPreviewBinding(),
       preventDuplicates: false,
+    ),
+    GetPage(
+      name: AppRoutes.conversationDetail,
+      page: () => const ConversationDetailPage(),
+      binding: ConversationDetailBinding(),
     ),
     GetPage(
       name: AppRoutes.normalSearch,

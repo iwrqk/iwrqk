@@ -4,6 +4,7 @@ import '../enums/types.dart';
 import '../models/app_user.dart';
 import '../models/comment.dart';
 import '../models/conversations/conversation.dart';
+import '../models/conversations/message.dart';
 import '../models/forum/channel.dart';
 import '../models/forum/post.dart';
 import '../models/forum/thread.dart';
@@ -139,6 +140,47 @@ class ApiProvider {
 
     return ApiResult(
       data: GroupResult(results: conversations, count: count),
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<MessageResult>> getMessages(
+    String conversationId,
+    String before,
+  ) async {
+    String? message;
+    List<MessageModel> messages = [];
+    String first = "";
+    String last = "";
+    int count = 0;
+
+    await networkProvider
+        .get("/conversation/$conversationId/messages", queryParameters: {
+      "before": before,
+    }).then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        count = value.data["count"];
+        for (var message in value.data["results"]) {
+          messages.add(MessageModel.fromJson(message));
+        }
+        first = value.data["first"];
+        last = value.data["last"];
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: MessageResult(
+        results: messages,
+        first: first,
+        last: last,
+        count: count,
+      ),
       success: message == null,
       message: message,
     );

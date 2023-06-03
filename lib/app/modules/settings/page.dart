@@ -267,37 +267,38 @@ class SettingsPage extends GetView<SettingsController> {
           L10n.of(context).user_settings,
         ),
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        padding: MediaQuery.of(context).padding.copyWith(bottom: 0, top: 0),
-        children: [
-          SettingTitle(title: L10n.of(context).setting_appearance),
-          SettingGroup(
-            children: [
-              _buildThemeSetting(context),
-              _buildLanguageSetting(context),
-              _buildEnableAdultCoverBlur(context),
-            ],
+      body: SafeArea(
+        child: ListView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
           ),
-          SettingTitle(title: L10n.of(context).setting_security),
-          Obx(
-            () => SettingGroup(
-              children: [
-                _buildEnableAutoLock(context),
-                if (controller.autoLockService.enableAutoLock)
-                  _buildEnableBiometric(context),
-              ],
-            ),
-          ),
-          if (controller.accountService.isLogin)
+          children: [
+            SettingTitle(title: L10n.of(context).setting_appearance),
             SettingGroup(
               children: [
-                _buildLogoutButton(context),
+                _buildThemeSetting(context),
+                _buildLanguageSetting(context),
+                _buildEnableAdultCoverBlur(context),
               ],
             ),
-        ],
+            SettingTitle(title: L10n.of(context).setting_security),
+            Obx(
+              () => SettingGroup(
+                children: [
+                  _buildEnableAutoLock(context),
+                  if (controller.autoLockService.enableAutoLock)
+                    _buildEnableBiometric(context),
+                ],
+              ),
+            ),
+            if (controller.accountService.isLogin)
+              SettingGroup(
+                children: [
+                  _buildLogoutButton(context),
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -330,28 +331,29 @@ class SettingGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).canvasColor,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2.5),
-              child: children[index],
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider(
-              thickness: 1,
-              color: Theme.of(context).cardColor,
-            );
-          },
-          itemCount: children.length,
-        ));
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).canvasColor,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.5),
+            child: children[index],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            thickness: 1,
+            color: Theme.of(context).cardColor,
+          );
+        },
+        itemCount: children.length,
+      ),
+    );
   }
 }

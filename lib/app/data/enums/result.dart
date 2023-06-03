@@ -1,3 +1,5 @@
+import '../models/conversations/message.dart';
+
 class ApiResult<T> {
   final T? data;
   final bool success;
@@ -17,5 +19,19 @@ class GroupResult<T> {
   GroupResult({
     required this.results,
     required this.count,
+  });
+}
+
+class MessageResult {
+  final String first;
+  final String last;
+  final int count;
+  final List<MessageModel> results;
+
+  MessageResult({
+    required this.first,
+    required this.last,
+    required this.count,
+    required this.results,
   });
 }

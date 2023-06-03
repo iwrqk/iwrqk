@@ -22,6 +22,7 @@ abstract class AppRoutes {
   static const playlistDetail = '/playlistDetail';
 
   static const conversationsPreview = '/conversationsPreview';
+  static const conversationDetail = '/conversationDetail';
 
   static const normalSearch = '/normalSearch';
   static const normalSearchResult = '/normalSearchResult';
