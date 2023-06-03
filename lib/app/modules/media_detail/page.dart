@@ -705,17 +705,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     return Column(
       children: [
         Expanded(
-          child: SafeArea(
-            top: MediaQuery.of(context).orientation == Orientation.landscape,
-            bottom: false,
-            left: false,
-            child: CommentsList(
-              uploaderUserName: _controller.media.user.username,
-              sourceId: _controller.media.id,
-              sourceType: _controller.mediaType == MediaType.video
-                  ? CommentsSourceType.video
-                  : CommentsSourceType.image,
-            ),
+          child: CommentsList(
+            uploaderUserName: _controller.media.user.username,
+            sourceId: _controller.media.id,
+            sourceType: _controller.mediaType == MediaType.video
+                ? CommentsSourceType.video
+                : CommentsSourceType.image,
           ),
         ),
         InkWell(
@@ -740,7 +735,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               ),
             ),
             child: Container(
-              margin: MediaQuery.of(context).padding.copyWith(top: 0),
+              margin: MediaQuery.of(context).padding.copyWith(left: 0, top: 0),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -877,20 +872,36 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                           commentsTab,
                         ],
                       )
-                    : detailTab,
+                    : SafeArea(
+                        top: false,
+                        bottom: false,
+                        child: detailTab,
+                      ),
               ),
             ),
           ),
         );
 
         return Scaffold(
+          backgroundColor: Colors.black,
           body: Row(
             children: [
               Expanded(child: body),
               if (MediaQuery.of(context).orientation == Orientation.landscape)
-                SizedBox(
-                  width: 300 + MediaQuery.of(context).padding.right,
-                  child: commentsTab,
+                SafeArea(
+                  top: MediaQuery.of(context).orientation ==
+                      Orientation.landscape,
+                  bottom: false,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                            color: Theme.of(context).dividerColor, width: 1),
+                      ),
+                    ),
+                    width: 300 + MediaQuery.of(context).padding.right,
+                    child: commentsTab,
+                  ),
                 )
             ],
           ),
