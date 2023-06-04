@@ -1,4 +1,4 @@
-import '../../enums/types.dart';
+import '../../../enums/types.dart';
 
 class FilterSettingModel {
   RatingType? ratingType;

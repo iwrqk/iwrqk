@@ -1,4 +1,4 @@
-import 'notifications/settings.dart';
+import 'account/notifications/settings.dart';
 import 'profile.dart';
 import 'tag.dart';
 import 'user.dart';

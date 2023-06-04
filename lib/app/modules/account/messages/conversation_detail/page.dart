@@ -4,8 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../../l10n.dart';
+import '../../../../core/utils/display_util.dart';
 import '../../../../data/enums/state.dart';
-import '../../../../data/models/conversations/message.dart';
+import '../../../../data/models/account/conversations/message.dart';
 import '../../../../global_widgets/reloadable_image.dart';
 import '../../../../global_widgets/sliver_refresh/widgets/iwr_footer_indicator.dart';
 import 'controller.dart';
@@ -193,6 +194,15 @@ class MessageWidget extends StatelessWidget {
                       color: isSender ? Colors.white : null,
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+                child: Text(
+                  DisplayUtil.getDetailedTime(
+                    DateTime.parse(message.createdAt),
+                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ),
             ],

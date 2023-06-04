@@ -1,6 +1,6 @@
 import '../../../data/enums/result.dart';
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/users_sort_setting.dart';
+import '../../../data/models/account/settings/users_sort_setting.dart';
 import '../../../data/models/user.dart';
 import '../../sliver_refresh/controller.dart';
 import 'repository.dart';

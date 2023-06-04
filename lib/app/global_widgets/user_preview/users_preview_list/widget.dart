@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/users_sort_setting.dart';
+import '../../../data/models/account/settings/users_sort_setting.dart';
 import '../../sliver_refresh/widget.dart';
 import '../user_preview.dart';
 import 'controller.dart';

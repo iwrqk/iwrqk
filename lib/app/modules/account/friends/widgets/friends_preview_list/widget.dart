@@ -2,34 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
-import '../../../../../../data/models/account/conversations/conversation.dart';
-import '../../../../../../global_widgets/sliver_refresh/widget.dart';
-import '../conversation_preview.dart';
+import '../../../../../global_widgets/sliver_refresh/widget.dart';
+import '../../../../../global_widgets/user_preview/user_preview.dart';
+import '../../controller.dart';
 import 'controller.dart';
 
-class ConversationsPreviewList extends StatefulWidget {
+class FriendsPreviewList extends StatefulWidget {
+  final String tag;
   final String userId;
 
-  const ConversationsPreviewList({
+  const FriendsPreviewList({
     super.key,
+    required this.tag,
     required this.userId,
   });
 
   @override
-  State<ConversationsPreviewList> createState() =>
-      _ConversationsPreviewListState();
+  State<FriendsPreviewList> createState() => _FriendsPreviewListState();
 }
 
-class _ConversationsPreviewListState extends State<ConversationsPreviewList>
+class _FriendsPreviewListState extends State<FriendsPreviewList>
     with AutomaticKeepAliveClientMixin {
-  late ConversationsPreviewListController _controller;
+  final FriendsController _parentController = Get.find();
+  late FriendsPreviewListController _controller;
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _controller = Get.find<ConversationsPreviewListController>();
+    _controller = Get.find<FriendsPreviewListController>(tag: widget.tag);
     _controller.initConfig(widget.userId);
+    _parentController.friendsPreviewListController = _controller;
   }
 
   @override
@@ -44,26 +47,27 @@ class _ConversationsPreviewListState extends State<ConversationsPreviewList>
             (context, index) {
               reachBottomCallback(index);
 
-              ConversationModel conversation = _controller.data[index];
+              final item = data[index];
 
               Widget child = SizedBox(
-                height: 75,
-                child: ConversationPreview(
-                  conversation: conversation,
-                  userId: widget.userId,
+                height: 100,
+                child: UserPreview(
+                  user: item,
+                  showFollowButton: false,
+                  showFriendButton: true,
                 ),
               );
 
               return FrameSeparateWidget(
                 index: index,
                 placeHolder: Container(
-                  height: 75,
+                  height: 100,
                   color: Theme.of(context).canvasColor,
                 ),
                 child: child,
               );
             },
-            childCount: _controller.data.length,
+            childCount: data.length,
           ),
         );
       },

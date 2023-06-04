@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/media_sort_setting.dart';
+import '../../../data/models/account/settings/media_sort_setting.dart';
 import '../../../global_widgets/media_preview/media_preview_grid/widget.dart';
 import '../../../global_widgets/tab_indicator.dart';
 import 'controller.dart';

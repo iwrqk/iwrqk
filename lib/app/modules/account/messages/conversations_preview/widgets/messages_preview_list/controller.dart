@@ -1,5 +1,5 @@
 import 'package:iwrqk/app/data/enums/result.dart';
-import 'package:iwrqk/app/data/models/conversations/conversation.dart';
+import 'package:iwrqk/app/data/models/account/conversations/conversation.dart';
 
 import '../../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';

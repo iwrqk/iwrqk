@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/utils/display_util.dart';
-import '../../../../../data/models/conversations/conversation.dart';
+import '../../../../../data/models/account/conversations/conversation.dart';
 import '../../../../../data/models/user.dart';
 import '../../../../../global_widgets/reloadable_image.dart';
 import '../../../../../routes/pages.dart';
@@ -30,9 +31,6 @@ class ConversationPreview extends StatelessWidget {
         );
       },
       child: Container(
-        color: conversation.unread
-            ? Theme.of(context).canvasColor
-            : Theme.of(context).cardColor,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: ListTile(
           contentPadding: EdgeInsets.zero,
@@ -67,14 +65,38 @@ class ConversationPreview extends StatelessWidget {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                conversation.lastMessage.body,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                  overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: conversation.lastMessage.body,
+                      ),
+                      if (conversation.unread)
+                        WidgetSpan(
+                          child: Container(
+                              width: 15,
+                              height: 15,
+                              margin: const EdgeInsets.only(left: 5),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Center(
+                                child: FaIcon(
+                                  FontAwesomeIcons.exclamation,
+                                  size: 7.5,
+                                  color: Colors.white,
+                                ),
+                              )),
+                        ),
+                    ],
+                  ),
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
               ),
               Text(
                 DisplayUtil.getDisplayTime(

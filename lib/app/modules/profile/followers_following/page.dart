@@ -5,7 +5,7 @@ import 'package:keframe/keframe.dart';
 
 import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/users_sort_setting.dart';
+import '../../../data/models/account/settings/users_sort_setting.dart';
 import '../../../data/models/user.dart';
 import '../../../global_widgets/user_preview/users_preview_list/controller.dart';
 import '../../../global_widgets/user_preview/users_preview_list/widget.dart';

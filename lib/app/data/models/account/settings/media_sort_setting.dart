@@ -1,5 +1,5 @@
 
-import '../../enums/types.dart';
+import '../../../enums/types.dart';
 
 class MediaSortSettingModel {
   final OrderType? orderType;

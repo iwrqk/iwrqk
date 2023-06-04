@@ -28,10 +28,16 @@ class CreatePlaylistDialog extends GetWidget<CreatePlaylistDialogController> {
         cursorColor: Theme.of(context).primaryColor,
         controller: controller.titleEditingController,
         decoration: InputDecoration(
-          focusedBorder: const UnderlineInputBorder(),
-          enabledBorder: const UnderlineInputBorder(),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).dividerColor),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).dividerColor),
+          ),
           hintText: L10n.of(context).playlist_title,
-          border: const UnderlineInputBorder(),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).dividerColor),
+          ),
         ),
       ),
       contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),

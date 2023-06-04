@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../../../data/enums/types.dart';
-import '../../../../../data/models/settings/filter_setting.dart';
+import '../../../../../data/models/account/settings/filter_setting.dart';
 import '../../../../../data/services/config_service.dart';
 import '../../../../../global_widgets/media_preview/media_preview_grid/controller.dart';
 

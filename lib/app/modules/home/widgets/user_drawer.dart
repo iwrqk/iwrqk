@@ -86,8 +86,8 @@ class UserDrawer extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: CustomScrollView(
-          physics:
-              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             SliverToBoxAdapter(
               child: GestureDetector(
@@ -107,7 +107,8 @@ class UserDrawer extends StatelessWidget {
                     color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
@@ -126,7 +127,8 @@ class UserDrawer extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: AutoSizeText(
                                       !_accountService.isLogin ||
                                               _userService.user == null
@@ -168,7 +170,7 @@ class UserDrawer extends StatelessWidget {
                         FontAwesomeIcons.userGroup,
                         size: 25,
                       ),
-                      routeName: AppRoutes.lock,
+                      routeName: AppRoutes.friends,
                     ),
                     _buildUserItem(
                       context,

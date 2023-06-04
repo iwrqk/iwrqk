@@ -4,6 +4,8 @@ import '../modules/account/downloads/binding.dart';
 import '../modules/account/downloads/page.dart';
 import '../modules/account/favorites/binding.dart';
 import '../modules/account/favorites/page.dart';
+import '../modules/account/friends/binding.dart';
+import '../modules/account/friends/page.dart';
 import '../modules/account/history/binding.dart';
 import '../modules/account/history/page.dart';
 import '../modules/account/login/binding.dart';
@@ -118,6 +120,11 @@ abstract class AppPages {
       page: () => NormalSearchResultPage(),
       binding: NormalSearchResultBinding(),
       preventDuplicates: false,
+    ),
+    GetPage(
+      name: AppRoutes.friends,
+      page: () => const FriendsPage(),
+      binding: FriendsBinding(),
     ),
     GetPage(
       name: AppRoutes.history,

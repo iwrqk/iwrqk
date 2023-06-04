@@ -1,4 +1,4 @@
-import '../models/conversations/message.dart';
+import '../models/account/conversations/message.dart';
 
 class ApiResult<T> {
   final T? data;

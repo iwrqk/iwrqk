@@ -1,5 +1,5 @@
 import '../../../../../../data/enums/result.dart';
-import '../../../../../../data/models/conversations/conversation.dart';
+import '../../../../../../data/models/account/conversations/conversation.dart';
 import '../../../../../../data/providers/api_provider.dart';
 
 class ConversationsPreviewListRepository {

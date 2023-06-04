@@ -2,34 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
-import '../../../../../../data/models/account/conversations/conversation.dart';
-import '../../../../../../global_widgets/sliver_refresh/widget.dart';
-import '../conversation_preview.dart';
+import '../../../../../global_widgets/buttons/friend_accept_reject_buttons/widget.dart';
+import '../../../../../global_widgets/sliver_refresh/widget.dart';
+import '../../../../../global_widgets/user_preview/user_preview.dart';
+import '../../controller.dart';
 import 'controller.dart';
 
-class ConversationsPreviewList extends StatefulWidget {
+class FriendRequestsList extends StatefulWidget {
+  final String tag;
   final String userId;
 
-  const ConversationsPreviewList({
+  const FriendRequestsList({
     super.key,
+    required this.tag,
     required this.userId,
   });
 
   @override
-  State<ConversationsPreviewList> createState() =>
-      _ConversationsPreviewListState();
+  State<FriendRequestsList> createState() => _FriendRequestsListState();
 }
 
-class _ConversationsPreviewListState extends State<ConversationsPreviewList>
+class _FriendRequestsListState extends State<FriendRequestsList>
     with AutomaticKeepAliveClientMixin {
-  late ConversationsPreviewListController _controller;
+  final FriendsController _parentController = Get.find();
+  late FriendRequestsListController _controller;
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _controller = Get.find<ConversationsPreviewListController>();
+    _controller = Get.find<FriendRequestsListController>(tag: widget.tag);
     _controller.initConfig(widget.userId);
+    _parentController.friendRequestsListController = _controller;
   }
 
   @override
@@ -44,26 +48,30 @@ class _ConversationsPreviewListState extends State<ConversationsPreviewList>
             (context, index) {
               reachBottomCallback(index);
 
-              ConversationModel conversation = _controller.data[index];
+              final item = data[index];
 
               Widget child = SizedBox(
-                height: 75,
-                child: ConversationPreview(
-                  conversation: conversation,
-                  userId: widget.userId,
+                height: 100,
+                child: UserPreview(
+                  user: item.user,
+                  showFollowButton: false,
+                  showFriendButton: false,
+                  customButton: FriendAcceptRejectButtons(
+                    user: item.user,
+                  ),
                 ),
               );
 
               return FrameSeparateWidget(
                 index: index,
                 placeHolder: Container(
-                  height: 75,
+                  height: 100,
                   color: Theme.of(context).canvasColor,
                 ),
                 child: child,
               );
             },
-            childCount: _controller.data.length,
+            childCount: data.length,
           ),
         );
       },

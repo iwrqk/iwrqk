@@ -8,7 +8,7 @@ import 'package:keframe/keframe.dart';
 import '../../../l10n.dart';
 import '../../core/utils/display_util.dart';
 import '../../data/enums/types.dart';
-import '../../data/models/settings/media_sort_setting.dart';
+import '../../data/models/account/settings/media_sort_setting.dart';
 import '../../global_widgets/comments/comments_list/widget.dart';
 import '../../global_widgets/comments/send_comment_bottom_sheet/widget.dart';
 import '../../global_widgets/buttons/follow_button/widget.dart';

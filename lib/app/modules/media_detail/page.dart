@@ -702,59 +702,69 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildCommentsTab() {
-    return Column(
-      children: [
-        Expanded(
-          child: CommentsList(
-            uploaderUserName: _controller.media.user.username,
-            sourceId: _controller.media.id,
-            sourceType: _controller.mediaType == MediaType.video
-                ? CommentsSourceType.video
-                : CommentsSourceType.image,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border(
+          left: BorderSide(color: Theme.of(context).dividerColor, width: 1),
         ),
-        InkWell(
-          onTap: () {
-            Get.bottomSheet(
-              SendCommentBottomSheet(
-                sourceId: _controller.media.id,
-                sourceType: _controller.mediaType == MediaType.video
-                    ? CommentsSourceType.video
-                    : CommentsSourceType.image,
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).canvasColor,
-              border: Border(
-                top: BorderSide(
-                  color: Theme.of(context).dividerColor,
-                  width: 1,
-                ),
-              ),
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: CommentsList(
+              uploaderUserName: _controller.media.user.username,
+              sourceId: _controller.media.id,
+              sourceType: _controller.mediaType == MediaType.video
+                  ? CommentsSourceType.video
+                  : CommentsSourceType.image,
             ),
+          ),
+          InkWell(
+            onTap: () {
+              Get.bottomSheet(
+                SendCommentBottomSheet(
+                  sourceId: _controller.media.id,
+                  sourceType: _controller.mediaType == MediaType.video
+                      ? CommentsSourceType.video
+                      : CommentsSourceType.image,
+                ),
+              );
+            },
             child: Container(
-              margin: MediaQuery.of(context).padding.copyWith(left: 0, top: 0),
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: BorderRadius.circular(1000),
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                border: Border(
+                  top: BorderSide(
+                    color: Theme.of(context).dividerColor,
+                    width: 1,
+                  ),
                 ),
-                child: AutoSizeText(
-                  L10n.of(context).comments_send_comment,
-                  maxLines: 1,
-                  style: const TextStyle(color: Colors.grey),
+              ),
+              child: Container(
+                margin:
+                    MediaQuery.of(context).padding.copyWith(left: 0, top: 0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(1000),
+                  ),
+                  child: AutoSizeText(
+                    L10n.of(context).comments_send_comment,
+                    maxLines: 1,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -807,6 +817,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             right: false,
             child: Scaffold(
               extendBodyBehindAppBar: true,
+              resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: Theme.of(context).canvasColor.withOpacity(
@@ -882,9 +893,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           ),
         );
 
-        return Scaffold(
-          backgroundColor: Colors.black,
-          body: Row(
+        return Material(
+          color: Theme.of(context).canvasColor,
+          child: Row(
             children: [
               Expanded(child: body),
               if (MediaQuery.of(context).orientation == Orientation.landscape)
@@ -892,14 +903,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                   top: MediaQuery.of(context).orientation ==
                       Orientation.landscape,
                   bottom: false,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                            color: Theme.of(context).dividerColor, width: 1),
-                      ),
-                    ),
-                    width: 300 + MediaQuery.of(context).padding.right,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.longestSide / 3 +
+                        MediaQuery.of(context).padding.right,
                     child: commentsTab,
                   ),
                 )

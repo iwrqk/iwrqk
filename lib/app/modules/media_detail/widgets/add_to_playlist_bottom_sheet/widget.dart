@@ -127,9 +127,23 @@ class AddToPlaylistBottomSheet
     return BottomSheet(
       enableDrag: false,
       onClosing: () {},
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).orientation == Orientation.portrait
+            ? double.infinity
+            : MediaQuery.of(context).size.width / 2,
+        maxHeight: MediaQuery.of(context).orientation == Orientation.portrait &&
+                MediaQuery.of(context).size.height > 600
+            ? MediaQuery.of(context).size.height / 2
+            : MediaQuery.of(context).size.height / 1.25,
+      ),
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 2.5,
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
           child: Column(
@@ -139,7 +153,7 @@ class AddToPlaylistBottomSheet
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                 ),
@@ -203,7 +217,7 @@ class AddToPlaylistBottomSheet
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).dividerColor,
                     ),
                   ),
                 ),

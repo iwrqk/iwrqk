@@ -27,6 +27,7 @@ abstract class AppRoutes {
   static const normalSearch = '/normalSearch';
   static const normalSearchResult = '/normalSearchResult';
 
+  static const friends = '/friends';
   static const history = '/history';
   static const downloads = '/downloads';
   static const favorites = '/favorite';

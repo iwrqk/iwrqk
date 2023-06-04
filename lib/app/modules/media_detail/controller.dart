@@ -245,7 +245,6 @@ class MediaDetailController extends GetxController
     } else {
       errorMessageRecommendation = result.message!;
       _isFectchingRecommendation.value = false;
-      _fetchFailed.value = true;
       return;
     }
 

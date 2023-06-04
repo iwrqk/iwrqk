@@ -3,13 +3,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../l10n.dart';
-import '../../../data/enums/types.dart';
 import '../../../global_widgets/tab_indicator.dart';
 import 'controller.dart';
-import 'widgets/favorite_media_preview_list/widget.dart';
+import 'widgets/friend_requests_list/widget.dart';
+import 'widgets/friends_preview_list/widget.dart';
 
-class FavoritesPage extends GetView<FavoritesController> {
-  const FavoritesPage({super.key});
+class FriendsPage extends GetView<FriendsController> {
+  const FriendsPage({Key? key}) : super(key: key);
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
@@ -33,8 +33,8 @@ class FavoritesPage extends GetView<FavoritesController> {
         unselectedLabelColor: Colors.grey,
         indicatorColor: Theme.of(context).primaryColor,
         tabs: [
-          Tab(text: L10n.of(context).videos),
-          Tab(text: L10n.of(context).images),
+          Tab(text: L10n.of(context).user_friends),
+          Tab(text: L10n.of(context).friend_requests),
         ],
       ),
     );
@@ -52,7 +52,7 @@ class FavoritesPage extends GetView<FavoritesController> {
         ),
         centerTitle: true,
         title: Text(
-          L10n.of(context).user_favorites,
+          L10n.of(context).user_friends,
         ),
       ),
       body: DefaultTabController(
@@ -66,13 +66,13 @@ class FavoritesPage extends GetView<FavoritesController> {
                 bottom: false,
                 child: TabBarView(
                   children: [
-                    FavoriteMediaPreviewList(
-                      mediaType: MediaType.video,
-                      tag: controller.childrenControllerTags[0],
+                    FriendsPreviewList(
+                      userId: controller.userService.user!.id,
+                      tag: controller.friendsPreviewListTag,
                     ),
-                    FavoriteMediaPreviewList(
-                      mediaType: MediaType.image,
-                      tag: controller.childrenControllerTags[1],
+                    FriendRequestsList(
+                      userId: controller.userService.user!.id,
+                      tag: controller.friendRequestsListTag,
                     ),
                   ],
                 ),

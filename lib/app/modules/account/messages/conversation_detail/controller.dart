@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../../../../data/enums/state.dart';
-import '../../../../data/models/conversations/message.dart';
+import '../../../../data/models/account/conversations/message.dart';
 import '../../../../data/providers/api_provider.dart';
 
 class ConversationDetailController extends GetxController with StateMixin {

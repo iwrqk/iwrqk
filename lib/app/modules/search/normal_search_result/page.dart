@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/users_sort_setting.dart';
+import '../../../data/models/account/settings/users_sort_setting.dart';
 import '../../../global_widgets/tab_indicator.dart';
 import '../../../global_widgets/user_preview/users_preview_list/widget.dart';
 import '../normal_search/controller.dart';

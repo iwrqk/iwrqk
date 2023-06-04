@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iwrqk/app/data/models/settings/player_setting.dart';
+import 'package:iwrqk/app/data/models/account/settings/player_setting.dart';
 
 import '../../core/const/widget.dart';
-import '../models/settings/filter_setting.dart';
+import '../models/account/settings/filter_setting.dart';
 import '../providers/storage_provider.dart';
 
 abstract class ConfigKey {

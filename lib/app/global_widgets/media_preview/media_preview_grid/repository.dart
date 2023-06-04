@@ -1,8 +1,8 @@
 import '../../../data/enums/result.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/media/media.dart';
-import '../../../data/models/settings/filter_setting.dart';
-import '../../../data/models/settings/media_sort_setting.dart';
+import '../../../data/models/account/settings/filter_setting.dart';
+import '../../../data/models/account/settings/media_sort_setting.dart';
 import '../../../data/providers/api_provider.dart';
 
 class MediaPreviewGridRepository {

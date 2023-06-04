@@ -4,7 +4,7 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/settings/player_setting.dart';
+import '../../../../data/models/account/settings/player_setting.dart';
 import 'widgets/iwr_player_controls.dart';
 
 enum QuickGestures {

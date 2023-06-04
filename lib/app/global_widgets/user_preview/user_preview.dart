@@ -11,12 +11,14 @@ class UserPreview extends StatelessWidget {
   final UserModel user;
   final bool showFollowButton;
   final bool showFriendButton;
+  final Widget? customButton;
 
   const UserPreview({
     super.key,
     required this.user,
     this.showFollowButton = true,
     this.showFriendButton = false,
+    this.customButton,
   });
 
   @override
@@ -77,6 +79,7 @@ class UserPreview extends StatelessWidget {
             ),
             if (showFollowButton) FollowButton(user: user),
             if (showFriendButton) FriendButtonWidget(user: user),
+            if (customButton != null) customButton!,
           ],
         ),
       ),

@@ -1,17 +1,18 @@
 import '../../core/utils/log_util.dart';
 import '../enums/result.dart';
 import '../enums/types.dart';
+import '../models/account/friend_request.dart';
 import '../models/app_user.dart';
 import '../models/comment.dart';
-import '../models/conversations/conversation.dart';
-import '../models/conversations/message.dart';
+import '../models/account/conversations/conversation.dart';
+import '../models/account/conversations/message.dart';
 import '../models/forum/channel.dart';
 import '../models/forum/post.dart';
 import '../models/forum/thread.dart';
 import '../models/media/image.dart';
 import '../models/media/media.dart';
 import '../models/media/video.dart';
-import '../models/notifications/counts.dart';
+import '../models/account/notifications/counts.dart';
 import '../models/playlist/light_playlist.dart';
 import '../models/playlist/playlist.dart';
 import '../models/profile.dart';
@@ -713,6 +714,36 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<GroupResult<UserModel>>> getFriends({
+    required String userId,
+    required int pageNum,
+  }) async {
+    String? message;
+    List<UserModel> friends = [];
+    int count = 0;
+    await networkProvider.get("/user/$userId/friends", queryParameters: {
+      "page": pageNum,
+    }).then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        count = value.data["count"];
+        for (var friend in value.data["results"]) {
+          friends.add(UserModel.fromJson(friend));
+        }
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: GroupResult(results: friends, count: count),
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<void>> sendFriendRequest({
     required String userId,
   }) async {
@@ -738,7 +769,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/user/$userId/friends").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -762,7 +795,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/user/$userId/friends").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -809,13 +844,13 @@ class ApiProvider {
     );
   }
 
-  static Future<ApiResult<GroupResult<UserModel>>> getFriendRequests({
+  static Future<ApiResult<GroupResult<FriendRequestModel>>> getFriendRequests({
     required String userId,
     required int pageNum,
   }) async {
     String? message;
     int count = 0;
-    List<UserModel> users = [];
+    List<FriendRequestModel> requests = [];
 
     await networkProvider
         .get("/user/$userId/friends/requests", queryParameters: {
@@ -825,8 +860,8 @@ class ApiProvider {
 
       if (message == null) {
         count = value.data["count"];
-        users = (value.data["results"] as List)
-            .map((e) => UserModel.fromJson(e))
+        requests = (value.data["results"] as List)
+            .map((e) => FriendRequestModel.fromJson(e))
             .toList();
       }
     }).catchError((e, stackTrace) {
@@ -837,7 +872,7 @@ class ApiProvider {
     return ApiResult(
       data: GroupResult(
         count: count,
-        results: users,
+        results: requests,
       ),
       success: message == null,
       message: message,

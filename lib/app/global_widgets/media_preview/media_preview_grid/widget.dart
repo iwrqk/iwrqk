@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
 import '../../../data/enums/types.dart';
-import '../../../data/models/settings/filter_setting.dart';
-import '../../../data/models/settings/media_sort_setting.dart';
+import '../../../data/models/account/settings/filter_setting.dart';
+import '../../../data/models/account/settings/media_sort_setting.dart';
 import '../../sliver_refresh/widget.dart';
 import 'controller.dart';
 import '../media_preview.dart';
