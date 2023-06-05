@@ -21,7 +21,8 @@ abstract class ConfigKey {
 class ConfigService extends GetxService {
   final Rx<ThemeMode> _themeMode = ThemeMode.system.obs;
 
-  late bool firstLoad;
+  late bool firstRun;
+  late bool languageSetted;
 
   ThemeMode get themeMode => _themeMode.value;
 
@@ -106,16 +107,22 @@ class ConfigService extends GetxService {
     crossAxisCount = number;
   }
 
+  void setFirstRun(bool value) {
+    firstRun = value;
+    StorageProvider.setConfig(ConfigKey.firstRun, value);
+  }
+
   @override
   void onInit() {
     super.onInit();
     if (StorageProvider.getConfigByKey(ConfigKey.firstRun) == null) {
-      firstLoad = true;
-      StorageProvider.setConfig(ConfigKey.firstRun, false);
+      firstRun = true;
+      languageSetted = false;
     } else {
-      firstLoad = false;
+      languageSetted = true;
+      firstRun = false;
     }
-    if (!firstLoad) {
+    if (!firstRun) {
       _localeCode.value =
           StorageProvider.getConfigByKey(ConfigKey.localeCode) ?? "en";
     }

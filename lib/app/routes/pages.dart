@@ -41,6 +41,8 @@ import '../modules/search/normal_search_result/binding.dart';
 import '../modules/search/normal_search_result/page.dart';
 import '../modules/settings/binding.dart';
 import '../modules/settings/page.dart';
+import '../modules/setup/binding.dart';
+import '../modules/setup/page.dart';
 import '../modules/splash/binding.dart';
 import '../modules/splash/page.dart';
 
@@ -52,6 +54,11 @@ abstract class AppPages {
       name: AppRoutes.root,
       page: () => const SplashPage(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.setup,
+      page: () => const SetupPage(),
+      binding: SetupBinding(),
     ),
     GetPage(
       name: AppRoutes.home,
@@ -143,7 +150,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.settings,
-      page: () => SettingsPage(),
+      page: () => const SettingsPage(),
       binding: SettingsBinding(),
     ),
     GetPage(

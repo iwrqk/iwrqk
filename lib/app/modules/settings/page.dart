@@ -9,9 +9,7 @@ import '../../routes/pages.dart';
 import 'controller.dart';
 
 class SettingsPage extends GetView<SettingsController> {
-  final SettingsController _controller = Get.find();
-
-  SettingsPage({super.key});
+  const SettingsPage({super.key});
 
   Widget _buildLanguageSetting(BuildContext context) {
     return Row(
@@ -33,7 +31,7 @@ class SettingsPage extends GetView<SettingsController> {
               children: [
                 Obx(
                   () => Text(
-                    _controller.getCurrentLanguageName(),
+                    controller.getCurrentLanguageName(),
                     style: const TextStyle(fontSize: 15, color: Colors.grey),
                   ),
                 ),
@@ -59,7 +57,7 @@ class SettingsPage extends GetView<SettingsController> {
                 .toList();
           },
           onSelected: (value) {
-            _controller.configService.localeCode = value;
+            controller.configService.localeCode = value;
           },
         )
       ],
@@ -81,14 +79,15 @@ class SettingsPage extends GetView<SettingsController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Theme.of(context).cardColor),
+                borderRadius: BorderRadius.circular(5),
+                color: Theme.of(context).cardColor,
+              ),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Row(
                 children: [
                   Obx(
                     () => Text(
-                      _controller.getCurrentThemeName(context),
+                      controller.getCurrentThemeName(context),
                       style: const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ),
@@ -125,7 +124,7 @@ class SettingsPage extends GetView<SettingsController> {
             ];
           },
           onSelected: (value) {
-            _controller.configService.themeMode = value;
+            controller.configService.themeMode = value;
           },
         )
       ],
@@ -147,10 +146,10 @@ class SettingsPage extends GetView<SettingsController> {
             height: 20,
             margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
-              value: _controller.configService.adultCoverBlur,
+              value: controller.configService.adultCoverBlur,
               activeColor: Theme.of(context).primaryColor,
               onChanged: (value) {
-                _controller.configService.adultCoverBlur = value;
+                controller.configService.adultCoverBlur = value;
               },
             ),
           ),
@@ -174,15 +173,15 @@ class SettingsPage extends GetView<SettingsController> {
             height: 20,
             margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
-              value: _controller.autoLockService.enableAuthByBiometrics,
+              value: controller.autoLockService.enableAuthByBiometrics,
               activeColor: Theme.of(context).primaryColor,
               onChanged: (value) {
                 if (value) {
                   controller.getBiometricsAuth().then((value) {
-                    _controller.autoLockService.enableAuthByBiometrics = value;
+                    controller.autoLockService.enableAuthByBiometrics = value;
                   });
                 } else {
-                  _controller.autoLockService.enableAuthByBiometrics = value;
+                  controller.autoLockService.enableAuthByBiometrics = value;
                 }
               },
             ),
@@ -207,17 +206,17 @@ class SettingsPage extends GetView<SettingsController> {
             height: 20,
             margin: const EdgeInsets.only(left: 10),
             child: CupertinoSwitch(
-              value: _controller.autoLockService.enableAutoLock,
+              value: controller.autoLockService.enableAutoLock,
               activeColor: Theme.of(context).primaryColor,
               onChanged: (value) {
                 if (value) {
                   Get.toNamed(AppRoutes.setPassword)?.then((value) {
                     if (value is bool) {
-                      _controller.autoLockService.enableAutoLock = value;
+                      controller.autoLockService.enableAutoLock = value;
                     }
                   });
                 } else {
-                  _controller.autoLockService.enableAutoLock = value;
+                  controller.autoLockService.enableAutoLock = value;
                 }
               },
             ),
@@ -229,7 +228,7 @@ class SettingsPage extends GetView<SettingsController> {
 
   Widget _buildLogoutButton(BuildContext context) {
     return InkWell(
-      onTap: _controller.logout,
+      onTap: controller.logout,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -269,9 +268,6 @@ class SettingsPage extends GetView<SettingsController> {
       ),
       body: SafeArea(
         child: ListView(
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
           children: [
             SettingTitle(title: L10n.of(context).setting_appearance),
             SettingGroup(

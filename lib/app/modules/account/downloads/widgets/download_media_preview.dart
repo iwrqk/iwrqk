@@ -357,7 +357,6 @@ class DownloadMediaPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        color: Theme.of(context).canvasColor,
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: _buildFullVerison(context),

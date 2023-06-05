@@ -8,7 +8,6 @@ import '../../../../core/utils/display_util.dart';
 import '../../../../data/enums/types.dart';
 import '../../../../data/models/offline/history_meida.dart';
 import '../../../../data/models/offline/offline_meida.dart';
-import '../../../../data/providers/storage_provider.dart';
 import '../../../../global_widgets/reloadable_image.dart';
 import '../../../../routes/pages.dart';
 
@@ -73,7 +72,8 @@ class HistoryMediaPreview extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 2),
                     child: Text(
                       "${duration.inMinutes}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                      style:
+                          const TextStyle(fontSize: 12.5, color: Colors.white),
                     ))
               ],
             ),
@@ -81,7 +81,8 @@ class HistoryMediaPreview extends StatelessWidget {
         if (media.galleryLength != null)
           if (media.galleryLength! > 1)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -98,7 +99,8 @@ class HistoryMediaPreview extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 2),
                       child: Text(
                         "${media.galleryLength}",
-                        style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 12.5, color: Colors.white),
                       ))
                 ],
               ),
@@ -195,7 +197,8 @@ class HistoryMediaPreview extends StatelessWidget {
                               ),
                               Flexible(
                                 child: Container(
-                                  margin: const EdgeInsets.only(left: 2, right: 2),
+                                  margin:
+                                      const EdgeInsets.only(left: 2, right: 2),
                                   child: Text(
                                     media.uploader.name,
                                     maxLines: 1,
@@ -215,8 +218,8 @@ class HistoryMediaPreview extends StatelessWidget {
                             media.type == MediaType.video
                                 ? L10n.of(context).video
                                 : L10n.of(context).image,
-                            style:
-                                const TextStyle(fontSize: 12.5, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 12.5, color: Colors.grey),
                           )
                       ]),
                   Row(
@@ -261,17 +264,12 @@ class HistoryMediaPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        color: Theme.of(context).canvasColor,
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: _buildFullVerison(context),
         ),
       ),
       onTap: () {
-        HistoryMediaModel newData = media;
-        newData.viewedDate = DateTime.now();
-        StorageProvider.addHistoryItem(newData);
-
         Get.toNamed(AppRoutes.mediaDetail, arguments: {
           "mediaType": media.type,
           "id": media.id,

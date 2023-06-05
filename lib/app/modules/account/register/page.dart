@@ -12,6 +12,8 @@ class RegisterPage extends GetView<RegisterController> {
   final FocusNode blankNode = FocusNode();
   final FocusNode focusNode = FocusNode();
 
+  final BoxConstraints constraints = const BoxConstraints(maxWidth: 500);
+
   Widget _buildFailWidget(BuildContext context, String errorMessage) {
     return Center(
       child: Column(
@@ -64,104 +66,102 @@ class RegisterPage extends GetView<RegisterController> {
           )),
       body: controller.obx(
         (state) {
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 500,
+          return Form(
+            key: controller.formKey,
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.1,
               ),
-              child: Form(
-                key: controller.formKey,
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25),
-                      child: ClipOval(
-                        child: Image.asset(
-                          "assets/app_icon.png",
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: ClipOval(
+                    child: Image.asset(
+                      "assets/app_icon.png",
+                      width: 100,
+                      height: 100,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        validator: (input) {
-                          if (input != null) {
-                            if (input.isNotEmpty &&
-                                controller.emailRegExp.hasMatch(input)) {
-                              return null;
-                            }
-                          }
-                          return L10n.of(context).message_please_type_email;
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
-                          border: const OutlineInputBorder(),
-                          labelText: L10n.of(context).email,
-                        ),
-                        onSaved: (input) => controller.email = input,
-                        onEditingComplete: () {
-                          FocusScope.of(context).requestFocus(focusNode);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(5)),
-                        child: AspectRatio(
-                          aspectRatio: 30 / 4,
-                          child: Image.memory(
-                            controller.imageData,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        validator: (input) {
-                          if (input != null) {
-                            if (input.isNotEmpty) {
-                              return null;
-                            }
-                          }
-                          return L10n.of(context).message_please_type_captcha;
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(FontAwesomeIcons.lock),
-                          border: const OutlineInputBorder(),
-                          labelText: L10n.of(context).captcha,
-                        ),
-                        onSaved: (input) => controller.captcha = input,
-                        focusNode: focusNode,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15)),
-                        onPressed: () {
-                          FocusScope.of(context).requestFocus(blankNode);
-                          controller.register();
-                        },
-                        child: Text(
-                          L10n.of(context).register,
-                          style: const TextStyle(fontSize: 17.5),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  constraints: constraints,
+                  child: TextFormField(
+                    validator: (input) {
+                      if (input != null) {
+                        if (input.isNotEmpty &&
+                            controller.emailRegExp.hasMatch(input)) {
+                          return null;
+                        }
+                      }
+                      return L10n.of(context).message_please_type_email;
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
+                      border: const OutlineInputBorder(),
+                      labelText: L10n.of(context).email,
+                    ),
+                    onSaved: (input) => controller.email = input,
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(focusNode);
+                    },
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  constraints: constraints,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    child: AspectRatio(
+                      aspectRatio: 30 / 4,
+                      child: Image.memory(
+                        controller.imageData,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  constraints: constraints,
+                  child: TextFormField(
+                    validator: (input) {
+                      if (input != null) {
+                        if (input.isNotEmpty) {
+                          return null;
+                        }
+                      }
+                      return L10n.of(context).message_please_type_captcha;
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(FontAwesomeIcons.lock),
+                      border: const OutlineInputBorder(),
+                      labelText: L10n.of(context).captcha,
+                    ),
+                    onSaved: (input) => controller.captcha = input,
+                    focusNode: focusNode,
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  constraints: constraints,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 15)),
+                    onPressed: () {
+                      FocusScope.of(context).requestFocus(blankNode);
+                      controller.register();
+                    },
+                    child: Text(
+                      L10n.of(context).register,
+                      style: const TextStyle(fontSize: 17.5),
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

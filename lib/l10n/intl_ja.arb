@@ -1,4 +1,6 @@
 {
+    "get_started": "始める",
+    "setup_finish_description": "後で設定ページでこれらの設定を変更できます。",
     "videos": "動画",
     "images": "画像",
     "forum": "フォーラム",
@@ -28,6 +30,9 @@
     "ok": "はい",
     "cancel": "キャンセル",
     "confirm": "確認",
+    "back": "戻る",
+    "skip": "スキップ",
+    "finish": "完了",
     "filter": "フィルター",
     "filter_by_rating": "レーティングのフィルター",
     "filter_by_tags": "タグでのフィルター",

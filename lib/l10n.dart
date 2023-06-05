@@ -10,8 +10,8 @@ class L10n {
 
   static const Map<String, String> languageMap = {
     'en': 'English',
+    'ja': '日本語',
     'zh_CN': '简体中文',
     'zh_TW': '繁體中文',
-    'ja': '日本語',
   };
 }

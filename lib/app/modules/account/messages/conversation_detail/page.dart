@@ -197,12 +197,12 @@ class MessageWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+                padding: const EdgeInsets.only(top: 5, right: 10, left: 10),
                 child: Text(
                   DisplayUtil.getDetailedTime(
                     DateTime.parse(message.createdAt),
                   ),
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ),
             ],

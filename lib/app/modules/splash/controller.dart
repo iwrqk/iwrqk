@@ -34,15 +34,21 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   void init(BuildContext context) {
     DisplayUtil.init(context);
     TranslateProvider.init();
-    _runInitTask();
     _configService.calculateGridChildAspectRatio(
       MediaQuery.of(context).size,
       MediaQuery.of(context).orientation,
     );
+    if (_configService.firstRun) {
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        Get.offAndToNamed(AppRoutes.setup);
+      });
+    } else {
+      _runInitTask();
+    }
   }
 
   Future<void> _runInitTask() async {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (_autoLockService.enableAutoLock) {
         Get.offAndToNamed(AppRoutes.home);
         Get.toNamed(AppRoutes.lock);

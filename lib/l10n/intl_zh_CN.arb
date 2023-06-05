@@ -1,4 +1,6 @@
 {
+    "get_started": "开始",
+    "setup_finish_description": "您可以稍后在设置页面中更改这些设置。",
     "videos": "视频",
     "images": "图片",
     "forum": "论坛",
@@ -28,6 +30,9 @@
     "ok": "好的",
     "cancel": "取消",
     "confirm": "确认",
+    "back": "返回",
+    "skip": "跳过",
+    "finish": "完成",
     "filter": "筛选",
     "filter_by_rating": "按分级筛选",
     "filter_by_tags": "按标签筛选",

@@ -1,4 +1,6 @@
 {
+  "get_started": "Get started",
+  "setup_finish_description": "You can change these settings later in the settings page.",
   "videos": "Videos",
   "images": "Images",
   "forum": "Forum",
@@ -28,6 +30,9 @@
   "ok": "OK",
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "back": "Back",
+  "skip": "Skip",
+  "finish": "Finish",
   "filter": "Filter",
   "filter_by_rating": "Filter by rating",
   "filter_by_tags": "Filter by tags",
