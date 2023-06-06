@@ -1,13 +1,17 @@
+import 'package:background_downloader/background_downloader.dart';
+
 import 'offline/download_task_media.dart';
 
 class MediaDownloadTask {
   DateTime createTime;
   Map<String, dynamic> task;
-  DownloadTaskMediaModel offlineMeida;
+  DownloadTaskMediaModel offlineMedia;
+
+  DownloadTask get downloadTask => DownloadTask.fromJsonMap(task);
 
   MediaDownloadTask({
     required this.createTime,
-    required this.offlineMeida,
+    required this.offlineMedia,
     required this.task,
   });
 }
@@ -19,17 +23,17 @@ class VideoDownloadTask extends MediaDownloadTask {
   VideoDownloadTask(
       {required this.expireTime,
       required DateTime createTime,
-      required DownloadTaskMediaModel offlineMeida,
+      required DownloadTaskMediaModel offlineMedia,
       required Map<String, dynamic> task,
       required this.resolutionName})
-      : super(createTime: createTime, offlineMeida: offlineMeida, task: task);
+      : super(createTime: createTime, offlineMedia: offlineMedia, task: task);
 
   Map<String, dynamic> toJson() {
     return {
       'createTime': createTime.millisecondsSinceEpoch,
       'expireTime': expireTime,
       'resolutionName': resolutionName,
-      'offlineMeida': offlineMeida.toJson(),
+      'offlineMedia': offlineMedia.toJson(),
       'task': task,
     };
   }
@@ -39,7 +43,7 @@ class VideoDownloadTask extends MediaDownloadTask {
       expireTime: json['expireTime'],
       createTime: DateTime.fromMillisecondsSinceEpoch(json['createTime']),
       resolutionName: json['resolutionName'],
-      offlineMeida: DownloadTaskMediaModel.fromJson(json['offlineMeida']),
+      offlineMedia: DownloadTaskMediaModel.fromJson(json['offlineMedia']),
       task: json['task'],
     );
   }
@@ -48,14 +52,14 @@ class VideoDownloadTask extends MediaDownloadTask {
 class ImageDownloadTask extends MediaDownloadTask {
   ImageDownloadTask({
     required DateTime createTime,
-    required DownloadTaskMediaModel offlineMeida,
+    required DownloadTaskMediaModel offlineMedia,
     required Map<String, dynamic> task,
-  }) : super(createTime: createTime, offlineMeida: offlineMeida, task: task);
+  }) : super(createTime: createTime, offlineMedia: offlineMedia, task: task);
 
   Map<String, dynamic> toJson() {
     return {
       'createTime': createTime.millisecondsSinceEpoch,
-      'offlineMeida': offlineMeida.toJson(),
+      'offlineMedia': offlineMedia.toJson(),
       'task': task,
     };
   }
@@ -63,7 +67,7 @@ class ImageDownloadTask extends MediaDownloadTask {
   factory ImageDownloadTask.fromJson(Map<String, dynamic> json) {
     return ImageDownloadTask(
       createTime: DateTime.fromMillisecondsSinceEpoch(json['createTime']),
-      offlineMeida: DownloadTaskMediaModel.fromJson(json['offlineMeida']),
+      offlineMedia: DownloadTaskMediaModel.fromJson(json['offlineMedia']),
       task: json['taskId'],
     );
   }

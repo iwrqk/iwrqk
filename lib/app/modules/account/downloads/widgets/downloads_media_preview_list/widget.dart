@@ -5,6 +5,7 @@ import 'package:keframe/keframe.dart';
 
 import '../../../../../../l10n.dart';
 import '../../../../../data/enums/types.dart';
+import '../../../../../global_widgets/placeholders/media_flat_preview.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../controller.dart';
 import '../download_media_preview.dart';
@@ -52,7 +53,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
               final item = _controller.data[index];
 
               Widget child = Dismissible(
-                key: Key(item.offlineMeida.id),
+                key: Key(item.offlineMedia.id),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
                   _controller.deleteVideoTask(
@@ -74,17 +75,18 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                   ),
                 ),
                 child: SizedBox(
-                    height: 100,
-                    child: DownloadMediaPreview(
-                      taskData: item,
-                    )),
+                  height: 100,
+                  child: DownloadMediaPreview(
+                    taskData: item,
+                  ),
+                ),
               );
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: Container(
+                placeHolder: const SizedBox(
                   height: 100,
-                  color: Theme.of(context).canvasColor,
+                  child: MediaFlatPreviewPlaceholder(),
                 ),
                 child: child,
               );

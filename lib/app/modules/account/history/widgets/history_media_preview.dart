@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import '../../../../../l10n.dart';
 import '../../../../core/utils/display_util.dart';
 import '../../../../data/enums/types.dart';
-import '../../../../data/models/offline/history_meida.dart';
-import '../../../../data/models/offline/offline_meida.dart';
+import '../../../../data/models/offline/history_media.dart';
+import '../../../../data/models/offline/offline_media.dart';
 import '../../../../global_widgets/reloadable_image.dart';
 import '../../../../routes/pages.dart';
 
@@ -141,7 +141,7 @@ class HistoryMediaPreview extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 2.5),
                   child: AutoSizeText(
-                    L10n.of(context).meida_private,
+                    L10n.of(context).media_private,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

@@ -1,6 +1,6 @@
 import '../../enums/types.dart';
 import '../user.dart';
-import 'offline_meida.dart';
+import 'offline_media.dart';
 
 class DownloadTaskMediaModel extends OfflineMediaModel {
   int size;

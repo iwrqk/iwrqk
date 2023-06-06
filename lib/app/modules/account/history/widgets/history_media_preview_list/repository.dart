@@ -2,7 +2,7 @@ import 'dart:math';
 
 import '../../../../../core/const/widget.dart';
 import '../../../../../data/enums/result.dart';
-import '../../../../../data/models/offline/history_meida.dart';
+import '../../../../../data/models/offline/history_media.dart';
 import '../../../../../data/providers/storage_provider.dart';
 
 class HistoryMediaPreviewListRepository {

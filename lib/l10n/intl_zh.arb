@@ -22,9 +22,9 @@
     "register": "注册",
     "register_captcha": "验证码",
     "delete": "删除",
-    "meida_private": "私有",
-    "meida_page_more_from_uploader": "作者的其他作品",
-    "meida_page_more_like_this": "相似作品",
+    "media_private": "私有",
+    "media_page_more_from_uploader": "作者的其他作品",
+    "media_page_more_like_this": "相似作品",
     "video_page_external_video": "外部视频",
     "apply": "应用",
     "ok": "好的",
@@ -203,6 +203,10 @@
             }
         }
     },
+    "download_downloading": "下载中",
+    "download_paused": "已暂停",
+    "download_finished": "已完成",
+    "download_failed": "下载失败",
     "create_download_task": "创建下载任务",
     "thread": "帖子",
     "thread_locked": "该帖子已被锁定",
@@ -230,6 +234,8 @@
             }
         }
     },
+    "message_no_provide_storage_permission": "没有存储权限，无法下载。",
+    "message_download_task_already_exists": "下载任务已存在。",
     "message_empty_comment": "评论不能为空。",
     "message_comment_sent": "评论已发送。",
     "message_empty_playlist_title": "播放列表标题不能为空。",

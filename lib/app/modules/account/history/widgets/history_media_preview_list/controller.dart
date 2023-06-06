@@ -1,5 +1,5 @@
 import '../../../../../data/enums/result.dart';
-import '../../../../../data/models/offline/history_meida.dart';
+import '../../../../../data/models/offline/history_media.dart';
 import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 

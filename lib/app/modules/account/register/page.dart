@@ -74,7 +74,9 @@ class RegisterPage extends GetView<RegisterController> {
               ),
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
+                  padding: const EdgeInsets.only(
+                    bottom: 25,
+                  ),
                   child: ClipOval(
                     child: Image.asset(
                       "assets/app_icon.png",
@@ -83,83 +85,90 @@ class RegisterPage extends GetView<RegisterController> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  constraints: constraints,
-                  child: TextFormField(
-                    validator: (input) {
-                      if (input != null) {
-                        if (input.isNotEmpty &&
-                            controller.emailRegExp.hasMatch(input)) {
-                          return null;
-                        }
-                      }
-                      return L10n.of(context).message_please_type_email;
-                    },
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
-                      border: const OutlineInputBorder(),
-                      labelText: L10n.of(context).email,
-                    ),
-                    onSaved: (input) => controller.email = input,
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(focusNode);
-                    },
-                  ),
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  constraints: constraints,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    child: AspectRatio(
-                      aspectRatio: 30 / 4,
-                      child: Image.memory(
-                        controller.imageData,
-                        fit: BoxFit.fill,
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      constraints: constraints,
+                      child: TextFormField(
+                        validator: (input) {
+                          if (input != null) {
+                            if (input.isNotEmpty &&
+                                controller.emailRegExp.hasMatch(input)) {
+                              return null;
+                            }
+                          }
+                          return L10n.of(context).message_please_type_email;
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon:
+                              const Icon(FontAwesomeIcons.solidEnvelope),
+                          border: const OutlineInputBorder(),
+                          labelText: L10n.of(context).email,
+                        ),
+                        onSaved: (input) => controller.email = input,
+                        onEditingComplete: () {
+                          FocusScope.of(context).requestFocus(focusNode);
+                        },
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  constraints: constraints,
-                  child: TextFormField(
-                    validator: (input) {
-                      if (input != null) {
-                        if (input.isNotEmpty) {
-                          return null;
-                        }
-                      }
-                      return L10n.of(context).message_please_type_captcha;
-                    },
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(FontAwesomeIcons.lock),
-                      border: const OutlineInputBorder(),
-                      labelText: L10n.of(context).captcha,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      constraints: constraints,
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        child: AspectRatio(
+                          aspectRatio: 30 / 4,
+                          child: Image.memory(
+                            controller.imageData,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
                     ),
-                    onSaved: (input) => controller.captcha = input,
-                    focusNode: focusNode,
-                  ),
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  constraints: constraints,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 15)),
-                    onPressed: () {
-                      FocusScope.of(context).requestFocus(blankNode);
-                      controller.register();
-                    },
-                    child: Text(
-                      L10n.of(context).register,
-                      style: const TextStyle(fontSize: 17.5),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      constraints: constraints,
+                      child: TextFormField(
+                        validator: (input) {
+                          if (input != null) {
+                            if (input.isNotEmpty) {
+                              return null;
+                            }
+                          }
+                          return L10n.of(context).message_please_type_captcha;
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(FontAwesomeIcons.lock),
+                          border: const OutlineInputBorder(),
+                          labelText: L10n.of(context).captcha,
+                        ),
+                        onSaved: (input) => controller.captcha = input,
+                        focusNode: focusNode,
+                      ),
                     ),
-                  ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      constraints: constraints,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15)),
+                        onPressed: () {
+                          FocusScope.of(context).requestFocus(blankNode);
+                          controller.register();
+                        },
+                        child: Text(
+                          L10n.of(context).register,
+                          style: const TextStyle(fontSize: 17.5),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

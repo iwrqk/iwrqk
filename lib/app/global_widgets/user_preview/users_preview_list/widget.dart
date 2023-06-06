@@ -4,6 +4,7 @@ import 'package:keframe/keframe.dart';
 
 import '../../../data/enums/types.dart';
 import '../../../data/models/account/settings/users_sort_setting.dart';
+import '../../placeholders/user_preview.dart';
 import '../../sliver_refresh/widget.dart';
 import '../user_preview.dart';
 import 'controller.dart';
@@ -49,9 +50,11 @@ class _UsersPreviewListState extends State<UsersPreviewList>
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: const SizedBox(height: 100),
-                child: Container(
-                  color: Theme.of(context).canvasColor,
+                placeHolder: const SizedBox(
+                  height: 100,
+                  child: UserPreviewPlaceholder(),
+                ),
+                child: SizedBox(
                   height: 100,
                   child: UserPreview(
                     user: data[index],

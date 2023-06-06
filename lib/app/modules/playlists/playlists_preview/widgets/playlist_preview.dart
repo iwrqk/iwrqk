@@ -26,7 +26,6 @@ class PlaylistPreview extends StatelessWidget {
         Get.toNamed(AppRoutes.playlistDetail, arguments: playlistId);
       },
       child: Container(
-        color: Theme.of(context).canvasColor,
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: [

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../../global_widgets/iwr_progress_indicator.dart';
+import '../../../iwr_progress_indicator.dart';
 import 'video_progress_bar.dart';
 import '../controller.dart';
 

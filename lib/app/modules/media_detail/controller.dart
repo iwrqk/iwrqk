@@ -5,16 +5,16 @@ import 'package:oktoast/oktoast.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
-import '../../data/models/offline/history_meida.dart';
-import '../../data/models/offline/offline_meida.dart';
+import '../../data/models/offline/history_media.dart';
+import '../../data/models/offline/offline_media.dart';
 import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/providers/translate_provider.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
+import '../../global_widgets/media/iwr_player/controller.dart';
 import 'repository.dart';
-import 'widgets/iwr_player/controller.dart';
 
 class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
@@ -151,7 +151,7 @@ class MediaDetailController extends GetxController
   }
 
   Future<void> loadData() async {
-    await repository.getMeida(id, mediaType).then((value) {
+    await repository.getMedia(id, mediaType).then((value) {
       if (value.success) {
         media = value.data! as MediaModel;
         _isLoading.value = false;

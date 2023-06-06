@@ -6,6 +6,7 @@ import 'package:oktoast/oktoast.dart';
 import '../../../../../../l10n.dart';
 import '../../../../../data/enums/types.dart';
 import '../../../../../global_widgets/media_preview/media_flat_preview.dart';
+import '../../../../../global_widgets/placeholders/media_flat_preview.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../controller.dart';
 import 'controller.dart';
@@ -82,9 +83,9 @@ class _FavoriteMediaPreviewListState extends State<FavoriteMediaPreviewList>
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: Container(
+                placeHolder: const SizedBox(
                   height: 100,
-                  color: Theme.of(context).canvasColor,
+                  child: MediaFlatPreviewPlaceholder(),
                 ),
                 child: child,
               );

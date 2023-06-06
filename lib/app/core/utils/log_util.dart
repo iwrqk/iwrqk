@@ -18,6 +18,10 @@ class LogUtil {
       );
     });
 
+    if (!kDebugMode) {
+      await Directory(path.dirname(logPath)).create(recursive: true);
+    }
+
     logger = Logger(
       printer: PrettyPrinter(
         methodCount: 0,
@@ -60,5 +64,9 @@ class FileOutput extends LogOutput {
   void destroy() async {
     await _sink?.flush();
     await _sink?.close();
+
+    if (await _file.length() == 0) {
+      await _file.delete();
+    }
   }
 }

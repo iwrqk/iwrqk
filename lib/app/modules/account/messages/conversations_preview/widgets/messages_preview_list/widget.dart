@@ -56,9 +56,8 @@ class _ConversationsPreviewListState extends State<ConversationsPreviewList>
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: Container(
+                placeHolder: const SizedBox(
                   height: 75,
-                  color: Theme.of(context).canvasColor,
                 ),
                 child: child,
               );

@@ -76,7 +76,7 @@ class WelcomePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-                  child: Text(controller.l10n.get_started),
+                  child: Text(L10n.of(context).get_started),
                 ),
               ),
             ],
@@ -114,7 +114,7 @@ class LanguageSelectPage extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   child: Text(
-                    controller.l10n.back,
+                    L10n.of(context).back,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -129,7 +129,7 @@ class LanguageSelectPage extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   child: Text(
-                    controller.l10n.skip,
+                    L10n.of(context).skip,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -213,9 +213,9 @@ class ThemeSelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<ThemeMode, String> themeMap = {
-      ThemeMode.system: controller.l10n.theme_system,
-      ThemeMode.light: controller.l10n.theme_light_mode,
-      ThemeMode.dark: controller.l10n.theme_dark_mode,
+      ThemeMode.system: L10n.of(context).theme_system,
+      ThemeMode.light: L10n.of(context).theme_light_mode,
+      ThemeMode.dark: L10n.of(context).theme_dark_mode,
     };
 
     return Column(
@@ -238,7 +238,7 @@ class ThemeSelectPage extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   child: Text(
-                    controller.l10n.back,
+                    L10n.of(context).back,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -253,7 +253,7 @@ class ThemeSelectPage extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   child: Text(
-                    controller.l10n.skip,
+                    L10n.of(context).skip,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -356,7 +356,7 @@ class FinishPage extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   child: Text(
-                    controller.l10n.back,
+                    L10n.of(context).back,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -370,7 +370,7 @@ class FinishPage extends StatelessWidget {
                     Get.toNamed(AppRoutes.home);
                   },
                   child: Text(
-                    controller.l10n.finish,
+                    L10n.of(context).finish,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -407,7 +407,7 @@ class FinishPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      controller.l10n.finish,
+                      L10n.of(context).finish,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -416,7 +416,7 @@ class FinishPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Text(
-                        controller.l10n.setup_finish_description,
+                        L10n.of(context).setup_finish_description,
                         style: const TextStyle(
                           fontSize: 15,
                         ),

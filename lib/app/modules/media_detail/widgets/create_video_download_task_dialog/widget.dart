@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../l10n.dart';
-import '../../../../data/models/offline/offline_meida.dart';
+import '../../../../data/models/offline/offline_media.dart';
 import '../../../../data/models/resolution.dart';
 import 'controller.dart';
 

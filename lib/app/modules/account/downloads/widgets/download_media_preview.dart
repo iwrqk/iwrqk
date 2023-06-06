@@ -9,6 +9,7 @@ import '../../../../data/enums/types.dart';
 import '../../../../data/models/download_task.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../global_widgets/reloadable_image.dart';
+import '../../../../routes/pages.dart';
 
 class DownloadMediaPreview extends StatelessWidget {
   final MediaDownloadTask taskData;
@@ -24,7 +25,7 @@ class DownloadMediaPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (taskData.offlineMeida.ratingType == "ecchi")
+        if (taskData.offlineMedia.ratingType == "ecchi")
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
             decoration: BoxDecoration(
@@ -45,8 +46,8 @@ class DownloadMediaPreview extends StatelessWidget {
   Widget _buildDurationGallery() {
     Duration? duration;
 
-    if (taskData.offlineMeida.duration != null) {
-      duration = Duration(seconds: taskData.offlineMeida.duration!);
+    if (taskData.offlineMedia.duration != null) {
+      duration = Duration(seconds: taskData.offlineMedia.duration!);
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -102,10 +103,11 @@ class DownloadMediaPreview extends StatelessWidget {
               ],
             ),
           ),
-        if (taskData.offlineMeida.galleryLength != null)
-          if (taskData.offlineMeida.galleryLength! > 1)
+        if (taskData.offlineMedia.galleryLength != null)
+          if (taskData.offlineMedia.galleryLength! > 1)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -121,8 +123,9 @@ class DownloadMediaPreview extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 2),
                     child: Text(
-                      "${taskData.offlineMeida.galleryLength}",
-                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                      "${taskData.offlineMedia.galleryLength}",
+                      style:
+                          const TextStyle(fontSize: 12.5, color: Colors.white),
                     ),
                   )
                 ],
@@ -158,7 +161,7 @@ class DownloadMediaPreview extends StatelessWidget {
 
   Widget _buildCompleteWidget() {
     String totalSize =
-        DisplayUtil.getDisplayFileSizeWithUnit(taskData.offlineMeida.size);
+        DisplayUtil.getDisplayFileSizeWithUnit(taskData.offlineMedia.size);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -183,7 +186,7 @@ class DownloadMediaPreview extends StatelessWidget {
                       child: Container(
                         margin: const EdgeInsets.only(left: 2, right: 2),
                         child: Text(
-                          taskData.offlineMeida.uploader.name,
+                          taskData.offlineMedia.uploader.name,
                           maxLines: 1,
                           style: const TextStyle(
                             fontSize: 12.5,
@@ -241,13 +244,14 @@ class DownloadMediaPreview extends StatelessWidget {
 
   Widget _buildStateWidget() {
     return Obx(() {
-      DownloadTask downloadTask = DownloadTask.fromJsonMap(taskData.task);
+      DownloadTask downloadTask = taskData.downloadTask;
       String taskId = downloadTask.taskId;
       var taskStatus = _downloadService.downloadTasksStatus[taskId];
+
       if (taskStatus != null) {
         int downloadedSize =
-            (taskData.offlineMeida.size * taskStatus.value.progress).toInt();
-        int totalSize = taskData.offlineMeida.size;
+            (taskData.offlineMedia.size * taskStatus.value.progress).toInt();
+        int totalSize = taskData.offlineMedia.size;
         switch (taskStatus.value.status) {
           case TaskStatus.running:
             return GestureDetector(
@@ -311,12 +315,12 @@ class DownloadMediaPreview extends StatelessWidget {
                 child: Container(
                   color: Colors.black,
                   alignment: Alignment.center,
-                  child: taskData.offlineMeida.coverUrl != null
+                  child: taskData.offlineMedia.coverUrl != null
                       ? ReloadableImage(
-                          imageUrl: taskData.offlineMeida.coverUrl!,
+                          imageUrl: taskData.offlineMedia.coverUrl!,
                           aspectRatio: 16 / 9,
                           fit: BoxFit.cover,
-                          isAdult: taskData.offlineMeida.ratingType ==
+                          isAdult: taskData.offlineMedia.ratingType ==
                               RatingType.ecchi.value,
                         )
                       : const AspectRatio(aspectRatio: 16 / 9),
@@ -335,7 +339,7 @@ class DownloadMediaPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                taskData.offlineMeida.title,
+                taskData.offlineMedia.title,
                 maxLines: 2,
                 style: const TextStyle(
                   fontSize: 12.5,
@@ -355,16 +359,22 @@ class DownloadMediaPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String taskId = taskData.downloadTask.taskId;
+    var taskStatus = _downloadService.downloadTasksStatus[taskId];
+
     return GestureDetector(
+      // ignore: unrelated_type_equality_checks
+      onTap: (taskStatus?.value.status) == TaskStatus.complete
+          ? () {
+              Get.toNamed(AppRoutes.downloadedMediaDetail, arguments: taskData);
+            }
+          : null,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: _buildFullVerison(context),
         ),
       ),
-      onTap: () {
-        //
-      },
     );
   }
 }

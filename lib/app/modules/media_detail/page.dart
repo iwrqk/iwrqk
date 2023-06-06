@@ -19,6 +19,7 @@ import '../../global_widgets/comments/comments_list/widget.dart';
 import '../../global_widgets/comments/send_comment_bottom_sheet/widget.dart';
 import '../../global_widgets/iwr_markdown.dart';
 import '../../global_widgets/iwr_progress_indicator.dart';
+import '../../global_widgets/media/iwr_gallery.dart';
 import '../../global_widgets/media_preview/media_flat_preview.dart';
 import '../../global_widgets/reloadable_image.dart';
 import '../../global_widgets/tab_indicator.dart';
@@ -28,7 +29,6 @@ import '../../routes/pages.dart';
 import 'controller.dart';
 import 'widgets/add_to_playlist_bottom_sheet/widget.dart';
 import 'widgets/create_video_download_task_dialog/widget.dart';
-import 'widgets/iwr_gallery.dart';
 
 class MediaDetailPage extends StatefulWidget {
   const MediaDetailPage({
@@ -76,7 +76,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     ),
                   ),
                   Text(
-                    L10n.of(context).meida_private,
+                    L10n.of(context).media_private,
                     style: const TextStyle(fontSize: 20, color: Colors.grey),
                   ),
                 ],
@@ -574,7 +574,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           padding: const EdgeInsets.fromLTRB(20, 10, 10, 5),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
-            L10n.of(context).meida_page_more_from_uploader,
+            L10n.of(context).media_page_more_from_uploader,
             maxLines: 1,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
@@ -600,7 +600,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           padding: const EdgeInsets.fromLTRB(20, 10, 10, 5),
           alignment: Alignment.centerLeft,
           child: AutoSizeText(
-            L10n.of(context).meida_page_more_like_this,
+            L10n.of(context).media_page_more_like_this,
             maxLines: 1,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
@@ -620,6 +620,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         ),
       );
     }
+    children.add(SizedBox(height: MediaQuery.of(context).padding.bottom));
     return children;
   }
 
@@ -712,12 +713,14 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       child: Column(
         children: [
           Expanded(
-            child: CommentsList(
-              uploaderUserName: _controller.media.user.username,
-              sourceId: _controller.media.id,
-              sourceType: _controller.mediaType == MediaType.video
-                  ? CommentsSourceType.video
-                  : CommentsSourceType.image,
+            child: SafeArea(
+              child: CommentsList(
+                uploaderUserName: _controller.media.user.username,
+                sourceId: _controller.media.id,
+                sourceType: _controller.mediaType == MediaType.video
+                    ? CommentsSourceType.video
+                    : CommentsSourceType.image,
+              ),
             ),
           ),
           InkWell(
@@ -863,7 +866,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     kTextTabBarHeight,
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
                   SliverToBoxAdapter(
-                    child: AspectRatio(aspectRatio: 16 / 9, child: mediaWidget),
+                    child: SafeArea(
+                      top: false,
+                      bottom: false,
+                      child:
+                          AspectRatio(aspectRatio: 16 / 9, child: mediaWidget),
+                    ),
                   ),
                   if (MediaQuery.of(context).orientation ==
                       Orientation.portrait)
@@ -899,16 +907,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             children: [
               Expanded(child: body),
               if (MediaQuery.of(context).orientation == Orientation.landscape)
-                SafeArea(
-                  top: MediaQuery.of(context).orientation ==
-                      Orientation.landscape,
-                  bottom: false,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.longestSide / 3 +
-                        MediaQuery.of(context).padding.right,
-                    child: commentsTab,
-                  ),
-                )
+                SizedBox(
+                  width: MediaQuery.of(context).size.longestSide / 3 +
+                      MediaQuery.of(context).padding.right,
+                  child: commentsTab,
+                ),
             ],
           ),
         );

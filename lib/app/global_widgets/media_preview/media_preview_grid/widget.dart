@@ -5,6 +5,7 @@ import 'package:keframe/keframe.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/account/settings/filter_setting.dart';
 import '../../../data/models/account/settings/media_sort_setting.dart';
+import '../../placeholders/media_preview.dart';
 import '../../sliver_refresh/widget.dart';
 import 'controller.dart';
 import '../media_preview.dart';
@@ -66,6 +67,7 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
 
                   return FrameSeparateWidget(
                     index: index,
+                    placeHolder: const MediaPreviewPlaceholder(),
                     child: MediaPreview(
                       media: data[index],
                     ),

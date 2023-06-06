@@ -4,7 +4,7 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/account/settings/player_setting.dart';
+import '../../../data/models/account/settings/player_setting.dart';
 import 'widgets/iwr_player_controls.dart';
 
 enum QuickGestures {
@@ -69,6 +69,7 @@ class IwrPlayerController extends GetxController {
     required String id,
     required this.title,
     required String author,
+    BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network,
     double initAspectRatio = 16 / 9,
     String? thumbnail,
     PlayerSetting? setting,
@@ -89,7 +90,7 @@ class IwrPlayerController extends GetxController {
     _currentResolutionIndex.value = resolutionIndex;
 
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
+      type,
       resolutions.values.elementAt(resolutionIndex),
       notificationConfiguration: BetterPlayerNotificationConfiguration(
         showNotification: true,

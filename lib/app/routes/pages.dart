@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/account/downloaded_media_detail/binding.dart';
+import '../modules/account/downloaded_media_detail/page.dart';
 import '../modules/account/downloads/binding.dart';
 import '../modules/account/downloads/page.dart';
 import '../modules/account/favorites/binding.dart';
@@ -86,6 +88,11 @@ abstract class AppPages {
       page: () => const MediaDetailPage(),
       binding: MediaDetailBinding(),
       preventDuplicates: false,
+    ),
+    GetPage(
+      name: AppRoutes.downloadedMediaDetail,
+      page: () => const DownloadedMediaDetailPage(),
+      binding: DownloadedMediaDetailBinding(),
     ),
     GetPage(
       name: AppRoutes.commentDetail,

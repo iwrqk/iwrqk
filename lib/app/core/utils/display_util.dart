@@ -7,13 +7,23 @@ import '../../../l10n.dart';
 abstract class DisplayUtil {
   static late AppLocalizations l10n;
 
-  static String get messageNeedLogin => l10n.message_require_login;
   static String get cancel => l10n.cancel;
   static String get authenticateRequired => l10n.authenticate_required;
+
+  static String get messageNeedLogin => l10n.message_require_login;
   static String get messageAuthenticateToContinue =>
       l10n.message_authenticate_to_continue;
   static String get messageAuthenticateToEnableBiometric =>
       l10n.message_authenticate_to_enable_biometric;
+  static String get messageNoStoragePermission =>
+      l10n.message_no_provide_storage_permission;
+  static String get messageDownloadTaskAlreadyExist =>
+      l10n.message_download_task_already_exists;
+
+  static String get downloadDownloading => l10n.download_downloading;
+  static String get downloadPaused => l10n.download_paused;
+  static String get downloadFailed => l10n.download_failed;
+  static String get downloadFinished => l10n.download_finished;
 
   static void init(BuildContext context) {
     l10n = L10n.of(context);

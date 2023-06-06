@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     Widget myApp() {
       return Obx(
         () => GetMaterialApp(
-          locale: _configService.languageSetted ? null : _configService.locale,
+          locale: _configService.languageSetted ? _configService.locale : null,
           localeListResolutionCallback:
               _configService.localeListResolutionCallback,
           debugShowCheckedModeBanner: false,

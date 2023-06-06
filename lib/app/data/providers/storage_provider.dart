@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../models/download_task.dart';
-import '../models/offline/history_meida.dart';
+import '../models/offline/history_media.dart';
 import '../models/offline/search_history.dart';
 
 abstract class StorageKey {
@@ -174,7 +174,7 @@ class StorageProvider {
     List<VideoDownloadTask> records = downloadVideoRecords;
     if (records.isNotEmpty) {
       records.removeWhere(
-          (item) => item.offlineMeida.id == newItem.offlineMeida.id);
+          (item) => item.offlineMedia.id == newItem.offlineMedia.id);
     }
     List<VideoDownloadTask> list = [newItem];
     list.addAll(records);

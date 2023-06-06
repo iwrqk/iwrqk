@@ -3,7 +3,7 @@ import '../media/image.dart';
 import '../media/media.dart';
 import '../media/video.dart';
 import '../user.dart';
-import 'offline_meida.dart';
+import 'offline_media.dart';
 
 class HistoryMediaModel extends OfflineMediaModel {
   late DateTime viewedDate;

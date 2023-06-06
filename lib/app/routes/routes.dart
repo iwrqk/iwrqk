@@ -17,6 +17,7 @@ abstract class AppRoutes {
   static const profile = '/profile';
 
   static const mediaDetail = '/mediaDetail';
+  static const downloadedMediaDetail = '/downloadedMediaDetail';
 
   static const commentDetail = '/commentDetail';
 

@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../../../global_widgets/iwr_progress_indicator.dart';
+import '../iwr_progress_indicator.dart';
+
 
 class IwrGallery extends StatefulWidget {
   final List<String> imageUrls;

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
 import '../../../../../data/models/playlist/playlist.dart';
+import '../../../../../global_widgets/placeholders/media_flat_preview.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../playlist_preview.dart';
 import 'controller.dart';
@@ -96,9 +97,9 @@ class _PlaylistsPreviewListState extends State<PlaylistsPreviewList>
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: Container(
+                placeHolder: const SizedBox(
                   height: 100,
-                  color: Theme.of(context).canvasColor,
+                  child: MediaFlatPreviewPlaceholder(),
                 ),
                 child: child,
               );

@@ -4,7 +4,7 @@ import '../media/image.dart';
 import '../media/media.dart';
 import '../media/video.dart';
 import '../user.dart';
-import 'history_meida.dart';
+import 'history_media.dart';
 
 class OfflineMediaModel {
   late MediaType type;

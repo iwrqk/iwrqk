@@ -193,7 +193,7 @@ class MediaPreview extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: AutoSizeText(
-                  L10n.of(context).meida_private,
+                  L10n.of(context).media_private,
                   maxLines: 1,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,

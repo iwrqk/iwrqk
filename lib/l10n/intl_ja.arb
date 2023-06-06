@@ -22,9 +22,9 @@
     "register": "登録",
     "register_captcha": "キャプチャ",
     "delete": "削除",
-    "meida_private": "私有の",
-    "meida_page_more_from_uploader": "アップローダーの他の作品",
-    "meida_page_more_like_this": "似た作品",
+    "media_private": "私有の",
+    "media_page_more_from_uploader": "アップローダーの他の作品",
+    "media_page_more_like_this": "似た作品",
     "video_page_external_video": "外部ビデオ",
     "apply": "適用",
     "ok": "はい",
@@ -168,6 +168,10 @@
             }
         }
     },
+    "download_downloading": "ダウンロード中",
+    "download_paused": "一時停止中",
+    "download_finished": "完了",
+    "download_failed": "失敗",
     "create_download_task": "ダウンロードタスクを作成",
     "thread": "スレッド",
     "thread_locked": "このスレッドはロックされています",
@@ -231,6 +235,8 @@
             }
         }
     },
+    "message_no_provide_storage_permission": "ストレージの許可が必要です。設定で許可してください。",
+    "message_download_task_already_exists": "ダウンロードタスクは既に存在します。",
     "message_empty_comment": "コメントを入力してください。",
     "message_comment_sent": "コメントを送信しました。",
     "message_empty_playlist_title": "プレイリスト名を入力してください。",

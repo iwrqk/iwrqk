@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../core/utils/display_util.dart';
 import '../models/download_task.dart';
 import '../models/offline/download_task_media.dart';
 import '../providers/storage_provider.dart';
@@ -75,7 +76,7 @@ class DownloadService extends GetxService {
   }) async {
     bool isStorage = await _checkPermission();
     if (!isStorage) {
-      showToast('没有存储权限');
+      showToast(DisplayUtil.messageNoStoragePermission);
       return null;
     }
     var records = await FileDownloader().database.allRecords();
@@ -83,7 +84,7 @@ class DownloadService extends GetxService {
       bool hasExisted =
           records.any((var record) => record.task.filename == fileName);
       if (hasExisted) {
-        showToast('已经存在');
+        showToast(DisplayUtil.messageDownloadTaskAlreadyExist);
         return null;
       }
     }
@@ -97,7 +98,10 @@ class DownloadService extends GetxService {
     );
     FileDownloader().configureNotificationForTask(
       task,
-      running: TaskNotification('Downloading', title),
+      running: TaskNotification(DisplayUtil.downloadDownloading, title),
+      paused: TaskNotification(DisplayUtil.downloadPaused, title),
+      complete: TaskNotification(DisplayUtil.downloadFinished, title),
+      error: TaskNotification(DisplayUtil.downloadFailed, title),
       progressBar: true,
     );
     await FileDownloader().enqueue(task);
@@ -131,7 +135,7 @@ class DownloadService extends GetxService {
         createTime: now,
         expireTime: expireTime,
         resolutionName: resolutionName,
-        offlineMeida: offlineMedia,
+        offlineMedia: offlineMedia,
       );
       var taskData = DownloadTask.fromJsonMap(downloadTask!);
       _downloadTasks.addAll({

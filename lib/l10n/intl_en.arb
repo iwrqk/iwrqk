@@ -22,9 +22,9 @@
   "register": "Register",
   "register_captcha": "Captcha",
   "delete": "Delete",
-  "meida_private": "Private",
-  "meida_page_more_from_uploader": "More from the uploader",
-  "meida_page_more_like_this": "More like this",
+  "media_private": "Private",
+  "media_page_more_from_uploader": "More from the uploader",
+  "media_page_more_like_this": "More like this",
   "video_page_external_video": "External video",
   "apply": "Apply",
   "ok": "OK",
@@ -168,6 +168,10 @@
       }
     }
   },
+  "download_downloading": "Downloading",
+  "download_paused": "Paused",
+  "download_finished": "Finished",
+  "download_failed": "Failed",
   "create_download_task": "Create download task",
   "thread": "Thread",
   "thread_locked": "This thread is locked",
@@ -230,6 +234,8 @@
       }
     }
   },
+  "message_no_provide_storage_permission": "No storage permission provided.",
+  "message_download_task_already_exists": "Download task already exists.",
   "message_empty_comment": "Comment can not be empty.",
   "message_comment_sent": "Comment sent.",
   "message_empty_playlist_title": "Playlist title can not be empty.",

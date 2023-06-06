@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../../../../data/models/offline/download_task_media.dart';
-import '../../../../data/models/offline/offline_meida.dart';
+import '../../../../data/models/offline/offline_media.dart';
 import '../../../../data/models/resolution.dart';
 import '../../../../data/providers/api_provider.dart';
 import '../../../../data/providers/storage_provider.dart';
@@ -39,7 +39,7 @@ class CreateVideoDownloadDialogController extends GetxController {
     _creatingDownloadTask.value = true;
 
     for (var item in StorageProvider.downloadVideoRecords) {
-      if (item.offlineMeida.id == _previewData.id &&
+      if (item.offlineMedia.id == _previewData.id &&
           _resolutions[currentResolutionIndex].name == item.resolutionName) {
         showToast('已存在下载任务');
         _creatingDownloadTask.value = false;

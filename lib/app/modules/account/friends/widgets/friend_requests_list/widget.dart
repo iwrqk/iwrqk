@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 
 import '../../../../../global_widgets/buttons/friend_accept_reject_buttons/widget.dart';
+import '../../../../../global_widgets/placeholders/user_preview.dart';
 import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../../../../global_widgets/user_preview/user_preview.dart';
 import '../../controller.dart';
@@ -64,9 +65,9 @@ class _FriendRequestsListState extends State<FriendRequestsList>
 
               return FrameSeparateWidget(
                 index: index,
-                placeHolder: Container(
+                placeHolder: const SizedBox(
                   height: 100,
-                  color: Theme.of(context).canvasColor,
+                  child: UserPreviewPlaceholder(),
                 ),
                 child: child,
               );
