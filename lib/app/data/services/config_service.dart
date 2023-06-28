@@ -15,7 +15,9 @@ abstract class ConfigKey {
   static const String playerSetting = "playerSetting";
 
   static const String filterSetting = "filterSetting";
+
   static const String adultCoverBlur = "adultCoverBlur";
+  static const String notificationPlayer = "notificationPlayer";
 }
 
 class ConfigService extends GetxService {
@@ -39,6 +41,15 @@ class ConfigService extends GetxService {
   set adultCoverBlur(bool audltCoverBlur) {
     _audltCoverBlur.value = audltCoverBlur;
     StorageProvider.setConfig(ConfigKey.adultCoverBlur, audltCoverBlur);
+  }
+
+  final RxBool _notificationPlayer = false.obs;
+
+  bool get notificationPlayer => _notificationPlayer.value;
+
+  set notificationPlayer(bool value){
+    _notificationPlayer.value = value;
+    StorageProvider.setConfig(ConfigKey.notificationPlayer, value);
   }
 
   final Rx<FilterSettingModel> _filterSetting = FilterSettingModel().obs;
@@ -129,8 +140,12 @@ class ConfigService extends GetxService {
 
     _themeMode.value = ThemeMode
         .values[StorageProvider.getConfigByKey(ConfigKey.themeMode) ?? 0];
+    
     _audltCoverBlur.value =
         StorageProvider.getConfigByKey(ConfigKey.adultCoverBlur) ?? false;
+    _notificationPlayer.value = 
+        StorageProvider.getConfigByKey(ConfigKey.notificationPlayer) ?? false;
+
     var playerSettingJson =
         StorageProvider.getConfigByKey(ConfigKey.playerSetting);
     if (playerSettingJson != null) {

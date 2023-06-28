@@ -31,8 +31,11 @@ class MediaFlatPreviewPlaceholder extends StatelessWidget {
                     children: [
                       Container(
                         width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2.5),
+                        ),
                         height: 15,
-                        color: Colors.grey,
                       ),
                       const SizedBox(height: 5),
                       Row(
@@ -40,7 +43,10 @@ class MediaFlatPreviewPlaceholder extends StatelessWidget {
                           Expanded(
                             child: Container(
                               height: 15,
-                              color: Colors.grey,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(2.5),
+                              ),
                             ),
                           ),
                           const Spacer(),
@@ -53,7 +59,10 @@ class MediaFlatPreviewPlaceholder extends StatelessWidget {
                       Expanded(
                         child: Container(
                           height: 15,
-                          color: Colors.grey,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(2.5),
+                          ),
                         ),
                       ),
                       const Spacer(flex: 2),

@@ -28,7 +28,10 @@ class UserPreviewPlaceholder extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: 17.5,
-                        color: Colors.grey,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2.5),
+                        ),
                       ),
                       const SizedBox(height: 5),
                       Row(
@@ -36,7 +39,10 @@ class UserPreviewPlaceholder extends StatelessWidget {
                           Expanded(
                             child: Container(
                               height: 12.5,
-                              color: Colors.grey,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(2.5),
+                              ),
                             ),
                           ),
                           const Spacer(),

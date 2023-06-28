@@ -30,6 +30,7 @@ class DownloadsMediaPreviewListController
   }
 
   Future<void> deleteVideoTask(int index, String taskId) async {
+    data.removeAt(index);
     await StorageProvider.deleteDownloadVideoRecord(index);
     await deleteTaskRecord(taskId);
   }

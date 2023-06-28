@@ -696,8 +696,16 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           ));
         }
       }
-      return CustomScrollView(
-        slivers: children,
+      return Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          border: Border(
+            right: BorderSide(color: Theme.of(context).dividerColor, width: 0),
+          ),
+        ),
+        child: CustomScrollView(
+          slivers: children,
+        ),
       );
     });
   }
@@ -707,20 +715,18 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         border: Border(
-          left: BorderSide(color: Theme.of(context).dividerColor, width: 1),
+          left: BorderSide(color: Theme.of(context).dividerColor, width: 0),
         ),
       ),
       child: Column(
         children: [
           Expanded(
-            child: SafeArea(
-              child: CommentsList(
-                uploaderUserName: _controller.media.user.username,
-                sourceId: _controller.media.id,
-                sourceType: _controller.mediaType == MediaType.video
-                    ? CommentsSourceType.video
-                    : CommentsSourceType.image,
-              ),
+            child: CommentsList(
+              uploaderUserName: _controller.media.user.username,
+              sourceId: _controller.media.id,
+              sourceType: _controller.mediaType == MediaType.video
+                  ? CommentsSourceType.video
+                  : CommentsSourceType.image,
             ),
           ),
           InkWell(
@@ -910,7 +916,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 SizedBox(
                   width: MediaQuery.of(context).size.longestSide / 3 +
                       MediaQuery.of(context).padding.right,
-                  child: commentsTab,
+                  child: SafeArea(
+                    bottom: false,
+                    child: commentsTab,
+                  ),
                 ),
             ],
           ),

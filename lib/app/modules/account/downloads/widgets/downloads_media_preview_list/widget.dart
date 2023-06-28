@@ -2,6 +2,7 @@ import 'package:background_downloader/background_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../../../l10n.dart';
 import '../../../../../data/enums/types.dart';
@@ -61,7 +62,18 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                     DownloadTask.fromJsonMap(item.task).taskId,
                   );
                 },
-                background: Container(
+                confirmDismiss: (direction) async {
+                  if (direction != DismissDirection.endToStart) {
+                    Share.shareXFiles([
+                      XFile(
+                        await item.downloadTask.filePath(),
+                      ),
+                    ]);
+                    return false;
+                  }
+                  return true;
+                },
+                secondaryBackground: Container(
                   color: Colors.red,
                   child: Align(
                     alignment: Alignment.centerRight,
@@ -69,6 +81,19 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                       padding: const EdgeInsets.only(right: 20),
                       child: Text(
                         L10n.of(context).delete,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                background: Container(
+                  color: Colors.blue,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        L10n.of(context).export,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),

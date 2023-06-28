@@ -10,8 +10,8 @@ class SetupController extends GetxController {
   ConfigService configService = Get.find();
 
   void setLanguage(String localeCode) {
-    configService.languageSetted = true;
     configService.localeCode = localeCode;
+    configService.languageSetted = true;
     SchedulerBinding.instance.addPostFrameCallback((_) {
       DisplayUtil.reset(Get.context!);
     });

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/account/settings/player_setting.dart';
+import '../../../data/services/config_service.dart';
 import 'widgets/iwr_player_controls.dart';
 
 enum QuickGestures {
@@ -17,6 +18,8 @@ enum QuickGestures {
 }
 
 class IwrPlayerController extends GetxController {
+  ConfigService configService = Get.find();
+  
   late BetterPlayerController betterPlayerController;
   int _qualityIndexToSave = 0;
   int _volumeToSave = 100;
@@ -93,7 +96,7 @@ class IwrPlayerController extends GetxController {
       type,
       resolutions.values.elementAt(resolutionIndex),
       notificationConfiguration: BetterPlayerNotificationConfiguration(
-        showNotification: true,
+        showNotification: configService.notificationPlayer,
         title: title,
         author: author,
         imageUrl: thumbnail,

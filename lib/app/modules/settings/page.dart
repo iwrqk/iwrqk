@@ -158,6 +158,33 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildEnableNotificationPlayer(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: Text(
+            L10n.of(context).setting_notification_player,
+            style: const TextStyle(fontSize: 17.5),
+          ),
+        ),
+        Obx(
+          () => Container(
+            height: 20,
+            margin: const EdgeInsets.only(left: 10),
+            child: CupertinoSwitch(
+              value: controller.configService.notificationPlayer,
+              activeColor: Theme.of(context).primaryColor,
+              onChanged: (value) {
+                controller.configService.notificationPlayer = value;
+              },
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _buildEnableBiometric(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,13 +301,14 @@ class SettingsPage extends GetView<SettingsController> {
               children: [
                 _buildThemeSetting(context),
                 _buildLanguageSetting(context),
-                _buildEnableAdultCoverBlur(context),
               ],
             ),
             SettingTitle(title: L10n.of(context).setting_security),
             Obx(
               () => SettingGroup(
                 children: [
+                  _buildEnableAdultCoverBlur(context),
+                  _buildEnableNotificationPlayer(context),
                   _buildEnableAutoLock(context),
                   if (controller.autoLockService.enableAutoLock)
                     _buildEnableBiometric(context),
