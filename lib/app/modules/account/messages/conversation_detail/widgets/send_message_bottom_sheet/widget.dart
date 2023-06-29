@@ -2,28 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../l10n.dart';
-import '../../../data/enums/types.dart';
+import '../../../../../../../l10n.dart';
 import 'controller.dart';
 
-class SendCommentBottomSheet
-    extends GetWidget<SendCommentBottomSheetController> {
-  final CommentsSourceType sourceType;
-  final String sourceId;
-  final String? parentId;
+class SendMessageBottomSheet
+    extends GetWidget<SendMessageBottomSheetController> {
+  final String conversationId;
 
-  const SendCommentBottomSheet({
+  const SendMessageBottomSheet({
     super.key,
-    required this.sourceType,
-    required this.sourceId,
-    this.parentId,
+    required this.conversationId,
   });
 
   @override
   Widget build(BuildContext context) {
-    controller.init(
-        sourceType: sourceType, sourceId: sourceId, parentId: parentId);
-
     return BottomSheet(
       enableDrag: false,
       onClosing: () {},
@@ -53,7 +45,7 @@ class SendCommentBottomSheet
                       autofocus: true,
                       cursorColor: Theme.of(context).primaryColor,
                       decoration: InputDecoration(
-                        hintText: L10n.of(context).comments_send_comment,
+                        hintText: L10n.of(context).send,
                         border: InputBorder.none,
                       ),
                     ),
@@ -62,10 +54,11 @@ class SendCommentBottomSheet
               ),
               Obx(
                 () => CupertinoButton(
-                  onPressed: controller.sendingComment
+                  onPressed: controller.sending
                       ? null
                       : () {
-                          controller.sendComment(
+                          controller.sendMessage(
+                            conversationId,
                             L10n.of(context).message_content_empty,
                             L10n.of(context).message_comment_sent,
                           );

@@ -55,7 +55,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
 
               Widget child = Dismissible(
                 key: Key(item.offlineMedia.id),
-                direction: DismissDirection.endToStart,
+                direction: DismissDirection.horizontal,
                 onDismissed: (direction) {
                   _controller.deleteVideoTask(
                     index,
@@ -67,6 +67,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                     Share.shareXFiles([
                       XFile(
                         await item.downloadTask.filePath(),
+                        mimeType: item.offlineMedia.type == MediaType.video
+                            ? 'video/mp4'
+                            : 'image/png',
                       ),
                     ]);
                     return false;

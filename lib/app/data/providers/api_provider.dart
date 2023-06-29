@@ -187,6 +187,27 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> sendMessage({
+    required String conversationId,
+    required String content,
+  }) async {
+    String? message;
+
+    await networkProvider.post("/conversation/$conversationId/messages",
+        data: {"body": content}).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<ProfileModel>> getProfile(String userName) async {
     String? message;
     ProfileModel? profile;
@@ -627,6 +648,28 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> sendPost({
+    required String threadId,
+    required String content,
+  }) async {
+    String? message;
+
+    await networkProvider.post("/forum/$threadId/reply", data: {
+      "body": content,
+    }).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<GroupResult<MediaModel>>> searchMedia({
     required String keyword,
     required MediaType type,
@@ -701,7 +744,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/user/$userId/followers").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -750,7 +795,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/user/$userId/friends").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -904,7 +951,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/video/$id/like").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -1008,7 +1057,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/playlist/$playlistId/$videoId").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -1030,7 +1081,9 @@ class ApiProvider {
     await networkProvider
         .delete("/playlist/$playlistId/$videoId")
         .then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();
@@ -1076,7 +1129,9 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/comment/$id").then((value) {
-      message = value.data["message"];
+      if (value.data != null) {
+        message = value.data["message"];
+      }
     }).catchError((e, stackTrace) {
       LogUtil.logger.e("Error", e, stackTrace);
       message = e.toString();

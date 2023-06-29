@@ -25,6 +25,8 @@ import '../modules/auto_lock/page.dart';
 import '../modules/comment_detail/binding.dart';
 import '../modules/comment_detail/page.dart';
 import '../modules/forum/channel/page.dart';
+import '../modules/forum/create_thread/binding.dart';
+import '../modules/forum/create_thread/page.dart';
 import '../modules/forum/thread/page.dart';
 import '../modules/home/binding.dart';
 import '../modules/home/page.dart';
@@ -184,6 +186,11 @@ abstract class AppPages {
       name: AppRoutes.thread,
       page: () => ThreadPage(),
       preventDuplicates: false,
+    ),
+    GetPage(
+      name: AppRoutes.createThread,
+      page: () => const CreateThreadPage(),
+      binding: CreateThreadBinding(),
     ),
   ];
 }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../l10n.dart';
 import 'controller.dart';
 import 'widgets/posts_list/widget.dart';
+import 'widgets/send_post_bottom_sheet/widget.dart';
 
 class ThreadPage extends GetWidget<ThreadController> {
   ThreadPage({super.key});
@@ -52,12 +53,9 @@ class ThreadPage extends GetWidget<ThreadController> {
           )
         : InkWell(
             onTap: () {
-              // Get.bottomSheet(SendCommentBottomSheet(
-              //   sourceId: _controller.media.id,
-              //   sourceType: _controller.mediaType == MediaType.video
-              //       ? CommentsSourceType.video
-              //       : CommentsSourceType.image,
-              // ));
+              Get.bottomSheet(SendPostBottomSheet(
+                threadId: threadId,
+              ));
             },
             child: Container(
               decoration: BoxDecoration(

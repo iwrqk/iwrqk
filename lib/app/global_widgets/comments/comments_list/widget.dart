@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
 import '../../sliver_refresh/widget.dart';
 import '../user_comment.dart';
@@ -14,6 +16,7 @@ class CommentsList extends StatefulWidget {
   final bool showReplies;
   final bool canJumpToDetail;
   final ScrollController? scrollController;
+  final Widget? parentComment;
 
   const CommentsList({
     Key? key,
@@ -24,6 +27,7 @@ class CommentsList extends StatefulWidget {
     this.showReplies = true,
     this.canJumpToDetail = true,
     this.scrollController,
+    this.parentComment,
   }) : super(key: key);
 
   @override
@@ -51,7 +55,8 @@ class _CommentsListState extends State<CommentsList>
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               reachBottomCallback(index);
-              return UserComment(
+
+              Widget comment = UserComment(
                 comment: data[index],
                 uploaderUserName: widget.uploaderUserName,
                 sourceId: widget.sourceId,
@@ -59,6 +64,29 @@ class _CommentsListState extends State<CommentsList>
                 showReplies: widget.showReplies,
                 canJumpToDetail: widget.canJumpToDetail,
               );
+
+              if (index == 0 && widget.parentComment != null) {
+                return Column(
+                  children: [
+                    widget.parentComment!,
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                        L10n.of(context).replies,
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    comment,
+                  ],
+                );
+              }
+
+              return comment;
             },
             childCount: data.length,
           ),

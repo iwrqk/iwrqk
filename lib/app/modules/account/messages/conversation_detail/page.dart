@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,6 +11,7 @@ import '../../../../data/models/account/conversations/message.dart';
 import '../../../../global_widgets/reloadable_image.dart';
 import '../../../../global_widgets/sliver_refresh/widgets/iwr_footer_indicator.dart';
 import 'controller.dart';
+import 'widgets/send_message_bottom_sheet/widget.dart';
 
 class ConversationDetailPage extends GetView<ConversationDetailController> {
   const ConversationDetailPage({super.key});
@@ -59,7 +61,8 @@ class ConversationDetailPage extends GetView<ConversationDetailController> {
                               });
                             }
 
-                            final message = controller.messages[index];
+                            final message = controller.messages[
+                                controller.messages.length - 1 - index];
                             return MessageWidget(
                               message: message,
                               isSender: message.user.id == controller.userId,
@@ -76,49 +79,42 @@ class ConversationDetailPage extends GetView<ConversationDetailController> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 5,
-                  top: 5,
-                  left: 10 + MediaQuery.of(context).viewInsets.left,
-                  right: 10 + MediaQuery.of(context).viewInsets.right,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  border: Border(
-                    top: BorderSide(
-                      color: Theme.of(context).dividerColor,
-                      width: 0,
+              InkWell(
+                onTap: () {
+                  Get.bottomSheet(SendMessageBottomSheet(
+                    conversationId: controller.conversationId,
+                  ));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    border: Border(
+                      top: BorderSide(
+                        color: Theme.of(context).dividerColor,
+                        width: 1,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: L10n.of(context).send,
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                          ),
-                        ),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(1000),
+                      ),
+                      child: AutoSizeText(
+                        L10n.of(context).send,
+                        maxLines: 1,
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.solidPaperPlane,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -183,7 +179,7 @@ class MessageWidget extends StatelessWidget {
                       ? const EdgeInsets.only(top: 10, right: 10)
                       : const EdgeInsets.only(top: 10, left: 10),
                   padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7,
                     minWidth: 15,

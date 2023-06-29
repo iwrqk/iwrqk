@@ -110,7 +110,7 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> unfollowUploader(String userId) async {
+  Future<bool> unfollowUser(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
       showToast(DisplayUtil.messageNeedLogin);
@@ -375,6 +375,53 @@ class UserService extends GetxService {
       return flag;
     }
     await ApiProvider.deleteComment(sourceType: sourceType, id: commentId)
+        .then((value) {
+      if (!value.success) {
+        showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  Future<bool> sendMessage({
+    required String conversationId,
+    required String content,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      showToast(DisplayUtil.messageNeedLogin);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.sendMessage(
+            conversationId: conversationId, content: content)
+        .then((value) {
+      if (!value.success) {
+        showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  Future<bool> sendPost({
+    required String threadId,
+    required String content,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      showToast(DisplayUtil.messageNeedLogin);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.sendPost(threadId: threadId, content: content)
         .then((value) {
       if (!value.success) {
         showToast(value.message!);

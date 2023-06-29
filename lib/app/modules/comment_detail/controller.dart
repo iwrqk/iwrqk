@@ -28,7 +28,7 @@ class CommentDetailController extends GetxController {
 
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent) {
+          MediaQuery.of(Get.context!).size.height / 2) {
         _showToTopButton.value = true;
       } else {
         _showToTopButton.value = false;

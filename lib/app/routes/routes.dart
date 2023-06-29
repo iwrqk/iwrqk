@@ -43,4 +43,5 @@ abstract class AppRoutes {
 
   static const channel = '/channel';
   static const thread = '/thread';
+  static const createThread = '/createThread';
 }

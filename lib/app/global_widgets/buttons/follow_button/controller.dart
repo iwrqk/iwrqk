@@ -33,7 +33,7 @@ class FollowButtonController extends GetxController {
   void unfollowUploader() {
     _isProcessing.value = true;
 
-    userService.unfollowUploader(userId).then((value) {
+    userService.unfollowUser(userId).then((value) {
       _isProcessing.value = false;
       if (value) {
         _isFollowing.value = false;

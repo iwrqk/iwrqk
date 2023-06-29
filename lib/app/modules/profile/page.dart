@@ -465,8 +465,6 @@ class ProfilePage extends GetWidget<ProfileController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FloatingActionButton(
-                    backgroundColor: Theme.of(context).canvasColor,
-                    foregroundColor: Colors.grey,
                     heroTag: 'jumpToTopBtn',
                     onPressed: controller.jumpToTop,
                     child: const FaIcon(FontAwesomeIcons.arrowUp),
@@ -476,8 +474,6 @@ class ProfilePage extends GetWidget<ProfileController> {
                   ),
                   if (controller.currentTabIndex == 2)
                     FloatingActionButton(
-                      backgroundColor: Theme.of(context).canvasColor,
-                      foregroundColor: Colors.grey,
                       heroTag: 'commentBtn',
                       onPressed: () {
                         Get.bottomSheet(

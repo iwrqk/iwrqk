@@ -373,7 +373,7 @@ class SettingGroup extends StatelessWidget {
         separatorBuilder: (context, index) {
           return Divider(
             thickness: 1,
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).dividerColor,
           );
         },
         itemCount: children.length,

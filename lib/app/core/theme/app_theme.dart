@@ -48,6 +48,10 @@ abstract class AppTheme {
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: CupertinoColors.white,
+        foregroundColor: Colors.grey,
+      ),
       popupMenuTheme: const PopupMenuThemeData().copyWith(
         color: CupertinoColors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -115,6 +119,10 @@ abstract class AppTheme {
           foregroundColor: primaryColor,
           splashFactory: NoSplash.splashFactory,
         ),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Color.fromARGB(255, 36, 39, 46),
+        foregroundColor: Colors.grey,
       ),
       popupMenuTheme: const PopupMenuThemeData().copyWith(
         color: const Color.fromARGB(255, 36, 39, 46),

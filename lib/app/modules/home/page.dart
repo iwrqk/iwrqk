@@ -96,28 +96,20 @@ class HomePage extends GetView<HomeController> {
                     Get.toNamed(AppRoutes.login);
                   }
                 },
-                child:
-                    (controller.userService.notificationsCounts?.total ?? 0) > 0
-                        ? Badge(
-                            label: controller.userService.notificationsCounts!
-                                        .total >
-                                    0
-                                ? Text(
-                                    controller
-                                        .userService.notificationsCounts!.total
-                                        .toString(),
-                                    style: const TextStyle(color: Colors.white),
-                                  )
-                                : null,
-                            child: const FaIcon(
-                              FontAwesomeIcons.solidEnvelope,
-                              color: Colors.grey,
-                            ),
-                          )
-                        : const FaIcon(
-                            FontAwesomeIcons.solidEnvelope,
-                            color: Colors.grey,
-                          ),
+                child: Badge(
+                  isLabelVisible:
+                      (controller.userService.notificationsCounts?.messages ?? 0) >
+                          0,
+                  label: Text(
+                    controller.userService.notificationsCounts!.messages
+                        .toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  child: const FaIcon(
+                    FontAwesomeIcons.solidEnvelope,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
             ),
           ],
