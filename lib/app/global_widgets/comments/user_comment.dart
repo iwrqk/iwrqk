@@ -122,9 +122,11 @@ class _UserCommentState extends State<UserComment>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            text,
-            style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+          Flexible(
+            child: Text(
+              text,
+              style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+            ),
           ),
           PopupMenuButton(
             itemBuilder: (BuildContext context) {

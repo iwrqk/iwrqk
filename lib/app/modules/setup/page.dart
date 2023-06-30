@@ -367,7 +367,7 @@ class FinishPage extends StatelessWidget {
                   borderRadius: BorderRadius.zero,
                   onPressed: () {
                     controller.configService.setFirstRun(false);
-                    Get.toNamed(AppRoutes.home);
+                    Get.offAndToNamed(AppRoutes.home);
                   },
                   child: Text(
                     L10n.of(context).finish,

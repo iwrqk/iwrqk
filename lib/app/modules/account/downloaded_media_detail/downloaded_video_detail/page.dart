@@ -4,26 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../l10n.dart';
-import '../../../data/enums/types.dart';
-import '../../../global_widgets/iwr_progress_indicator.dart';
-import '../../../global_widgets/tab_indicator.dart';
-import '../../../routes/pages.dart';
-import '../downloads/widgets/downloads_media_preview_list/widget.dart';
+import '../../../../../l10n.dart';
+import '../../../../data/enums/types.dart';
+import '../../../../global_widgets/iwr_progress_indicator.dart';
+import '../../../../global_widgets/tab_indicator.dart';
+import '../../../../routes/pages.dart';
+import '../../downloads/widgets/downloads_media_preview_list/widget.dart';
 import 'controller.dart';
 
-class DownloadedMediaDetailPage extends StatefulWidget {
-  const DownloadedMediaDetailPage({super.key});
+class DownloadedVideoDetailPage extends StatefulWidget {
+  const DownloadedVideoDetailPage({super.key});
 
   @override
-  State<DownloadedMediaDetailPage> createState() =>
-      _DownloadedMediaDetailPageState();
+  State<DownloadedVideoDetailPage> createState() =>
+      _DownloadedVideoDetailPageState();
 }
 
-class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
+class _DownloadedVideoDetailPageState extends State<DownloadedVideoDetailPage>
     with SingleTickerProviderStateMixin {
-  final DownloadedMediaDetailController _controller =
-      Get.put(DownloadedMediaDetailController());
+  final DownloadedVideoDetailController _controller =
+      Get.put(DownloadedVideoDetailController());
   late TabController _tabController;
 
   @override
@@ -75,8 +75,8 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        border: Border(
-          right: BorderSide(color: Theme.of(context).dividerColor, width: 0),
+        border: Border.symmetric(
+          vertical: BorderSide(color: Theme.of(context).dividerColor, width: 0),
         ),
       ),
       child: CustomScrollView(
@@ -153,6 +153,9 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
           left: BorderSide(color: Theme.of(context).dividerColor, width: 0),
         ),
       ),
+      margin: MediaQuery.of(context).orientation == Orientation.landscape
+          ? MediaQuery.of(context).padding.copyWith(left: 0, bottom: 0)
+          : null,
       child: Obx(
         () => DownloadsMediaPreviewList(
           filterType: MediaType.video,
@@ -169,19 +172,6 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
     return BetterPlayer(
       controller: _controller.iwrPlayerController!.betterPlayerController,
     );
-  }
-
-  Widget _buildGallery() {
-    return Container();
-  }
-
-  String _getTitle() {
-    switch (_controller.media.type) {
-      case MediaType.video:
-        return L10n.of(context).video;
-      case MediaType.image:
-        return L10n.of(context).image;
-    }
   }
 
   @override
@@ -203,9 +193,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
           ),
         );
       } else {
-        return _controller.media.type == MediaType.video
-            ? _buildPlayer()
-            : _buildGallery();
+        return _buildPlayer();
       }
     });
 
@@ -237,7 +225,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
             centerTitle: true,
             title: Obx(
               () => Text(
-                _getTitle(),
+                L10n.of(context).video,
                 style: TextStyle(
                   color: _controller.hideAppbarFactor == 0
                       ? null
@@ -264,6 +252,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
                 child: SafeArea(
                   top: false,
                   bottom: false,
+                  right: false,
                   child: AspectRatio(aspectRatio: 16 / 9, child: mediaWidget),
                 ),
               ),
@@ -287,6 +276,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
                 : SafeArea(
                     top: false,
                     bottom: false,
+                    right: false,
                     child: detailTab,
                   ),
           ),
@@ -303,10 +293,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
             SizedBox(
               width: MediaQuery.of(context).size.longestSide / 3 +
                   MediaQuery.of(context).padding.right,
-              child: SafeArea(
-                bottom: false,
-                child: playlistTab,
-              ),
+              child: playlistTab,
             ),
         ],
       ),

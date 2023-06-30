@@ -112,22 +112,24 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: "#${widget.index} ",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.bold,
+          Flexible(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "#${widget.index} ",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: text,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12.5),
-                ),
-              ],
+                  TextSpan(
+                    text: text,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+                  ),
+                ],
+              ),
             ),
           ),
           PopupMenuButton(

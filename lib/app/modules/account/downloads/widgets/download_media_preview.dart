@@ -372,8 +372,10 @@ class DownloadMediaPreview extends StatelessWidget {
               if (customOnTap != null) {
                 customOnTap!.call(taskData);
               } else {
-                Get.toNamed(AppRoutes.downloadedMediaDetail,
-                    arguments: taskData);
+                if (taskData.offlineMedia.type == MediaType.video) {
+                  Get.toNamed(AppRoutes.downloadedVideoDetail,
+                      arguments: taskData);
+                }
               }
             }
           : null,

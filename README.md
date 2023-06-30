@@ -18,11 +18,13 @@ Cross-platform support for iOS and Android.
 
  - [x] Download manager (WIP)
  - [x] Friends manager
- - [x] Notification and message manager
+ - [x] Notification and message manager (WIP)
  - [x] Follow, subscription, favorite, playlist, comments
- - [x] Forum
+ - [x] Forum (WIP)
  - [x] Custom player and gallery viewer
  - [x] Login, logout, register
+ - [ ] Blocklist for tags
+ - [ ] Advanced search
 
 ## Screenshots
 

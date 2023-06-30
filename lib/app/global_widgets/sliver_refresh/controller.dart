@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -29,7 +30,7 @@ abstract class SliverRefreshController<T> extends GetxController
     if (!_accountService.isLogin && _requireLogin) {
       change(IwrState.requireLogin, status: RxStatus.success());
     } else {
-      loadData(showSplash: true, showFooter: false);
+      refreshData(showSplash: true, showFooter: false);
     }
   }
 
@@ -56,7 +57,9 @@ abstract class SliverRefreshController<T> extends GetxController
     showFooterAtFail = false,
   }) async {
     if (showSplash) {
-      change(IwrState.none, status: RxStatus.loading());
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        change(IwrState.none, status: RxStatus.loading());
+      });
     } else if (showFooter) {
       change(IwrState.loading, status: RxStatus.success());
     } else {

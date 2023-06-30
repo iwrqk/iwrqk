@@ -699,8 +699,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border(
-            right: BorderSide(color: Theme.of(context).dividerColor, width: 0),
+          border: Border.symmetric(
+            vertical:
+                BorderSide(color: Theme.of(context).dividerColor, width: 0),
           ),
         ),
         child: CustomScrollView(
@@ -721,12 +722,18 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       child: Column(
         children: [
           Expanded(
-            child: CommentsList(
-              uploaderUserName: _controller.media.user.username,
-              sourceId: _controller.media.id,
-              sourceType: _controller.mediaType == MediaType.video
-                  ? CommentsSourceType.video
-                  : CommentsSourceType.image,
+            child: Container(
+              margin: MediaQuery.of(context).orientation ==
+                      Orientation.landscape
+                  ? MediaQuery.of(context).padding.copyWith(left: 0, bottom: 0)
+                  : null,
+              child: CommentsList(
+                uploaderUserName: _controller.media.user.username,
+                sourceId: _controller.media.id,
+                sourceType: _controller.mediaType == MediaType.video
+                    ? CommentsSourceType.video
+                    : CommentsSourceType.image,
+              ),
             ),
           ),
           InkWell(
@@ -875,6 +882,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     child: SafeArea(
                       top: false,
                       bottom: false,
+                      right: false,
                       child:
                           AspectRatio(aspectRatio: 16 / 9, child: mediaWidget),
                     ),
@@ -900,6 +908,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     : SafeArea(
                         top: false,
                         bottom: false,
+                        right: false,
                         child: detailTab,
                       ),
               ),
@@ -916,10 +925,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 SizedBox(
                   width: MediaQuery.of(context).size.longestSide / 3 +
                       MediaQuery.of(context).padding.right,
-                  child: SafeArea(
-                    bottom: false,
-                    child: commentsTab,
-                  ),
+                  child: commentsTab,
                 ),
             ],
           ),

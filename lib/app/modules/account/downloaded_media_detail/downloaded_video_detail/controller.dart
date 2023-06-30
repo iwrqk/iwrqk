@@ -2,17 +2,17 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../data/enums/types.dart';
-import '../../../data/models/download_task.dart';
-import '../../../data/models/offline/offline_media.dart';
-import '../../../data/services/config_service.dart';
-import '../../../global_widgets/media/iwr_player/controller.dart';
-import '../downloads/widgets/downloads_media_preview_list/controller.dart';
+import '../../../../data/enums/types.dart';
+import '../../../../data/models/download_task.dart';
+import '../../../../data/models/offline/offline_media.dart';
+import '../../../../data/services/config_service.dart';
+import '../../../../global_widgets/media/iwr_player/controller.dart';
+import '../../downloads/widgets/downloads_media_preview_list/controller.dart';
 
-class DownloadedMediaDetailController extends GetxController
+class DownloadedVideoDetailController extends GetxController
     with GetTickerProviderStateMixin {
   final String taskPreviewListTag =
-      'downloaded_media_detail_tasks_preview_list';
+      'downloaded_video_detail_tasks_preview_list';
 
   final ConfigService configService = Get.find();
 
