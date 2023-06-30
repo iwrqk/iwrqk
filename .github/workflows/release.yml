@@ -11,6 +11,9 @@ on:
 env:
   APP_PACK_NAME: iwrqk
 
+permissions:
+  contents: write
+
 jobs:
   build_and_upload:
     name: Build releases
