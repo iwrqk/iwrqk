@@ -22,6 +22,10 @@ class DownloadedMediaDetailController extends GetxController
 
   IwrPlayerController? iwrPlayerController;
 
+  final RxString _currentMediaId = ''.obs;
+  String get currentMediaId => _currentMediaId.value;
+  set currentMediaId(String value) => _currentMediaId.value = value;
+
   ScrollController scrollController = ScrollController();
 
   final RxDouble _hideAppbarFactor = 1.0.obs;
@@ -34,6 +38,8 @@ class DownloadedMediaDetailController extends GetxController
   void onInit() {
     super.onInit();
     task = Get.arguments as MediaDownloadTask;
+
+    _currentMediaId.value = media.id;
 
     Get.lazyPut(() => DownloadsMediaPreviewListController(),
         tag: taskPreviewListTag);
@@ -83,6 +89,22 @@ class DownloadedMediaDetailController extends GetxController
 
       _loading.value = false;
     });
+  }
+
+  void changeVideoSource(MediaDownloadTask data) async {
+    task = data;
+    _currentMediaId.value = media.id;
+
+    iwrPlayerController?.changeVideoSource(
+      resolutions: {
+        (data as VideoDownloadTask).resolutionName:
+            await data.downloadTask.filePath()
+      },
+      author: data.offlineMedia.uploader.name,
+      title: data.offlineMedia.title,
+      type: BetterPlayerDataSourceType.file,
+      thumbnail: data.offlineMedia.coverUrl,
+    );
   }
 
   void pauseVideo() {

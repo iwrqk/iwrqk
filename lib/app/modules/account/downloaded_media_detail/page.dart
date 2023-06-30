@@ -72,77 +72,94 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
   }
 
   Widget _buildDetailTab() {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Card(
-            color: Theme.of(context).canvasColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7.5),
-            ),
-            margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: GestureDetector(
-                onTap: _gotoUploaderProfilePage,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5),
-                      leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          _controller.media.uploader.name[0].toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border(
+          right: BorderSide(color: Theme.of(context).dividerColor, width: 0),
+        ),
+      ),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Card(
+              color: Theme.of(context).canvasColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7.5),
+              ),
+              margin: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: GestureDetector(
+                  onTap: _gotoUploaderProfilePage,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 5),
+                        leading: CircleAvatar(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          child: Text(
+                            _controller.media.uploader.name[0].toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _controller.media.uploader.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              _controller.media.uploader.username,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12.5),
+                            ),
+                          ],
+                        ),
                       ),
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _controller.media.uploader.name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            _controller.media.uploader.username,
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12.5),
-                          ),
-                        ],
+                      SelectableText(
+                        _controller.media.title,
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SelectableText(
-                      _controller.media.title,
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
-  Widget _buildTasksTab() {
-    return SafeArea(
-      bottom: false,
-      child: Container(
+  Widget _buildPlaylistTab() {
+    return Container(
+      decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        child: DownloadsMediaPreviewList(
+        border: Border(
+          left: BorderSide(color: Theme.of(context).dividerColor, width: 0),
+        ),
+      ),
+      child: Obx(
+        () => DownloadsMediaPreviewList(
           filterType: MediaType.video,
           tag: _controller.taskPreviewListTag,
+          isPlaylist: true,
+          currentMediaId: _controller.currentMediaId,
+          onChangeVideo: _controller.changeVideoSource,
         ),
       ),
     );
@@ -172,7 +189,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
     Widget body;
 
     Widget detailTab = _buildDetailTab();
-    Widget tasksTab = _buildTasksTab();
+    Widget playlistTab = _buildPlaylistTab();
 
     Widget mediaWidget = Obx(() {
       if (_controller.loading) {
@@ -264,7 +281,7 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
                     controller: _tabController,
                     children: [
                       detailTab,
-                      tasksTab,
+                      playlistTab,
                     ],
                   )
                 : SafeArea(
@@ -286,7 +303,10 @@ class _DownloadedMediaDetailPageState extends State<DownloadedMediaDetailPage>
             SizedBox(
               width: MediaQuery.of(context).size.longestSide / 3 +
                   MediaQuery.of(context).padding.right,
-              child: tasksTab,
+              child: SafeArea(
+                bottom: false,
+                child: playlistTab,
+              ),
             ),
         ],
       ),

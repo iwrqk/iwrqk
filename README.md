@@ -16,9 +16,9 @@ Cross-platform support for iOS and Android.
 
 ## Todo list
 
- - [x] Download manager
- - [ ] Friends manager
- - [ ] Notification and message manager
+ - [x] Download manager (WIP)
+ - [x] Friends manager
+ - [x] Notification and message manager
  - [x] Follow, subscription, favorite, playlist, comments
  - [x] Forum
  - [x] Custom player and gallery viewer

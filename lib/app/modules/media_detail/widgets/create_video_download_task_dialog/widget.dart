@@ -63,7 +63,7 @@ class CreateVideoDownloadDialog
                 ? null
                 : () {
                     controller.createVideoDownloadTask(
-                      L10n.of(context).message_playlist_created,
+                      L10n.of(context).message_download_task_created,
                     );
                   },
             child: Text(

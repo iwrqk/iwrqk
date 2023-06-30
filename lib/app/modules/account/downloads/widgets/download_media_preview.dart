@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../../../../l10n.dart';
 import '../../../../core/utils/display_util.dart';
 import '../../../../data/enums/types.dart';
 import '../../../../data/models/download_task.dart';
@@ -14,10 +15,12 @@ import '../../../../routes/pages.dart';
 class DownloadMediaPreview extends StatelessWidget {
   final MediaDownloadTask taskData;
   final DownloadService _downloadService = Get.find();
+  final Function(MediaDownloadTask data)? customOnTap;
 
   DownloadMediaPreview({
     Key? key,
     required this.taskData,
+    this.customOnTap,
   }) : super(key: key);
 
   Widget _buildRating() {
@@ -242,7 +245,7 @@ class DownloadMediaPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildStateWidget() {
+  Widget _buildStateWidget(BuildContext context) {
     return Obx(() {
       DownloadTask downloadTask = taskData.downloadTask;
       String taskId = downloadTask.taskId;
@@ -262,7 +265,7 @@ class DownloadMediaPreview extends StatelessWidget {
                 });
               },
               child: _buildStateMessageWithProgress(
-                "Downloading ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
+                "${L10n.of(context).download_downloading} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
                 taskStatus.value.progress,
               ),
             );
@@ -275,13 +278,13 @@ class DownloadMediaPreview extends StatelessWidget {
                 });
               },
               child: _buildStateMessageWithProgress(
-                "Paused ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
+                "${L10n.of(context).download_paused} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
                 taskStatus.value.progress,
               ),
             );
           case TaskStatus.failed:
             return _buildStateMessageWithProgress(
-              "Failed",
+              L10n.of(context).download_failed,
               0,
             );
           case TaskStatus.complete:
@@ -290,10 +293,10 @@ class DownloadMediaPreview extends StatelessWidget {
             return const SizedBox.shrink();
         }
       } else {
-        return const AutoSizeText(
-          "Unknow",
+        return AutoSizeText(
+          L10n.of(context).unknown,
           maxLines: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12.5,
             color: Colors.red,
             overflow: TextOverflow.ellipsis,
@@ -348,7 +351,7 @@ class DownloadMediaPreview extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.zero,
-                child: _buildStateWidget(),
+                child: _buildStateWidget(context),
               )
             ],
           ),
@@ -366,7 +369,12 @@ class DownloadMediaPreview extends StatelessWidget {
       // ignore: unrelated_type_equality_checks
       onTap: (taskStatus?.value.status) == TaskStatus.complete
           ? () {
-              Get.toNamed(AppRoutes.downloadedMediaDetail, arguments: taskData);
+              if (customOnTap != null) {
+                customOnTap!.call(taskData);
+              } else {
+                Get.toNamed(AppRoutes.downloadedMediaDetail,
+                    arguments: taskData);
+              }
             }
           : null,
       child: Container(

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:background_downloader/background_downloader.dart';
 import 'package:get/get.dart';
 
 import '../../../../../data/enums/result.dart';
@@ -10,7 +13,8 @@ import 'repository.dart';
 
 class DownloadsMediaPreviewListController
     extends SliverRefreshController<MediaDownloadTask> {
-  final DownloadMediaPreviewListRepository repository = DownloadMediaPreviewListRepository();
+  final DownloadMediaPreviewListRepository repository =
+      DownloadMediaPreviewListRepository();
 
   final DownloadService _downloadService = Get.find();
 
@@ -30,8 +34,20 @@ class DownloadsMediaPreviewListController
   }
 
   Future<void> deleteVideoTask(int index, String taskId) async {
-    data.removeAt(index);
+    MediaDownloadTask taskData = data[index];
+    DownloadTask downloadTask = taskData.downloadTask;
     await StorageProvider.deleteDownloadVideoRecord(index);
     await deleteTaskRecord(taskId);
+
+    File downloadFile = File(await downloadTask.filePath());
+    if (await downloadFile.exists()) {
+      await downloadFile.delete();
+    }
+    Directory downloadDir = downloadFile.parent;
+    if (await downloadDir.exists()) {
+      await downloadDir.delete();
+    }
+
+    data.removeAt(index);
   }
 }

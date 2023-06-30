@@ -98,13 +98,16 @@ class HomePage extends GetView<HomeController> {
                 },
                 child: Badge(
                   isLabelVisible:
-                      (controller.userService.notificationsCounts?.messages ?? 0) >
+                      (controller.userService.notificationsCounts?.messages ??
+                              0) >
                           0,
-                  label: Text(
-                    controller.userService.notificationsCounts!.messages
-                        .toString(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
+                  label: controller.userService.notificationsCounts == null
+                      ? null
+                      : Text(
+                          controller.userService.notificationsCounts!.messages
+                              .toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
                   child: const FaIcon(
                     FontAwesomeIcons.solidEnvelope,
                     color: Colors.grey,

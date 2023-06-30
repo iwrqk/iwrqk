@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/app/data/models/account/settings/player_setting.dart';
 
@@ -47,7 +48,7 @@ class ConfigService extends GetxService {
 
   bool get notificationPlayer => _notificationPlayer.value;
 
-  set notificationPlayer(bool value){
+  set notificationPlayer(bool value) {
     _notificationPlayer.value = value;
     StorageProvider.setConfig(ConfigKey.notificationPlayer, value);
   }
@@ -70,7 +71,7 @@ class ConfigService extends GetxService {
     StorageProvider.setConfig(ConfigKey.playerSetting, playerSetting.toJson());
   }
 
-  final RxString _localeCode = "en".obs;
+  final RxString _localeCode = "".obs;
 
   Locale? get locale {
     if (_localeCode.value.isEmpty) {
@@ -140,10 +141,10 @@ class ConfigService extends GetxService {
 
     _themeMode.value = ThemeMode
         .values[StorageProvider.getConfigByKey(ConfigKey.themeMode) ?? 0];
-    
+
     _audltCoverBlur.value =
         StorageProvider.getConfigByKey(ConfigKey.adultCoverBlur) ?? false;
-    _notificationPlayer.value = 
+    _notificationPlayer.value =
         StorageProvider.getConfigByKey(ConfigKey.notificationPlayer) ?? false;
 
     var playerSettingJson =
@@ -163,7 +164,9 @@ class ConfigService extends GetxService {
       for (final locale in locales) {
         if (supportedLocales.contains(locale)) {
           StorageProvider.setConfig(ConfigKey.localeCode, locale.toString());
-          _localeCode.value = locale.toString();
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            _localeCode.value = locale.toString();
+          });
           return locale;
         }
       }

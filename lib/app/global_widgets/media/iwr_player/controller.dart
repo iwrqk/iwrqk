@@ -19,7 +19,7 @@ enum QuickGestures {
 
 class IwrPlayerController extends GetxController {
   ConfigService configService = Get.find();
-  
+
   late BetterPlayerController betterPlayerController;
   int _qualityIndexToSave = 0;
   int _volumeToSave = 100;
@@ -148,6 +148,32 @@ class IwrPlayerController extends GetxController {
     } else {
       _qualityIndexToSave = index;
     }
+  }
+
+  void changeVideoSource({
+    required Map<String, String> resolutions,
+    required String title,
+    required String author,
+    BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network,
+    required String? thumbnail,
+    int initResolutionIndex = 0,
+  }) {
+    this.resolutions.clear();
+    this.resolutions.addAll(resolutions);
+
+    _currentResolutionIndex.value = initResolutionIndex;
+    betterPlayerController.setupDataSource(
+      BetterPlayerDataSource(
+        type,
+        resolutions.values.elementAt(initResolutionIndex),
+        notificationConfiguration: BetterPlayerNotificationConfiguration(
+          showNotification: configService.notificationPlayer,
+          title: title,
+          author: author,
+          imageUrl: thumbnail,
+        ),
+      ),
+    );
   }
 
   void changePlaybackSpeed(int index) {

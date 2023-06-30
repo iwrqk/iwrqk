@@ -86,8 +86,10 @@ class VideoModel extends MediaModel {
       if (customThumbnail != null) {
         flag = true;
       } else {
-        if (embedUrl!.contains("youtu")) {
-          flag = true;
+        if (embedUrl != null) {
+          if (embedUrl!.contains("youtu")) {
+            flag = true;
+          }
         }
       }
     }
