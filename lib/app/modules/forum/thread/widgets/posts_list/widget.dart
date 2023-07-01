@@ -10,6 +10,7 @@ class PostList extends StatefulWidget {
   final String starterUserName;
   final String channelName;
   final String threadId;
+  final ScrollController? scrollController;
 
   const PostList({
     Key? key,
@@ -17,6 +18,7 @@ class PostList extends StatefulWidget {
     required this.starterUserName,
     required this.channelName,
     required this.threadId,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,6 @@ class PostList extends StatefulWidget {
 
 class _PostListState extends State<PostList> {
   late PostListController _controller;
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     return SliverRefresh(
       controller: _controller,
-      scrollController: _scrollController,
+      scrollController: widget.scrollController,
       builder: (data, reachBottomCallback) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(

@@ -40,60 +40,62 @@ class _FavoriteMediaPreviewListState extends State<FavoriteMediaPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: _scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
+    return SizeCacheWidget(
+      child: SliverRefresh(
+        controller: _controller,
+        scrollController: _scrollController,
+        builder: (data, reachBottomCallback) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                reachBottomCallback(index);
 
-              final item = data[index];
+                final item = data[index];
 
-              Widget child = Dismissible(
-                key: Key(item.id),
-                direction: DismissDirection.endToStart,
-                onDismissed: (direction) {
-                  showToast(
-                    L10n.of(context).message_deleted_item(item.title),
-                  );
-                  _controller.unfavorite(index);
-                },
-                background: Container(
-                  color: Colors.red,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(
-                        L10n.of(context).delete,
-                        style: const TextStyle(color: Colors.white),
+                Widget child = Dismissible(
+                  key: Key(item.id),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) {
+                    showToast(
+                      L10n.of(context).message_deleted_item(item.title),
+                    );
+                    _controller.unfavorite(index);
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Text(
+                          L10n.of(context).delete,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: MediaFlatPreview(
-                    media: item,
+                  child: SizedBox(
+                    height: 100,
+                    child: MediaFlatPreview(
+                      media: item,
+                    ),
                   ),
-                ),
-              );
+                );
 
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
-                  height: 100,
-                  child: MediaFlatPreviewPlaceholder(),
-                ),
-                child: child,
-              );
-            },
-            childCount: data.length,
-          ),
-        );
-      },
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: const SizedBox(
+                    height: 100,
+                    child: MediaFlatPreviewPlaceholder(),
+                  ),
+                  child: child,
+                );
+              },
+              childCount: data.length,
+            ),
+          );
+        },
+      ),
     );
   }
 

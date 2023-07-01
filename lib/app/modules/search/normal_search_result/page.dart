@@ -33,6 +33,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
       alignment: Alignment.centerLeft,
       child: Row(children: [
         TabBar(
+          controller: controller.tabController,
           isScrollable: true,
           physics: const BouncingScrollPhysics(),
           indicator: TabIndicator(context),
@@ -149,11 +150,16 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppbar(context),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
+    return Obx(
+      () => Scaffold(
+        appBar: _buildAppbar(context),
+        floatingActionButton: controller.showToTopButton
+            ? FloatingActionButton(
+                onPressed: controller.jumpToTop,
+                child: const FaIcon(FontAwesomeIcons.arrowUp),
+              )
+            : null,
+        body: Column(
           children: [
             _buildTabBar(context),
             Expanded(
@@ -161,6 +167,7 @@ class NormalSearchResultPage extends GetView<NormalSearchResultController> {
                 top: false,
                 bottom: false,
                 child: TabBarView(
+                  controller: controller.tabController,
                   children: [
                     SearchResultMediaPreviewList(
                       type: MediaType.video,

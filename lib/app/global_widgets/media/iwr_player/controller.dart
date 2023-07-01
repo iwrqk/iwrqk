@@ -105,6 +105,7 @@ class IwrPlayerController extends GetxController {
 
     betterPlayerController = BetterPlayerController(
       BetterPlayerConfiguration(
+        autoPlay: configService.autoPlay,
         aspectRatio: initAspectRatio,
         fit: BoxFit.contain,
         handleLifecycle: false,
@@ -210,15 +211,10 @@ class IwrPlayerController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    betterPlayerController.dispose(forceDispose: true);
     _onPlayerSettingSaved?.call(PlayerSetting(
       qualityIndex: _qualityIndexToSave,
       volume: _volumeToSave,
     ));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    betterPlayerController.dispose();
   }
 }

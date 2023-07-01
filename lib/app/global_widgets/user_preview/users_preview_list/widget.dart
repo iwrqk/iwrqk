@@ -13,11 +13,13 @@ class UsersPreviewList extends StatefulWidget {
   final UsersSourceType sourceType;
   final UsersSortSetting sortSetting;
   final String tag;
+  final bool isSearch;
 
   UsersPreviewList({
     required this.sourceType,
     required this.sortSetting,
     required this.tag,
+    this.isSearch = false,
   }) : super(key: PageStorageKey<String>(tag));
 
   @override
@@ -27,45 +29,47 @@ class UsersPreviewList extends StatefulWidget {
 class _UsersPreviewListState extends State<UsersPreviewList>
     with AutomaticKeepAliveClientMixin {
   late UsersPreviewListController _controller;
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _controller = Get.find<UsersPreviewListController>(tag: widget.tag);
-    _controller.initConfig(widget.sortSetting, widget.sourceType);
+    _controller.initConfig(
+        widget.sortSetting, widget.sourceType, widget.isSearch);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: _scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              reachBottomCallback(index);
+    return SizeCacheWidget(
+      child: SliverRefresh(
+        controller: _controller,
+        scrollController: _controller.scrollController,
+        builder: (data, reachBottomCallback) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                reachBottomCallback(index);
 
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
-                  height: 100,
-                  child: UserPreviewPlaceholder(),
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: UserPreview(
-                    user: data[index],
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: const SizedBox(
+                    height: 100,
+                    child: UserPreviewPlaceholder(),
                   ),
-                ),
-              );
-            },
-            childCount: data.length,
-          ),
-        );
-      },
+                  child: SizedBox(
+                    height: 100,
+                    child: UserPreview(
+                      user: data[index],
+                    ),
+                  ),
+                );
+              },
+              childCount: data.length,
+            ),
+          );
+        },
+      ),
     );
   }
 

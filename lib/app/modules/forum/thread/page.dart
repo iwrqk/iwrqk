@@ -9,16 +9,10 @@ import 'widgets/posts_list/widget.dart';
 import 'widgets/send_post_bottom_sheet/widget.dart';
 
 class ThreadPage extends GetWidget<ThreadController> {
-  ThreadPage({super.key});
-
-  final String title = Get.arguments['title'];
-  final String starterUserName = Get.arguments['starterUserName'];
-  final String channelName = Get.arguments['channelName'];
-  final String threadId = Get.arguments['threadId'];
-  final bool locked = Get.arguments['locked'];
+  const ThreadPage({super.key});
 
   Widget _buildCommentButton(BuildContext context) {
-    return locked
+    return controller.locked
         ? Container(
             decoration: BoxDecoration(
               color: Theme.of(context).canvasColor,
@@ -54,7 +48,7 @@ class ThreadPage extends GetWidget<ThreadController> {
         : InkWell(
             onTap: () {
               Get.bottomSheet(SendPostBottomSheet(
-                threadId: threadId,
+                threadId: controller.threadId,
               ));
             },
             child: Container(
@@ -92,41 +86,53 @@ class ThreadPage extends GetWidget<ThreadController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
           ),
-        ),
-        centerTitle: true,
-        title: Text(
-          L10n.of(context).thread,
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SafeArea(
-              top: false,
-              bottom: false,
-              child: PostList(
-                title: title,
-                starterUserName: starterUserName,
-                channelName: channelName,
-                threadId: threadId,
-              ),
+          shape: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: 0,
             ),
           ),
-          _buildCommentButton(context),
-        ],
+          centerTitle: true,
+          title: Text(
+            L10n.of(context).thread,
+          ),
+        ),
+        floatingActionButton: controller.showToTopButton
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 75),
+                child: FloatingActionButton(
+                  onPressed: controller.jumpToTop,
+                  child: const FaIcon(FontAwesomeIcons.arrowUp),
+                ),
+              )
+            : null,
+        body: Column(
+          children: [
+            Expanded(
+              child: SafeArea(
+                top: false,
+                bottom: false,
+                child: PostList(
+                  title: controller.title,
+                  starterUserName: controller.starterUserName,
+                  channelName: controller.channelName,
+                  threadId: controller.threadId,
+                  scrollController: controller.scrollController,
+                ),
+              ),
+            ),
+            _buildCommentButton(context),
+          ],
+        ),
       ),
     );
   }

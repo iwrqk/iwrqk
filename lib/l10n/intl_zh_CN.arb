@@ -174,9 +174,11 @@
         }
     },
     "setting_appearance": "外观",
-    "setting_cover_blur": "模糊 R-18 内容封面",
+    "setting_player": "播放器",
     "setting_notification_player": "播放器通知",
+    "setting_auto_play": "自动播放",
     "setting_security": "安全",
+    "setting_cover_blur": "模糊 R-18 内容封面",
     "setting_auto_lock": "自动锁定",
     "unlock_by_biometric": "使用生物识别解锁",
     "set_password": "设置密码",

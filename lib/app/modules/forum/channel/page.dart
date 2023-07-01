@@ -3,13 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/pages.dart';
+import 'controller.dart';
 import 'widgets/thread_preview_list/page.dart';
 
-class ChannelPage extends StatelessWidget {
-  ChannelPage({super.key});
-
-  final String channelDisplayName = Get.arguments['channelDisplayName'];
-  final String channelName = Get.arguments['channelName'];
+class ChannelPage extends GetView<ChannelController> {
+  const ChannelPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +28,42 @@ class ChannelPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        title: Text(channelDisplayName),
+        title: Text(controller.channelDisplayName),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
-        onPressed: () {
-          Get.toNamed(AppRoutes.createThread, arguments: channelName);
-        },
-        child: const FaIcon(
-          FontAwesomeIcons.plus,
+      floatingActionButton: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (controller.showToTopButton)
+              FloatingActionButton(
+                heroTag: 'jumpToTopBtn',
+                onPressed: controller.jumpToTop,
+                child: const FaIcon(FontAwesomeIcons.arrowUp),
+              ),
+            const SizedBox(
+              height: 15,
+            ),
+            FloatingActionButton(
+              heroTag: 'createThreadBtn',
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Colors.white,
+              onPressed: () {
+                Get.toNamed(AppRoutes.createThread,
+                    arguments: controller.channelName);
+              },
+              child: const FaIcon(
+                FontAwesomeIcons.plus,
+              ),
+            ),
+          ],
         ),
       ),
       body: SafeArea(
         top: false,
         bottom: false,
         child: ThreadPreviewList(
-          channelName: channelName,
+          channelName: controller.channelName,
+          scrollController: controller.scrollController,
         ),
       ),
     );

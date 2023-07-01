@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 
 import '../../../../l10n.dart';
 import 'widgets/playlist_detail_media_preview_list/widget.dart';
@@ -32,13 +31,11 @@ class PlaylistDetailPage extends StatelessWidget {
         centerTitle: true,
         title: Text(L10n.of(context).user_playlists),
       ),
-      body: SizeCacheWidget(
-        child: SafeArea(
-          top: false,
-          bottom: false,
-          child: PlaylistDetailMediaPreviewList(
-            playlistId: playlistId,
-          ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: PlaylistDetailMediaPreviewList(
+          playlistId: playlistId,
         ),
       ),
     );

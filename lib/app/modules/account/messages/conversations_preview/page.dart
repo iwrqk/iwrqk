@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import 'package:keframe/keframe.dart';
 
 import '../../../../../l10n.dart';
 import 'controller.dart';
@@ -40,10 +39,8 @@ class ConversationsPreviewPage extends GetView<ConversationsPreviewController> {
           ),
         ],
       ),
-      body: SizeCacheWidget(
-        child: ConversationsPreviewList(
-          userId: controller.userService.user!.id,
-        ),
+      body: ConversationsPreviewList(
+        userId: controller.userService.user!.id,
       ),
     );
   }

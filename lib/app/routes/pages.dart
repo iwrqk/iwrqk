@@ -24,9 +24,11 @@ import '../modules/auto_lock/set_password/page.dart';
 import '../modules/auto_lock/page.dart';
 import '../modules/comment_detail/binding.dart';
 import '../modules/comment_detail/page.dart';
+import '../modules/forum/channel/binding.dart';
 import '../modules/forum/channel/page.dart';
 import '../modules/forum/create_thread/binding.dart';
 import '../modules/forum/create_thread/page.dart';
+import '../modules/forum/thread/binding.dart';
 import '../modules/forum/thread/page.dart';
 import '../modules/home/binding.dart';
 import '../modules/home/page.dart';
@@ -180,11 +182,13 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.channel,
-      page: () => ChannelPage(),
+      page: () => const ChannelPage(),
+      binding: ChannelBinding(),
     ),
     GetPage(
       name: AppRoutes.thread,
-      page: () => ThreadPage(),
+      page: () => const ThreadPage(),
+      binding: ThreadBinding(),
       preventDuplicates: false,
     ),
     GetPage(

@@ -205,9 +205,11 @@
     }
   },
   "setting_appearance": "Appearance",
-  "setting_cover_blur": "R-18 cover blur",
+  "setting_player": "Player",
   "setting_notification_player": "Notification player",
+  "setting_auto_play": "Auto play",
   "setting_security": "Security",
+  "setting_cover_blur": "R-18 cover blur",
   "setting_auto_lock": "Auto lock App",
   "unlock_by_biometric": "Unlock by biometric",
   "set_password": "Set password",

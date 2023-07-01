@@ -28,7 +28,6 @@ class SearchResultMediaPreviewList extends StatefulWidget {
 class _SearchResultMediaPreviewListState
     extends State<SearchResultMediaPreviewList>
     with AutomaticKeepAliveClientMixin {
-  final ScrollController _scrollController = ScrollController();
   late SearchResultMediaPreviewListController _controller;
   final NormalSearchResultController _parentController = Get.find();
 
@@ -38,7 +37,7 @@ class _SearchResultMediaPreviewListState
     _controller =
         Get.find<SearchResultMediaPreviewListController>(tag: widget.tag);
     _parentController.childrenControllers[widget.tag] = _controller;
-    _controller.initConfig(widget.type, widget.initKeyword);
+    _controller.initConfig(widget.type, widget.initKeyword, _parentController);
   }
 
   @override
@@ -46,7 +45,7 @@ class _SearchResultMediaPreviewListState
     super.build(context);
     return SliverRefresh(
       controller: _controller,
-      scrollController: _scrollController,
+      scrollController: _controller.scrollController,
       builder: (data, reachBottomCallback) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(

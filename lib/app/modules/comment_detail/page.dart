@@ -80,8 +80,7 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                   ),
                 ),
                 child: Container(
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom),
+                  margin: MediaQuery.of(context).padding.copyWith(top: 0),
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: Container(

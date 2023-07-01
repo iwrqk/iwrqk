@@ -205,9 +205,11 @@
         }
     },
     "setting_appearance": "外観",
-    "setting_cover_blur": "R-18のカバーをぼかす",
+    "setting_player": "プレイヤー",
     "setting_notification_player": "プレイヤー通知",
+    "setting_auto_play": "自動再生",
     "setting_security": "セキュリティ",
+    "setting_cover_blur": "R-18のカバーをぼかす",
     "setting_auto_lock": "自動ロック",
     "unlock_by_biometric": "バイオメトリック認証でロック解除",
     "set_password": "パスワードを設定",

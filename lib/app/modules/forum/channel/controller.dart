@@ -1,14 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class ThreadController extends GetxController {
+class ChannelController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
-  late String title;
-  late String starterUserName;
+  late String channelDisplayName;
   late String channelName;
-  late String threadId;
-  late bool locked;
 
   final RxBool _showToTopButton = false.obs;
   bool get showToTopButton => _showToTopButton.value;
@@ -17,13 +14,8 @@ class ThreadController extends GetxController {
   void onInit() {
     super.onInit();
 
-    dynamic arguments = Get.arguments;
-
-    title = arguments['title'];
-    starterUserName = arguments['starterUserName'];
-    channelName = arguments['channelName'];
-    threadId = arguments['threadId'];
-    locked = arguments['locked'];
+    channelDisplayName = Get.arguments['channelDisplayName'];
+    channelName = Get.arguments['channelName'];
 
     scrollController.addListener(() {
       if (scrollController.position.pixels >=

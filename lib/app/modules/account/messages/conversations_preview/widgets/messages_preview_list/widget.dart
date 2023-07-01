@@ -35,37 +35,39 @@ class _ConversationsPreviewListState extends State<ConversationsPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: _scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
+    return SizeCacheWidget(
+      child: SliverRefresh(
+        controller: _controller,
+        scrollController: _scrollController,
+        builder: (data, reachBottomCallback) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                reachBottomCallback(index);
 
-              ConversationModel conversation = _controller.data[index];
+                ConversationModel conversation = _controller.data[index];
 
-              Widget child = SizedBox(
-                height: 75,
-                child: ConversationPreview(
-                  conversation: conversation,
-                  userId: widget.userId,
-                ),
-              );
-
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
+                Widget child = SizedBox(
                   height: 75,
-                ),
-                child: child,
-              );
-            },
-            childCount: _controller.data.length,
-          ),
-        );
-      },
+                  child: ConversationPreview(
+                    conversation: conversation,
+                    userId: widget.userId,
+                  ),
+                );
+
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: const SizedBox(
+                    height: 75,
+                  ),
+                  child: child,
+                );
+              },
+              childCount: _controller.data.length,
+            ),
+          );
+        },
+      ),
     );
   }
 

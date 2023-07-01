@@ -1,13 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../global_widgets/user_preview/users_preview_list/controller.dart';
 import '../search_result_media_preview_list/controller.dart';
 
-class NormalSearchResultController extends GetxController {
+class NormalSearchResultController extends GetxController
+    with GetTickerProviderStateMixin {
   Map<String, SearchResultMediaPreviewListController> childrenControllers = {};
   late UsersPreviewListController childUsersController;
   late String keyword;
+
+  late TabController tabController;
+
+  final RxBool _showToTopButton = false.obs;
+  bool get showToTopButton => _showToTopButton.value;
+  set showToTopButton(bool value) => _showToTopButton.value = value;
 
   TextEditingController searchEditingController = TextEditingController();
   FocusNode searchFocusNode = FocusNode();
@@ -35,6 +43,8 @@ class NormalSearchResultController extends GetxController {
 
     searchEditingController.text = keyword;
 
+    tabController = TabController(length: 3, vsync: this);
+
     for (String tag in childrenMediaControllerTags) {
       Get.lazyPut(() => SearchResultMediaPreviewListController(), tag: tag);
     }
@@ -46,6 +56,20 @@ class NormalSearchResultController extends GetxController {
         Get.find<UsersPreviewListController>(tag: childUsersControllerTag);
   }
 
+  void jumpToTop() {
+    switch (tabController.index) {
+      case 0:
+        childrenControllers['search_result_videos']?.jumpToTop();
+        break;
+      case 1:
+        childrenControllers['search_result_images']?.jumpToTop();
+        break;
+      case 2:
+        childUsersController.jumpToTop();
+        break;
+    }
+  }
+
   void resetKeyword() {
     for (String tag in childrenMediaControllerTags) {
       childrenControllers[tag]?.resetKeyword(keyword);
@@ -53,6 +77,8 @@ class NormalSearchResultController extends GetxController {
     if (childUsersController.initialized) {
       childUsersController.resetKeyword(keyword);
     }
+
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void onSearchTextChanged(String text) {

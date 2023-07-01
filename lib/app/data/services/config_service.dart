@@ -19,6 +19,7 @@ abstract class ConfigKey {
 
   static const String adultCoverBlur = "adultCoverBlur";
   static const String notificationPlayer = "notificationPlayer";
+  static const String autoPlay = "autoPlay";
 }
 
 class ConfigService extends GetxService {
@@ -36,55 +37,45 @@ class ConfigService extends GetxService {
   }
 
   final RxBool _audltCoverBlur = false.obs;
-
   bool get adultCoverBlur => _audltCoverBlur.value;
-
   set adultCoverBlur(bool audltCoverBlur) {
     _audltCoverBlur.value = audltCoverBlur;
     StorageProvider.setConfig(ConfigKey.adultCoverBlur, audltCoverBlur);
   }
 
   final RxBool _notificationPlayer = false.obs;
-
   bool get notificationPlayer => _notificationPlayer.value;
-
   set notificationPlayer(bool value) {
     _notificationPlayer.value = value;
     StorageProvider.setConfig(ConfigKey.notificationPlayer, value);
   }
 
+  final RxBool _autoPlay = true.obs;
+  bool get autoPlay => _autoPlay.value;
+  set autoPlay(bool value) {
+    _autoPlay.value = value;
+    StorageProvider.setConfig(ConfigKey.autoPlay, value);
+  }
+
   final Rx<FilterSettingModel> _filterSetting = FilterSettingModel().obs;
-
   FilterSettingModel get filterSetting => _filterSetting.value;
-
   set filterSetting(FilterSettingModel filterSetting) {
     _filterSetting.value = filterSetting;
     StorageProvider.setConfig(ConfigKey.filterSetting, filterSetting.toJson());
   }
 
   PlayerSetting _playerSetting = PlayerSetting();
-
   PlayerSetting get playerSetting => _playerSetting;
-
   set playerSetting(PlayerSetting playerSetting) {
     _playerSetting = playerSetting;
     StorageProvider.setConfig(ConfigKey.playerSetting, playerSetting.toJson());
   }
-
-  final RxString _localeCode = "".obs;
 
   Locale? get locale {
     if (_localeCode.value.isEmpty) {
       return null;
     }
     return formatLocale(_localeCode.value);
-  }
-
-  String get localeCode => _localeCode.value;
-
-  set localeCode(String code) {
-    _localeCode.value = code;
-    StorageProvider.setConfig(ConfigKey.localeCode, code);
   }
 
   Locale formatLocale(String locale) {
@@ -94,6 +85,14 @@ class ConfigService extends GetxService {
     }
     return Locale(locale);
   }
+
+  final RxString _localeCode = "".obs;
+  String get localeCode => _localeCode.value;
+  set localeCode(String code) {
+    _localeCode.value = code;
+    StorageProvider.setConfig(ConfigKey.localeCode, code);
+  }
+
 
   final RxDouble _gridChildAspectRatio = 1.0.obs;
   double get gridChildAspectRatio => _gridChildAspectRatio.value;
@@ -146,6 +145,7 @@ class ConfigService extends GetxService {
         StorageProvider.getConfigByKey(ConfigKey.adultCoverBlur) ?? false;
     _notificationPlayer.value =
         StorageProvider.getConfigByKey(ConfigKey.notificationPlayer) ?? false;
+    _autoPlay.value = StorageProvider.getConfigByKey(ConfigKey.autoPlay) ?? true;
 
     var playerSettingJson =
         StorageProvider.getConfigByKey(ConfigKey.playerSetting);

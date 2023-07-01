@@ -147,6 +147,7 @@ class MediaDetailController extends GetxController
   @override
   void onClose() {
     _animationController.value.dispose();
+    iwrPlayerController?.dispose();
     super.onClose();
   }
 

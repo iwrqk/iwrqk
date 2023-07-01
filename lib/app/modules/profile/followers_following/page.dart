@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 
 import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
@@ -44,15 +43,13 @@ class FollowersFollowingPage extends StatelessWidget {
             ? L10n.of(context).followers
             : L10n.of(context).following),
       ),
-      body: SizeCacheWidget(
-        child: SafeArea(
-          top: false,
-          bottom: false,
-          child: UsersPreviewList(
-            sortSetting: UsersSortSetting(userId: parentUserData.id),
-            sourceType: sourceType,
-            tag: "${parentUserData.username}_${sourceType.name}",
-          ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: UsersPreviewList(
+          sortSetting: UsersSortSetting(userId: parentUserData.id),
+          sourceType: sourceType,
+          tag: "${parentUserData.username}_${sourceType.name}",
         ),
       ),
     );

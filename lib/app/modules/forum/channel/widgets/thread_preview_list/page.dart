@@ -12,8 +12,10 @@ import 'controller.dart';
 
 class ThreadPreviewList extends StatefulWidget {
   final String channelName;
+  final ScrollController? scrollController;
 
-  const ThreadPreviewList({super.key, required this.channelName});
+  const ThreadPreviewList(
+      {super.key, required this.channelName, this.scrollController});
 
   @override
   State<ThreadPreviewList> createState() => _ThreadPreviewListState();
@@ -21,7 +23,6 @@ class ThreadPreviewList extends StatefulWidget {
 
 class _ThreadPreviewListState extends State<ThreadPreviewList> {
   late ThreadPreviewListController _controller;
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -142,7 +143,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
   Widget build(BuildContext context) {
     return SliverRefresh(
       controller: _controller,
-      scrollController: _scrollController,
+      scrollController: widget.scrollController,
       builder: (data, reachBottomCallback) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(
