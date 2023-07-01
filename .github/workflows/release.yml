@@ -32,6 +32,7 @@ jobs:
             flutter_channel: 'stable'
             artifact_name: release-ios
             artifact_path: build/ios/ipa/*.ipa
+    
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
@@ -99,7 +100,7 @@ jobs:
           path: ${{matrix.artifact_path}}
   
   publish_release:
-    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'beta') && !contains(github.ref, 'alpha') && !contains(github.ref, 'rc')
+    if: startsWith(github.ref, 'refs/tags/')
     name: Publish release
     needs: build_and_upload
     runs-on: ubuntu-latest
@@ -110,8 +111,6 @@ jobs:
           fetch-depth: 0
         
       - run: mkdir /tmp/artifacts
-
-      - run: ls -R /tmp/artifacts
       
       - name: Download artifacts
         uses: actions/download-artifact@v3
