@@ -3,7 +3,7 @@ description: Unofficial Iwara Flutter Client.
 
 publish_to: 'none'
 
-version: 1.1.0-dev
+version: 1.1.0-alpha
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
