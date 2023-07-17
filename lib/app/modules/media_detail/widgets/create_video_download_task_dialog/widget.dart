@@ -64,6 +64,7 @@ class CreateVideoDownloadDialog
                 : () {
                     controller.createVideoDownloadTask(
                       L10n.of(context).message_download_task_created,
+                      L10n.of(context).message_download_task_already_exists,
                     );
                   },
             child: Text(

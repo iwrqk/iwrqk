@@ -32,6 +32,7 @@ class CreateVideoDownloadDialogController extends GetxController {
 
   Future<void> createVideoDownloadTask(
     String createdMessage,
+    String alreadyExistsMessage,
   ) async {
     bool success = false;
     late int size;
@@ -41,7 +42,7 @@ class CreateVideoDownloadDialogController extends GetxController {
     for (var item in StorageProvider.downloadVideoRecords) {
       if (item.offlineMedia.id == _previewData.id &&
           _resolutions[currentResolutionIndex].name == item.resolutionName) {
-        showToast('已存在下载任务');
+        showToast(alreadyExistsMessage);
         _creatingDownloadTask.value = false;
         return;
       }

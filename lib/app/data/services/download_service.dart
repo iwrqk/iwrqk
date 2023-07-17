@@ -118,7 +118,7 @@ class DownloadService extends GetxService {
     DateTime now = DateTime.now();
     Uri uri = Uri.parse(url);
     int expireTime = int.parse(uri.queryParameters['expires']!);
-    String fileName = now.millisecondsSinceEpoch.toString();
+    String fileName = uri.queryParameters['filename']!.split(".").first;
 
     await addDownloadTask(
       downloadUrl: url,
