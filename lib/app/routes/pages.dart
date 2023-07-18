@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../modules/account/downloaded_media_detail/downloaded_video_detail/binding.dart';
@@ -51,10 +52,13 @@ import '../modules/setup/binding.dart';
 import '../modules/setup/page.dart';
 import '../modules/splash/binding.dart';
 import '../modules/splash/page.dart';
+import 'middlewares.dart';
 
 part './routes.dart';
 
 abstract class AppPages {
+  static final RouteObserver routeObserver = RouteObserver();
+
   static final pages = [
     GetPage(
       name: AppRoutes.root,
@@ -91,6 +95,7 @@ abstract class AppPages {
       name: AppRoutes.mediaDetail,
       page: () => const MediaDetailPage(),
       binding: MediaDetailBinding(),
+      middlewares: [MediaPageMiddlewares()],
       preventDuplicates: false,
     ),
     GetPage(

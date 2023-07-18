@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           initialBinding: SplashBinding(),
           defaultTransition: Transition.native,
           getPages: AppPages.pages,
+          navigatorObservers: [AppPages.routeObserver],
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: _configService.themeMode,

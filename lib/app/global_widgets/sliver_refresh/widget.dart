@@ -17,6 +17,7 @@ class SliverRefresh<T> extends StatefulWidget {
       List<T> data, void Function(int index) reachBottomCallback) builder;
   final ScrollController? scrollController;
   final bool requireLogin;
+  final bool? primary;
 
   const SliverRefresh({
     super.key,
@@ -24,6 +25,7 @@ class SliverRefresh<T> extends StatefulWidget {
     required this.controller,
     this.scrollController,
     this.requireLogin = false,
+    this.primary,
   });
 
   @override
@@ -64,6 +66,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
 
   Widget _buildDataWidget(IwrState footerIndicatorState) {
     return CustomScrollView(
+      primary: widget.primary,
       controller: widget.scrollController,
       cacheExtent: 150,
       clipBehavior: Clip.none,

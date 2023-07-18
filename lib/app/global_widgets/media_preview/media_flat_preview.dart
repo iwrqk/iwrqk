@@ -14,12 +14,10 @@ import '../reloadable_image.dart';
 
 class MediaFlatPreview extends StatelessWidget {
   final MediaModel media;
-  final Function? beforeNavigation;
 
   const MediaFlatPreview({
     Key? key,
     required this.media,
-    this.beforeNavigation,
   }) : super(key: key);
 
   Widget _buildViewsAndRating(BuildContext context) {
@@ -325,8 +323,6 @@ class MediaFlatPreview extends StatelessWidget {
         ),
       ),
       onTap: () {
-        beforeNavigation?.call();
-
         Get.toNamed(
           AppRoutes.mediaDetail,
           arguments: {

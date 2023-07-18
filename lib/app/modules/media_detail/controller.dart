@@ -74,6 +74,12 @@ class MediaDetailController extends GetxController
     _detailExpanded.value = value;
   }
 
+  final RxBool _lockingScroll = false.obs;
+  bool get lockingScroll => _lockingScroll.value;
+  set lockingScroll(bool value) {
+    _lockingScroll.value = value;
+  }
+
   final RxBool _fetchFailed = false.obs;
 
   final RxString _errorMessage = "".obs;
@@ -131,6 +137,11 @@ class MediaDetailController extends GetxController
   }
 
   void _onScroll() {
+    if (lockingScroll) {
+      scrollController.position.setPixels(0);
+      return;
+    }
+
     double position = scrollController.position.pixels;
     double hideAppbarHit = scrollController.position.maxScrollExtent;
     double newValue = (hideAppbarHit - position) > 0
@@ -188,8 +199,11 @@ class MediaDetailController extends GetxController
       resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
     }
 
+    String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
+
     Get.put(
       IwrPlayerController(
+        tag: tag,
         id: media.id,
         resolutions: resolutionsMap,
         title: media.title,
@@ -200,10 +214,24 @@ class MediaDetailController extends GetxController
           configService.playerSetting = setting;
         },
       ),
-      tag: media.id,
+      tag: tag,
     );
 
-    iwrPlayerController = Get.find<IwrPlayerController>(tag: media.id);
+    iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
+
+    iwrPlayerController!.onPlayStop = (playing) {
+      if (playing) {
+        scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.ease,
+        );
+        _hideAppbarFactor.value = 1;
+        lockingScroll = true;
+      } else {
+        lockingScroll = false;
+      }
+    };
   }
 
   void pauseVideo() {

@@ -14,12 +14,12 @@ import '../controller.dart';
 
 class IwrPlayerControls extends StatefulWidget {
   final BetterPlayerControlsConfiguration controlsConfiguration;
-  final String id;
+  final String tag;
 
   const IwrPlayerControls({
     super.key,
     required this.controlsConfiguration,
-    required this.id,
+    required this.tag,
   });
 
   @override
@@ -60,7 +60,7 @@ class _IwrPlayerControlsState
   @override
   void initState() {
     super.initState();
-    _state = Get.find<IwrPlayerController>(tag: widget.id);
+    _state = Get.find<IwrPlayerController>(tag: widget.tag);
   }
 
   @override

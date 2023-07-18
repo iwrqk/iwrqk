@@ -6,8 +6,7 @@ import '../../../data/models/forum/channel.dart';
 import '../../../data/providers/api_provider.dart';
 
 class ForumTabController extends GetxController with StateMixin {
-  List<ChannelModel> adminChannelModels = [];
-  List<ChannelModel> globalChannelModels = [];
+  Map<String, List<ChannelModel>> channelModels = {};
 
   ScrollController scrollController = ScrollController();
 
@@ -22,8 +21,7 @@ class ForumTabController extends GetxController with StateMixin {
   }
 
   Future<void> refreshData({bool showSplash = false}) async {
-    adminChannelModels.clear();
-    globalChannelModels.clear();
+    channelModels.clear();
     if (showSplash) {
       change(null, status: RxStatus.loading());
     } else {
@@ -42,11 +40,10 @@ class ForumTabController extends GetxController with StateMixin {
         message = value.message;
       } else {
         for (var item in value.data!) {
-          if (item.group == "global") {
-            globalChannelModels.add(item);
-          } else {
-            adminChannelModels.add(item);
+          if (channelModels[item.group] == null) {
+            channelModels[item.group] = [];
           }
+          channelModels[item.group]!.add(item);
         }
       }
     });

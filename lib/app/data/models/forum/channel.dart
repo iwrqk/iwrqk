@@ -6,7 +6,7 @@ class ChannelModel {
   bool locked;
   int numPosts;
   int numThreads;
-  ThreadModel lastThread;
+  ThreadModel? lastThread;
 
   ChannelModel({
     required this.id,
@@ -24,7 +24,9 @@ class ChannelModel {
       locked: json['locked'],
       numPosts: json['numPosts'],
       numThreads: json['numThreads'],
-      lastThread: ThreadModel.fromJson(json['lastThread']),
+      lastThread: json['lastThread'] != null
+          ? ThreadModel.fromJson(json['lastThread'])
+          : null,
     );
   }
 }

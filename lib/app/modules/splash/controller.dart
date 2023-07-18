@@ -71,8 +71,11 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
         }
 
         if (!success) {
+          _userService.accountService.logout();
           Get.offAndToNamed(AppRoutes.home);
-          Get.toNamed(AppRoutes.login);
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            Get.toNamed(AppRoutes.login);
+          });
           return;
         }
       }

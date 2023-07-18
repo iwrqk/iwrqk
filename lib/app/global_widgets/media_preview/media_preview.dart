@@ -14,12 +14,10 @@ import '../reloadable_image.dart';
 
 class MediaPreview extends StatelessWidget {
   final MediaModel media;
-  final Function? beforeNavigation;
 
   const MediaPreview({
     Key? key,
     required this.media,
-    this.beforeNavigation,
   }) : super(key: key);
 
   Widget _buildViewsAndRating(BuildContext context) {
@@ -125,7 +123,8 @@ class MediaPreview extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 2),
                     child: Text(
                       "${duration.inMinutes}:${(duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                      style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                      style:
+                          const TextStyle(fontSize: 12.5, color: Colors.white),
                     ))
               ],
             ),
@@ -133,7 +132,8 @@ class MediaPreview extends StatelessWidget {
         if (galleryLength != null)
           if (galleryLength > 1)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7.5, vertical: 2.5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.5),
                 color: Colors.black.withAlpha(175),
@@ -150,7 +150,8 @@ class MediaPreview extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 2),
                       child: Text(
                         "$galleryLength",
-                        style: const TextStyle(fontSize: 12.5, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 12.5, color: Colors.white),
                       ))
                 ],
               ),
@@ -165,7 +166,8 @@ class MediaPreview extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(7.5)),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(7.5)),
             child: Container(
               color: Colors.black,
               alignment: Alignment.center,
@@ -210,7 +212,8 @@ class MediaPreview extends StatelessWidget {
           children: [
             Flexible(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
                 child: AutoSizeText(
                   media.title,
                   maxLines: 2,
@@ -285,8 +288,6 @@ class MediaPreview extends StatelessWidget {
         ),
       ),
       onTap: () {
-        beforeNavigation?.call();
-
         Get.toNamed(
           AppRoutes.mediaDetail,
           arguments: {

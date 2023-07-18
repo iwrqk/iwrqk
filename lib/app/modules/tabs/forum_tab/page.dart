@@ -75,26 +75,27 @@ class ForumTabPage extends GetView<ForumTabController> {
                   )
                 ],
               ),
-              ListTile(
-                leading: ClipOval(
-                  child: ReloadableImage(
-                    imageUrl: channel.lastThread.user.avatarUrl,
-                    width: 40,
-                    height: 40,
+              if (channel.lastThread != null)
+                ListTile(
+                  leading: ClipOval(
+                    child: ReloadableImage(
+                      imageUrl: channel.lastThread!.user.avatarUrl,
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
+                  title: Text(
+                    channel.lastThread!.title,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                  ),
+                  subtitle: Text(
+                    channel.lastThread!.user.name,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
-                title: Text(
-                  channel.lastThread.title,
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                ),
-                subtitle: Text(
-                  channel.lastThread.user.name,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
             ],
           ),
         ),
@@ -133,7 +134,7 @@ class ForumTabPage extends GetView<ForumTabController> {
   }
 
   IconData _getChannelIcon(String channelTitle) {
-    switch (channelTitle) {
+    switch (channelTitle.split("-").first) {
       case "announcements":
         return FontAwesomeIcons.bullhorn;
       case "feedback":
@@ -156,6 +157,7 @@ class ForumTabPage extends GetView<ForumTabController> {
   }
 
   String _getChannelTitle(BuildContext context, String channelTitle) {
+    channelTitle = channelTitle.split("-").first;
     switch (channelTitle) {
       case "announcements":
         return L10n.of(context).channel_announcements;
@@ -174,77 +176,71 @@ class ForumTabPage extends GetView<ForumTabController> {
       case "support":
         return L10n.of(context).channel_support;
       default:
-        return channelTitle;
+        return channelTitle[0].toUpperCase() + channelTitle.substring(1);
     }
   }
 
+  String _getGroupTitle(BuildContext context, String groupTitle) {
+    groupTitle = groupTitle.split("-").first;
+    switch (groupTitle) {
+      case "administration":
+        return L10n.of(context).channel_administration;
+      case "global":
+        return L10n.of(context).channel_global;
+      default:
+        return groupTitle[0].toUpperCase() + groupTitle.substring(1);
+    }
+  }
+
+  List<Widget> _buildGroupChannelsWidget(BuildContext context,
+      String groupTitle, List<ChannelModel> channelModels) {
+    return [
+      SliverToBoxAdapter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
+              child: Text(
+                groupTitle,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+          ],
+        ),
+      ),
+      SliverList(
+        delegate: SliverChildListDelegate(
+          channelModels
+              .map(
+                (channel) => _buildChannelPreview(
+                  context,
+                  channel: channel,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    ];
+  }
+
   Widget _buildDataWidget(BuildContext context) {
+    List<Widget> children = [
+      IwrSliverRefreshControl(
+        onRefresh: controller.refreshData,
+      ),
+    ];
+
+    controller.channelModels
+        .forEach((String groupTitle, List<ChannelModel> channels) {
+      children.addAll(_buildGroupChannelsWidget(context, _getGroupTitle(context, groupTitle), channels));
+    });
+
     return CustomScrollView(
       controller: controller.scrollController,
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      slivers: [
-        IwrSliverRefreshControl(
-          onRefresh: controller.refreshData,
-        ),
-        if (controller.adminChannelModels.isNotEmpty)
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
-                  child: Text(
-                    L10n.of(context).channel_administration,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            controller.adminChannelModels
-                .map(
-                  (channel) => _buildChannelPreview(
-                    context,
-                    channel: channel,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-        if (controller.globalChannelModels.isNotEmpty)
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
-                  child: Text(
-                    L10n.of(context).channel_global,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        SliverPadding(
-          padding: const EdgeInsets.only(bottom: 10),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate(
-              controller.globalChannelModels
-                  .map(
-                    (channel) => _buildChannelPreview(
-                      context,
-                      channel: channel,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ),
-      ],
+      slivers: children,
     );
   }
 

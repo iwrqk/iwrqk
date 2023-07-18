@@ -15,6 +15,7 @@ class CommentsList extends StatefulWidget {
   final String? parentId;
   final bool showReplies;
   final bool canJumpToDetail;
+  final bool? primary;
   final ScrollController? scrollController;
   final Widget? parentComment;
 
@@ -26,6 +27,7 @@ class CommentsList extends StatefulWidget {
     this.parentId,
     this.showReplies = true,
     this.canJumpToDetail = true,
+    this.primary,
     this.scrollController,
     this.parentComment,
   }) : super(key: key);
@@ -48,6 +50,7 @@ class _CommentsListState extends State<CommentsList>
   Widget build(BuildContext context) {
     super.build(context);
     return SliverRefresh(
+      primary: widget.primary,
       controller: _controller,
       scrollController: widget.scrollController,
       builder: (data, reachBottomCallback) {

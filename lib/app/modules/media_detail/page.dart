@@ -40,7 +40,7 @@ class MediaDetailPage extends StatefulWidget {
 }
 
 class _MediaDetailPageState extends State<MediaDetailPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware {
   final MediaDetailController _controller = Get.find();
   late TabController _tabController;
 
@@ -48,6 +48,25 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    AppPages.routeObserver.subscribe(this, ModalRoute.of(context)!);
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    AppPages.routeObserver.unsubscribe(this);
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _controller.pauseVideo();
+    super.didPop();
   }
 
   Widget _buildLoadingWidget() {
@@ -586,9 +605,6 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             height: 100,
             child: MediaFlatPreview(
               media: e,
-              beforeNavigation: () {
-                _controller.pauseVideo();
-              },
             ),
           ),
         ),
@@ -612,9 +628,6 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             height: 100,
             child: MediaFlatPreview(
               media: e,
-              beforeNavigation: () {
-                _controller.pauseVideo();
-              },
             ),
           ),
         ),
@@ -705,6 +718,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           ),
         ),
         child: CustomScrollView(
+          primary: !_controller.lockingScroll,
           slivers: children,
         ),
       );
@@ -722,17 +736,22 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       child: Column(
         children: [
           Expanded(
-            child: Container(
-              margin: MediaQuery.of(context).orientation ==
-                      Orientation.landscape
-                  ? MediaQuery.of(context).padding.copyWith(left: 0, bottom: 0)
-                  : null,
-              child: CommentsList(
-                uploaderUserName: _controller.media.user.username,
-                sourceId: _controller.media.id,
-                sourceType: _controller.mediaType == MediaType.video
-                    ? CommentsSourceType.video
-                    : CommentsSourceType.image,
+            child: Obx(
+              () => Container(
+                margin:
+                    MediaQuery.of(context).orientation == Orientation.landscape
+                        ? MediaQuery.of(context)
+                            .padding
+                            .copyWith(left: 0, bottom: 0)
+                        : null,
+                child: CommentsList(
+                  primary: !_controller.lockingScroll,
+                  uploaderUserName: _controller.media.user.username,
+                  sourceId: _controller.media.id,
+                  sourceType: _controller.mediaType == MediaType.video
+                      ? CommentsSourceType.video
+                      : CommentsSourceType.image,
+                ),
               ),
             ),
           ),

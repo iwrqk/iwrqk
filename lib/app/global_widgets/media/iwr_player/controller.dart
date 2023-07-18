@@ -36,6 +36,8 @@ class IwrPlayerController extends GetxController {
 
   final String title;
 
+  Function(bool playing)? onPlayStop;
+
   final RxBool _isFullScreen = false.obs;
   bool get isFullScreen => _isFullScreen.value;
   set isFullScreen(bool value) => _isFullScreen.value = value;
@@ -72,6 +74,7 @@ class IwrPlayerController extends GetxController {
     required String id,
     required this.title,
     required String author,
+    required String tag,
     BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network,
     double initAspectRatio = 16 / 9,
     String? thumbnail,
@@ -116,7 +119,7 @@ class IwrPlayerController extends GetxController {
           playerTheme: BetterPlayerTheme.custom,
           customControlsBuilder: (controller, onPlayerVisibilityChanged) {
             return IwrPlayerControls(
-              id: id,
+              tag: tag,
               controlsConfiguration:
                   controller.betterPlayerConfiguration.controlsConfiguration,
             );
@@ -129,11 +132,20 @@ class IwrPlayerController extends GetxController {
     betterPlayerController.setVolume(volume / 100);
 
     betterPlayerController.addEventsListener((event) {
-      if (event.betterPlayerEventType == BetterPlayerEventType.openFullscreen) {
-        isFullScreen = true;
-      } else if (event.betterPlayerEventType ==
-          BetterPlayerEventType.hideFullscreen) {
-        isFullScreen = false;
+      switch (event.betterPlayerEventType) {
+        case BetterPlayerEventType.openFullscreen:
+          isFullScreen = true;
+          break;
+        case BetterPlayerEventType.hideFullscreen:
+          isFullScreen = false;
+          break;
+        case BetterPlayerEventType.play:
+          onPlayStateChanged(true);
+          break;
+        case BetterPlayerEventType.pause:
+          onPlayStateChanged(false);
+          break;
+        default:
       }
     });
   }
@@ -206,6 +218,10 @@ class IwrPlayerController extends GetxController {
     } else {
       betterPlayerController.enterFullScreen();
     }
+  }
+
+  void onPlayStateChanged(bool isPlaying) {
+    onPlayStop?.call(isPlaying);
   }
 
   @override

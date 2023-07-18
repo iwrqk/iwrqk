@@ -69,8 +69,11 @@ class DownloadedVideoDetailController extends GetxController
 
   void _initPlayer() {
     task.downloadTask.filePath().then((value) {
+      String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
+
       Get.put(
         IwrPlayerController(
+          tag: tag,
           id: media.id,
           resolutions: {(task as VideoDownloadTask).resolutionName: value},
           type: BetterPlayerDataSourceType.file,
@@ -82,10 +85,10 @@ class DownloadedVideoDetailController extends GetxController
             configService.playerSetting = setting;
           },
         ),
-        tag: media.id,
+        tag: tag,
       );
 
-      iwrPlayerController = Get.find<IwrPlayerController>(tag: media.id);
+      iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
       _loading.value = false;
     });
