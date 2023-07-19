@@ -35,6 +35,8 @@ class MediaDetailController extends GetxController
 
   List<ResolutionModel> resolutions = [];
 
+  bool _refectchVideoCancelToken = false;
+
   late Rx<AnimationController> _animationController;
   final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
   final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
@@ -158,6 +160,7 @@ class MediaDetailController extends GetxController
   @override
   void onClose() {
     _animationController.value.dispose();
+    _refectchVideoCancelToken = true;
     iwrPlayerController?.dispose();
     super.onClose();
   }
@@ -188,7 +191,7 @@ class MediaDetailController extends GetxController
 
     if (media is VideoModel) {
       if ((media as VideoModel).embedUrl == null) {
-        await refectchVideos();
+        refectchVideo();
       }
     }
   }
@@ -238,7 +241,7 @@ class MediaDetailController extends GetxController
     iwrPlayerController?.pause();
   }
 
-  Future<void> refectchVideos() async {
+  Future<void> refectchVideo() async {
     _isFectchingResolution.value = true;
     _fetchFailed.value = false;
 
@@ -247,6 +250,9 @@ class MediaDetailController extends GetxController
     await repository
         .getVideoResolutions(video.fileUrl!, video.getXVerison())
         .then((value) {
+      if (_refectchVideoCancelToken) {
+        return;
+      }
       if (value.success) {
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;

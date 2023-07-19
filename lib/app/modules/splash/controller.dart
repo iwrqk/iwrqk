@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
 import '../../core/utils/display_util.dart';
+import '../../data/providers/config_provider.dart';
 import '../../data/providers/translate_provider.dart';
 import '../../data/services/auto_lock_service.dart';
 import '../../data/services/config_service.dart';
@@ -34,6 +35,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   void init(BuildContext context) {
     DisplayUtil.init(context);
     TranslateProvider.init();
+    ConfigProvider.init();
     _configService.calculateGridChildAspectRatio(
       MediaQuery.of(context).size,
       MediaQuery.of(context).orientation,
@@ -54,6 +56,8 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
         Get.toNamed(AppRoutes.lock);
         return;
       }
+
+      await _configService.checkLatestVersion();
 
       if (await _userService.accountService.canLoginFromCache()) {
         bool success =

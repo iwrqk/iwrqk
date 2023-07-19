@@ -162,7 +162,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                       children: [
                         GestureDetector(
                           onTap: () {
-                            _controller.refectchVideos();
+                            _controller.refectchVideo();
                           },
                           child: Center(
                             child: FaIcon(

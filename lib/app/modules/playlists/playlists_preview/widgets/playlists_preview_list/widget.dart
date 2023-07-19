@@ -10,14 +10,14 @@ import 'controller.dart';
 
 class PlaylistsPreviewList extends StatefulWidget {
   final String userId;
-  final bool? requireMyself;
+  final bool requireMyself;
   final String tag;
 
   const PlaylistsPreviewList({
     super.key,
     required this.userId,
-    this.requireMyself,
     required this.tag,
+    this.requireMyself = false,
   });
 
   @override
@@ -33,7 +33,7 @@ class _PlaylistsPreviewListState extends State<PlaylistsPreviewList>
   void initState() {
     super.initState();
     _controller = Get.find<PlaylistsPreviewListController>(tag: widget.tag);
-    _controller.initConfig(widget.userId, widget.requireMyself ?? false);
+    _controller.initConfig(widget.userId, widget.requireMyself);
   }
 
   @override
@@ -93,6 +93,7 @@ class _PlaylistsPreviewListState extends State<PlaylistsPreviewList>
                     playlistId: playlist.id,
                     title: playlist.title,
                     videosCount: playlist.numVideos,
+                    requireMyself: widget.requireMyself,
                   ),
                 );
 

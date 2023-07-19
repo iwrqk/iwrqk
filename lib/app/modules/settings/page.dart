@@ -298,6 +298,16 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildCheckUpdateButton(BuildContext context) {
+    return InkWell(
+      onTap: controller.checkUpdate,
+      child: Text(
+        L10n.of(context).check_update,
+        style: const TextStyle(fontSize: 17.5),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     DisplayUtil.reset(context);
@@ -354,6 +364,11 @@ class SettingsPage extends GetView<SettingsController> {
                   _buildLogoutButton(context),
                 ],
               ),
+            SettingGroup(
+              children: [
+                _buildCheckUpdateButton(context),
+              ],
+            ),
           ],
         ),
       ),

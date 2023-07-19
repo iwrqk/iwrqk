@@ -22,6 +22,7 @@
   "register": "Register",
   "register_captcha": "Captcha",
   "delete": "Delete",
+  "unfavorite": "Unfavorite",
   "export": "Export",
   "create": "Create",
   "unknown": "Unknown",
@@ -71,6 +72,8 @@
       }
     }
   },
+  "check_update": "Check update",
+  "update_available": "Update available",
   "send": "Send",
   "replies": "Replies",
   "expand": "Expand",
@@ -242,6 +245,17 @@
       }
     }
   },
+  "message_unfavorite_item": "Unfavorited \"{title}\".",
+  "@message_unfavorite_item": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "message_update_available": "A new version of the app is available. Please consider updating.",
   "message_no_provide_storage_permission": "No storage permission provided.",
   "message_download_task_already_exists": "Download task already exists.",
   "message_content_empty": "Content can not be empty.",

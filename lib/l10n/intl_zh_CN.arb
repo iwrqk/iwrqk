@@ -22,6 +22,7 @@
     "register": "注册",
     "register_captcha": "验证码",
     "delete": "删除",
+    "unfavorite": "取消收藏",
     "export": "导出",
     "create": "创建",
     "unknown": "未知",
@@ -71,6 +72,8 @@
             }
         }
     },
+    "check_update": "检查更新",
+    "update_available": "有更新可用",
     "send": "发送",
     "replies": "回复",
     "expand": "展开",
@@ -211,6 +214,17 @@
             }
         }
     },
+    "message_unfavorite_item": "取消收藏了 \"{title}\"。",
+    "@message_unfavorite_item": {
+      "description": "A message with a parameter",
+      "placeholders": {
+        "title": {
+          "type": "String",
+          "example": "Bob"
+        }
+      }
+    },
+    "message_update_available": "有更新可用，是否立即更新？",
     "download_downloading": "下载中",
     "download_paused": "已暂停",
     "download_finished": "已完成",

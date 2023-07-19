@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/app/data/models/account/settings/player_setting.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../core/const/widget.dart';
+import '../../global_widgets/dialogs/notify_update_dialog.dart';
 import '../models/account/settings/filter_setting.dart';
+import '../providers/config_provider.dart';
 import '../providers/storage_provider.dart';
 
 abstract class ConfigKey {
@@ -93,7 +96,6 @@ class ConfigService extends GetxService {
     StorageProvider.setConfig(ConfigKey.localeCode, code);
   }
 
-
   final RxDouble _gridChildAspectRatio = 1.0.obs;
   double get gridChildAspectRatio => _gridChildAspectRatio.value;
   set gridChildAspectRatio(double gridChildAspectRatio) {
@@ -145,13 +147,32 @@ class ConfigService extends GetxService {
         StorageProvider.getConfigByKey(ConfigKey.adultCoverBlur) ?? false;
     _notificationPlayer.value =
         StorageProvider.getConfigByKey(ConfigKey.notificationPlayer) ?? false;
-    _autoPlay.value = StorageProvider.getConfigByKey(ConfigKey.autoPlay) ?? true;
+    _autoPlay.value =
+        StorageProvider.getConfigByKey(ConfigKey.autoPlay) ?? true;
 
     var playerSettingJson =
         StorageProvider.getConfigByKey(ConfigKey.playerSetting);
     if (playerSettingJson != null) {
       _playerSetting = PlayerSetting.fromJson(playerSettingJson);
     }
+  }
+
+  Future<void> checkLatestVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String currentVersion = packageInfo.version;
+
+    await ConfigProvider.getConfig().then((value) async {
+      if (value.success) {
+        if (value.data!.latestVersion != currentVersion) {
+          await Get.dialog(
+            NotifyUpdateDialog(
+              isForce: value.data!.forceUpdate,
+            ),
+            barrierDismissible: value.data!.forceUpdate,
+          );
+        }
+      }
+    });
   }
 
   Locale? localeListResolutionCallback(

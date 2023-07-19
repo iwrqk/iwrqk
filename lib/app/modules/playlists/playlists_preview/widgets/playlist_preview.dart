@@ -11,19 +11,25 @@ class PlaylistPreview extends StatelessWidget {
   final String playlistId;
   final String title;
   final int videosCount;
+  final bool requireMyself;
 
   const PlaylistPreview({
     super.key,
     required this.playlistId,
     required this.title,
     required this.videosCount,
+    this.requireMyself = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.playlistDetail, arguments: playlistId);
+        Get.toNamed(AppRoutes.playlistDetail, arguments: {
+          "playlistId": playlistId,
+          "requireMyself": requireMyself,
+          "title": title
+        });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5),

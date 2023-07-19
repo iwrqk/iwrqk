@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keframe/keframe.dart';
 import 'package:oktoast/oktoast.dart';
@@ -44,67 +46,68 @@ class _HistoryMediaPreviewListState extends State<HistoryMediaPreviewList>
       controller: _controller,
       scrollController: _scrollController,
       builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
+        return Obx(
+          () => SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                reachBottomCallback(index);
 
-              final item = data[index];
+                final item = data[index];
 
-              if (widget.filterType != null) {
-                if (widget.filterType != item.type) {
-                  return FrameSeparateWidget(
-                    index: index,
-                    placeHolder: const SizedBox.shrink(),
-                    child: const SizedBox.shrink(),
-                  );
+                if (widget.filterType != null) {
+                  if (widget.filterType != item.type) {
+                    return FrameSeparateWidget(
+                      index: index,
+                      placeHolder: const SizedBox.shrink(),
+                      child: const SizedBox.shrink(),
+                    );
+                  }
                 }
-              }
 
-              Widget child = Dismissible(
-                key: Key(item.id),
-                direction: DismissDirection.endToStart,
-                onDismissed: (direction) {
-                  data.removeAt(index);
-                  StorageProvider.deleteHistoryItem(index);
-                  showToast(
-                    L10n.of(context).message_deleted_item(
-                      item.title,
-                    ),
-                  );
-                },
-                background: Container(
-                  color: Colors.red,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(
-                        L10n.of(context).delete,
-                        style: const TextStyle(color: Colors.white),
+                Widget child = Slidable(
+                  key: Key(item.id),
+                  endActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    extentRatio: 0.25,
+                    children: [
+                      SlidableAction(
+                        flex: 1,
+                        onPressed: (context) {
+                          data.removeAt(index);
+                          StorageProvider.deleteHistoryItem(index);
+                          showToast(
+                            L10n.of(context).message_deleted_item(
+                              item.title,
+                            ),
+                          );
+                        },
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        icon: FontAwesomeIcons.trashCan,
+                        label: L10n.of(context).delete,
                       ),
+                    ],
+                  ),
+                  child: SizedBox(
+                    height: 100,
+                    child: HistoryMediaPreview(
+                      media: item,
+                      showType: widget.filterType == null,
                     ),
                   ),
-                ),
-                child: SizedBox(
-                  height: 100,
-                  child: HistoryMediaPreview(
-                    media: item,
-                    showType: widget.filterType == null,
-                  ),
-                ),
-              );
+                );
 
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
-                  height: 100,
-                  child: MediaFlatPreviewPlaceholder(),
-                ),
-                child: child,
-              );
-            },
-            childCount: data.length,
+                return FrameSeparateWidget(
+                  index: index,
+                  placeHolder: const SizedBox(
+                    height: 100,
+                    child: MediaFlatPreviewPlaceholder(),
+                  ),
+                  child: child,
+                );
+              },
+              childCount: data.length,
+            ),
           ),
         );
       },

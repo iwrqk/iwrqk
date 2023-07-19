@@ -19,8 +19,15 @@ class FavoriteMediaPreviewListController
     _sourceType = sourceType;
   }
 
-  void unfavorite(int index) {
-    data.removeAt(index);
+  Future<bool> unfavorite(int index) {
+    return userService.unfavoriteMedia(data[index].id).then((value) {
+      if (value) {
+        data.removeAt(index);
+        update();
+      }
+
+      return value;
+    });
   }
 
   @override

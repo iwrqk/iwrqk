@@ -22,6 +22,7 @@
     "register": "登録",
     "register_captcha": "キャプチャ",
     "delete": "削除",
+    "unfavorite": "削除",
     "export": "エクスポート",
     "create": "作成",
     "unknown": "不明",
@@ -71,6 +72,8 @@
             }
         }
     },
+    "check_update": "アップデートを確認",
+    "update_available": "新しいバージョン",
     "send": "送信",
     "replies": "返信",
     "expand": "展開",
@@ -243,9 +246,20 @@
             }
         }
     },
+    "message_unfavorite_item": "\"{title}\" をお気に入りから削除しました。",
+    "@message_unfavorite_item": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "message_update_available": "新しいバージョンが利用可能です。今すぐ更新しますか？",
     "message_no_provide_storage_permission": "ストレージの許可が必要です。設定で許可してください。",
     "message_download_task_already_exists": "ダウンロードタスクは既に存在します。",
-    "message_content_empty":  "コンテンツが空です。",
+    "message_content_empty": "コンテンツが空です。",
     "message_comment_sent": "コメントを送信しました。",
     "message_empty_playlist_title": "プレイリスト名を入力してください。",
     "message_playlist_created": "プレイリストを作成しました。",
