@@ -9,6 +9,7 @@ import 'app/core/utils/log_util.dart';
 import 'app/data/providers/storage_provider.dart';
 import 'app/data/services/auto_lock_service.dart';
 import 'app/data/services/config_service.dart';
+import 'app/data/services/download_service.dart';
 import 'app/modules/splash/binding.dart';
 import 'app/routes/pages.dart';
 import 'getx.dart';
@@ -60,12 +61,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state != AppLifecycleState.resumed) {
-      // went to Background
-    } else if (state == AppLifecycleState.resumed) {
-      // came back to Foreground
-      // no need to prevent duplicate calls
-      _autoLockService.resumed();
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _autoLockService.resumed();
+        break;
+      case AppLifecycleState.detached:
+        DownloadService downloadService = Get.find();
+        downloadService.pauseAllTasks();
+      default:
     }
   }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import '../../core/const/config.dart';
@@ -21,7 +23,7 @@ class ConfigProvider {
     ConfigModel? data;
     try {
       final response = await _dio.get(ConfigConst.githubUrl);
-      data = ConfigModel.fromJson(response.data);
+      data = ConfigModel.fromJson(jsonDecode(response.data));
     } catch (e) {
       message = e.toString();
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/app/data/models/account/settings/player_setting.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../core/const/widget.dart';
@@ -157,7 +158,8 @@ class ConfigService extends GetxService {
     }
   }
 
-  Future<void> checkLatestVersion() async {
+  Future<void> checkLatestVersion(
+      {bool showNoAvailable = false, String? noAvailableMessage}) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String currentVersion = packageInfo.version;
 
@@ -170,6 +172,10 @@ class ConfigService extends GetxService {
             ),
             barrierDismissible: value.data!.forceUpdate,
           );
+        } else {
+          if (showNoAvailable) {
+            showToast(noAvailableMessage!);
+          }
         }
       }
     });

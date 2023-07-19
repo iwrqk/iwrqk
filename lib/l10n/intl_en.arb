@@ -74,6 +74,7 @@
   },
   "check_update": "Check update",
   "update_available": "Update available",
+  "no_update_available": "No update available",
   "send": "Send",
   "replies": "Replies",
   "expand": "Expand",
@@ -250,6 +251,16 @@
     "description": "A message with a parameter",
     "placeholders": {
       "title": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "message_cannot_be_empty": "{name} can not be empty.",
+  "@message_cannot_be_empty": {
+    "description": "A message with a parameter",
+    "placeholders": {
+      "name": {
         "type": "String",
         "example": "Bob"
       }

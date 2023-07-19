@@ -43,18 +43,19 @@ class ChannelPage extends GetView<ChannelController> {
             const SizedBox(
               height: 15,
             ),
-            FloatingActionButton(
-              heroTag: 'createThreadBtn',
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: Colors.white,
-              onPressed: () {
-                Get.toNamed(AppRoutes.createThread,
-                    arguments: controller.channelName);
-              },
-              child: const FaIcon(
-                FontAwesomeIcons.plus,
+            if (controller.channelName != "announcements")
+              FloatingActionButton(
+                heroTag: 'createThreadBtn',
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+                onPressed: () {
+                  Get.toNamed(AppRoutes.createThread,
+                      arguments: controller.channelName);
+                },
+                child: const FaIcon(
+                  FontAwesomeIcons.plus,
+                ),
               ),
-            ),
           ],
         ),
       ),

@@ -74,6 +74,7 @@
     },
     "check_update": "アップデートを確認",
     "update_available": "新しいバージョン",
+    "no_update_available": "最新バージョンです",
     "send": "送信",
     "replies": "返信",
     "expand": "展開",
@@ -255,6 +256,16 @@
                 "example": "Bob"
             }
         }
+    },
+    "message_cannot_be_empty": "{name} は空にできません。",
+    "@message_cannot_be_empty": {
+      "description": "A message with a parameter",
+      "placeholders": {
+        "name": {
+          "type": "String",
+          "example": "Bob"
+        }
+      }
     },
     "message_update_available": "新しいバージョンが利用可能です。今すぐ更新しますか？",
     "message_no_provide_storage_permission": "ストレージの許可が必要です。設定で許可してください。",

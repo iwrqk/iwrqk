@@ -300,7 +300,12 @@ class SettingsPage extends GetView<SettingsController> {
 
   Widget _buildCheckUpdateButton(BuildContext context) {
     return InkWell(
-      onTap: controller.checkUpdate,
+      onTap: () {
+        controller.configService.checkLatestVersion(
+          showNoAvailable: true,
+          noAvailableMessage: L10n.of(context).no_update_available,
+        );
+      },
       child: Text(
         L10n.of(context).check_update,
         style: const TextStyle(fontSize: 17.5),

@@ -22,6 +22,8 @@ class DownloadService extends GetxService {
   RxMap<String, Rx<DownloadTaskStatus>> get downloadTasksStatus =>
       _downloadTasks;
 
+  List<DownloadTask> currentTasks = [];
+
   @override
   void onInit() {
     super.onInit();
@@ -138,16 +140,28 @@ class DownloadService extends GetxService {
         offlineMedia: offlineMedia,
       );
       var taskData = DownloadTask.fromJsonMap(downloadTask!);
+
       _downloadTasks.addAll({
         taskData.taskId: DownloadTaskStatus(
           status: TaskStatus.enqueued,
           progress: 0,
         ).obs
       });
+
+      currentTasks.add(taskData);
+
       StorageProvider.addDownloadVideoRecord(task);
       return true;
     } else {
       return false;
+    }
+  }
+
+  void pauseAllTasks() {
+    for (var task in currentTasks) {
+      if (_downloadTasks[task.taskId]?.value.status == TaskStatus.running) {
+        pauseTask(task);
+      }
     }
   }
 

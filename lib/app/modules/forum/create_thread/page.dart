@@ -99,7 +99,12 @@ class CreateThreadPage extends GetView<CreateThreadController> {
                 margin: const EdgeInsets.symmetric(vertical: 25),
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.createThread(
+                      L10n.of(context).message_cannot_be_empty(L10n.of(context).title),
+                      L10n.of(context).message_cannot_be_empty(L10n.of(context).content),
+                    );
+                  },
                   child: Text(L10n.of(context).create),
                 ),
               ),

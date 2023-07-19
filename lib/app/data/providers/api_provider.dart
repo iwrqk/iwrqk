@@ -648,6 +648,33 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> createThread({
+    required String channelName,
+    required String title,
+    required String content,
+  }) {
+    String? message;
+
+    return networkProvider.post("/forum/$channelName", data: {
+      "section": channelName,
+      "title": title,
+      "body": content,
+    }).then((value) {
+      if (value.data != null) {
+        message = value.data["message"];
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    }).then(
+      (value) => ApiResult(
+        data: null,
+        success: message == null,
+        message: message,
+      ),
+    );
+  }
+
   static Future<ApiResult<void>> sendPost({
     required String threadId,
     required String content,

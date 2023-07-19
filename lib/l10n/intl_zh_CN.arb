@@ -74,6 +74,7 @@
     },
     "check_update": "检查更新",
     "update_available": "有更新可用",
+    "no_update_available": "已是最新版本",
     "send": "发送",
     "replies": "回复",
     "expand": "展开",
@@ -216,9 +217,19 @@
     },
     "message_unfavorite_item": "取消收藏了 \"{title}\"。",
     "@message_unfavorite_item": {
+        "description": "A message with a parameter",
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "message_cannot_be_empty": "{name} 不能为空。",
+    "@message_cannot_be_empty": {
       "description": "A message with a parameter",
       "placeholders": {
-        "title": {
+        "name": {
           "type": "String",
           "example": "Bob"
         }
@@ -258,7 +269,7 @@
     },
     "message_no_provide_storage_permission": "没有存储权限，无法下载。",
     "message_download_task_already_exists": "下载任务已存在。",
-    "message_content_empty":  "内容不能为空。",
+    "message_content_empty": "内容不能为空。",
     "message_comment_sent": "评论已发送。",
     "message_empty_playlist_title": "播放列表标题不能为空。",
     "message_playlist_created": "播放列表已创建。",

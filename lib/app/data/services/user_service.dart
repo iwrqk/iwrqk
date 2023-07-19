@@ -410,6 +410,31 @@ class UserService extends GetxService {
     return flag;
   }
 
+  Future<bool> createThread({
+    required String channelName,
+    required String title,
+    required String content,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      showToast(DisplayUtil.messageNeedLogin);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.createThread(
+            channelName: channelName, title: title, content: content)
+        .then((value) {
+      if (!value.success) {
+        showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
   Future<bool> sendPost({
     required String threadId,
     required String content,

@@ -69,8 +69,4 @@ class SettingsController extends GetxController {
     accountService.logout();
     Get.offNamedUntil(AppRoutes.root, (route) => false);
   }
-
-  void checkUpdate() {
-    configService.checkLatestVersion();
-  }
 }
