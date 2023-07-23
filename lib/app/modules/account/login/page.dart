@@ -64,25 +64,21 @@ class LoginPage extends GetView<LoginController> {
                   constraints: constraints,
                   child: TextFormField(
                     cursorColor: Theme.of(context).primaryColor,
-                    controller: controller.emailController,
+                    controller: controller.accountController,
                     validator: (input) {
                       if (input != null) {
-                        if (input.isNotEmpty &&
-                            controller.emailRegExp.hasMatch(input)) {
+                        if (input.isNotEmpty) {
                           return null;
-                        } else {
-                          return L10n.of(context)
-                              .message_please_type_valid_email;
                         }
                       }
-                      return L10n.of(context).message_please_type_email;
+                      return L10n.of(context).message_please_type_email_or_username;
                     },
                     decoration: InputDecoration(
                       prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
-                      labelText: L10n.of(context).email,
+                      labelText: L10n.of(context).email_or_username,
                       border: const OutlineInputBorder(),
                     ),
-                    onSaved: (input) => controller.email = input,
+                    onSaved: (input) => controller.account = input,
                     onEditingComplete: () {
                       FocusScope.of(context).requestFocus(focusNode);
                     },

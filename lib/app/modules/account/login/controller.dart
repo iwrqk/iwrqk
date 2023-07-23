@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../l10n.dart';
-import '../../../core/const/widget.dart';
 import '../../../core/utils/display_util.dart';
 import '../../../data/providers/storage_provider.dart';
 import '../../../data/services/account_service.dart';
@@ -10,12 +9,10 @@ import '../../../global_widgets/dialogs/loading_dialog/widget.dart';
 import '../../../routes/pages.dart';
 
 class LoginController extends GetxController {
-  final RegExp emailRegExp = RegExp(WidgetConst.emailRegExp);
-
   final formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController accountController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String? email;
+  String? account;
   String? password;
 
   final RxBool _passwordVisibility = false.obs;
@@ -27,9 +24,9 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    StorageProvider.savedUserEmailPassword.then((value) {
+    StorageProvider.savedUserAccountPassword.then((value) {
       if (value != null) {
-        emailController.text = value["email"];
+        accountController.text = value["account"];
         passwordController.text = value["password"];
       }
     });
@@ -47,7 +44,7 @@ class LoginController extends GetxController {
       LoadingDialog(
         task: () async {
           await _accountService
-              .login(email: email!, password: password!)
+              .login(account: account!, password: password!)
               .then((value) {
             if (!value.success) {
               throw DisplayUtil.getErrorMessage(value.message!);
@@ -56,7 +53,7 @@ class LoginController extends GetxController {
         },
         onSuccess: () {
           Get.offNamedUntil(AppRoutes.root, (route) => false);
-          StorageProvider.setSavedUserEmailPassword(email!, password!);
+          StorageProvider.setSavedUserAccountPassword(account!, password!);
         },
         successMessage: L10n.of(context).message_login_success,
       ),

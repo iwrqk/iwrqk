@@ -9,7 +9,7 @@ import '../models/offline/search_history.dart';
 
 abstract class StorageKey {
   static const String config = "config";
-  static const String savedUserEmailPassword = "savedUserEmailPassword";
+  static const String savedUserAccountPassword = "savedUserAccountPassword";
   static const String autoLockConfig = "autoLockConfig";
   static const String userToken = "userToken";
   static const String historyList = "historyList";
@@ -41,15 +41,15 @@ class StorageProvider {
   }
 
   // Saved email & password
-  static Future get savedUserEmailPassword => _secureStorage
-      .read(key: StorageKey.savedUserEmailPassword)
+  static Future get savedUserAccountPassword => _secureStorage
+      .read(key: StorageKey.savedUserAccountPassword)
       .then((value) => value == null ? null : jsonDecode(value));
 
-  static Future<void> setSavedUserEmailPassword(
-      String email, String password) async {
+  static Future<void> setSavedUserAccountPassword(
+      String account, String password) async {
     return await _secureStorage.write(
-      key: StorageKey.savedUserEmailPassword,
-      value: jsonEncode({"email": email, "password": password}),
+      key: StorageKey.savedUserAccountPassword,
+      value: jsonEncode({"account": account, "password": password}),
     );
   }
 
@@ -77,7 +77,7 @@ class StorageProvider {
   }
 
   static Future<void> cleanSavedUserEmailPassword() async {
-    return await _secureStorage.delete(key: StorageKey.savedUserEmailPassword);
+    return await _secureStorage.delete(key: StorageKey.savedUserAccountPassword);
   }
 
   // config

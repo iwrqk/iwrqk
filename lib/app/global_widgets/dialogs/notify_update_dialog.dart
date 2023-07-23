@@ -32,7 +32,10 @@ class NotifyUpdateDialog extends StatelessWidget {
           ),
         CupertinoButton(
           onPressed: () {
-            launchUrlString(ConfigConst.updateUrl);
+            launchUrlString(
+              ConfigConst.updateUrl,
+              mode: LaunchMode.externalApplication,
+            );
           },
           child: Text(L10n.of(context).ok),
         ),

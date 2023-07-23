@@ -19,7 +19,7 @@ class LogUtil {
         );
       });
       await Directory(path.dirname(logPath)).create(recursive: true);
-      fileOutput = FileOutput(directory: logPath);
+      fileOutput = FileOutput(path: logPath);
     }
 
     logger = Logger(
@@ -40,14 +40,14 @@ class LogUtil {
 }
 
 class FileOutput extends LogOutput {
-  final String directory;
-  FileOutput({required this.directory});
+  final String path;
+  FileOutput({required this.path});
 
   File? _file;
 
   @override
   void output(OutputEvent event) async {
-    _file ??= File(directory);
+    _file ??= File(path);
 
     if (!_file!.existsSync()) {
       _file = await _file!.writeAsString(

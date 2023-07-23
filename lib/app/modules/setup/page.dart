@@ -109,6 +109,9 @@ class LanguageSelectPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15),
                   borderRadius: BorderRadius.zero,
                   onPressed: () {
+                    if (controller.configService.localeCode.isEmpty) {
+                      controller.configService.localeCode = "en";
+                    }
                     controller.pageController.previousPage(
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.ease);

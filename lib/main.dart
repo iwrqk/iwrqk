@@ -9,7 +9,6 @@ import 'app/core/utils/log_util.dart';
 import 'app/data/providers/storage_provider.dart';
 import 'app/data/services/auto_lock_service.dart';
 import 'app/data/services/config_service.dart';
-import 'app/data/services/download_service.dart';
 import 'app/modules/splash/binding.dart';
 import 'app/routes/pages.dart';
 import 'getx.dart';
@@ -66,9 +65,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       case AppLifecycleState.resumed:
         _autoLockService.resumed();
         break;
-      case AppLifecycleState.detached:
-        DownloadService downloadService = Get.find();
-        downloadService.pauseAllTasks();
+      // case AppLifecycleState.detached:
+      //   DownloadService downloadService = Get.find();
+      //   downloadService.pauseAllTasks();
       default:
     }
   }

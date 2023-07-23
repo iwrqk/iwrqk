@@ -47,8 +47,8 @@ class AccountService extends GetxService {
     }
   }
 
-  Future<ApiResult<void>> _login(String email, String password) async {
-    ApiResult<dynamic> results = await ApiProvider.login(email, password);
+  Future<ApiResult<void>> _login(String account, String password) async {
+    ApiResult<dynamic> results = await ApiProvider.login(account, password);
 
     if (results.success) {
       token = results.data;
@@ -76,10 +76,10 @@ class AccountService extends GetxService {
   }
 
   Future<ApiResult<void>> login({
-    required String email,
+    required String account,
     required String password,
   }) async {
-    ApiResult<void> results = await _login(email, password);
+    ApiResult<void> results = await _login(account, password);
 
     if (results.success) {
       results = await getAccessToken();
