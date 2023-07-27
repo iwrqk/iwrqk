@@ -36,6 +36,7 @@ class _IwrPlayerControlsState
   Timer? _initTimer;
   Timer? _showAfterExpandCollapseTimer;
   bool _wasLoading = false;
+  bool _isPIPSupported = false;
   VideoPlayerController? _controller;
   BetterPlayerController? _betterPlayerController;
   StreamSubscription? _controlsVisibilityStreamSubscription;
@@ -117,6 +118,10 @@ class _IwrPlayerControlsState
     _controller!.addListener(_updateState);
 
     _updateState();
+
+    _betterPlayerController!.isPictureInPictureSupported().then((value) {
+      _isPIPSupported = value;
+    });
 
     if ((_controller!.value.isPlaying) ||
         _betterPlayerController!.betterPlayerConfiguration.autoPlay) {
@@ -371,7 +376,9 @@ class _IwrPlayerControlsState
                     ),
                   ),
                 ),
-              )
+              ),
+            if (!_state.isFullScreen) const Spacer(),
+            if (!_state.isFullScreen && _isPIPSupported) _buildPIPButton(),
           ],
         ),
       ),
@@ -396,6 +403,28 @@ class _IwrPlayerControlsState
           },
           icon: const FaIcon(
             FontAwesomeIcons.chevronLeft,
+            color: Colors.white,
+            size: 25,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPIPButton() {
+    return AnimatedOpacity(
+      opacity: _hideStuff ? 0.0 : 1.0,
+      duration: _controlsConfiguration.controlsHideTime,
+      child: Container(
+        alignment: Alignment.center,
+        height: barHeight,
+        child: IconButton(
+          iconSize: 30,
+          onPressed: () {
+            _state.togglePictureInPictureMode();
+          },
+          icon: const Icon(
+            CupertinoIcons.rectangle_fill_on_rectangle_fill,
             color: Colors.white,
             size: 25,
           ),

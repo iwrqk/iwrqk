@@ -34,6 +34,10 @@ class IwrPlayerController extends GetxController {
     '2.0x': 2
   };
 
+  final GlobalKey widgetKey = GlobalKey();
+
+  bool isInPictureInPictureMode = false;
+
   final String title;
 
   Function(bool playing)? onPlayStop;
@@ -217,6 +221,14 @@ class IwrPlayerController extends GetxController {
       betterPlayerController.exitFullScreen();
     } else {
       betterPlayerController.enterFullScreen();
+    }
+  }
+
+  void togglePictureInPictureMode() {
+    if (isInPictureInPictureMode) {
+      betterPlayerController.disablePictureInPicture();
+    } else {
+      betterPlayerController.enablePictureInPicture(widgetKey);
     }
   }
 

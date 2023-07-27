@@ -111,8 +111,13 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           SlidableAction(
                             flex: 1,
                             onPressed: (context) async {
-                              Share.shareXFiles(
-                                  [XFile(await item.downloadTask.filePath())]);
+                              Share.shareXFiles([
+                                XFile(await item.downloadTask.filePath(),
+                                    mimeType: item.offlineMedia.type ==
+                                            MediaType.video
+                                        ? 'video/mp4'
+                                        : 'image/png')
+                              ]);
                             },
                             backgroundColor: Colors.lightBlue,
                             foregroundColor: Colors.white,

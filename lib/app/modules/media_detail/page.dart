@@ -224,6 +224,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         );
       } else {
         child = BetterPlayer(
+          key: _controller.iwrPlayerController!.widgetKey,
           controller: _controller.iwrPlayerController!.betterPlayerController,
         );
       }
@@ -853,41 +854,63 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             child: Scaffold(
               extendBodyBehindAppBar: true,
               resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Theme.of(context).canvasColor.withOpacity(
-                      1 - _controller.hideAppbarFactor,
-                    ),
-                leading: Obx(
-                  () => IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: FaIcon(
-                      FontAwesomeIcons.chevronLeft,
-                      color: _controller.hideAppbarFactor == 0
-                          ? null
-                          : Colors.white,
-                    ),
-                  ),
-                ),
-                centerTitle: true,
-                title: Obx(
-                  () => Text(
-                    _getTitle(),
-                    style: TextStyle(
-                      color: _controller.hideAppbarFactor == 0
-                          ? null
-                          : (Theme.of(context).brightness == Brightness.light
-                                  ? Colors.black
-                                  : Colors.white)
-                              .withOpacity(
-                              1 - _controller.hideAppbarFactor,
+              appBar: _controller.hideAppbarFactor == 1
+                  ? PreferredSize(
+                      preferredSize: const Size.fromHeight(kTextTabBarHeight),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: const FaIcon(
+                                FontAwesomeIcons.chevronLeft,
+                                color: Colors.white,
+                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : AppBar(
+                      elevation: 0,
+                      backgroundColor:
+                          Theme.of(context).canvasColor.withOpacity(
+                                1 - _controller.hideAppbarFactor,
+                              ),
+                      leading: Obx(
+                        () => IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: FaIcon(
+                            FontAwesomeIcons.chevronLeft,
+                            color: _controller.hideAppbarFactor == 0
+                                ? null
+                                : Colors.white,
+                          ),
+                        ),
+                      ),
+                      centerTitle: true,
+                      title: Obx(
+                        () => Text(
+                          _getTitle(),
+                          style: TextStyle(
+                            color: _controller.hideAppbarFactor == 0
+                                ? null
+                                : (Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black
+                                        : Colors.white)
+                                    .withOpacity(
+                                    1 - _controller.hideAppbarFactor,
+                                  ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               body: ExtendedNestedScrollView(
                 controller: _controller.scrollController,
                 onlyOneScrollInBody: true,
