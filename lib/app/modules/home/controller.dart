@@ -57,6 +57,13 @@ class TabPages {
     AppRoutes.images,
     AppRoutes.forum,
   ];
+
+  List<GlobalKey<NavigatorState>> navigatorKeys = <GlobalKey<NavigatorState>>[
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
 }
 
 class HomeController extends GetxController {
@@ -78,6 +85,8 @@ class HomeController extends GetxController {
   RxList<String> tabNameList = tabPages.tabNameList.obs;
 
   List<Widget> get pageList => tabPages.tabPages.values.toList();
+
+  List<GlobalKey<NavigatorState>> get navigatorKeys => tabPages.navigatorKeys;
 
   List<BottomNavigationBarItem> get listBottomNavigationBarItem =>
       tabNameList.map((key) {
@@ -154,5 +163,9 @@ class HomeController extends GetxController {
       tapAwait = false;
       onDoubleTap();
     }
+  }
+
+  Future<bool> onWillPop() async {
+    return navigatorKeys[currentIndex].currentState!.canPop();
   }
 }

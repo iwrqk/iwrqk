@@ -42,7 +42,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
     );
     if (_configService.firstRun) {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        Get.offAndToNamed(AppRoutes.setup);
+        Get.offNamed(AppRoutes.setup);
       });
     } else {
       _runInitTask();
@@ -52,7 +52,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
   Future<void> _runInitTask() async {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (_autoLockService.enableAutoLock) {
-        Get.offAndToNamed(AppRoutes.home);
+        Get.offNamed(AppRoutes.home);
         Get.toNamed(AppRoutes.lock);
         return;
       }
@@ -76,7 +76,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
         if (!success) {
           _userService.accountService.logout();
-          Get.offAndToNamed(AppRoutes.home);
+          Get.offNamed(AppRoutes.home);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Get.toNamed(AppRoutes.login);
           });
@@ -84,7 +84,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
         }
       }
 
-      Get.offAndToNamed(AppRoutes.home);
+      Get.offNamed(AppRoutes.home);
       return;
     });
   }

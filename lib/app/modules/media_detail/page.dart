@@ -65,7 +65,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
 
   @override
   void didPushNext() {
-    _controller.pauseVideo();
+    String nextRouteName = Get.currentRoute;
+    if (nextRouteName != AppRoutes.mediaDetail && nextRouteName.isNotEmpty) {
+      _controller.pauseVideo();
+    }
     super.didPop();
   }
 

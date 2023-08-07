@@ -233,7 +233,8 @@ class ForumTabPage extends GetView<ForumTabController> {
 
     controller.channelModels
         .forEach((String groupTitle, List<ChannelModel> channels) {
-      children.addAll(_buildGroupChannelsWidget(context, _getGroupTitle(context, groupTitle), channels));
+      children.addAll(_buildGroupChannelsWidget(
+          context, _getGroupTitle(context, groupTitle), channels));
     });
 
     return CustomScrollView(
@@ -249,21 +250,15 @@ class ForumTabPage extends GetView<ForumTabController> {
     controller.checkFirstLoad();
     return controller.obx(
       (state) {
-        return Scaffold(
-          body: SafeArea(
-            child: _buildDataWidget(context),
-          ),
+        return SafeArea(
+          child: _buildDataWidget(context),
         );
       },
       onError: (error) {
-        return Scaffold(
-          body: _buildLoadFailWidget(context, error!),
-        );
+        return _buildLoadFailWidget(context, error!);
       },
-      onLoading: const Scaffold(
-        body: Center(
-          child: IwrProgressIndicator(),
-        ),
+      onLoading: const Center(
+        child: IwrProgressIndicator(),
       ),
     );
   }

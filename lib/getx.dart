@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'app/data/services/account_service.dart';
+import 'app/data/services/android_service.dart';
 import 'app/data/services/auto_lock_service.dart';
 import 'app/data/services/config_service.dart';
 import 'app/data/services/download_service.dart';
@@ -21,6 +22,10 @@ void initGetx() {
   Get.put(AccountService());
   Get.put(UserService());
   Get.put(DownloadService());
+
+  if (GetPlatform.isAndroid) {
+    Get.put(AndroidService());
+  }
 
   Get.create(() => LoadingDialogController());
   Get.create(() => FilterDialogController());

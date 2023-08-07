@@ -19,7 +19,7 @@ class LogUtil {
         );
       });
       await Directory(path.dirname(logPath)).create(recursive: true);
-      fileOutput = FileOutput(path: logPath);
+      fileOutput = FileOutput(file: File(logPath));
     }
 
     logger = Logger(
@@ -40,20 +40,22 @@ class LogUtil {
 }
 
 class FileOutput extends LogOutput {
-  final String path;
-  FileOutput({required this.path});
+  final File file;
+  FileOutput({required this.file}) {
+    _sink = file.openWrite(mode: FileMode.append);
+  }
 
-  File? _file;
+  IOSink? _sink;
+  
+  @override
+  void output(OutputEvent event) {
+    _sink?.writeAll(event.lines.map((e) => e.toString()).toList(), "\n");
+    _sink?.write("\n");
+  }
 
   @override
-  void output(OutputEvent event) async {
-    _file ??= File(path);
-
-    if (!_file!.existsSync()) {
-      _file = await _file!.writeAsString(
-        "${event.lines.join("\n")}\n",
-        mode: FileMode.append,
-      );
-    }
+  void destroy() async {
+    await _sink?.flush();
+    await _sink?.close();
   }
 }

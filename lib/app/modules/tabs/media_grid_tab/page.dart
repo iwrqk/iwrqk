@@ -57,73 +57,74 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
       ),
       padding: MediaQuery.of(context).padding.copyWith(bottom: 0, top: 0),
       alignment: Alignment.centerLeft,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
-          child: TabBar(
-            isScrollable: true,
-            physics: const BouncingScrollPhysics(),
-            controller: _controller.tabController,
-            indicator: TabIndicator(context),
-            indicatorSize: TabBarIndicatorSize.label,
-            tabs: widget.tabNameList
-                .map((e) => Tab(
-                      text: e,
-                    ))
-                .toList(),
-            onTap: (value) {},
-          ),
-        ),
-        Visibility(
-          visible: widget.showFilter,
-          child: IconButton(
-            icon: const FaIcon(
-              FontAwesomeIcons.sliders,
-              size: 20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: TabBar(
+              isScrollable: true,
+              physics: const BouncingScrollPhysics(),
+              controller: _controller.tabController,
+              indicator: TabIndicator(context),
+              indicatorSize: TabBarIndicatorSize.label,
+              tabs: widget.tabNameList
+                  .map((e) => Tab(
+                        text: e,
+                      ))
+                  .toList(),
+              onTap: (value) {},
             ),
-            color: Colors.grey,
-            onPressed: () {
-              _controller.popFilterDialog();
-            },
           ),
-        ),
-      ]),
+          Visibility(
+            visible: widget.showFilter,
+            child: IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.sliders,
+                size: 20,
+              ),
+              color: Colors.grey,
+              onPressed: () {
+                _controller.popFilterDialog();
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      body: Column(
-        children: [
-          _buildTabBar(context),
-          Expanded(
-            child: SafeArea(
-              top: false,
-              bottom: false,
-              child: SizeCacheWidget(
-                child: TabBarView(
-                  controller: _controller.tabController,
-                  children: List.generate(
-                    widget.tabTagList.length,
-                    (index) => MediaPreviewGrid(
-                      sourceType: widget.sourceType == null
-                          ? widget.customSourceTypeList![index]
-                          : widget.sourceType!,
-                      sortSetting: MediaSortSettingModel(
-                          orderType: widget.orderTypeList == null
-                              ? null
-                              : widget.orderTypeList![index]),
-                      tag: widget.tabTagList[index],
-                      scrollController: _controller.scrollControllers[index],
-                    ),
+    return Column(
+      children: [
+        _buildTabBar(context),
+        Expanded(
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: SizeCacheWidget(
+              child: TabBarView(
+                controller: _controller.tabController,
+                children: List.generate(
+                  widget.tabTagList.length,
+                  (index) => MediaPreviewGrid(
+                    sourceType: widget.sourceType == null
+                        ? widget.customSourceTypeList![index]
+                        : widget.sourceType!,
+                    sortSetting: MediaSortSettingModel(
+                        orderType: widget.orderTypeList == null
+                            ? null
+                            : widget.orderTypeList![index]),
+                    tag: widget.tabTagList[index],
+                    scrollController: _controller.scrollControllers[index],
                   ),
                 ),
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
