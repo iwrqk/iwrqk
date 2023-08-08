@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../modules/account/blocked_tags/binding.dart';
+import '../modules/account/blocked_tags/page.dart';
 import '../modules/account/downloaded_media_detail/downloaded_video_detail/binding.dart';
 import '../modules/account/downloaded_media_detail/downloaded_video_detail/page.dart';
 import '../modules/account/downloads/binding.dart';
@@ -148,6 +150,11 @@ abstract class AppPages {
       name: AppRoutes.friends,
       page: () => const FriendsPage(),
       binding: FriendsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.blockedTags,
+      page: () => BlockedTagsPage(),
+      binding: BlockedTagsBinding(),
     ),
     GetPage(
       name: AppRoutes.history,

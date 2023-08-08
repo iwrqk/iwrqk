@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../global_widgets/media_preview/media_preview_grid/controller.dart';
-import 'widgets/filter_dialog/widget.dart';
+import 'widgets/filter_bottom_sheet/widget.dart';
 
 class MediaGridTabController extends GetxController
     with GetTickerProviderStateMixin {
@@ -22,7 +22,7 @@ class MediaGridTabController extends GetxController
   }
 
   void popFilterDialog() {
-    Get.dialog(FilterDialog(
+    Get.bottomSheet(FilterBottomSheet(
       targetTag: _tabTagList[tabController.index],
     ));
   }

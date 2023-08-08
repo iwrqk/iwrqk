@@ -28,6 +28,8 @@
     "create": "创建",
     "unknown": "未知",
     "title": "标题",
+    "tag": "标签",
+    "add_tag": "添加标签",
     "content": "内容",
     "media_private": "私有",
     "media_page_more_from_uploader": "作者的其他作品",
@@ -41,9 +43,9 @@
     "skip": "跳过",
     "finish": "完成",
     "filter": "筛选",
-    "filter_by_rating": "按分级筛选",
-    "filter_by_tags": "按标签筛选",
-    "filter_by_date": "按日期筛选",
+    "filter_rating": "分级",
+    "filter_tags": "标签",
+    "filter_date": "日期",
     "filter_general": "全年龄",
     "filter_ecchi": "成人",
     "filter_select_rating": "选择分级",
@@ -131,6 +133,7 @@
         }
     },
     "user_history": "历史记录",
+    "user_blocked_tags": "屏蔽标签",
     "user_friends": "好友",
     "user_downloads": "缓存",
     "user_favorites": "收藏",
@@ -207,6 +210,7 @@
     "message_history_delete_all_confirm": "确定要删除全部历史记录吗？该操作无法取消。",
     "message_search_history_delete_confirm": "确定要删除这个搜索历史吗？该操作无法取消。",
     "message_search_history_delete_all_confirm": "确定要删除全部搜索历史吗？该操作无法取消。",
+    "message_save_blocked_tags_confirm": "确定要保存屏蔽的标签吗？",
     "message_deleted_item": "删除了 \"{title}\"。",
     "@message_deleted_item": {
         "description": "A message with a parameter",
@@ -229,13 +233,13 @@
     },
     "message_cannot_be_empty": "{name} 不能为空。",
     "@message_cannot_be_empty": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "name": {
-          "type": "String",
-          "example": "Bob"
+        "description": "A message with a parameter",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "Bob"
+            }
         }
-      }
     },
     "message_update_available": "有更新可用，是否立即更新？",
     "download_downloading": "下载中",
@@ -277,6 +281,8 @@
     "message_playlist_created": "播放列表已创建。",
     "message_download_task_created": "下载任务已创建。",
     "message_login_success": "登入成功！",
+    "message_blocked_tags_saved": "屏蔽的标签已保存。",
+    "message_blocked_tags_reached_limit": "屏蔽的标签数量已达上限。",
     "message_register_success": "注册成功，请查看邮箱激活账号。",
     "message_authenticate_to_continue": "认证以继续",
     "message_authenticate_to_enable_biometric": "认证以启用生物识别",

@@ -161,7 +161,7 @@ class MediaDetailController extends GetxController
   void onClose() {
     _animationController.value.dispose();
     _refectchVideoCancelToken = true;
-    iwrPlayerController?.dispose();
+    iwrPlayerController?.close();
     super.onClose();
   }
 
@@ -204,37 +204,43 @@ class MediaDetailController extends GetxController
 
     String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
 
-    Get.put(
-      IwrPlayerController(
+    if (!_refectchVideoCancelToken) {
+      Get.put(
+        IwrPlayerController(
+          tag: tag,
+          id: media.id,
+          resolutions: resolutionsMap,
+          title: media.title,
+          author: media.user.name,
+          thumbnail: media.hasCover() ? media.getCoverUrl() : null,
+          setting: configService.playerSetting,
+          onPlayerSettingSaved: (setting) {
+            configService.playerSetting = setting;
+          },
+        ),
         tag: tag,
-        id: media.id,
-        resolutions: resolutionsMap,
-        title: media.title,
-        author: media.user.name,
-        thumbnail: media.hasCover() ? media.getCoverUrl() : null,
-        setting: configService.playerSetting,
-        onPlayerSettingSaved: (setting) {
-          configService.playerSetting = setting;
-        },
-      ),
-      tag: tag,
-    );
+      );
 
-    iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
+      iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
-    iwrPlayerController!.onPlayStop = (playing) {
-      if (playing) {
-        scrollController.animateTo(
-          0,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.ease,
-        );
-        _hideAppbarFactor.value = 1;
-        lockingScroll = true;
-      } else {
-        lockingScroll = false;
-      }
-    };
+      iwrPlayerController!.onPlayStop = (playing) {
+        if (playing) {
+          scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+          _hideAppbarFactor.value = 1;
+          lockingScroll = true;
+        } else {
+          lockingScroll = false;
+        }
+      };
+    }
+
+    if (_refectchVideoCancelToken) {
+      iwrPlayerController!.close();
+    }
   }
 
   void pauseVideo() {
@@ -250,9 +256,6 @@ class MediaDetailController extends GetxController
     await repository
         .getVideoResolutions(video.fileUrl!, video.getXVerison())
         .then((value) {
-      if (_refectchVideoCancelToken) {
-        return;
-      }
       if (value.success) {
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;

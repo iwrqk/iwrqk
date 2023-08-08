@@ -4,34 +4,20 @@ class FilterSettingModel {
   RatingType? ratingType;
   int? year;
   int? month;
-
-  @override
-  bool operator ==(other) {
-    bool flag = false;
-    if (other is FilterSettingModel) {
-      if (other.ratingType == null &&
-          other.year == null &&
-          other.month == null) {
-        return true;
-      }
-      flag = other.ratingType == ratingType &&
-          other.year == year &&
-          other.month == month;
-    }
-    return flag;
-  }
+  List<String>? tags;
 
   bool isEmpty() {
     return ratingType == null && year == null && month == null;
   }
 
-  FilterSettingModel({this.ratingType, this.year, this.month});
+  FilterSettingModel({this.ratingType, this.year, this.month, this.tags});
 
   Map<String, dynamic> toJson() {
     return {
       "ratingType": ratingType?.value,
       "year": year,
       "month": month,
+      "tags": tags,
     };
   }
 
@@ -40,13 +26,7 @@ class FilterSettingModel {
       ratingType: RatingType.fromString(json["ratingType"]),
       year: json["year"],
       month: json["month"],
+      tags: json["tags"] != null ? List<String>.from(json["tags"]) : null,
     );
   }
-
-  @override
-  int get hashCode => {
-        "ratingType": ratingType?.value,
-        "year": year,
-        "month": month,
-      }.hashCode;
 }

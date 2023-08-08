@@ -236,13 +236,13 @@ class IwrPlayerController extends GetxController {
     onPlayStop?.call(isPlaying);
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void close() {
     betterPlayerController.dispose(forceDispose: true);
     _onPlayerSettingSaved?.call(PlayerSetting(
       qualityIndex: _qualityIndexToSave,
       volume: _volumeToSave,
     ));
+
+    dispose();
   }
 }

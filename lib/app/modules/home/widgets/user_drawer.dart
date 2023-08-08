@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../l10n.dart';
+import '../../../data/enums/types.dart';
 import '../../../data/services/account_service.dart';
 import '../../../data/services/user_service.dart';
 import '../../../routes/pages.dart';
@@ -171,6 +172,28 @@ class UserDrawer extends StatelessWidget {
                         size: 25,
                       ),
                       routeName: AppRoutes.friends,
+                    ),
+                    _buildUserItem(
+                      context,
+                      title: L10n.of(context).user_blocked_tags,
+                      icon: const FaIcon(
+                        FontAwesomeIcons.ban,
+                        size: 25,
+                      ),
+                      routeName: AppRoutes.blockedTags,
+                    ),
+                    _buildUserItem(
+                      context,
+                      title: L10n.of(context).following,
+                      icon: const FaIcon(
+                        FontAwesomeIcons.solidBell,
+                        size: 25,
+                      ),
+                      routeName: AppRoutes.followersFollowing,
+                      arguments: {
+                        "parentUser": _userService.user,
+                        "sourceType": UsersSourceType.following,
+                      },
                     ),
                     _buildUserItem(
                       context,

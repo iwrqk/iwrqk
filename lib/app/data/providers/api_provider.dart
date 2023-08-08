@@ -17,6 +17,7 @@ import '../models/playlist/light_playlist.dart';
 import '../models/playlist/playlist.dart';
 import '../models/profile.dart';
 import '../models/resolution.dart';
+import '../models/tag.dart';
 import '../models/user.dart';
 import 'network/network_provider.dart';
 
@@ -97,6 +98,28 @@ class ApiProvider {
     });
 
     return ApiResult(data: appUser, success: message == null, message: message);
+  }
+
+  static Future<ApiResult<void>> updateAppUser({
+    required String userId,
+    List<TagModel>? tagBlacklist,
+  }) {
+    String? message;
+    return networkProvider.put("/user/$userId", data: {
+      if (tagBlacklist != null)
+        "tagBlacklist": tagBlacklist.map((e) => e.id).toList(),
+    }).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    }).then(
+      (value) => ApiResult(
+        data: null,
+        success: message == null,
+        message: message,
+      ),
+    );
   }
 
   static Future<ApiResult<NotificationsCountsModel>>
@@ -694,6 +717,60 @@ class ApiProvider {
       data: null,
       success: message == null,
       message: message,
+    );
+  }
+
+  static Future<ApiResult<List<TagModel>>> autoCompleteTags(
+      {required String keyword}) {
+    String? message;
+    List<TagModel> tags = [];
+
+    return networkProvider.get("/autocomplete/tags", queryParameters: {
+      "query": keyword,
+    }).then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        tags = (value.data["results"] as List)
+            .map((e) => TagModel.fromJson(e))
+            .toList();
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    }).then(
+      (value) => ApiResult(
+        data: tags,
+        success: message == null,
+        message: message,
+      ),
+    );
+  }
+
+  static Future<ApiResult<List<TagModel>>> searchTags(
+      {required String keyword}) {
+    String? message;
+    List<TagModel> tags = [];
+
+    return networkProvider.get("/tags", queryParameters: {
+      "query": keyword,
+    }).then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        tags = (value.data["results"] as List)
+            .map((e) => TagModel.fromJson(e))
+            .toList();
+      }
+    }).catchError((e, stackTrace) {
+      LogUtil.logger.e("Error", e, stackTrace);
+      message = e.toString();
+    }).then(
+      (value) => ApiResult(
+        data: tags,
+        success: message == null,
+        message: message,
+      ),
     );
   }
 

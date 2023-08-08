@@ -69,6 +69,9 @@ class MediaPreviewGridRepository {
           query.addAll({"date": "${filterSetting.year}"});
         }
       }
+      if (filterSetting.tags != null) {
+        query.addAll({"tags": filterSetting.tags!.join(",")});
+      }
     }
 
     return await ApiProvider.getMedia(

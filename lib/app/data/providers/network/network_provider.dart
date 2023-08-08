@@ -88,6 +88,35 @@ class NetworkProvider {
         data: data,
       );
 
+  Future<Response> putFullUrl(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    dynamic data,
+  }) async {
+    final response = await _dio.put(
+      url,
+      queryParameters: queryParameters,
+      options: Options(headers: headers),
+      data: data,
+    );
+
+    return response;
+  }
+
+  Future<Response> put(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    dynamic data,
+  }) =>
+      putFullUrl(
+        "https://${IwaraConst.apiHost}$path",
+        queryParameters: queryParameters,
+        headers: headers,
+        data: data,
+      );
+
   Future<Response> deleteFullUrl(
     String url, {
     Map<String, dynamic>? queryParameters,

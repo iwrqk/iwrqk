@@ -8,6 +8,7 @@ import '../models/account/conversations/conversation.dart';
 import '../models/account/notifications/counts.dart';
 import '../models/account/notifications/settings.dart';
 import '../models/playlist/light_playlist.dart';
+import '../models/tag.dart';
 import '../models/user.dart';
 import '../providers/api_provider.dart';
 import 'account_service.dart';
@@ -18,6 +19,8 @@ class UserService extends GetxService {
   UserModel? user;
 
   NotificationsSettings? notificationsSettings;
+
+  List<TagModel> blockedTags = <TagModel>[];
 
   NotificationsCountsModel? notificationsCounts;
 
@@ -56,6 +59,7 @@ class UserService extends GetxService {
         flag = false;
       } else {
         user = value.data!.user;
+        blockedTags = value.data!.tagBlacklist;
         notificationsSettings = value.data!.notifications;
         flag = true;
       }
@@ -447,6 +451,26 @@ class UserService extends GetxService {
     }
 
     await ApiProvider.sendPost(threadId: threadId, content: content)
+        .then((value) {
+      if (!value.success) {
+        showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  Future<bool> saveBlockedTags(List<TagModel> blockedTags) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      showToast(DisplayUtil.messageNeedLogin);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.updateAppUser(userId: user!.id, tagBlacklist: blockedTags)
         .then((value) {
       if (!value.success) {
         showToast(value.message!);

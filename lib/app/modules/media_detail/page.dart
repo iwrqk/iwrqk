@@ -14,6 +14,7 @@ import '../../core/utils/display_util.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/video.dart';
+import '../../data/models/tag.dart';
 import '../../global_widgets/buttons/follow_button/widget.dart';
 import '../../global_widgets/comments/comments_list/widget.dart';
 import '../../global_widgets/comments/send_comment_bottom_sheet/widget.dart';
@@ -272,7 +273,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildTagClip(BuildContext context, int index) {
-    String title = _controller.media.tags[index].id;
+    TagModel tag = _controller.media.tags[index];
+
     return GestureDetector(
       onTap: () {},
       onLongPress: () {},
@@ -283,7 +285,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         ),
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Text(
-          title,
+          tag.id,
           style: const TextStyle(height: 1),
         ),
       ),

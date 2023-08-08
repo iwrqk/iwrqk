@@ -230,14 +230,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.1"
-  flutter_lazy_indexed_stack:
-    dependency: "direct main"
-    description:
-      name: flutter_lazy_indexed_stack
-      sha256: e5529b516890475465c8c34b23d611e9c46b23c745c08edf471d1b6f899f5c9f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.6"
   flutter_lints:
     dependency: "direct dev"
     description:

@@ -36,7 +36,7 @@ class _IwrPlayerControlsState
   Timer? _initTimer;
   Timer? _showAfterExpandCollapseTimer;
   bool _wasLoading = false;
-  bool _isPIPSupported = false;
+  // bool _isPIPSupported = false;
   VideoPlayerController? _controller;
   BetterPlayerController? _betterPlayerController;
   StreamSubscription? _controlsVisibilityStreamSubscription;
@@ -119,9 +119,9 @@ class _IwrPlayerControlsState
 
     _updateState();
 
-    _betterPlayerController!.isPictureInPictureSupported().then((value) {
-      _isPIPSupported = value;
-    });
+    // _betterPlayerController!.isPictureInPictureSupported().then((value) {
+    //   _isPIPSupported = value;
+    // });
 
     if ((_controller!.value.isPlaying) ||
         _betterPlayerController!.betterPlayerConfiguration.autoPlay) {
@@ -378,7 +378,7 @@ class _IwrPlayerControlsState
                 ),
               ),
             if (!_state.isFullScreen) const Spacer(),
-            if (!_state.isFullScreen && _isPIPSupported) _buildPIPButton(),
+            // if (!_state.isFullScreen && _isPIPSupported) _buildPIPButton(),
           ],
         ),
       ),

@@ -31,6 +31,7 @@ abstract class AppRoutes {
   static const normalSearchResult = '/normalSearchResult';
 
   static const friends = '/friends';
+  static const blockedTags = '/blockedTags';
   static const history = '/history';
   static const downloads = '/downloads';
   static const favorites = '/favorite';

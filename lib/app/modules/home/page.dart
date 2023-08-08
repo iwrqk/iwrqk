@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -125,25 +125,28 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.init(context);
 
-    return WillPopScope(
-      onWillPop: controller.onWillPop,
-      child: Obx(
-        () => Scaffold(
-          key: controller.scaffoldKey,
-          appBar: _buildAppbar(context),
-          drawer: const UserDrawer(),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Theme.of(context).primaryColor,
-            selectedFontSize: 10,
-            unselectedFontSize: 10,
-            currentIndex: controller.currentIndex,
-            onTap: controller.onTap,
+    return Obx(
+      () => Scaffold(
+        key: controller.scaffoldKey,
+        appBar: _buildAppbar(context),
+        drawer: const UserDrawer(),
+        body: CupertinoTabScaffold(
+          controller: controller.tabController,
+          tabBar: CupertinoTabBar(
+            activeColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).canvasColor,
             items: controller.listBottomNavigationBarItem,
+            onTap: controller.onTap,
+            height: kBottomNavigationBarHeight,
+            border: Border(
+              top: BorderSide(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
+            ),
           ),
-          body: LazyIndexedStack(
-            index: controller.currentIndex,
-            children: controller.pageList,
+          tabBuilder: (context, index) => CupertinoTabView(
+            builder: (BuildContext context) => controller.pageList[index],
           ),
         ),
       ),

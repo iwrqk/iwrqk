@@ -28,6 +28,8 @@
     "create": "作成",
     "unknown": "不明",
     "title": "タイトル",
+    "tag": "タグ",
+    "add_tag": "タグを追加",
     "content": "内容",
     "media_private": "私有の",
     "media_page_more_from_uploader": "アップローダーの他の作品",
@@ -41,9 +43,9 @@
     "skip": "スキップ",
     "finish": "完了",
     "filter": "フィルター",
-    "filter_by_rating": "レーティングのフィルター",
-    "filter_by_tags": "タグでのフィルター",
-    "filter_by_date": "日付によるフィルター",
+    "filter_rating": "レーティング",
+    "filter_tags": "タグ",
+    "filter_date": "日付",
     "filter_general": "一般",
     "filter_ecchi": "エッチ",
     "filter_select_rating": "レーティングを選択",
@@ -131,6 +133,7 @@
         }
     },
     "user_history": "閲覧履歴",
+    "user_blocked_tags": "ブロックされたタグ",
     "user_friends": "友達",
     "user_downloads": "ダウンロード済み",
     "user_favorites": "お気に入り",
@@ -239,6 +242,7 @@
     "message_search_history_delete_confirm": "この検索履歴を削除してもよろしいですか？　この操作は取り消せません。",
     "message_search_history_delete_all": "検索履歴をすべて削除",
     "message_search_history_delete_all_confirm": "検索履歴をすべて削除してもよろしいですか？　この操作は取り消せません。",
+    "message_save_blocked_tags_confirm": "ブロックされたタグを保存してもよろしいですか？",
     "message_deleted_item": "\"{title}\" を削除しました。",
     "@message_deleted_item": {
         "description": "A message with a parameter",
@@ -261,13 +265,13 @@
     },
     "message_cannot_be_empty": "{name} は空にできません。",
     "@message_cannot_be_empty": {
-      "description": "A message with a parameter",
-      "placeholders": {
-        "name": {
-          "type": "String",
-          "example": "Bob"
+        "description": "A message with a parameter",
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "Bob"
+            }
         }
-      }
     },
     "message_update_available": "新しいバージョンが利用可能です。今すぐ更新しますか？",
     "message_no_provide_storage_permission": "ストレージの許可が必要です。設定で許可してください。",
@@ -277,6 +281,8 @@
     "message_empty_playlist_title": "プレイリスト名を入力してください。",
     "message_playlist_created": "プレイリストを作成しました。",
     "message_download_task_created": "ダウンロードタスクを作成しました。",
+    "message_blocked_tags_saved": "ブロックされたタグを保存しました。",
+    "message_blocked_tags_reached_limit": "ブロックされたタグの数が上限に達しました。これ以上追加できません。",
     "message_login_success": "ログインに成功しました。",
     "message_register_success": "登録に成功し、詳細な手順をEメールで送信しました。",
     "message_authenticate_to_continue": "続行するには認証してください。",
