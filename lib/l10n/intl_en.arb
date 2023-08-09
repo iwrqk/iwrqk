@@ -281,6 +281,7 @@
   "message_empty_playlist_title": "Playlist title can not be empty.",
   "message_playlist_created": "Playlist created.",
   "message_download_task_created": "Download task created.",
+  "message_maximum_simultaneous_download_reached": "Maximum simultaneous download reached.",
   "message_blocked_tags_saved": "Blocked tags saved.",
   "message_blocked_tags_reached_limit": "Blocked tags reached limit.",
   "message_login_success": "Login success.",

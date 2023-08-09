@@ -22,7 +22,7 @@ class IwrDownloadTaskStatus {
 }
 
 class DownloadService extends GetxService {
-  final int maxDownloadCount = 5;
+  final int maxDownloadingCount = 5;
 
   final RxMap<String, Rx<IwrDownloadTaskStatus>> _downloadTasksStatus =
       <String, Rx<IwrDownloadTaskStatus>>{}.obs;
@@ -217,7 +217,7 @@ class DownloadService extends GetxService {
     });
   }
 
-  Future<int> get currentDownloadCount async {
+  Future<int> get currentDownloadingCount async {
     return FlutterDownloader.loadTasksWithRawQuery(
             query:
                 "SELECT * FROM task WHERE status = ${DownloadTaskStatus.running}")

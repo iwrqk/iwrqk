@@ -33,6 +33,7 @@ class CreateVideoDownloadDialogController extends GetxController {
   Future<void> createVideoDownloadTask(
     String createdMessage,
     String alreadyExistsMessage,
+    String maxSimultaneousDownloadMessage,
   ) async {
     bool success = false;
     late int size;
@@ -64,10 +65,10 @@ class CreateVideoDownloadDialogController extends GetxController {
       return;
     }
 
-    await _downloadService.currentDownloadCount.then((value) {
-      success = value < _downloadService.maxDownloadCount;
+    await _downloadService.currentDownloadingCount.then((value) {
+      success = value < _downloadService.maxDownloadingCount;
       if (!success) {
-        showToast('download_count_exceed');
+        showToast(maxSimultaneousDownloadMessage);
       }
     });
 

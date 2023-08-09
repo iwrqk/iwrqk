@@ -282,6 +282,7 @@
     "message_empty_playlist_title": "プレイリスト名を入力してください。",
     "message_playlist_created": "プレイリストを作成しました。",
     "message_download_task_created": "ダウンロードタスクを作成しました。",
+    "message_maximum_simultaneous_download_reached": "同時ダウンロード数の上限に達しました。",
     "message_blocked_tags_saved": "ブロックされたタグを保存しました。",
     "message_blocked_tags_reached_limit": "ブロックされたタグの数が上限に達しました。これ以上追加できません。",
     "message_login_success": "ログインに成功しました。",

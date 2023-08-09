@@ -281,6 +281,7 @@
     "message_empty_playlist_title": "播放列表标题不能为空。",
     "message_playlist_created": "播放列表已创建。",
     "message_download_task_created": "下载任务已创建。",
+    "message_maximum_simultaneous_download_reached": "同时下载的任务数量已达上限。",
     "message_login_success": "登入成功！",
     "message_blocked_tags_saved": "屏蔽的标签已保存。",
     "message_blocked_tags_reached_limit": "屏蔽的标签数量已达上限。",
