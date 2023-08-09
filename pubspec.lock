@@ -33,14 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  background_downloader:
-    dependency: "direct main"
-    description:
-      name: background_downloader
-      sha256: "9a835c4a826c726837c807f604e7fb7035d989e68dfc40247cff64d7cd6fb8ae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.8.1"
   better_player:
     dependency: "direct main"
     description:
@@ -222,6 +214,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
+  flutter_downloader:
+    dependency: "direct main"
+    description:
+      name: flutter_downloader
+      sha256: "2b126083d2e6b7c09755bca12012c4c734bcf7666cf07ba00c508fcb83e8d0d7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.11.1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:

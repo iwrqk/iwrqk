@@ -181,6 +181,7 @@
             }
         }
     },
+    "download_enqueued": "已加入下載隊列",
     "download_downloading": "下載中",
     "download_paused": "已暫停",
     "download_finished": "已完成",

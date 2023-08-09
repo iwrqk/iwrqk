@@ -1,4 +1,3 @@
-import 'package:background_downloader/background_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -94,7 +93,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           SlidableAction(
                             flex: 1,
                             onPressed: (context) async {
-                              OpenFile.open(await item.downloadTask.filePath(),
+                              OpenFile.open(
+                                  (await _controller.downloadService
+                                      .getTaskFilePath(item.taskId))!,
                                   type:
                                       item.offlineMedia.type == MediaType.video
                                           ? 'video/mp4'
@@ -112,7 +113,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             flex: 1,
                             onPressed: (context) async {
                               Share.shareXFiles([
-                                XFile(await item.downloadTask.filePath(),
+                                XFile(
+                                    (await _controller.downloadService
+                                        .getTaskFilePath(item.taskId))!,
                                     mimeType: item.offlineMedia.type ==
                                             MediaType.video
                                         ? 'video/mp4'
@@ -135,7 +138,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             onPressed: (context) async {
                               await _controller.deleteVideoTask(
                                 index,
-                                DownloadTask.fromJsonMap(item.task).taskId,
+                                item.taskId,
                               );
                             },
                             backgroundColor: Colors.red,

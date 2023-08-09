@@ -183,18 +183,19 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
           color: Theme.of(context).primaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 10),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               tag,
-              style: const TextStyle(height: 1),
+              style: const TextStyle(height: 1, color: Colors.white),
             ),
             const SizedBox(width: 5),
             const FaIcon(
               FontAwesomeIcons.xmark,
-              size: 15,
+              size: 17.5,
+              color: Colors.white,
             ),
           ],
         ),

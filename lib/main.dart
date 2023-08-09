@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_gen/gen_l10n/intl_localizations.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
@@ -18,6 +20,7 @@ Future<void> main() async {
 
   await StorageProvider.init();
   await LogUtil.init();
+  await FlutterDownloader.initialize(debug: kDebugMode);
 
   initGetx();
 

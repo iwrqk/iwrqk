@@ -181,6 +181,7 @@
       }
     }
   },
+  "download_enqueued": "Enqueued",
   "download_downloading": "Downloading",
   "download_paused": "Paused",
   "download_finished": "Finished",

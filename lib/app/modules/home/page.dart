@@ -132,6 +132,7 @@ class HomePage extends GetView<HomeController> {
         drawer: const UserDrawer(),
         body: CupertinoTabScaffold(
           controller: controller.tabController,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           tabBar: CupertinoTabBar(
             activeColor: Theme.of(context).primaryColor,
             backgroundColor: Theme.of(context).canvasColor,

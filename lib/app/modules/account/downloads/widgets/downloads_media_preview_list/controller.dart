@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:background_downloader/background_downloader.dart';
 import 'package:get/get.dart';
 
 import '../../../../../data/enums/result.dart';
@@ -16,7 +15,7 @@ class DownloadsMediaPreviewListController
   final DownloadMediaPreviewListRepository repository =
       DownloadMediaPreviewListRepository();
 
-  final DownloadService _downloadService = Get.find();
+  final DownloadService downloadService = Get.find();
 
   late MediaType _filterType;
 
@@ -30,16 +29,15 @@ class DownloadsMediaPreviewListController
   }
 
   Future<void> deleteTaskRecord(String taskId) async {
-    await _downloadService.deleteTaskRecord(taskId);
+    await downloadService.deleteTaskRecord(taskId);
   }
 
   Future<void> deleteVideoTask(int index, String taskId) async {
-    MediaDownloadTask taskData = data[index];
-    DownloadTask downloadTask = taskData.downloadTask;
+    String? path = await downloadService.getTaskFilePath(taskId);
     await StorageProvider.deleteDownloadVideoRecord(index);
     await deleteTaskRecord(taskId);
 
-    File downloadFile = File(await downloadTask.filePath());
+    File downloadFile = File(path!);
     if (await downloadFile.exists()) {
       await downloadFile.delete();
     }

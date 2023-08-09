@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:background_downloader/background_downloader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -138,7 +138,8 @@ class DownloadMediaPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildStateMessageWithProgress(String message, double progress) {
+  Widget _buildStateMessageWithProgress(
+      BuildContext context, String message, double progress) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,6 +158,9 @@ class DownloadMediaPreview extends StatelessWidget {
         ),
         LinearProgressIndicator(
           value: progress,
+          backgroundColor: Theme.of(context).primaryColor.withOpacity(0.5),
+          valueColor:
+              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
         )
       ],
     );
@@ -247,50 +251,62 @@ class DownloadMediaPreview extends StatelessWidget {
 
   Widget _buildStateWidget(BuildContext context) {
     return Obx(() {
-      DownloadTask downloadTask = taskData.downloadTask;
-      String taskId = downloadTask.taskId;
+      String taskId = taskData.taskId;
       var taskStatus = _downloadService.downloadTasksStatus[taskId];
 
       if (taskStatus != null) {
         int downloadedSize =
-            (taskData.offlineMedia.size * taskStatus.value.progress).toInt();
+            taskData.offlineMedia.size * taskStatus.value.progress ~/ 100;
         int totalSize = taskData.offlineMedia.size;
         switch (taskStatus.value.status) {
-          case TaskStatus.running:
-            return GestureDetector(
-              excludeFromSemantics: true,
-              onTap: () {
-                _downloadService.pauseTask(downloadTask).then((value) {
-                  debugPrint(value.toString());
-                });
-              },
-              child: _buildStateMessageWithProgress(
-                "${L10n.of(context).download_downloading} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
-                taskStatus.value.progress,
-              ),
-            );
-          case TaskStatus.paused:
-            return GestureDetector(
-              excludeFromSemantics: true,
-              onTap: () {
-                _downloadService.resumeTask(downloadTask).then((value) {
-                  debugPrint(value.toString());
-                });
-              },
-              child: _buildStateMessageWithProgress(
-                "${L10n.of(context).download_paused} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
-                taskStatus.value.progress,
-              ),
-            );
-          case TaskStatus.failed:
+          case DownloadTaskStatus.enqueued:
             return _buildStateMessageWithProgress(
+              context,
+              L10n.of(context).download_enqueued,
+              0,
+            );
+          case DownloadTaskStatus.running:
+            return GestureDetector(
+              excludeFromSemantics: true,
+              onTap: () {
+                _downloadService.pauseTask(taskId);
+              },
+              child: _buildStateMessageWithProgress(
+                context,
+                "${L10n.of(context).download_downloading} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
+                taskStatus.value.progress / 100,
+              ),
+            );
+          case DownloadTaskStatus.paused:
+            return GestureDetector(
+              excludeFromSemantics: true,
+              onTap: () {
+                _downloadService.resumeTask(taskId);
+              },
+              child: _buildStateMessageWithProgress(
+                context,
+                "${L10n.of(context).download_paused} ${DisplayUtil.getDownloadFileSizeProgress(downloadedSize, totalSize)}",
+                taskStatus.value.progress / 100,
+              ),
+            );
+          case DownloadTaskStatus.failed:
+            return _buildStateMessageWithProgress(
+              context,
               L10n.of(context).download_failed,
               0,
             );
-          case TaskStatus.complete:
+          case DownloadTaskStatus.complete:
             return _buildCompleteWidget();
           default:
-            return const SizedBox.shrink();
+            return AutoSizeText(
+              L10n.of(context).unknown,
+              maxLines: 1,
+              style: const TextStyle(
+                fontSize: 12.5,
+                color: Colors.red,
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
         }
       } else {
         return AutoSizeText(
@@ -362,27 +378,28 @@ class DownloadMediaPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String taskId = taskData.downloadTask.taskId;
+    String taskId = taskData.taskId;
     var taskStatus = _downloadService.downloadTasksStatus[taskId];
 
-    return GestureDetector(
-      // ignore: unrelated_type_equality_checks
-      onTap: (taskStatus?.value.status) == TaskStatus.complete
-          ? () {
-              if (customOnTap != null) {
-                customOnTap!.call(taskData);
-              } else {
-                if (taskData.offlineMedia.type == MediaType.video) {
-                  Get.toNamed(AppRoutes.downloadedVideoDetail,
-                      arguments: taskData);
+    return Obx(
+      () => GestureDetector(
+        onTap: (taskStatus?.value.status) == DownloadTaskStatus.complete
+            ? () {
+                if (customOnTap != null) {
+                  customOnTap!.call(taskData);
+                } else {
+                  if (taskData.offlineMedia.type == MediaType.video) {
+                    Get.toNamed(AppRoutes.downloadedVideoDetail,
+                        arguments: taskData);
+                  }
                 }
               }
-            }
-          : null,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          children: _buildFullVerison(context),
+            : null,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            children: _buildFullVerison(context),
+          ),
         ),
       ),
     );

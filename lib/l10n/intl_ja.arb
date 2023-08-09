@@ -181,6 +181,7 @@
             }
         }
     },
+    "download_enqueued": "キューに入れました",
     "download_downloading": "ダウンロード中",
     "download_paused": "一時停止中",
     "download_finished": "完了",

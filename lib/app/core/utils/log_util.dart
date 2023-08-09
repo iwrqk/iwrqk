@@ -9,11 +9,21 @@ class LogUtil {
   static late Logger logger;
   static late FileOutput fileOutput;
 
+  static Future<Directory?> get downloadDirectory async {
+    if (Platform.isAndroid) {
+      return getExternalStorageDirectory();
+    } else if (Platform.isIOS) {
+      return getApplicationDocumentsDirectory();
+    } else {
+      return getApplicationDocumentsDirectory();
+    }
+  }
+
   static Future<void> init() async {
     if (!kDebugMode) {
-      String logPath = await getApplicationDocumentsDirectory().then((value) {
+      String logPath = await downloadDirectory.then((value) {
         return path.join(
-          value.path,
+          value!.path,
           "logs",
           "${DateTime.now().toIso8601String()}.log",
         );
@@ -46,7 +56,7 @@ class FileOutput extends LogOutput {
   }
 
   IOSink? _sink;
-  
+
   @override
   void output(OutputEvent event) {
     _sink?.writeAll(event.lines.map((e) => e.toString()).toList(), "\n");

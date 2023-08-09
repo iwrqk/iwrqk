@@ -210,7 +210,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(L10n.of(context).video_page_external_video)
+                      Text(
+                        L10n.of(context).video_page_external_video,
+                        style: const TextStyle(color: Colors.white),
+                      )
                     ],
                   ),
                 ),

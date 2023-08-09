@@ -248,17 +248,20 @@ class ForumTabPage extends GetView<ForumTabController> {
   @override
   Widget build(BuildContext context) {
     controller.checkFirstLoad();
-    return controller.obx(
-      (state) {
-        return SafeArea(
-          child: _buildDataWidget(context),
-        );
-      },
-      onError: (error) {
-        return _buildLoadFailWidget(context, error!);
-      },
-      onLoading: const Center(
-        child: IwrProgressIndicator(),
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: controller.obx(
+        (state) {
+          return SafeArea(
+            child: _buildDataWidget(context),
+          );
+        },
+        onError: (error) {
+          return _buildLoadFailWidget(context, error!);
+        },
+        onLoading: const Center(
+          child: IwrProgressIndicator(),
+        ),
       ),
     );
   }

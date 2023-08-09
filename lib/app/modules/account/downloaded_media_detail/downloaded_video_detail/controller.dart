@@ -6,6 +6,7 @@ import '../../../../data/enums/types.dart';
 import '../../../../data/models/download_task.dart';
 import '../../../../data/models/offline/offline_media.dart';
 import '../../../../data/services/config_service.dart';
+import '../../../../data/services/download_service.dart';
 import '../../../../global_widgets/media/iwr_player/controller.dart';
 import '../../downloads/widgets/downloads_media_preview_list/controller.dart';
 
@@ -16,6 +17,8 @@ class DownloadedVideoDetailController extends GetxController
 
   final ConfigService configService = Get.find();
 
+  final DownloadService _downloadService = Get.find();
+
   late MediaDownloadTask task;
 
   OfflineMediaModel get media => task.offlineMedia;
@@ -25,6 +28,8 @@ class DownloadedVideoDetailController extends GetxController
   final RxString _currentMediaId = ''.obs;
   String get currentMediaId => _currentMediaId.value;
   set currentMediaId(String value) => _currentMediaId.value = value;
+
+  bool _initVideoCancelToken = false;
 
   ScrollController scrollController = ScrollController();
 
@@ -53,6 +58,13 @@ class DownloadedVideoDetailController extends GetxController
     }
   }
 
+  @override
+  void onClose() {
+    _initVideoCancelToken = true;
+    iwrPlayerController?.close();
+    super.onClose();
+  }
+
   void _onScroll() {
     double position = scrollController.position.pixels;
     double hideAppbarHit = scrollController.position.maxScrollExtent;
@@ -68,14 +80,18 @@ class DownloadedVideoDetailController extends GetxController
   }
 
   void _initPlayer() {
-    task.downloadTask.filePath().then((value) {
+    if (_initVideoCancelToken) {
+      return;
+    }
+
+    _downloadService.getTaskFilePath(task.taskId).then((value) {
       String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
 
       Get.put(
         IwrPlayerController(
           tag: tag,
           id: media.id,
-          resolutions: {(task as VideoDownloadTask).resolutionName: value},
+          resolutions: {(task as VideoDownloadTask).resolutionName: value!},
           type: BetterPlayerDataSourceType.file,
           title: media.title,
           author: media.uploader.name,
@@ -90,7 +106,11 @@ class DownloadedVideoDetailController extends GetxController
 
       iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
-      _loading.value = false;
+      if (_initVideoCancelToken) {
+        iwrPlayerController!.close();
+      } else {
+        _loading.value = false;
+      }
     });
   }
 
@@ -98,11 +118,10 @@ class DownloadedVideoDetailController extends GetxController
     task = data;
     _currentMediaId.value = media.id;
 
+    String? path = await _downloadService.getTaskFilePath(data.taskId);
+
     iwrPlayerController?.changeVideoSource(
-      resolutions: {
-        (data as VideoDownloadTask).resolutionName:
-            await data.downloadTask.filePath()
-      },
+      resolutions: {(data as VideoDownloadTask).resolutionName: path!},
       author: data.offlineMedia.uploader.name,
       title: data.offlineMedia.title,
       type: BetterPlayerDataSourceType.file,

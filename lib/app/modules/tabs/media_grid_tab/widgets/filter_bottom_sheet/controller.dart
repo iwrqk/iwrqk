@@ -10,6 +10,8 @@ import 'repository.dart';
 class FilterBottomSheetController extends GetxController {
   final ConfigService _configService = Get.find();
 
+  bool _initialized = false;
+
   final RxInt _selectedYear = 0.obs;
   final RxInt _selectedMonth = 0.obs;
   final Rx<RatingType> _selectedRatingType = RatingType.all.obs;
@@ -46,14 +48,19 @@ class FilterBottomSheetController extends GetxController {
   }
 
   void init(String tabTag) {
-    _targetTag = tabTag;
-    _targetController = Get.find(tag: _targetTag);
-    FilterSettingModel filterSetting = _configService.filterSetting;
-    if (!filterSetting.isEmpty()) {
-      _selectedYear.value = filterSetting.year ?? 0;
-      _selectedMonth.value = filterSetting.month ?? 0;
-      _selectedRatingType.value = filterSetting.ratingType ?? RatingType.all;
-      _selectedTags.value = filterSetting.tags ?? [];
+    if (!_initialized) {
+      _targetTag = tabTag;
+      _targetController = Get.find(tag: _targetTag);
+      
+      FilterSettingModel filterSetting = _configService.filterSetting;
+      if (!filterSetting.isEmpty()) {
+        _selectedYear.value = filterSetting.year ?? 0;
+        _selectedMonth.value = filterSetting.month ?? 0;
+        _selectedRatingType.value = filterSetting.ratingType ?? RatingType.all;
+        _selectedTags.value = filterSetting.tags ?? [];
+      }
+
+      _initialized = true;
     }
   }
 

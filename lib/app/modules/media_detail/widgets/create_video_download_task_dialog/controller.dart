@@ -64,6 +64,13 @@ class CreateVideoDownloadDialogController extends GetxController {
       return;
     }
 
+    await _downloadService.currentDownloadCount.then((value) {
+      success = value < _downloadService.maxDownloadCount;
+      if (!success) {
+        showToast('download_count_exceed');
+      }
+    });
+
     await _downloadService
         .addVideoDownloadTask(
       url: downloadUrl,

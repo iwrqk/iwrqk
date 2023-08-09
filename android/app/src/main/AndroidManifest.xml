@@ -48,5 +48,36 @@
                     android:resource="@xml/filepaths"
                     tools:replace="android:resource" />
         </provider>
+        
+        <provider
+                android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
+                android:authorities="${applicationId}.flutter_downloader.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <provider
+                android:name="androidx.work.impl.WorkManagerInitializer"
+                android:authorities="${applicationId}.workmanager-init"
+                tools:node="remove"/>
+
+        <provider
+                android:name="androidx.startup.InitializationProvider"
+                android:authorities="${applicationId}.androidx-startup"
+                tools:node="remove">
+        </provider>
+
+        <provider
+                android:name="vn.hunghd.flutterdownloader.FlutterDownloaderInitializer"
+                android:authorities="${applicationId}.flutter-downloader-init"
+                android:exported="false">
+            <meta-data
+                    android:name="vn.hunghd.flutterdownloader.MAX_CONCURRENT_TASKS"
+                    android:value="5"/>
+        </provider>
+
     </application>
 </manifest>

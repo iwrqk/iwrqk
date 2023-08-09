@@ -181,6 +181,7 @@
             }
         }
     },
+    "download_enqueued": "已加入下载队列",
     "setting_appearance": "外观",
     "setting_player": "播放器",
     "setting_notification_player": "播放器通知",
