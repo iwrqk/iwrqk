@@ -71,7 +71,8 @@ class LoginPage extends GetView<LoginController> {
                           return null;
                         }
                       }
-                      return L10n.of(context).message_please_type_email_or_username;
+                      return L10n.of(context)
+                          .message_please_type_email_or_username;
                     },
                     decoration: InputDecoration(
                       prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
@@ -115,7 +116,9 @@ class LoginPage extends GetView<LoginController> {
                                 : FontAwesomeIcons.solidEyeSlash,
                           ),
                         ),
-                        border: const OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7.5),
+                        ),
                         labelText: L10n.of(context).password,
                       ),
                       onSaved: (input) => controller.password = input,
@@ -131,10 +134,14 @@ class LoginPage extends GetView<LoginController> {
                       Expanded(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.5),
+                            ),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 15),
                             side: BorderSide(
-                                color: Theme.of(context).primaryColor),
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                           onPressed: () {
                             FocusScope.of(context).requestFocus(blankNode);
@@ -150,8 +157,14 @@ class LoginPage extends GetView<LoginController> {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 15)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.5),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 15,
+                            ),
+                          ),
                           onPressed: () {
                             FocusScope.of(context).requestFocus(blankNode);
                             controller.login(context);

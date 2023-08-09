@@ -12,6 +12,7 @@ class MediaPreviewGridRepository {
     required int currentPage,
     required MediaSortSettingModel sortSetting,
     required MediaSourceType sourceType,
+    bool applyFilter = false,
     FilterSettingModel? filterSetting,
   }) async {
     String path = "";
@@ -57,7 +58,7 @@ class MediaPreviewGridRepository {
         break;
     }
 
-    if (!(filterSetting?.isEmpty() ?? true) && !isSubscribed) {
+    if (!(filterSetting?.isEmpty() ?? true) && !isSubscribed && applyFilter) {
       query.addAll({
         "rating": filterSetting!.ratingType?.value ?? RatingType.all.value,
       });

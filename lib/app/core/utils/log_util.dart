@@ -9,27 +9,17 @@ class LogUtil {
   static late Logger logger;
   static late FileOutput fileOutput;
 
-  static Future<Directory?> get downloadDirectory async {
-    if (Platform.isAndroid) {
-      return getExternalStorageDirectory();
-    } else if (Platform.isIOS) {
-      return getApplicationDocumentsDirectory();
-    } else {
-      return getApplicationDocumentsDirectory();
-    }
-  }
-
   static Future<void> init() async {
     if (!kDebugMode) {
-      String logPath = await downloadDirectory.then((value) {
+      String logPath = await getApplicationDocumentsDirectory().then((value) {
         return path.join(
-          value!.path,
+          value.path,
           "logs",
           "${DateTime.now().toIso8601String()}.log",
         );
       });
       await Directory(path.dirname(logPath)).create(recursive: true);
-      fileOutput = FileOutput(file: File(logPath));
+      fileOutput = FileOutput(path: logPath);
     }
 
     logger = Logger(
@@ -50,22 +40,20 @@ class LogUtil {
 }
 
 class FileOutput extends LogOutput {
-  final File file;
-  FileOutput({required this.file}) {
-    _sink = file.openWrite(mode: FileMode.append);
-  }
+  final String path;
+  FileOutput({required this.path});
 
-  IOSink? _sink;
+  File? _file;
 
   @override
-  void output(OutputEvent event) {
-    _sink?.writeAll(event.lines.map((e) => e.toString()).toList(), "\n");
-    _sink?.write("\n");
-  }
+  void output(OutputEvent event) async {
+    _file ??= File(path);
 
-  @override
-  void destroy() async {
-    await _sink?.flush();
-    await _sink?.close();
+    if (!_file!.existsSync()) {
+      _file = await _file!.writeAsString(
+        "${event.lines.join("\n")}\n",
+        mode: FileMode.append,
+      );
+    }
   }
 }

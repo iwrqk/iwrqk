@@ -22,9 +22,11 @@ class MediaGridTabController extends GetxController
   }
 
   void popFilterDialog() {
-    Get.bottomSheet(FilterBottomSheet(
-      targetTag: _tabTagList[tabController.index],
-    ));
+    Get.bottomSheet(
+      FilterBottomSheet(
+        targetTag: _tabTagList[tabController.index],
+      ),
+    );
   }
 
   void scrollToTop() {

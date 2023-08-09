@@ -33,69 +33,6 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
     return result;
   }
 
-  Widget _buildRatingTypeButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: PopupMenuButton(
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).cardColor),
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Obx(
-                () => Text(
-                  controller.selectedRatingType.value != ""
-                      ? _getRatingLocalName(
-                          context, controller.selectedRatingType)
-                      : L10n.of(context).filter_select_rating,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              const FaIcon(
-                FontAwesomeIcons.chevronDown,
-                size: 15,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-        ),
-        itemBuilder: (context) => [
-          PopupMenuItem<RatingType>(
-            value: RatingType.all,
-            child: Text(
-              _getRatingLocalName(context, RatingType.all),
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-          PopupMenuItem<RatingType>(
-            value: RatingType.general,
-            child: Text(
-              _getRatingLocalName(context, RatingType.general),
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-          PopupMenuItem<RatingType>(
-            value: RatingType.ecchi,
-            child: Text(
-              _getRatingLocalName(context, RatingType.ecchi),
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-        ],
-        onSelected: (RatingType rating) {
-          controller.selectedRatingType = rating;
-        },
-      ),
-    );
-  }
-
   Widget _buildTagAutocomplete(BuildContext context) {
     return RawAutocomplete<String>(
       focusNode: controller.tagFocusNode,
@@ -133,8 +70,19 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
       },
       optionsViewBuilder: (BuildContext context,
           AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
-        RenderBox renderBox = controller.tagEditingControllerKey.currentContext!
+        RenderBox inputRenderBox = controller
+            .tagEditingControllerKey.currentContext!
             .findRenderObject() as RenderBox;
+        RenderBox tagsRenderBox = controller.tagsBoxKey.currentContext!
+            .findRenderObject() as RenderBox;
+
+        double height = options.length < 5
+            ? options.length * 55
+            : MediaQuery.of(context).size.height / 3;
+
+        height = tagsRenderBox.size.height > height
+            ? height
+            : tagsRenderBox.size.height - inputRenderBox.size.height * 1.5;
 
         return Align(
           alignment: Alignment.topLeft,
@@ -145,10 +93,8 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
             ),
             elevation: 4,
             child: SizedBox(
-              width: renderBox.size.width,
-              height: options.length < 5
-                  ? options.length * 55
-                  : MediaQuery.of(context).size.height / 3,
+              width: inputRenderBox.size.width,
+              height: height,
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemCount: options.length,
@@ -203,8 +149,9 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
     );
   }
 
-  Widget _buildTagContent(BuildContext context) {
+  Widget _buildTagsContent(BuildContext context) {
     return SingleChildScrollView(
+      key: controller.tagsBoxKey,
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +201,10 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
             children: [
               Text(
                 year.toString(),
-                style: const TextStyle(height: 1),
+                style: TextStyle(
+                  height: 1,
+                  color: controller.selectedYear == year ? Colors.white : null,
+                ),
               ),
             ],
           ),
@@ -289,7 +239,11 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
               Text(
                 DateFormat('MMM', L10n.of(context).localeName)
                     .format(DateTime(2000, month)),
-                style: const TextStyle(height: 1),
+                style: TextStyle(
+                  height: 1,
+                  color:
+                      controller.selectedMonth == month ? Colors.white : null,
+                ),
               ),
             ],
           ),
@@ -298,13 +252,65 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
     );
   }
 
-  Widget _buildDateContent(BuildContext context) {
+  Widget _buildRatingClip(BuildContext context, int index) {
+    RatingType ratingType = RatingType.fromInt(index);
+
+    return GestureDetector(
+      onTap: () {
+        controller.selectedRatingType = ratingType;
+      },
+      child: Obx(
+        () => Container(
+          decoration: BoxDecoration(
+            color: controller.selectedRatingType == ratingType
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).cardColor,
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                _getRatingLocalName(context, ratingType),
+                style: TextStyle(
+                  height: 1,
+                  color: controller.selectedRatingType == ratingType
+                      ? Colors.white
+                      : null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRatingDateContent(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Obx(
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text(
+                L10n.of(context).filter_select_rating,
+                style: const TextStyle(
+                  fontSize: 17.5,
+                ),
+              ),
+            ),
+            Wrap(
+              spacing: 5,
+              runSpacing: 5,
+              children: List.generate(
+                3,
+                (index) => _buildRatingClip(context, index),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
@@ -349,32 +355,9 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
     );
   }
 
-  Widget _buildRatingContent(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                L10n.of(context).filter_select_rating,
-                style: const TextStyle(
-                  fontSize: 17.5,
-                ),
-              ),
-              _buildRatingTypeButton(context),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   Widget _buildContent(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Column(
         children: [
           Container(
@@ -399,17 +382,18 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
               indicatorColor: Theme.of(context).primaryColor,
               tabs: [
                 Tab(text: L10n.of(context).filter_tags),
-                Tab(text: L10n.of(context).filter_date),
-                Tab(text: L10n.of(context).filter_rating),
+                Tab(
+                  text:
+                      "${L10n.of(context).filter_rating}&${L10n.of(context).filter_date}",
+                ),
               ],
             ),
           ),
           Expanded(
             child: TabBarView(
               children: [
-                _buildTagContent(context),
-                _buildDateContent(context),
-                _buildRatingContent(context),
+                _buildTagsContent(context),
+                _buildRatingDateContent(context),
               ],
             ),
           ),
@@ -437,7 +421,7 @@ class FilterBottomSheet extends GetWidget<FilterBottomSheetController> {
             : MediaQuery.of(context).size.width / 2,
         maxHeight: MediaQuery.of(context).orientation == Orientation.portrait &&
                 MediaQuery.of(context).size.height > 600
-            ? MediaQuery.of(context).size.height / 1.25
+            ? MediaQuery.of(context).size.height / 1.5
             : MediaQuery.of(context).size.height,
       ),
       builder: (BuildContext context) {

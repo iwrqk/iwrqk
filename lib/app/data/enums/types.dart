@@ -77,6 +77,19 @@ enum RatingType {
         return RatingType.all;
     }
   }
+
+  factory RatingType.fromInt(int index) {
+    switch (index) {
+      case 0:
+        return RatingType.all;
+      case 1:
+        return RatingType.general;
+      case 2:
+        return RatingType.ecchi;
+      default:
+        return RatingType.all;
+    }
+  }
 }
 
 enum SearchSource { offical, oreno3d, erommdtube }

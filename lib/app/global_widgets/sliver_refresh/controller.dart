@@ -1,4 +1,5 @@
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -9,6 +10,8 @@ import '../../data/services/account_service.dart';
 
 abstract class SliverRefreshController<T> extends GetxController
     with StateMixin {
+  ScrollController? _scrollController;
+
   final AccountService _accountService = Get.find();
   late bool _requireLogin;
 
@@ -25,13 +28,18 @@ abstract class SliverRefreshController<T> extends GetxController
     change(null, status: RxStatus.loading());
   }
 
-  void init(bool requireLogin) {
+  void init(bool requireLogin, ScrollController? scrollController) {
     _requireLogin = requireLogin;
+    _scrollController = scrollController;
     if (!_accountService.isLogin && _requireLogin) {
       change(IwrState.requireLogin, status: RxStatus.success());
     } else {
       refreshData(showSplash: true, showFooter: false);
     }
+  }
+
+  void resetScrollPosition() {
+    _scrollController?.position.moveTo(0);
   }
 
   Future<void> refreshData({

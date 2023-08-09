@@ -17,6 +17,7 @@ class MediaPreviewGrid extends StatefulWidget {
   final String? uploaderName;
   final String tag;
   final ScrollController? scrollController;
+  final bool applyFilter;
 
   MediaPreviewGrid({
     required this.sourceType,
@@ -25,6 +26,7 @@ class MediaPreviewGrid extends StatefulWidget {
     this.filterSetting,
     required this.tag,
     this.scrollController,
+    this.applyFilter = false,
   }) : super(key: PageStorageKey<String>(tag));
 
   @override
@@ -39,7 +41,8 @@ class _MediaPreviewGridState extends State<MediaPreviewGrid>
   void initState() {
     super.initState();
     _controller = Get.find<MediaPreviewGridController>(tag: widget.tag);
-    _controller.initConfig(widget.sortSetting, widget.sourceType);
+    _controller.initConfig(
+        widget.sortSetting, widget.sourceType, widget.applyFilter);
   }
 
   @override

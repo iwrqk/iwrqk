@@ -103,7 +103,9 @@ class RegisterPage extends GetView<RegisterController> {
                         decoration: InputDecoration(
                           prefixIcon:
                               const Icon(FontAwesomeIcons.solidEnvelope),
-                          border: const OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(7.5),
+                          ),
                           labelText: L10n.of(context).email,
                         ),
                         onSaved: (input) => controller.email = input,
@@ -142,7 +144,9 @@ class RegisterPage extends GetView<RegisterController> {
                         },
                         decoration: InputDecoration(
                           prefixIcon: const Icon(FontAwesomeIcons.lock),
-                          border: const OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(7.5),
+                          ),
                           labelText: L10n.of(context).captcha,
                         ),
                         onSaved: (input) => controller.captcha = input,
@@ -156,8 +160,14 @@ class RegisterPage extends GetView<RegisterController> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7.5),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 15,
+                          ),
+                        ),
                         onPressed: () {
                           FocusScope.of(context).requestFocus(blankNode);
                           controller.register();

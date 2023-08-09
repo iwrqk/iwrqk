@@ -40,12 +40,12 @@ abstract class AppTheme {
           color: primaryColor,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primaryColor,
-          ),
+          borderSide: BorderSide(color: primaryColor),
+          borderRadius: BorderRadius.circular(7.5),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(7.5),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -98,12 +98,12 @@ abstract class AppTheme {
           color: primaryColor,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: primaryColor,
-          ),
+          borderSide: BorderSide(color: primaryColor),
+          borderRadius: BorderRadius.circular(7.5),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(7.5),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

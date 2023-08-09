@@ -14,11 +14,13 @@ class MediaPreviewGridController extends SliverRefreshController<MediaModel> {
 
   late MediaSortSettingModel _sortSetting;
   late MediaSourceType _sourceType;
+  late bool _applyFilter;
 
-  void initConfig(
-      MediaSortSettingModel sortSetting, MediaSourceType sourceType) {
+  void initConfig(MediaSortSettingModel sortSetting, MediaSourceType sourceType,
+      bool applyFilter) {
     _sortSetting = sortSetting;
     _sourceType = sourceType;
+    _applyFilter = applyFilter;
   }
 
   @override
@@ -28,6 +30,7 @@ class MediaPreviewGridController extends SliverRefreshController<MediaModel> {
       sortSetting: _sortSetting,
       sourceType: _sourceType,
       filterSetting: configService.filterSetting,
+      applyFilter: _applyFilter,
     );
   }
 }

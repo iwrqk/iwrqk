@@ -120,6 +120,7 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
                               : widget.orderTypeList![index]),
                       tag: widget.tabTagList[index],
                       scrollController: _controller.scrollControllers[index],
+                      applyFilter: true,
                     ),
                   ),
                 ),

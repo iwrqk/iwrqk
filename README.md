@@ -20,10 +20,10 @@ Cross-platform support for iOS and Android.
  - [x] Friends manager
  - [x] Notification and message manager (WIP)
  - [x] Follow, subscription, favorite, playlist, comments
- - [x] Forum (WIP)
+ - [x] Forum
  - [x] Custom player and gallery viewer
  - [x] Login, logout, register
- - [ ] Blocklist for tags
+ - [x] Blocklist for tags
  - [ ] Advanced search
 
 ## Screenshots

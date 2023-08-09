@@ -18,6 +18,8 @@ class FilterBottomSheetController extends GetxController {
 
   final FilterBottomSheetRepository repository = FilterBottomSheetRepository();
 
+  final GlobalKey tagsBoxKey = GlobalKey();
+
   final TextEditingController tagEditingController = TextEditingController();
   final GlobalKey tagEditingControllerKey = GlobalKey();
   final FocusNode tagFocusNode = FocusNode();
@@ -51,7 +53,7 @@ class FilterBottomSheetController extends GetxController {
     if (!_initialized) {
       _targetTag = tabTag;
       _targetController = Get.find(tag: _targetTag);
-      
+
       FilterSettingModel filterSetting = _configService.filterSetting;
       if (!filterSetting.isEmpty()) {
         _selectedYear.value = filterSetting.year ?? 0;
@@ -85,6 +87,7 @@ class FilterBottomSheetController extends GetxController {
       _configService.filterSetting = filterSetting;
     }
 
+    _targetController.resetScrollPosition();
     _targetController.refreshData(showSplash: true, showFooter: false);
   }
 

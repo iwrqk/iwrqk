@@ -132,11 +132,11 @@ class DownloadService extends GetxService {
     required String fileName,
     required String subDirectory,
   }) async {
-    // bool isStorage = await _checkPermission();
-    // if (!isStorage) {
-    //   showToast(DisplayUtil.messageNoStoragePermission);
-    //   return null;
-    // }
+    bool isStorage = await _checkPermission();
+    if (!isStorage) {
+      showToast(DisplayUtil.messageNoStoragePermission);
+      return null;
+    }
     var records = await FlutterDownloader.loadTasks() ?? [];
     if (records.isNotEmpty) {
       bool hasExisted =
@@ -171,7 +171,11 @@ class DownloadService extends GetxService {
     DateTime now = DateTime.now();
     Uri uri = Uri.parse(url);
     int expireTime = int.parse(uri.queryParameters['expires']!);
-    String fileName = uri.queryParameters['filename']!.split(".").first;
+    String fileName = uri.queryParameters['filename']!;
+
+    if (!GetPlatform.isIOS) {
+      fileName = fileName.split(".").first;
+    }
 
     await addDownloadTask(
       downloadUrl: url,

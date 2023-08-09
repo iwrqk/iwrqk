@@ -36,7 +36,7 @@ class _SliverRefreshState<T> extends State<SliverRefresh<T>> {
   @override
   void initState() {
     super.initState();
-    widget.controller.init(widget.requireLogin);
+    widget.controller.init(widget.requireLogin, widget.scrollController);
   }
 
   @override
