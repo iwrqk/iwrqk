@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
@@ -114,17 +115,19 @@ class DownloadService extends GetxService {
   }
 
   Future<bool> _checkPermission() async {
-    final status = await Permission.storage.status;
-    if (status.isGranted) {
-      return true;
-    } else {
-      final result = await Permission.storage.request();
-      if (result.isGranted) {
-        return true;
+    if (GetPlatform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt < 12) {
+        await Permission.storage.request();
+        return await Permission.storage.isGranted;
       } else {
-        return false;
+        return true;
       }
+    } else if (GetPlatform.isIOS) {
+      await Permission.storage.request();
+      return await Permission.storage.isGranted;
     }
+    return false;
   }
 
   Future<String?> addDownloadTask({
