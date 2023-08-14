@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_gen/gen_l10n/intl_localizations.dart';
 import 'package:get/get.dart';
@@ -75,6 +76,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
+  Widget _buildSystemUI(BuildContext context, Widget? child) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness:
+            Theme.of(context).brightness == Brightness.light
+                ? Brightness.dark
+                : Brightness.light,
+      ),
+      child: child ?? Container(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget myApp() {
@@ -84,6 +101,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   _configService.languageSetted
               ? _configService.locale
               : null,
+          builder: _buildSystemUI,
           localeListResolutionCallback:
               _configService.localeListResolutionCallback,
           debugShowCheckedModeBanner: false,

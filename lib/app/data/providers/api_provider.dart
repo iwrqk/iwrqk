@@ -683,7 +683,7 @@ class ApiProvider {
       "title": title,
       "body": content,
     }).then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -848,7 +848,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/user/$userId/followers").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -899,7 +899,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/user/$userId/friends").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -920,7 +920,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/user/$userId/friends").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -946,7 +946,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/user/$userId/friends").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -1055,7 +1055,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/video/$id/like").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -1161,7 +1161,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.post("/playlist/$playlistId/$videoId").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -1185,7 +1185,7 @@ class ApiProvider {
     await networkProvider
         .delete("/playlist/$playlistId/$videoId")
         .then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
@@ -1233,7 +1233,7 @@ class ApiProvider {
     String? message;
 
     await networkProvider.delete("/comment/$id").then((value) {
-      if (value.data != null) {
+      if (value.data != null && value.data is Map) {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {

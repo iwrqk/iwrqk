@@ -58,6 +58,8 @@ class CommentDetailPage extends GetWidget<CommentDetailController> {
                   comment: controller.parentComment,
                   showReplies: false,
                   canJumpToDetail: false,
+                  isMyComment: controller.userService.user?.id ==
+                      controller.uploaderUserName,
                 ),
               ),
             ),

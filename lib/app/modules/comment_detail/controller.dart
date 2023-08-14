@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 
 import '../../data/enums/types.dart';
 import '../../data/models/comment.dart';
+import '../../data/services/user_service.dart';
 
 class CommentDetailController extends GetxController {
+  final UserService userService = Get.find();
+
   final ScrollController scrollController = ScrollController();
   final RxBool _showToTopButton = false.obs;
 

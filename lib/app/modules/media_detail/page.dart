@@ -865,20 +865,22 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               appBar: _controller.hideAppbarFactor == 1
                   ? PreferredSize(
                       preferredSize: const Size.fromHeight(kTextTabBarHeight),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              icon: const FaIcon(
-                                FontAwesomeIcons.chevronLeft,
-                                color: Colors.white,
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.chevronLeft,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     )

@@ -22,6 +22,7 @@ class UserComment extends StatefulWidget {
   final bool canJumpToDetail;
   final String? sourceId;
   final CommentsSourceType? sourceType;
+  final bool isMyComment;
 
   const UserComment({
     Key? key,
@@ -31,6 +32,7 @@ class UserComment extends StatefulWidget {
     this.canJumpToDetail = true,
     this.sourceId,
     this.sourceType,
+    this.isMyComment = false,
   }) : super(key: key);
 
   @override
@@ -137,6 +139,20 @@ class _UserCommentState extends State<UserComment>
                     L10n.of(context).translate,
                   ),
                 ),
+                if (widget.isMyComment) ...[
+                  PopupMenuItem<String>(
+                    value: "edit",
+                    child: Text(
+                      L10n.of(context).edit,
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: "delete",
+                    child: Text(
+                      L10n.of(context).delete,
+                    ),
+                  ),
+                ]
               ];
             },
             onSelected: (String value) {

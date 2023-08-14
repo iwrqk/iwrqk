@@ -1,10 +1,15 @@
+import 'package:get/get.dart';
+
 import '../../../data/enums/result.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/comment.dart';
+import '../../../data/services/user_service.dart';
 import '../../sliver_refresh/controller.dart';
 import 'repository.dart';
 
 class CommentsListController extends SliverRefreshController<CommentModel> {
+  final UserService userService = Get.find();
+
   final CommentsListRepository repository = CommentsListRepository();
 
   late String _sourceId;

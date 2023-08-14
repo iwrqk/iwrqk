@@ -66,6 +66,8 @@ class _CommentsListState extends State<CommentsList>
                 sourceType: widget.sourceType,
                 showReplies: widget.showReplies,
                 canJumpToDetail: widget.canJumpToDetail,
+                isMyComment: _controller.userService.user?.id ==
+                    data[index].user.id,
               );
 
               if (index == 0 && widget.parentComment != null) {
