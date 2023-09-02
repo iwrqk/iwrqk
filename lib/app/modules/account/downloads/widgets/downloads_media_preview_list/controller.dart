@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/enums/types.dart';
 import '../../../../../data/models/download_task.dart';
+import '../../../../../data/models/media/video.dart';
+import '../../../../../data/providers/api_provider.dart';
 import '../../../../../data/providers/storage_provider.dart';
 import '../../../../../data/services/download_service.dart';
 import '../../../../../global_widgets/sliver_refresh/controller.dart';
@@ -32,9 +35,10 @@ class DownloadsMediaPreviewListController
     await downloadService.deleteTaskRecord(taskId);
   }
 
-  Future<void> deleteVideoTask(int index, String taskId) async {
+  Future<void> deleteVideoTask(int index, String taskId,
+      [bool retrying = false]) async {
     String? path = await downloadService.getTaskFilePath(taskId);
-    await StorageProvider.deleteDownloadVideoRecord(index);
+    if (!retrying) await StorageProvider.deleteDownloadVideoRecord(index);
     await deleteTaskRecord(taskId);
 
     File downloadFile = File(path!);
@@ -46,6 +50,84 @@ class DownloadsMediaPreviewListController
       await downloadDir.delete();
     }
 
-    data.removeAt(index);
+    if (!retrying) data.removeAt(index);
+  }
+
+  void onResumed(int index, String newTaskId) {
+    data[index].taskId = newTaskId;
+  }
+
+  Future<void> retryTask(int index, String taskId) async {
+    String? newTaskId;
+
+    MediaDownloadTask mediaTask = data[index];
+    DownloadTask? task = await downloadService.getTask(mediaTask.taskId);
+    if (task == null) {
+      return;
+    }
+
+    if (mediaTask.offlineMedia.type == MediaType.video) {
+      VideoDownloadTask videoTask = StorageProvider.downloadVideoRecords[index];
+
+      if (videoTask.expireTime < DateTime.now().millisecondsSinceEpoch) {
+        VideoModel? video =
+            await ApiProvider.getVideo(videoTask.offlineMedia.id).then((value) {
+          if (value.success) {
+            return value.data! as VideoModel;
+          } else {
+            return null;
+          }
+        });
+
+        if (video == null) {
+          return;
+        }
+
+        String? url = await ApiProvider.getVideoResolutions(
+                video.fileUrl!, video.getXVerison())
+            .then((value) {
+          if (value.success) {
+            if (value.data!.isNotEmpty) {
+              return value.data!
+                  .firstWhere(
+                      (element) => element.name == videoTask.resolutionName)
+                  .src
+                  .downloadUrl;
+            }
+          }
+          return null;
+        });
+
+        if (url == null) {
+          return;
+        }
+
+        deleteVideoTask(index, taskId, true);
+
+        VideoDownloadTask? newTask =
+            await downloadService.createVideoDownloadTask(
+          url: url,
+          resolutionName: videoTask.resolutionName,
+          offlineMedia: videoTask.offlineMedia,
+        );
+
+        if (newTask == null) {
+          return;
+        }
+
+        downloadService.refreshTask(taskId, newTask.taskId);
+
+        StorageProvider.updateDownloadVideoRecord(
+          taskId,
+          newTask,
+        );
+
+        newTaskId = newTask.taskId;
+      } else {
+        newTaskId = await downloadService.retryTask(taskId);
+      }
+    }
+
+    if (newTaskId != null) onResumed(index, newTaskId);
   }
 }

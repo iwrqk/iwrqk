@@ -18,7 +18,7 @@ class DownloadsController extends GetxController {
     }
   }
 
-  Future<void> refreshHistoryList() async {
+  Future<void> refreshDownloadsList() async {
     for (String tag in childrenControllerTags) {
       await childrenControllers[tag]?.refreshData(showSplash: true);
     }
@@ -26,6 +26,6 @@ class DownloadsController extends GetxController {
 
   Future<void> cleanDownloadVideoRecords() async {
     await StorageProvider.cleanDownloadVideoRecords();
-    await refreshHistoryList();
+    await refreshDownloadsList();
   }
 }

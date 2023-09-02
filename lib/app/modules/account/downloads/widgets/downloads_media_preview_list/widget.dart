@@ -79,7 +79,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                         DownloadTaskStatus.undefined;
 
                     if (widget.isPlaylist ||
-                        status != DownloadTaskStatus.complete) {
+                        status == DownloadTaskStatus.enqueued ||
+                        status == DownloadTaskStatus.running ||
+                        status == DownloadTaskStatus.paused) {
                       child = Container(
                         height: 100,
                         color: widget.currentMediaId == item.offlineMedia.id
@@ -87,6 +89,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             : null,
                         child: DownloadMediaPreview(
                           taskData: item,
+                          onResumed: (newTaskId) {
+                            _controller.onResumed(index, newTaskId);
+                          },
                           customOnTap:
                               widget.currentMediaId == item.offlineMedia.id
                                   ? null
@@ -96,54 +101,74 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                     } else {
                       child = Slidable(
                         key: Key(item.offlineMedia.id),
-                        startActionPane: ActionPane(
-                          motion: const DrawerMotion(),
-                          extentRatio: 0.5,
-                          children: [
-                            SlidableAction(
-                              flex: 1,
-                              onPressed: (context) async {
-                                OpenFile.open(
-                                    (await _controller.downloadService
-                                        .getTaskFilePath(item.taskId))!,
-                                    type: item.offlineMedia.type ==
-                                            MediaType.video
-                                        ? 'video/mp4'
-                                        : 'image/png',
-                                    uti: item.offlineMedia.type ==
-                                            MediaType.video
-                                        ? 'public.mpeg-4'
-                                        : 'public.png');
-                              },
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
-                              icon: FontAwesomeIcons.folderOpen,
-                              label: L10n.of(context).open,
-                            ),
-                            SlidableAction(
-                              flex: 1,
-                              onPressed: (context) async {
-                                Share.shareXFiles([
-                                  XFile(
-                                      (await _controller.downloadService
-                                          .getTaskFilePath(item.taskId))!,
-                                      mimeType: item.offlineMedia.type ==
-                                              MediaType.video
-                                          ? 'video/mp4'
-                                          : 'image/png')
-                                ]);
-                              },
-                              backgroundColor: Colors.lightBlue,
-                              foregroundColor: Colors.white,
-                              icon: FontAwesomeIcons.shareFromSquare,
-                              label: L10n.of(context).export,
-                            ),
-                          ],
-                        ),
+                        startActionPane: status != DownloadTaskStatus.complete
+                            ? null
+                            : ActionPane(
+                                motion: const DrawerMotion(),
+                                extentRatio: 0.5,
+                                children: [
+                                  SlidableAction(
+                                    flex: 1,
+                                    onPressed: (context) async {
+                                      OpenFile.open(
+                                          (await _controller.downloadService
+                                              .getTaskFilePath(item.taskId))!,
+                                          type: item.offlineMedia.type ==
+                                                  MediaType.video
+                                              ? 'video/mp4'
+                                              : 'image/png',
+                                          uti: item.offlineMedia.type ==
+                                                  MediaType.video
+                                              ? 'public.mpeg-4'
+                                              : 'public.png');
+                                    },
+                                    backgroundColor: Colors.blue,
+                                    foregroundColor: Colors.white,
+                                    icon: FontAwesomeIcons.folderOpen,
+                                    label: L10n.of(context).open,
+                                  ),
+                                  SlidableAction(
+                                    flex: 1,
+                                    onPressed: (context) async {
+                                      Share.shareXFiles([
+                                        XFile(
+                                            (await _controller.downloadService
+                                                .getTaskFilePath(item.taskId))!,
+                                            mimeType: item.offlineMedia.type ==
+                                                    MediaType.video
+                                                ? 'video/mp4'
+                                                : 'image/png')
+                                      ]);
+                                    },
+                                    backgroundColor: Colors.lightBlue,
+                                    foregroundColor: Colors.white,
+                                    icon: FontAwesomeIcons.shareFromSquare,
+                                    label: L10n.of(context).export,
+                                  ),
+                                ],
+                              ),
                         endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          extentRatio: 0.25,
+                          motion: const DrawerMotion(),
+                          extentRatio: status == DownloadTaskStatus.complete
+                              ? 0.25
+                              : 0.5,
                           children: [
+                            if (status == DownloadTaskStatus.failed ||
+                                status == DownloadTaskStatus.canceled ||
+                                status == DownloadTaskStatus.undefined)
+                              SlidableAction(
+                                flex: 1,
+                                onPressed: (context) async {
+                                  await _controller.retryTask(
+                                    index,
+                                    item.taskId,
+                                  );
+                                },
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                icon: FontAwesomeIcons.arrowRotateLeft,
+                                label: L10n.of(context).retry,
+                              ),
                             SlidableAction(
                               flex: 1,
                               onPressed: (context) async {
@@ -152,7 +177,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                                   item.taskId,
                                 );
                               },
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.red.shade700,
                               foregroundColor: Colors.white,
                               icon: FontAwesomeIcons.trashCan,
                               label: L10n.of(context).delete,
@@ -163,6 +188,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           height: 100,
                           child: DownloadMediaPreview(
                             taskData: item,
+                            onResumed: (newTaskId) {
+                              _controller.onResumed(index, newTaskId);
+                            },
                           ),
                         ),
                       );

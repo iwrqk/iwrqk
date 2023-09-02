@@ -164,7 +164,7 @@ class DownloadService extends GetxService {
     );
   }
 
-  Future<bool> addVideoDownloadTask({
+  Future<VideoDownloadTask?> createVideoDownloadTask({
     required String url,
     required String resolutionName,
     required DownloadTaskMediaModel offlineMedia,
@@ -189,16 +189,33 @@ class DownloadService extends GetxService {
     });
 
     if (downloadTaskId != null) {
-      var task = VideoDownloadTask(
+      VideoDownloadTask task = VideoDownloadTask(
         taskId: downloadTaskId!,
         createTime: now,
         expireTime: expireTime,
         resolutionName: resolutionName,
         offlineMedia: offlineMedia,
       );
+      return task;
+    } else {
+      return null;
+    }
+  }
 
+  Future<bool> addVideoDownloadTask({
+    required String url,
+    required String resolutionName,
+    required DownloadTaskMediaModel offlineMedia,
+  }) async {
+    var task = await createVideoDownloadTask(
+      url: url,
+      resolutionName: resolutionName,
+      offlineMedia: offlineMedia,
+    );
+
+    if (task != null) {
       _downloadTasksStatus.addAll({
-        downloadTaskId!: IwrDownloadTaskStatus(
+        task.taskId: IwrDownloadTaskStatus(
           status: DownloadTaskStatus.enqueued,
           progress: 0,
         ).obs
@@ -243,8 +260,68 @@ class DownloadService extends GetxService {
     return FlutterDownloader.pause(taskId: taskId);
   }
 
-  Future<void> resumeTask(String taskId) {
-    return FlutterDownloader.pause(taskId: taskId);
+  void refreshTask(String taskId, String newTaskId) {
+    _downloadTasksStatus.addAll({
+      newTaskId: IwrDownloadTaskStatus(
+        status: DownloadTaskStatus.enqueued,
+        progress: 0,
+      ).obs
+    });
+
+    _downloadTasksStatus.remove(taskId);
+    _downloadTasksStatus.refresh();
+  }
+
+  Future<String?> resumeTask(String taskId) async {
+    String? newTaskId = await FlutterDownloader.resume(taskId: taskId);
+    if (newTaskId != null) {
+      refreshTask(taskId, newTaskId);
+
+      VideoDownloadTask task = StorageProvider.downloadVideoRecords
+          .firstWhere((element) => element.taskId == taskId);
+
+      VideoDownloadTask newTask = VideoDownloadTask(
+        taskId: newTaskId,
+        createTime: task.createTime,
+        expireTime: task.expireTime,
+        resolutionName: task.resolutionName,
+        offlineMedia: task.offlineMedia,
+      );
+
+      StorageProvider.updateDownloadVideoRecord(
+        taskId,
+        newTask,
+      );
+
+      return newTaskId;
+    }
+    return null;
+  }
+
+  Future<String?> retryTask(String taskId) async {
+    String? newTaskId = await FlutterDownloader.retry(taskId: taskId);
+    if (newTaskId != null) {
+      refreshTask(taskId, newTaskId);
+
+      VideoDownloadTask task = StorageProvider.downloadVideoRecords
+          .firstWhere((element) => element.taskId == taskId);
+
+      VideoDownloadTask newTask = VideoDownloadTask(
+        taskId: newTaskId,
+        createTime: task.createTime,
+        expireTime: task.expireTime,
+        resolutionName: task.resolutionName,
+        offlineMedia: task.offlineMedia,
+      );
+
+      StorageProvider.updateDownloadVideoRecord(
+        taskId,
+        newTask,
+      );
+
+      return newTaskId;
+    }
+    return null;
   }
 
   Future<void> cancelTask(String taskId) {

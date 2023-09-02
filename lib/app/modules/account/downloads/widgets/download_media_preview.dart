@@ -16,12 +16,16 @@ class DownloadMediaPreview extends StatelessWidget {
   final MediaDownloadTask taskData;
   final DownloadService _downloadService = Get.find();
   final Function(MediaDownloadTask data)? customOnTap;
+  final Function(String newTaskId)? onResumed;
 
   DownloadMediaPreview({
-    Key? key,
+    super.key,
     required this.taskData,
     this.customOnTap,
-  }) : super(key: key);
+    this.onResumed,
+  });
+
+  String get taskId => taskData.taskId;
 
   Widget _buildRating() {
     return Column(
@@ -251,7 +255,6 @@ class DownloadMediaPreview extends StatelessWidget {
 
   Widget _buildStateWidget(BuildContext context) {
     return Obx(() {
-      String taskId = taskData.taskId;
       var taskStatus = _downloadService.downloadTasksStatus[taskId];
 
       if (taskStatus != null) {
@@ -281,7 +284,11 @@ class DownloadMediaPreview extends StatelessWidget {
             return GestureDetector(
               excludeFromSemantics: true,
               onTap: () {
-                _downloadService.resumeTask(taskId);
+                _downloadService.resumeTask(taskId).then((value) {
+                  if (value != null) {
+                    onResumed?.call(value);
+                  }
+                });
               },
               child: _buildStateMessageWithProgress(
                 context,
@@ -378,30 +385,31 @@ class DownloadMediaPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String taskId = taskData.taskId;
-    var taskStatus = _downloadService.downloadTasksStatus[taskId];
-
     return Obx(
-      () => GestureDetector(
-        onTap: (taskStatus?.value.status) == DownloadTaskStatus.complete
-            ? () {
-                if (customOnTap != null) {
-                  customOnTap!.call(taskData);
-                } else {
-                  if (taskData.offlineMedia.type == MediaType.video) {
-                    Get.toNamed(AppRoutes.downloadedVideoDetail,
-                        arguments: taskData);
+      () {
+        var taskStatus = _downloadService.downloadTasksStatus[taskId];
+
+        return GestureDetector(
+          onTap: (taskStatus?.value.status) == DownloadTaskStatus.complete
+              ? () {
+                  if (customOnTap != null) {
+                    customOnTap!.call(taskData);
+                  } else {
+                    if (taskData.offlineMedia.type == MediaType.video) {
+                      Get.toNamed(AppRoutes.downloadedVideoDetail,
+                          arguments: taskData);
+                    }
                   }
                 }
-              }
-            : null,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Row(
-            children: _buildFullVerison(context),
+              : null,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              children: _buildFullVerison(context),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

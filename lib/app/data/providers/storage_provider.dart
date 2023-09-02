@@ -77,7 +77,8 @@ class StorageProvider {
   }
 
   static Future<void> cleanSavedUserEmailPassword() async {
-    return await _secureStorage.delete(key: StorageKey.savedUserAccountPassword);
+    return await _secureStorage.delete(
+        key: StorageKey.savedUserAccountPassword);
   }
 
   // config
@@ -178,6 +179,15 @@ class StorageProvider {
     }
     List<VideoDownloadTask> list = [newItem];
     list.addAll(records);
+    return await _storage.write(
+        StorageKey.downloadVideoRecords, jsonEncode(list));
+  }
+
+  static Future<void> updateDownloadVideoRecord(
+      String taskId, VideoDownloadTask newItem) async {
+    List<VideoDownloadTask> list = downloadVideoRecords;
+    int index = list.indexWhere((element) => element.taskId == taskId);
+    list[index] = newItem;
     return await _storage.write(
         StorageKey.downloadVideoRecords, jsonEncode(list));
   }
