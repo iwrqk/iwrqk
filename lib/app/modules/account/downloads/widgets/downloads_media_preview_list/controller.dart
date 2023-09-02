@@ -69,7 +69,7 @@ class DownloadsMediaPreviewListController
     if (mediaTask.offlineMedia.type == MediaType.video) {
       VideoDownloadTask videoTask = StorageProvider.downloadVideoRecords[index];
 
-      if (videoTask.expireTime < DateTime.now().millisecondsSinceEpoch) {
+      if (videoTask.expireTime < DateTime.now().millisecondsSinceEpoch ~/ 1000) {
         VideoModel? video =
             await ApiProvider.getVideo(videoTask.offlineMedia.id).then((value) {
           if (value.success) {

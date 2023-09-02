@@ -79,9 +79,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                         DownloadTaskStatus.undefined;
 
                     if (widget.isPlaylist ||
-                        status == DownloadTaskStatus.enqueued ||
-                        status == DownloadTaskStatus.running ||
-                        status == DownloadTaskStatus.paused) {
+                        status == DownloadTaskStatus.enqueued) {
                       child = Container(
                         height: 100,
                         color: widget.currentMediaId == item.offlineMedia.id
@@ -149,7 +147,9 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                               ),
                         endActionPane: ActionPane(
                           motion: const DrawerMotion(),
-                          extentRatio: status == DownloadTaskStatus.complete
+                          extentRatio: status == DownloadTaskStatus.complete ||
+                                  status == DownloadTaskStatus.running ||
+                                  status == DownloadTaskStatus.paused
                               ? 0.25
                               : 0.5,
                           children: [
