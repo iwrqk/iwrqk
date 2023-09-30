@@ -11,6 +11,7 @@ import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/providers/translate_provider.dart';
+import '../../data/services/android_service.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import '../../global_widgets/media/iwr_player/controller.dart';
@@ -29,6 +30,7 @@ class MediaDetailController extends GetxController
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
+  final AndroidService _androidService = Get.find();
 
   late MediaType mediaType;
   late String id;
@@ -161,8 +163,15 @@ class MediaDetailController extends GetxController
   void onClose() {
     _animationController.value.dispose();
     _refectchVideoCancelToken = true;
-    iwrPlayerController?.close();
+    closePlayer();
     super.onClose();
+  }
+
+  void closePlayer() {
+    if (GetPlatform.isAndroid) {
+      _androidService.unsetPlayer();
+    }
+    iwrPlayerController?.close();
   }
 
   Future<void> loadData() async {
@@ -223,6 +232,10 @@ class MediaDetailController extends GetxController
 
       iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
+      if (GetPlatform.isAndroid) {
+        _androidService.currentPlayer = iwrPlayerController;
+      }
+
       iwrPlayerController!.onPlayStop = (playing) {
         if (playing) {
           scrollController.animateTo(
@@ -239,7 +252,7 @@ class MediaDetailController extends GetxController
     }
 
     if (_refectchVideoCancelToken) {
-      iwrPlayerController!.close();
+      closePlayer();
     }
   }
 

@@ -80,9 +80,31 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: Text(
-                  thread.title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      if (thread.locked)
+                        WidgetSpan(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: FaIcon(
+                              FontAwesomeIcons.lock,
+                              size: 17.5,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                      TextSpan(
+                        text: thread.title,
+                        style: thread.locked
+                            ? Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationThickness: 2.5,
+                                )
+                            : Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Row(

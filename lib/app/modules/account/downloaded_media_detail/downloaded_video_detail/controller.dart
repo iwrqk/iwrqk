@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../data/enums/types.dart';
 import '../../../../data/models/download_task.dart';
 import '../../../../data/models/offline/offline_media.dart';
+import '../../../../data/services/android_service.dart';
 import '../../../../data/services/config_service.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../global_widgets/media/iwr_player/controller.dart';
@@ -16,7 +17,7 @@ class DownloadedVideoDetailController extends GetxController
       'downloaded_video_detail_tasks_preview_list';
 
   final ConfigService configService = Get.find();
-
+  final AndroidService _androidService = Get.find();
   final DownloadService _downloadService = Get.find();
 
   late MediaDownloadTask task;
@@ -61,8 +62,15 @@ class DownloadedVideoDetailController extends GetxController
   @override
   void onClose() {
     _initVideoCancelToken = true;
-    iwrPlayerController?.close();
+    closePlayer();
     super.onClose();
+  }
+
+  void closePlayer() {
+    if (GetPlatform.isAndroid) {
+      _androidService.unsetPlayer();
+    }
+    iwrPlayerController?.close();
   }
 
   void _onScroll() {
@@ -106,8 +114,12 @@ class DownloadedVideoDetailController extends GetxController
 
       iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
+      if (GetPlatform.isAndroid) {
+        _androidService.currentPlayer = iwrPlayerController;
+      }
+
       if (_initVideoCancelToken) {
-        iwrPlayerController!.close();
+        closePlayer();
       } else {
         _loading.value = false;
       }

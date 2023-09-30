@@ -44,7 +44,9 @@ class SearchResultMediaPreviewListController
 
   Future<void> resetKeyword(String keyword) async {
     _keyword = keyword;
-    scrollController.position.moveTo(0);
+    if (scrollController.hasClients) {
+      scrollController.position.moveTo(0);
+    }
     SchedulerBinding.instance.addPostFrameCallback((_) {
       refreshData(showSplash: true, showFooter: false);
     });
