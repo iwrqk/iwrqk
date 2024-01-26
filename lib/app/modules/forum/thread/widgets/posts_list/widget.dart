@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
+import '../../../../../components/iwr_refresh/widget.dart';
 import '../post.dart';
 import 'controller.dart';
 
@@ -38,48 +39,121 @@ class _PostListState extends State<PostList> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverRefresh(
-      controller: _controller,
-      scrollController: widget.scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
+    return Column(
+      children: [
+        Expanded(
+          child: IwrRefresh(
+            controller: _controller,
+            scrollController: widget.scrollController,
+            paginated: true,
+            builder: (data, scrollController) {
+              return CustomScrollView(
+                controller: scrollController,
+                slivers: [
+                  Obx(
+                    () => SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          int realIndex =
+                              _controller.currentPage * _controller.pageSize +
+                                  index;
 
-              Widget child = Post(
-                post: data[index],
-                index: index,
-                starterUserName: widget.starterUserName,
-              );
+                          Widget child = Post(
+                            post: data[index],
+                            index: realIndex,
+                            showDivider: index != data.length - 1,
+                            starterUserName: widget.starterUserName,
+                          );
 
-              if (index == 0) {
-                child = Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.fromLTRB(
-                        20,
-                        15,
-                        15,
-                        5,
-                      ),
-                      child: Text(
-                        widget.title,
-                        style: Theme.of(context).textTheme.titleLarge,
+                          if (realIndex == 0) {
+                            child = Column(
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.fromLTRB(
+                                    20,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
+                                  child: Text(
+                                    widget.title,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ),
+                                child,
+                              ],
+                            );
+                          }
+
+                          return child;
+                        },
+                        childCount: data.length,
                       ),
                     ),
-                    child,
-                  ],
-                );
-              }
-
-              return child;
+                  ),
+                ],
+              );
             },
-            childCount: data.length,
           ),
-        );
-      },
+        ),
+        BottomAppBar(
+          height: 64,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  t.comment.replies_in_total(numReply: _controller.count),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: _controller.currentPage + 1 == 1
+                          ? null
+                          : () {
+                              _controller.previousPage();
+                            },
+                      icon: const Icon(Icons.chevron_left),
+                    ),
+                    PopupMenuButton<int>(
+                      icon: Text(
+                        _controller.totalPage == 0
+                            ? "0 / 0"
+                            : "${_controller.currentPage + 1} / ${_controller.totalPage}",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      position: PopupMenuPosition.under,
+                      itemBuilder: (context) => List.generate(
+                        _controller.totalPage,
+                        (index) => PopupMenuItem(
+                          value: index,
+                          child: Text("${index + 1}"),
+                        ),
+                      ),
+                      onSelected: (value) {
+                        _controller.setPage(value);
+                      },
+                    ),
+                    IconButton(
+                      onPressed:
+                          _controller.currentPage + 1 == _controller.totalPage
+                              ? null
+                              : () {
+                                  _controller.nextPage();
+                                },
+                      icon: const Icon(Icons.chevron_right),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

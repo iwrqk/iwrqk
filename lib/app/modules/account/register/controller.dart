@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
-import '../../../core/const/widget.dart';
-import '../../../core/utils/display_util.dart';
+import '../../../components/dialogs/loading_dialog/widget.dart';
+import '../../../const/widget.dart';
 import '../../../data/providers/api_provider.dart';
-import '../../../global_widgets/dialogs/loading_dialog/widget.dart';
+import '../../../utils/display_util.dart';
 
 class RegisterController extends GetxController with StateMixin {
   final RegExp emailRegExp = RegExp(WidgetConst.emailRegExp);
@@ -59,7 +59,7 @@ class RegisterController extends GetxController with StateMixin {
         onFail: () {
           loadData();
         },
-        successMessage: L10n.of(Get.context!).message_register_success,
+        successMessage: t.message.account.register_success,
         onSuccess: () {
           Get.back();
         },

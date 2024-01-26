@@ -9,6 +9,7 @@ class ThreadModel {
   final int numPosts;
   final int numViews;
   final bool locked;
+  final bool sticky;
   PostModel? lastPost;
 
   ThreadModel({
@@ -18,6 +19,7 @@ class ThreadModel {
     required this.user,
     required this.numPosts,
     required this.numViews,
+    required this.sticky,
     required this.locked,
   });
 
@@ -29,6 +31,7 @@ class ThreadModel {
       user: UserModel.fromJson(json['user']),
       numPosts: json['numPosts'],
       numViews: json['numViews'],
+      sticky: json['sticky'],
       locked: json['locked'],
     );
   }

@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
-import '../../../global_widgets/iwr_progress_indicator.dart';
+import '../../../components/load_empty.dart';
+import '../../../components/load_fail.dart';
 import 'controller.dart';
-import 'widgets/add_tag_dialog/widget.dart';
+import 'add_tag/widget.dart';
 
 class BlockedTagsPage extends GetView<BlockedTagsController> {
   const BlockedTagsPage({super.key});
@@ -17,59 +16,15 @@ class BlockedTagsPage extends GetView<BlockedTagsController> {
       required String content,
       required Function() onConfirm}) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       backgroundColor: Theme.of(context).canvasColor,
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+      title: Text(title),
       content: Text(content),
-      contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
-      actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
       actions: [
-        CupertinoButton(
+        TextButton(
           onPressed: onConfirm,
-          child: Text(
-            L10n.of(context).confirm,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
+          child: Text(t.notifications.confirm),
         ),
       ],
-    );
-  }
-
-  Widget _buildFirstLoadFailWidget(BuildContext context, String errorMessage) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-              onTap: () {
-                controller.loadData();
-              },
-              child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.arrowRotateLeft,
-                  color: Theme.of(context).primaryColor,
-                  size: 42,
-                ),
-              )),
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: Text(
-              errorMessage,
-              textAlign: TextAlign.left,
-              style: const TextStyle(color: Colors.grey),
-            ),
-          )
-        ],
-      ),
     );
   }
 
@@ -77,47 +32,30 @@ class BlockedTagsPage extends GetView<BlockedTagsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
-          ),
-        ),
-        centerTitle: true,
         title: Text(
-          L10n.of(context).user_blocked_tags,
+          t.user.blocked_tags,
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.dialog(AddTagDialog(
-                onConfirm: controller.onAddTag,
-              ));
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.plus,
-            ),
+          AddTagPage(
+            onConfirm: controller.onAddTag,
           ),
           IconButton(
             onPressed: () {
               if (controller.whetherAddTag()) {
                 Get.dialog(_buildConfirmDialog(
                   context,
-                  title: L10n.of(context).confirm,
-                  content: L10n.of(context).message_save_blocked_tags_confirm,
+                  title: t.notifications.confirm,
+                  content: t.message.blocked_tags.save_confirm,
                   onConfirm: () {
-                    controller
-                        .save(L10n.of(context).message_blocked_tags_saved);
+                    controller.save();
                   },
                 ));
               } else {
-                showToast(L10n.of(context).message_blocked_tags_reached_limit);
+                SmartDialog.showToast(t.message.blocked_tags.reached_limit);
               }
             },
-            icon: const FaIcon(
-              FontAwesomeIcons.solidFloppyDisk,
+            icon: const Icon(
+              Icons.save,
             ),
           ),
         ],
@@ -139,23 +77,20 @@ class BlockedTagsPage extends GetView<BlockedTagsController> {
                   onTap: () {
                     controller.unblockTag(index);
                   },
-                  title: Text(controller.blockedTags[index].id),
+                  title: Text(controller.blockedTags[index]),
                 ),
               );
             },
           ),
-          onLoading: const Center(
-            child: IwrProgressIndicator(),
-          ),
-          onEmpty: const Center(
-            child: FaIcon(
-              FontAwesomeIcons.boxArchive,
-              color: Colors.grey,
-              size: 42,
-            ),
-          ),
+          onLoading: const Center(child: CircularProgressIndicator()),
+          onEmpty: const Center(child: LoadEmpty()),
           onError: (error) {
-            return _buildFirstLoadFailWidget(context, error!);
+            return Center(
+              child: LoadFail(
+                onRefresh: controller.loadData,
+                errorMessage: error!.toString(),
+              ),
+            );
           },
         ),
       ),

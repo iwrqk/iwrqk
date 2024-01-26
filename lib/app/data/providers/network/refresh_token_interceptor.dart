@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:queue/queue.dart';
 
-import '../../../core/const/iwara.dart';
+import '../../../const/iwara.dart';
 import '../../services/account_service.dart';
 
 class RefreshTokenInterceptor extends Interceptor {

@@ -1,381 +1,287 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../../l10n.dart';
-import '../../core/utils/display_util.dart';
-import '../../routes/pages.dart';
 import 'controller.dart';
+import 'widgets/display_mode_dialog.dart';
+import 'widgets/proxy_dialog.dart';
 
 class SettingsPage extends GetView<SettingsController> {
   const SettingsPage({super.key});
 
-  Widget _buildLanguageSetting(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).language,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        PopupMenuButton(
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Theme.of(context).cardColor),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            child: Row(
-              children: [
-                Obx(
-                  () => Text(
-                    controller.getCurrentLanguageName(),
-                    style: const TextStyle(fontSize: 15, color: Colors.grey),
+  Widget _buildMultiSetting<T>(
+    BuildContext context, {
+    required String title,
+    required String description,
+    required IconData iconData,
+    required T currentOption,
+    required Map<T, String> options,
+    required void Function(T) onSelected,
+  }) {
+    return _buildButton(
+      context,
+      title: title,
+      description: description,
+      iconData: iconData,
+      onPressed: () {
+        Get.dialog(
+          AlertDialog(
+            title: Text(title),
+            contentPadding: const EdgeInsets.symmetric(vertical: 16),
+            content: Container(
+              width: Get.width * 0.8,
+              constraints: const BoxConstraints(maxHeight: 400),
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                  horizontal: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const FaIcon(
-                  FontAwesomeIcons.chevronDown,
-                  size: 15,
-                  color: Colors.grey,
-                )
-              ],
-            ),
-          ),
-          itemBuilder: (context) {
-            return L10n.languageMap.keys
-                .map((e) => PopupMenuItem(
-                      value: e,
-                      child: Text(
-                        L10n.languageMap[e]!,
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                children: options.entries
+                    .map(
+                      (entry) => RadioListTile<T>(
+                        value: entry.key,
+                        title: Text(entry.value),
+                        groupValue: currentOption,
+                        onChanged: (T? value) {
+                          onSelected(value as T);
+                          Get.back();
+                        },
                       ),
-                    ))
-                .toList();
-          },
-          onSelected: (value) {
-            controller.configService.localeCode = value;
-          },
-        )
-      ],
+                    )
+                    .toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(t.notifications.cancel),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSwitchSetting(
+    BuildContext context, {
+    required String title,
+    required String description,
+    required IconData iconData,
+    required bool value,
+    required void Function(bool) onChanged,
+  }) {
+    return ListTile(
+      enableFeedback: true,
+      onTap: () {
+        onChanged(!value);
+      },
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      subtitle: Text(
+        description,
+        style: Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(color: Theme.of(context).colorScheme.outline),
+      ),
+      leading: Icon(
+        iconData,
+        size: 28,
+      ),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  Widget _buildButton(
+    BuildContext context, {
+    required String title,
+    required String description,
+    required IconData iconData,
+    required void Function() onPressed,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      child: ListTile(
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        subtitle: Text(
+          description,
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: Theme.of(context).colorScheme.outline),
+        ),
+        leading: Icon(
+          iconData,
+          size: 28,
+        ),
+      ),
     );
   }
 
   Widget _buildThemeSetting(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).theme,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        PopupMenuButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Theme.of(context).cardColor,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Row(
-                children: [
-                  Obx(
-                    () => Text(
-                      controller.getCurrentThemeName(context),
-                      style: const TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const FaIcon(
-                    FontAwesomeIcons.chevronDown,
-                    size: 15,
-                    color: Colors.grey,
-                  )
-                ],
-              )),
-          itemBuilder: (context) {
-            return [
-              PopupMenuItem(
-                value: ThemeMode.system,
-                child: Text(
-                  L10n.of(context).theme_system,
-                ),
-              ),
-              PopupMenuItem(
-                value: ThemeMode.light,
-                child: Text(
-                  L10n.of(context).theme_light_mode,
-                ),
-              ),
-              PopupMenuItem(
-                value: ThemeMode.dark,
-                child: Text(
-                  L10n.of(context).theme_dark_mode,
-                ),
-              ),
-            ];
-          },
-          onSelected: (value) {
-            controller.configService.themeMode = value;
-          },
-        )
-      ],
+    return _buildMultiSetting<ThemeMode>(
+      context,
+      title: t.settings.theme,
+      description: t.settings.theme_desc,
+      iconData: Icons.color_lens,
+      currentOption: controller.getCurrentTheme(),
+      options: {
+        ThemeMode.system: t.theme.system,
+        ThemeMode.light: t.theme.light,
+        ThemeMode.dark: t.theme.dark,
+      },
+      onSelected: (value) {
+        controller.setThemeMode(value);
+      },
     );
   }
 
-  Widget _buildEnableAdultCoverBlur(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).setting_cover_blur,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        Obx(
-          () => Container(
-            height: 20,
-            margin: const EdgeInsets.only(left: 10),
-            child: CupertinoSwitch(
-              value: controller.configService.adultCoverBlur,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) {
-                controller.configService.adultCoverBlur = value;
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildEnableAutoPlay(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).setting_auto_play,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        Obx(
-          () => Container(
-            height: 20,
-            margin: const EdgeInsets.only(left: 10),
-            child: CupertinoSwitch(
-              value: controller.configService.autoPlay,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) {
-                controller.configService.autoPlay = value;
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildEnableNotificationPlayer(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).setting_notification_player,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        Obx(
-          () => Container(
-            height: 20,
-            margin: const EdgeInsets.only(left: 10),
-            child: CupertinoSwitch(
-              value: controller.configService.notificationPlayer,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) {
-                controller.configService.notificationPlayer = value;
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildEnableBiometric(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).unlock_by_biometric,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        Obx(
-          () => Container(
-            height: 20,
-            margin: const EdgeInsets.only(left: 10),
-            child: CupertinoSwitch(
-              value: controller.autoLockService.enableAuthByBiometrics,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) {
-                if (value) {
-                  controller.getBiometricsAuth().then((value) {
-                    controller.autoLockService.enableAuthByBiometrics = value;
-                  });
-                } else {
-                  controller.autoLockService.enableAuthByBiometrics = value;
-                }
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildEnableAutoLock(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            L10n.of(context).setting_auto_lock,
-            style: const TextStyle(fontSize: 17.5),
-          ),
-        ),
-        Obx(
-          () => Container(
-            height: 20,
-            margin: const EdgeInsets.only(left: 10),
-            child: CupertinoSwitch(
-              value: controller.autoLockService.enableAutoLock,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (value) {
-                if (value) {
-                  Get.toNamed(AppRoutes.setPassword)?.then((value) {
-                    if (value is bool) {
-                      controller.autoLockService.enableAutoLock = value;
-                    }
-                  });
-                } else {
-                  controller.autoLockService.enableAutoLock = value;
-                }
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildLogoutButton(BuildContext context) {
-    return InkWell(
-      onTap: controller.logout,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            child: Text(
-              L10n.of(context).logout,
-              style: const TextStyle(fontSize: 17.5),
-            ),
-          ),
-          const FaIcon(FontAwesomeIcons.rightToBracket, color: Colors.grey),
-        ],
+  Widget _buildWorkModeSetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.work_mode,
+        description: t.settings.work_mode_desc,
+        iconData: Icons.work,
+        value: controller.workMode,
+        onChanged: (value) {
+          controller.workMode = value;
+        },
       ),
     );
   }
 
-  Widget _buildCheckUpdateButton(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        controller.configService.checkLatestVersion(
-          showNoAvailable: true,
-          noAvailableMessage: L10n.of(context).no_update_available,
+  Widget _buildAutoPlaySetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.autoplay,
+        description: t.settings.autoplay_desc,
+        iconData: Icons.play_circle,
+        value: controller.autoPlay,
+        onChanged: (value) {
+          controller.autoPlay = value;
+        },
+      ),
+    );
+  }
+
+  Widget _buildLanguageSetting(BuildContext context) {
+    return _buildMultiSetting<String>(
+      context,
+      title: t.settings.language,
+      description: t.settings.language_desc,
+      iconData: Icons.translate,
+      currentOption: controller.getCurrentLocalecode(),
+      options: t.locales,
+      onSelected: (value) {
+        controller.setLanguage(value);
+      },
+    );
+  }
+
+  Widget _buildLicenseButton(BuildContext context) {
+    return _buildButton(
+      context,
+      title: t.settings.thrid_party_license,
+      description: t.settings.thrid_party_license_desc,
+      iconData: Icons.info,
+      onPressed: () async {
+        PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        String currentVersion = packageInfo.version;
+
+        showLicensePage(
+          context: Get.context!,
+          applicationName: "IwrQk",
+          applicationVersion: currentVersion,
+          applicationLegalese: "Iwara Quick!",
         );
       },
-      child: Text(
-        L10n.of(context).check_update,
-        style: const TextStyle(fontSize: 17.5),
+    );
+  }
+
+  Widget _buildDisplayModeButton(BuildContext context) {
+    return _buildButton(
+      context,
+      title: t.settings.display_mode,
+      description: t.settings.display_mode_desc,
+      iconData: Icons.tv,
+      onPressed: () {
+        Get.dialog(const DisplayModeDialog());
+      },
+    );
+  }
+
+  Widget _buildEnableProxySetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.enable_proxy,
+        description: t.settings.enable_proxy_desc,
+        iconData: Icons.wifi,
+        value: controller.enableProxy,
+        onChanged: (value) {
+          SmartDialog.showToast(t.message.restart_required);
+          HapticFeedback.mediumImpact();
+          controller.enableProxy = value;
+        },
       ),
+    );
+  }
+
+  Widget _buildSetProxyButton(BuildContext context) {
+    return _buildButton(
+      context,
+      title: t.settings.proxy,
+      description: t.settings.proxy_desc,
+      iconData: Icons.dns,
+      onPressed: () {
+        Get.dialog(ProxyDialog());
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    DisplayUtil.reset(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
         title: Text(
-          L10n.of(context).user_settings,
+          t.user.settings,
         ),
       ),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            SettingTitle(title: L10n.of(context).setting_appearance),
-            SettingGroup(
-              children: [
-                _buildThemeSetting(context),
-                _buildLanguageSetting(context),
-              ],
-            ),
-            SettingTitle(title: L10n.of(context).setting_player),
-            SettingGroup(
-              children: [
-                _buildEnableAutoPlay(context),
-                _buildEnableNotificationPlayer(context),
-              ],
-            ),
-            SettingTitle(title: L10n.of(context).setting_security),
-            Obx(
-              () => SettingGroup(
-                children: [
-                  _buildEnableAdultCoverBlur(context),
-                  _buildEnableAutoLock(context),
-                  if (controller.autoLockService.enableAutoLock)
-                    _buildEnableBiometric(context),
-                ],
-              ),
-            ),
-            if (controller.accountService.isLogin)
-              SettingGroup(
-                children: [
-                  _buildLogoutButton(context),
-                ],
-              ),
-            SettingGroup(
-              children: [
-                _buildCheckUpdateButton(context),
-              ],
-            ),
-          ],
-        ),
+      body: ListView(
+        children: [
+          SettingTitle(title: t.settings.appearance),
+          _buildThemeSetting(context),
+          _buildLanguageSetting(context),
+          if (GetPlatform.isAndroid) _buildDisplayModeButton(context),
+          _buildWorkModeSetting(context),
+          SettingTitle(title: t.settings.network),
+          _buildEnableProxySetting(context),
+          _buildSetProxyButton(context),
+          SettingTitle(title: t.settings.player),
+          _buildAutoPlaySetting(context),
+          SettingTitle(title: t.settings.about),
+          _buildLicenseButton(context),
+        ],
       ),
     );
   }
@@ -389,47 +295,12 @@ class SettingTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 17.5,
-        ),
-      ),
-    );
-  }
-}
-
-class SettingGroup extends StatelessWidget {
-  final List<Widget> children;
-
-  const SettingGroup({super.key, required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).canvasColor,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2.5),
-            child: children[index],
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            thickness: 1,
-            color: Theme.of(context).dividerColor,
-          );
-        },
-        itemCount: children.length,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
       ),
     );
   }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 
-import '../../../../../global_widgets/buttons/friend_accept_reject_buttons/widget.dart';
-import '../../../../../global_widgets/placeholders/user_preview.dart';
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
-import '../../../../../global_widgets/user_preview/user_preview.dart';
+import '../../../../../components/iwr_refresh/widget.dart';
+import '../../../../../components/user_preview/user_preview.dart';
 import '../../controller.dart';
+import '../friend_accept_reject_buttons/widget.dart';
 import 'controller.dart';
 
 class FriendRequestsList extends StatefulWidget {
@@ -40,40 +38,31 @@ class _FriendRequestsListState extends State<FriendRequestsList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
+    return IwrRefresh(
       controller: _controller,
       scrollController: _scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
+      builder: (data, scrollController) {
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final item = data[index];
 
-              final item = data[index];
-
-              Widget child = SizedBox(
-                height: 100,
-                child: UserPreview(
-                  user: item.user,
-                  showFollowButton: false,
-                  showFriendButton: false,
-                  customButton: FriendAcceptRejectButtons(
+                  return UserPreview(
                     user: item.user,
-                  ),
-                ),
-              );
-
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
-                  height: 100,
-                  child: UserPreviewPlaceholder(),
-                ),
-                child: child,
-              );
-            },
-            childCount: data.length,
-          ),
+                    showFollowButton: false,
+                    showFriendButton: false,
+                    customButton: FriendAcceptRejectButtons(
+                      user: item.user,
+                    ),
+                  );
+                },
+                childCount: data.length,
+              ),
+            ),
+          ],
         );
       },
     );

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../core/utils/display_util.dart';
 import '../enums/result.dart';
 import '../providers/api_provider.dart';
 import '../providers/storage_provider.dart';
@@ -43,7 +43,7 @@ class AccountService extends GetxService {
 
   void notifyTokenExpired() {
     if (token != null && _isExpired(token!)) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
     }
   }
 
@@ -52,7 +52,7 @@ class AccountService extends GetxService {
 
     if (results.success) {
       token = results.data;
-      await StorageProvider.setUserToken(token!);
+      await StorageProvider.userToken.set(token!);
     }
 
     return ApiResult(
@@ -72,7 +72,7 @@ class AccountService extends GetxService {
 
   void logout() {
     reset();
-    StorageProvider.cleanUserToken();
+    StorageProvider.userToken.delete();
   }
 
   Future<ApiResult<void>> login({
@@ -93,7 +93,7 @@ class AccountService extends GetxService {
   }
 
   Future<bool> canLoginFromCache() async {
-    token = await StorageProvider.userToken;
+    token = await StorageProvider.userToken.get();
 
     if (token != null) {
       if (_isExpired(token!)) {
@@ -109,7 +109,7 @@ class AccountService extends GetxService {
   Future<ApiResult<void>> loginFromCache() async {
     ApiResult<void> results = ApiResult(data: null, success: false);
 
-    token = await StorageProvider.userToken;
+    token = await StorageProvider.userToken.get();
 
     if (_isExpired(token!)) {
       results = await getAccessToken();

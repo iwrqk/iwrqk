@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../l10n.dart';
 import '../../data/services/config_service.dart';
-import '../../data/services/user_service.dart';
 import '../../routes/pages.dart';
 import '../tabs/forum_tab/controller.dart';
 import '../tabs/forum_tab/page.dart';
@@ -33,22 +31,30 @@ class TabPages {
       };
 
   final Map<String, IconData> iconDatas = <String, IconData>{
-    AppRoutes.subscription: FontAwesomeIcons.solidBell,
-    AppRoutes.videos: FontAwesomeIcons.video,
-    AppRoutes.images: FontAwesomeIcons.solidImage,
-    AppRoutes.forum: FontAwesomeIcons.solidComments
+    AppRoutes.subscription: Icons.subscriptions_outlined,
+    AppRoutes.videos: Icons.video_library_outlined,
+    AppRoutes.images: Icons.photo_library_outlined,
+    AppRoutes.forum: Icons.forum_outlined,
+  };
+
+  final Map<String, IconData> activeIconDatas = <String, IconData>{
+    AppRoutes.subscription: Icons.subscriptions,
+    AppRoutes.videos: Icons.video_library,
+    AppRoutes.images: Icons.photo_library,
+    AppRoutes.forum: Icons.forum,
   };
 
   Map<String, Widget> get tabIcons =>
-      iconDatas.map((key, value) => MapEntry(key, FaIcon(value, size: 30)));
+      iconDatas.map((key, value) => MapEntry(key, Icon(value)));
 
-  BuildContext get _context => Get.find<HomeController>().outterContext;
+  Map<String, Widget> get tabActiveIcons =>
+      activeIconDatas.map((key, value) => MapEntry(key, Icon(value)));
 
   Map<String, String> get tabTitles => <String, String>{
-        AppRoutes.subscription: L10n.of(_context).subscriptions,
-        AppRoutes.videos: L10n.of(_context).videos,
-        AppRoutes.images: L10n.of(_context).images,
-        AppRoutes.forum: L10n.of(_context).forum,
+        AppRoutes.subscription: t.nav.subscriptions,
+        AppRoutes.videos: t.nav.videos,
+        AppRoutes.images: t.nav.images,
+        AppRoutes.forum: t.nav.forum,
       };
 
   List<String> tabNameList = <String>[
@@ -60,32 +66,23 @@ class TabPages {
 }
 
 class HomeController extends GetxController {
-  final UserService userService = Get.find<UserService>();
   final ConfigService configService = Get.find<ConfigService>();
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final CupertinoTabController tabController = CupertinoTabController();
-  final RxInt _currentIndex = 0.obs;
-  late BuildContext outterContext;
+  List<Widget> get pageList => tabPages.tabPages.values.toList();
 
-  int get currentIndex => _currentIndex.value;
-
-  bool tapAwait = false;
+  List<String> tabNameList = tabPages.tabNameList;
 
   late List<MediaGridTabController> mediaGridTabControllers;
   late ForumTabController forumTabController;
 
-  RxList<String> tabNameList = tabPages.tabNameList.obs;
+  PageController? pageController;
+  final RxInt _currentIndex = 0.obs;
+  int get currentIndex => _currentIndex.value;
+  set currentIndex(int value) => _currentIndex.value = value;
 
-  List<Widget> get pageList => tabPages.tabPages.values.toList();
+  bool tapAwait = false;
 
-  List<BottomNavigationBarItem> get listBottomNavigationBarItem =>
-      tabNameList.map((key) {
-        return BottomNavigationBarItem(
-          icon: tabPages.tabIcons[key]!,
-          label: tabPages.tabTitles[key]!,
-        );
-      }).toList();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void onInit() {
@@ -99,10 +96,8 @@ class HomeController extends GetxController {
         .map((e) => Get.find<MediaGridTabController>(tag: e))
         .toList();
     forumTabController = Get.find<ForumTabController>();
-  }
 
-  void init(BuildContext context) {
-    outterContext = context;
+    pageController = PageController(initialPage: currentIndex);
   }
 
   Future<void> onTap(int index) async {
@@ -121,12 +116,14 @@ class HomeController extends GetxController {
           } else {
             mediaGridTabControllers[index].scrollToTopRefresh();
           }
+          HapticFeedback.lightImpact();
         },
         duration: const Duration(milliseconds: 300),
         awaitComplete: false,
       );
     } else {
       _currentIndex.value = index;
+      pageController!.jumpToPage(index);
     }
   }
 
@@ -154,5 +151,9 @@ class HomeController extends GetxController {
       tapAwait = false;
       onDoubleTap();
     }
+  }
+
+  void openDrawer() {
+    scaffoldKey.currentState!.openDrawer();
   }
 }

@@ -1,14 +1,14 @@
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
 
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/media/media.dart';
 import '../../../../../data/services/user_service.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 
 class PlatlistDetailMediaPreviewListController
-    extends SliverRefreshController<MediaModel> {
+    extends IwrRefreshController<MediaModel> {
   final PlaylistDetailMediaPreviewListRepository repository =
       PlaylistDetailMediaPreviewListRepository();
   final UserService _userService = Get.find();
@@ -22,7 +22,7 @@ class PlatlistDetailMediaPreviewListController
     await _userService
         .removeFromPlaylist(data[index].id, [_playlistId]).then((value) {
       if (value) {
-        showToast(successMessage);
+        SmartDialog.showToast(successMessage);
         data.removeAt(index);
       }
     });

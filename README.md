@@ -6,35 +6,31 @@
 
 <img src="./doc/icon.png" alt="logo" width="144" height="144" align="right" />
 
-[中文](./doc/README_zh_CN.md)
-
 IwrQk is a cross-platform application based on Flutter that is compatible with the new version of Iwara (a video sharing platform).
 
-## Features
+Now with [Material Design 3](https://m3.material.io/).
 
-Cross-platform support for iOS and Android.
+## 🚩 Features
 
-## Todo list
+ - ✅ Download manager (WIP)
+ - ✅ Friends manager
+ - ⬜ Notification and message manager (WIP)
+ - ✅ Follow, subscription, favorite, playlist, comments
+ - ✅ Forum
+ - ✅ Custom player and gallery viewer
+ - ✅ Login, logout, register
+ - ✅ Blocklist for tags
+ - ⬜ Advanced search
 
- - [x] Download manager (WIP)
- - [x] Friends manager
- - [x] Notification and message manager (WIP)
- - [x] Follow, subscription, favorite, playlist, comments
- - [x] Forum
- - [x] Custom player and gallery viewer
- - [x] Login, logout, register
- - [x] Blocklist for tags
- - [ ] Advanced search
-
-## Screenshots
+## 📱 Screenshots
 
 | ![Preview](./doc/1.png) | ![Preview](./doc/2.png) | ![Preview](./doc/3.png) | 
 |:---:|:---:|:---:|
 
-## Contributions
+## 💻 Contributions
 
-If you are a developer, and you're willing to contribute to this project, please don't hesitate to submit a PR!
+If you are a developer eager to contribute to this project, feel free to submit a pull request! The project also utilizes `slang` for localization, and [contributions to translation](/lib/i18n/strings.i18n.json) are appreciated.
 
-This app also uses `intl` to localize. You're welcome to [commit translation](/lib/l10n/intl_en.arb) too.
+In case you come across any bugs, please report them after ensuring they are not caused by network issues, as Iwara's servers may encounter errors.
 
-If you encounter any bugs, please report them after ruling out all network-related causes, as Iwara's servers often experience errors.
+Let's collaborate to enhance the Iwara experience together!

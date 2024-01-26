@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
-import '../../../core/utils/display_util.dart';
+import '../../../components/dialogs/loading_dialog/widget.dart';
 import '../../../data/providers/storage_provider.dart';
 import '../../../data/services/account_service.dart';
-import '../../../global_widgets/dialogs/loading_dialog/widget.dart';
 import '../../../routes/pages.dart';
+import '../../../utils/display_util.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -24,7 +24,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    StorageProvider.savedUserAccountPassword.then((value) {
+    StorageProvider.savedUserAccountPassword.get().then((value) {
       if (value != null) {
         accountController.text = value["account"];
         passwordController.text = value["password"];
@@ -52,10 +52,12 @@ class LoginController extends GetxController {
           });
         },
         onSuccess: () {
-          Get.offNamedUntil(AppRoutes.root, (route) => false);
-          StorageProvider.setSavedUserAccountPassword(account!, password!);
+          Get.offNamedUntil(AppRoutes.splash, (route) => false);
+          StorageProvider.savedUserAccountPassword.set(
+            {"account": account, "password": password},
+          );
         },
-        successMessage: L10n.of(context).message_login_success,
+        successMessage: t.message.account.login_success,
       ),
       barrierDismissible: false,
     );

@@ -1,9 +1,7 @@
 part of './pages.dart';
 
 abstract class AppRoutes {
-  static const root = '/';
-
-  static const setup = '/setup';
+  static const splash = '/splash';
 
   static const home = '/home';
   static const subscription = '/subscription';
@@ -19,16 +17,13 @@ abstract class AppRoutes {
   static const mediaDetail = '/mediaDetail';
   static const downloadedVideoDetail = '/downloadedVideoDetail';
 
-  static const commentDetail = '/commentDetail';
-
   static const playlistsPreview = '/playlistsPreview';
   static const playlistDetail = '/playlistDetail';
 
   static const conversationsPreview = '/conversationsPreview';
   static const conversationDetail = '/conversationDetail';
 
-  static const normalSearch = '/normalSearch';
-  static const normalSearchResult = '/normalSearchResult';
+  static const searchResult = '/searchResult';
 
   static const friends = '/friends';
   static const blockedTags = '/blockedTags';
@@ -37,10 +32,9 @@ abstract class AppRoutes {
   static const favorites = '/favorite';
 
   static const settings = '/settings';
-  static const lock = '/lock';
-  static const setPassword = '/setPassword';
 
   static const followersFollowing = '/followersFollowing';
+  static const uploadedMedia = '/uploadedMedia';
 
   static const channel = '/channel';
   static const thread = '/thread';

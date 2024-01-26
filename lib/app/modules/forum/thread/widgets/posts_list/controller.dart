@@ -1,10 +1,9 @@
-
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/forum/post.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 
-class PostListController extends SliverRefreshController<PostModel> {
+class PostListController extends IwrRefreshController<PostModel> {
   final PostListRepository repository = PostListRepository();
   PostListController();
 

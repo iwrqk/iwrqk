@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
 
 import '../../data/enums/types.dart';
 import '../../data/models/media/media.dart';
@@ -10,27 +9,18 @@ import '../../data/models/offline/offline_media.dart';
 import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
-import '../../data/providers/translate_provider.dart';
-import '../../data/services/android_service.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
-import '../../global_widgets/media/iwr_player/controller.dart';
 import 'repository.dart';
 
 class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
   final MediaDetailRepository repository = MediaDetailRepository();
 
-  IwrPlayerController? iwrPlayerController;
-
   ScrollController scrollController = ScrollController();
-
-  final RxDouble _hideAppbarFactor = 1.0.obs;
-  double get hideAppbarFactor => _hideAppbarFactor.value;
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
-  final AndroidService _androidService = Get.find();
 
   late MediaType mediaType;
   late String id;
@@ -39,16 +29,11 @@ class MediaDetailController extends GetxController
 
   bool _refectchVideoCancelToken = false;
 
-  late Rx<AnimationController> _animationController;
-  final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
-  late Animation<double> _iconTurn;
-  late Animation<double> _heightFactor;
-
   final RxBool _isLoading = true.obs;
   final RxBool _isFectchingResolution = false.obs;
   final RxBool _isFectchingRecommendation = true.obs;
-  final RxBool _detailExpanded = false.obs;
+
+  bool tempFavorite = false;
 
   final RxBool _isFavorite = false.obs;
   final RxBool _isProcessingFavorite = false.obs;
@@ -63,26 +48,11 @@ class MediaDetailController extends GetxController
 
   late List<MediaModel> moreLikeThis;
 
-  AnimationController get animationController => _animationController.value;
-  Animation<double> get iconTurn => _iconTurn;
-  Animation<double> get heightFactor => _heightFactor;
-
   bool get isLoading => _isLoading.value;
   bool get isFectchingResolution => _isFectchingResolution.value;
   bool get isFectchingRecommendation => _isFectchingRecommendation.value;
-  bool get detailExpanded => _detailExpanded.value;
 
   OfflineMediaModel get offlineMedia => OfflineMediaModel.fromMediaModel(media);
-
-  set detailExpanded(bool value) {
-    _detailExpanded.value = value;
-  }
-
-  final RxBool _lockingScroll = false.obs;
-  bool get lockingScroll => _lockingScroll.value;
-  set lockingScroll(bool value) {
-    _lockingScroll.value = value;
-  }
 
   final RxBool _fetchFailed = false.obs;
 
@@ -125,53 +95,21 @@ class MediaDetailController extends GetxController
     mediaType = arguments["mediaType"];
     id = arguments["id"];
 
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    ).obs;
-
-    _iconTurn =
-        _animationController.value.drive(_halfTween.chain(_easeInTween));
-
-    _heightFactor = _animationController.value.drive(_easeInTween);
-
-    scrollController.addListener(_onScroll);
-
     loadData();
-  }
-
-  void _onScroll() {
-    if (lockingScroll) {
-      scrollController.position.setPixels(0);
-      return;
-    }
-
-    double position = scrollController.position.pixels;
-    double hideAppbarHit = scrollController.position.maxScrollExtent;
-    double newValue = (hideAppbarHit - position) > 0
-        ? (hideAppbarHit - position) / hideAppbarHit
-        : 0;
-    if (hideAppbarFactor - newValue >= 0.25 ||
-        hideAppbarFactor - newValue <= -0.25 ||
-        newValue == 0 ||
-        newValue == 1) {
-      _hideAppbarFactor.value = newValue;
-    }
   }
 
   @override
   void onClose() {
-    _animationController.value.dispose();
     _refectchVideoCancelToken = true;
     closePlayer();
     super.onClose();
   }
 
   void closePlayer() {
-    if (GetPlatform.isAndroid) {
-      _androidService.unsetPlayer();
-    }
-    iwrPlayerController?.close();
+    // if (GetPlatform.isAndroid) {
+    //   _androidService.unsetPlayer();
+    // }
+    // iwrPlayerController?.close();
   }
 
   Future<void> loadData() async {
@@ -180,8 +118,9 @@ class MediaDetailController extends GetxController
         media = value.data! as MediaModel;
         _isLoading.value = false;
         _isFavorite.value = media.liked;
+        tempFavorite = media.liked;
 
-        StorageProvider.addHistoryItem(HistoryMediaModel.fromMediaData(media));
+        StorageProvider.historyList.add(HistoryMediaModel.fromMediaData(media));
 
         refectchRecommendation();
       } else {
@@ -206,58 +145,58 @@ class MediaDetailController extends GetxController
   }
 
   void _initPlayer() {
-    Map<String, String> resolutionsMap = {};
-    for (var resolution in resolutions) {
-      resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
-    }
+    // Map<String, String> resolutionsMap = {};
+    // for (var resolution in resolutions) {
+    //   resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
+    // }
 
-    String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
+    // String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
 
-    if (!_refectchVideoCancelToken) {
-      Get.put(
-        IwrPlayerController(
-          tag: tag,
-          id: media.id,
-          resolutions: resolutionsMap,
-          title: media.title,
-          author: media.user.name,
-          thumbnail: media.hasCover() ? media.getCoverUrl() : null,
-          setting: configService.playerSetting,
-          onPlayerSettingSaved: (setting) {
-            configService.playerSetting = setting;
-          },
-        ),
-        tag: tag,
-      );
+    // if (!_refectchVideoCancelToken) {
+    //   Get.put(
+    //     IwrPlayerController(
+    //       tag: tag,
+    //       id: media.id,
+    //       resolutions: resolutionsMap,
+    //       title: media.title,
+    //       author: media.user.name,
+    //       thumbnail: media.hasCover() ? media.getCoverUrl() : null,
+    //       setting: configService.playerSetting,
+    //       onPlayerSettingSaved: (setting) {
+    //         configService.playerSetting = setting;
+    //       },
+    //     ),
+    //     tag: tag,
+    //   );
 
-      iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
+    //   iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
 
-      if (GetPlatform.isAndroid) {
-        _androidService.currentPlayer = iwrPlayerController;
-      }
+    //   if (GetPlatform.isAndroid) {
+    //     _androidService.currentPlayer = iwrPlayerController;
+    //   }
 
-      iwrPlayerController!.onPlayStop = (playing) {
-        if (playing) {
-          scrollController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.ease,
-          );
-          _hideAppbarFactor.value = 1;
-          lockingScroll = true;
-        } else {
-          lockingScroll = false;
-        }
-      };
-    }
+    //   iwrPlayerController!.onPlayStop = (playing) {
+    //     if (playing) {
+    //       scrollController.animateTo(
+    //         0,
+    //         duration: const Duration(milliseconds: 300),
+    //         curve: Curves.ease,
+    //       );
+    //       _hideAppbarFactor.value = 1;
+    //       lockingScroll = true;
+    //     } else {
+    //       lockingScroll = false;
+    //     }
+    //   };
+    // }
 
-    if (_refectchVideoCancelToken) {
-      closePlayer();
-    }
+    // if (_refectchVideoCancelToken) {
+    //   closePlayer();
+    // }
   }
 
   void pauseVideo() {
-    iwrPlayerController?.pause();
+    // iwrPlayerController?.pause();
   }
 
   Future<void> refectchVideo() async {
@@ -319,6 +258,7 @@ class MediaDetailController extends GetxController
     _userService.favoriteMedia(media.id).then((value) {
       _isProcessingFavorite.value = false;
       if (value) {
+        tempFavorite = true;
         _isFavorite.value = true;
       }
     });
@@ -330,6 +270,7 @@ class MediaDetailController extends GetxController
     _userService.unfavoriteMedia(media.id).then((value) {
       _isProcessingFavorite.value = false;
       if (value) {
+        tempFavorite = false;
         _isFavorite.value = false;
       }
     });
@@ -339,14 +280,14 @@ class MediaDetailController extends GetxController
     if (translatedContent.isNotEmpty || media.body == null) {
       return;
     }
-    TranslateProvider.google(
-      text: media.body!,
-    ).then((value) {
-      if (value.success) {
-        _translatedContent.value = value.data!;
-      } else {
-        showToast(value.message!);
-      }
-    });
+    // TranslateProvider.google(
+    //   text: media.body!,
+    // ).then((value) {
+    //   if (value.success) {
+    //     _translatedContent.value = value.data!;
+    //   } else {
+    //     showToast(value.message!);
+    //   }
+    // });
   }
 }

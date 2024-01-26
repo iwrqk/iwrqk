@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../../l10n.dart';
-import '../../../../core/const/iwara.dart';
-import '../../../../global_widgets/reloadable_image.dart';
+import '../../../../components/network_image.dart';
+import '../../../../const/iwara.dart';
 import '../../../../routes/pages.dart';
 
 class PlaylistPreview extends StatelessWidget {
@@ -23,7 +22,7 @@ class PlaylistPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Get.toNamed(AppRoutes.playlistDetail, arguments: {
           "playlistId": playlistId,
@@ -32,19 +31,20 @@ class PlaylistPreview extends StatelessWidget {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        constraints: const BoxConstraints(maxHeight: 116),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 2.5, 0, 2.5),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 168),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(6),
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
                   child: Container(
                     color: Colors.black,
                     alignment: Alignment.center,
-                    child: const ReloadableImage(
+                    child: const NetworkImg(
                       imageUrl: IwaraConst.defaultCoverUrl,
                       aspectRatio: 16 / 9,
                       fit: BoxFit.cover,
@@ -76,10 +76,10 @@ class PlaylistPreview extends StatelessWidget {
                           ),
                           Text(
                             videosCount == 1
-                                ? L10n.of(context)
-                                    .playlist_videos_count("$videosCount")
-                                : L10n.of(context).playlist_videos_count_plural(
-                                    "$videosCount"),
+                                ? t.playlist
+                                    .videos_count(numVideo: "$videosCount")
+                                : t.playlist.videos_count_plural(
+                                    numVideo: "$videosCount"),
                             style: const TextStyle(
                               fontSize: 12.5,
                               color: Colors.grey,
@@ -90,9 +90,9 @@ class PlaylistPreview extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const FaIcon(
-                      FontAwesomeIcons.chevronRight,
-                      size: 25,
+                    const Icon(
+                      Icons.arrow_forward,
+                      size: 24,
                       color: Colors.grey,
                     ),
                   ],

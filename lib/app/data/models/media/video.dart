@@ -1,5 +1,5 @@
-import '../../../core/const/iwara.dart';
-import '../../../core/utils/crypto_util.dart';
+import '../../../const/iwara.dart';
+import '../../../utils/crypto_util.dart';
 import '../file.dart';
 import '../tag.dart';
 import '../user.dart';
@@ -98,15 +98,16 @@ class VideoModel extends MediaModel {
 
   @override
   String getCoverUrl() {
-    if (embedUrl == null) {
-      return IwaraConst.videoCoverUrl.replaceFirst('{id}', file!.id);
-    }
     if (customThumbnail != null) {
       return IwaraConst.imageCoverUrl
           .replaceFirst("{id}", customThumbnail!.id)
           .replaceFirst("{name}", customThumbnail!.name!);
     } else {
-      if (embedUrl!.contains("youtu")) {
+      if (embedUrl == null) {
+        return IwaraConst.videoCoverUrl
+            .replaceFirst('{id}', file!.id)
+            .replaceFirst("{num}", thumbnail.toString().padLeft(2, '0'));
+      } else if (embedUrl!.contains("youtu")) {
         RegExp regExp = RegExp(
             r"(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]{11})");
         var match = regExp.firstMatch(embedUrl!);

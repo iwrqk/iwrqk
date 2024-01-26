@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/utils/display_util.dart';
+import '../../../../../components/iwr_refresh/widget.dart';
+import '../../../../../components/network_image.dart';
 import '../../../../../data/models/forum/thread.dart';
-import '../../../../../global_widgets/keep_alive_wrapper.dart';
-import '../../../../../global_widgets/reloadable_image.dart';
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../../../../routes/pages.dart';
+import '../../../../../utils/display_util.dart';
 import 'controller.dart';
 
 class ThreadPreviewList extends StatefulWidget {
@@ -37,23 +35,26 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
     required ThreadModel thread,
   }) {
     return Card(
-      color: Theme.of(context).canvasColor,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(24),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: GestureDetector(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: InkWell(
         onTap: () {
           Get.toNamed(AppRoutes.thread, arguments: {
             'title': thread.title,
             'starterUserName': thread.user.username,
+            'starterName': thread.user.name,
+            'timestamp': thread.createdAt,
+            'starterAvatarUrl': thread.user.avatarUrl,
             'channelName': channelName,
             'threadId': thread.id,
             'locked': thread.locked,
           });
         },
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +62,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: ClipOval(
-                  child: ReloadableImage(
+                  child: NetworkImg(
                     imageUrl: thread.user.avatarUrl,
                     width: 40,
                     height: 40,
@@ -71,6 +72,7 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                   thread.user.name,
                   maxLines: 1,
                   style: Theme.of(context).textTheme.titleSmall,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
                   DisplayUtil.getDisplayDate(DateTime.parse(
@@ -83,25 +85,33 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                 child: Text.rich(
                   TextSpan(
                     children: [
+                      if (thread.sticky)
+                        WidgetSpan(
+                          child: Container(
+                            padding: thread.sticky && thread.locked
+                                ? const EdgeInsets.only(left: 6)
+                                : const EdgeInsets.symmetric(horizontal: 6),
+                            child: Icon(
+                              Icons.push_pin,
+                              size: 17.5,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
                       if (thread.locked)
                         WidgetSpan(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: FaIcon(
-                              FontAwesomeIcons.lock,
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Icon(
+                              Icons.lock,
                               size: 17.5,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ),
                       TextSpan(
                         text: thread.title,
-                        style: thread.locked
-                            ? Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationThickness: 2.5,
-                                )
-                            : Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
@@ -115,18 +125,20 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        FaIcon(
-                          FontAwesomeIcons.solidEye,
+                        Icon(
+                          Icons.remove_red_eye,
                           size: 15,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 6),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numViews),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -136,18 +148,20 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        FaIcon(
-                          FontAwesomeIcons.solidComment,
+                        Icon(
+                          Icons.comment,
                           size: 15,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 6),
                         Text(
                           DisplayUtil.compactBigNumber(thread.numPosts),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -163,24 +177,28 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverRefresh(
+    return IwrRefresh(
       controller: _controller,
       scrollController: widget.scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
-
-              return KeepAliveWrapper(
-                child: _buildThreadPreview(
-                  thread: data[index],
-                  channelName: widget.channelName,
+      builder: (data, scrollController) {
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            Obx(
+              () => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final thread = data[index];
+                    return _buildThreadPreview(
+                      channelName: widget.channelName,
+                      thread: thread,
+                    );
+                  },
+                  childCount: data.length,
                 ),
-              );
-            },
-            childCount: data.length,
-          ),
+              ),
+            ),
+          ],
         );
       },
     );

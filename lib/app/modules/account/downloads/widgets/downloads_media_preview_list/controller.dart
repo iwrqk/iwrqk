@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/enums/types.dart';
 import '../../../../../data/models/download_task.dart';
@@ -10,25 +11,18 @@ import '../../../../../data/models/media/video.dart';
 import '../../../../../data/providers/api_provider.dart';
 import '../../../../../data/providers/storage_provider.dart';
 import '../../../../../data/services/download_service.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 
 class DownloadsMediaPreviewListController
-    extends SliverRefreshController<MediaDownloadTask> {
+    extends IwrRefreshController<MediaDownloadTask> {
   final DownloadMediaPreviewListRepository repository =
       DownloadMediaPreviewListRepository();
 
   final DownloadService downloadService = Get.find();
 
-  late MediaType _filterType;
-
-  void initConfig(MediaType filterType) {
-    _filterType = filterType;
-  }
-
   @override
   Future<GroupResult<MediaDownloadTask>> getNewData(int currentPage) async {
-    return repository.getDownloadRecords(currentPage, _filterType);
+    return repository.getDownloadRecords(currentPage);
   }
 
   Future<void> deleteTaskRecord(String taskId) async {
@@ -38,7 +32,9 @@ class DownloadsMediaPreviewListController
   Future<void> deleteVideoTask(int index, String taskId,
       [bool retrying = false]) async {
     String? path = await downloadService.getTaskFilePath(taskId);
-    if (!retrying) await StorageProvider.deleteDownloadVideoRecord(index);
+    if (!retrying) {
+      await StorageProvider.downloadVideoRecords.deleteByIndex(index);
+    }
     await deleteTaskRecord(taskId);
 
     File downloadFile = File(path!);
@@ -69,7 +65,8 @@ class DownloadsMediaPreviewListController
     if (mediaTask.offlineMedia.type == MediaType.video) {
       VideoDownloadTask videoTask = StorageProvider.downloadVideoRecords[index];
 
-      if (videoTask.expireTime < DateTime.now().millisecondsSinceEpoch ~/ 1000) {
+      if (videoTask.expireTime <
+          DateTime.now().millisecondsSinceEpoch ~/ 1000) {
         VideoModel? video =
             await ApiProvider.getVideo(videoTask.offlineMedia.id).then((value) {
           if (value.success) {
@@ -117,8 +114,8 @@ class DownloadsMediaPreviewListController
 
         downloadService.refreshTask(taskId, newTask.taskId);
 
-        StorageProvider.updateDownloadVideoRecord(
-          taskId,
+        StorageProvider.downloadVideoRecords.updateWhere(
+          (element) => element.taskId == taskId,
           newTask,
         );
 

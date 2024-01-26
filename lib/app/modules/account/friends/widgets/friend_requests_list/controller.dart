@@ -1,10 +1,10 @@
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/account/friend_request.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 
 class FriendRequestsListController
-    extends SliverRefreshController<FriendRequestModel> {
+    extends IwrRefreshController<FriendRequestModel> {
   final FriendRequestsListRepository repository =
       FriendRequestsListRepository();
 

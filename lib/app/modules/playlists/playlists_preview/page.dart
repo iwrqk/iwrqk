@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
-import '../../../global_widgets/dialogs/create_playlis_dialog/widget.dart';
+import '../../../components/dialogs/create_playlis_dialog/widget.dart';
 import 'controller.dart';
 import 'widgets/playlists_preview_list/widget.dart';
 
@@ -16,22 +15,7 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
-          ),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
-        title: Text(L10n.of(context).user_playlists),
+        title: Text(t.user.playlists),
         actions: [
           if (controller.requireMyself)
             IconButton(
@@ -44,20 +28,14 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
                   ),
                 );
               },
-              icon: const FaIcon(
-                FontAwesomeIcons.plus,
-              ),
+              icon: const Icon(Icons.add),
             ),
         ],
       ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: PlaylistsPreviewList(
-          userId: controller.userId,
-          requireMyself: controller.requireMyself,
-          tag: controller.tag,
-        ),
+      body: PlaylistsPreviewList(
+        userId: controller.userId,
+        requireMyself: controller.requireMyself,
+        tag: controller.tag,
       ),
     );
   }

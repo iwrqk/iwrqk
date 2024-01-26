@@ -16,6 +16,173 @@ abstract class StorageKey {
   static const String downloadVideoRecords = "downloadVideoRecords";
   static const String downloadImageRecords = "downloadImageRecords";
   static const String searchHistoryList = "searchHistoryList";
+
+  static const String proxyEnable = "proxyEnable";
+  static const String proxyHost = "proxyHost";
+  static const String proxyPort = "proxyPort";
+}
+
+class GStorageConfig {
+  final GetStorage storage;
+
+  GStorageConfig(this.storage);
+
+  Map<String, dynamic>? getAll() {
+    String? settingsJson = storage.read(StorageKey.config);
+    if (settingsJson == null) return null;
+    return jsonDecode(settingsJson);
+  }
+
+  Future<void> set(String key, dynamic value) async {
+    Map<String, dynamic> settings = getAll() ?? {};
+    settings[key] = value;
+    return await storage.write(StorageKey.config, jsonEncode(settings));
+  }
+
+  dynamic get(String key, {dynamic defaultValue}) {
+    Map<String, dynamic>? settings = getAll();
+    if (settings == null) return defaultValue;
+    return settings[key] ?? defaultValue;
+  }
+
+  dynamic operator [](String key) => get(key);
+
+  void operator []=(String key, dynamic value) => set(key, value);
+}
+
+class GStorageRecord<T> {
+  final GetStorage storage;
+  final String key;
+  final T Function(Map<String, dynamic> json) fact;
+  final bool Function(T newItem, T oldItem)? compare;
+
+  GStorageRecord(this.storage, this.key, this.fact, this.compare);
+
+  List<T> get() {
+    String? recordsJson = storage.read(key);
+    return recordsJson == null
+        ? []
+        : (jsonDecode(recordsJson) as List<dynamic>)
+            .where((item) => item != null)
+            .map((item) => fact(item as Map<String, dynamic>))
+            .toList();
+  }
+
+  T operator [](int index) => get()[index];
+
+  Future<void> set(List<T> records) async {
+    return await storage.write(key, jsonEncode(records));
+  }
+
+  Future<void> add(T newItem) async {
+    List<T> records = get();
+    if (records.isNotEmpty) {
+      records.removeWhere((item) => compare!(newItem, item));
+    }
+    List<T> list = [newItem];
+    list.addAll(records);
+    await set(list);
+  }
+
+  Future<void> update(T oldItem, T newItem) async {
+    List<T> list = get();
+    int index = list.indexWhere((element) => element == oldItem);
+    list[index] = newItem;
+    await set(list);
+  }
+
+  Future<void> updateWhere(bool Function(T item) test, T newItem) async {
+    List<T> list = get();
+    int index = list.indexWhere(test);
+    list[index] = newItem;
+    await set(list);
+  }
+
+  Future<void> delete(T item) async {
+    List<T> list = get();
+    list.remove(item);
+    await set(list);
+  }
+
+  Future<void> deleteWhere(bool Function(T item) test) async {
+    List<T> list = get();
+    list.removeWhere(test);
+    await set(list);
+  }
+
+  Future<void> deleteByIndex(int index) async {
+    List<T> list = get();
+    list.removeAt(index);
+    await set(list);
+  }
+
+  bool contains(T item) {
+    List<T> list = get();
+    return list.contains(item);
+  }
+
+  bool containsWhere(bool Function(T item) test) {
+    List<T> list = get();
+    return list.any(test);
+  }
+
+  Future<void> clean() async {
+    await set([]);
+  }
+}
+
+class SecStorageObject {
+  final FlutterSecureStorage storage;
+  final String key;
+
+  SecStorageObject(this.storage, this.key);
+
+  Future<String?> get() async {
+    return await storage.read(key: key);
+  }
+
+  Future<void> set(String value) async {
+    return await storage.write(key: key, value: value);
+  }
+
+  Future<void> delete() async {
+    return await storage.delete(key: key);
+  }
+}
+
+class SecStorageMap {
+  final FlutterSecureStorage storage;
+  final String key;
+
+  SecStorageMap(this.storage, this.key);
+
+  Future<Map<String, dynamic>?> get() async {
+    String? json = await storage.read(key: key);
+    if (json == null) return null;
+    return jsonDecode(json);
+  }
+
+  Future<void> set(Map<String, dynamic> value) async {
+    return await storage.write(key: key, value: jsonEncode(value));
+  }
+
+  Future<void> delete() async {
+    return await storage.delete(key: key);
+  }
+
+  dynamic getByKey(String key) async {
+    Map<String, dynamic>? map = await get();
+    if (map == null) return null;
+    return map[key];
+  }
+
+  dynamic operator [](String key) => getByKey(key);
+
+  void operator []=(String key, dynamic value) async {
+    Map<String, dynamic> map = await get() ?? {};
+    map[key] = value;
+    set(map);
+  }
 }
 
 class StorageProvider {
@@ -29,177 +196,45 @@ class StorageProvider {
   }
 
   // User token
-  static Future<String?> get userToken =>
-      _secureStorage.read(key: StorageKey.userToken);
-
-  static Future<void> setUserToken(String token) async {
-    return await _secureStorage.write(key: StorageKey.userToken, value: token);
-  }
-
-  static Future<void> cleanUserToken() async {
-    return await _secureStorage.delete(key: StorageKey.userToken);
-  }
+  static SecStorageObject userToken =
+      SecStorageObject(_secureStorage, StorageKey.userToken);
 
   // Saved email & password
-  static Future get savedUserAccountPassword => _secureStorage
-      .read(key: StorageKey.savedUserAccountPassword)
-      .then((value) => value == null ? null : jsonDecode(value));
-
-  static Future<void> setSavedUserAccountPassword(
-      String account, String password) async {
-    return await _secureStorage.write(
-      key: StorageKey.savedUserAccountPassword,
-      value: jsonEncode({"account": account, "password": password}),
-    );
-  }
+  static SecStorageMap savedUserAccountPassword =
+      SecStorageMap(_secureStorage, StorageKey.savedUserAccountPassword);
 
   // Lock screen password & enable biometrics Auth
-  static Future<void> setAutoLockConfig(String key, dynamic value) async {
-    Map<String, dynamic> autoLockConfig = await getAutoLockConfig() ?? {};
-    autoLockConfig[key] = value;
-    return await _secureStorage.write(
-      key: StorageKey.autoLockConfig,
-      value: jsonEncode(autoLockConfig),
-    );
-  }
+  static SecStorageMap autoLockConfig =
+      SecStorageMap(_secureStorage, StorageKey.autoLockConfig);
 
-  static Future<Map<String, dynamic>?> getAutoLockConfig() async {
-    String? autoLockConfigJson =
-        await _secureStorage.read(key: StorageKey.autoLockConfig);
-    if (autoLockConfigJson == null) return null;
-    return jsonDecode(autoLockConfigJson);
-  }
-
-  static Future<dynamic> getAutoLockConfigByKey(String key) async {
-    Map<String, dynamic>? autoLockConfig = await getAutoLockConfig();
-    if (autoLockConfig == null) return null;
-    return autoLockConfig[key];
-  }
-
-  static Future<void> cleanSavedUserEmailPassword() async {
-    return await _secureStorage.delete(
-        key: StorageKey.savedUserAccountPassword);
-  }
-
-  // config
-  static Future<void> setConfig(String key, dynamic value) async {
-    Map<String, dynamic> settings = getConfig() ?? {};
-    settings[key] = value;
-    return await _storage.write(StorageKey.config, jsonEncode(settings));
-  }
-
-  static Map<String, dynamic>? getConfig() {
-    String? settingsJson = _storage.read(StorageKey.config);
-    if (settingsJson == null) return null;
-    return jsonDecode(settingsJson);
-  }
-
-  static dynamic getConfigByKey(String key) {
-    Map<String, dynamic>? settings = getConfig();
-    if (settings == null) return null;
-    return settings[key];
-  }
+  // Config
+  static GStorageConfig config = GStorageConfig(_storage);
 
   // History
-  static List<HistoryMediaModel> get historyList {
-    String? historyList = _storage.read(StorageKey.historyList);
-    return historyList == null
-        ? []
-        : (jsonDecode(historyList) as List<dynamic>)
-            .map((item) => HistoryMediaModel.fromJson(item))
-            .toList();
-  }
-
-  static Future<void> addHistoryItem(HistoryMediaModel newItem) async {
-    List<HistoryMediaModel> histories = historyList;
-    if (histories.isNotEmpty) {
-      histories.removeWhere((item) => item.id == newItem.id);
-    }
-    List<HistoryMediaModel> list = [newItem];
-    list.addAll(histories);
-    return await _storage.write(StorageKey.historyList, jsonEncode(list));
-  }
-
-  static Future<void> deleteHistoryItem(int index) async {
-    List<HistoryMediaModel> list = historyList;
-    list.removeAt(index);
-    return await _storage.write(StorageKey.historyList, jsonEncode(list));
-  }
-
-  static Future<void> cleanHistoryList() async {
-    return await _storage.write(StorageKey.historyList, "[]");
-  }
+  static GStorageRecord<HistoryMediaModel> historyList = GStorageRecord(
+    _storage,
+    StorageKey.historyList,
+    HistoryMediaModel.fromJson,
+    (HistoryMediaModel newItem, HistoryMediaModel oldItem) =>
+        newItem.id == oldItem.id,
+  );
 
   // Search history
-  static List<SearchHistoryModel> get searchHistoryList {
-    String? searchHistoryList = _storage.read(StorageKey.searchHistoryList);
-    return searchHistoryList == null
-        ? []
-        : (jsonDecode(searchHistoryList) as List<dynamic>)
-            .map((item) => SearchHistoryModel.fromJson(item))
-            .toList();
-  }
-
-  static Future<void> addSearchHistoryItem(SearchHistoryModel newItem) async {
-    List<SearchHistoryModel> histories = searchHistoryList;
-    if (histories.isNotEmpty) {
-      histories.removeWhere((item) => item.keyword == newItem.keyword);
-    }
-    List<SearchHistoryModel> list = [newItem];
-    list.addAll(histories);
-    return await _storage.write(StorageKey.searchHistoryList, jsonEncode(list));
-  }
-
-  static Future<void> deleteSearchHistoryItem(int index) async {
-    List<SearchHistoryModel> list = searchHistoryList;
-    list.removeAt(index);
-    return await _storage.write(StorageKey.searchHistoryList, jsonEncode(list));
-  }
-
-  static Future<void> cleanSearchHistoryList() async {
-    return await _storage.write(StorageKey.searchHistoryList, "[]");
-  }
+  static GStorageRecord<SearchHistoryModel> searchHistoryList = GStorageRecord(
+    _storage,
+    StorageKey.searchHistoryList,
+    SearchHistoryModel.fromJson,
+    (SearchHistoryModel newItem, SearchHistoryModel oldItem) =>
+        newItem.keyword == oldItem.keyword,
+  );
 
   // Download Video Records
-  static List<VideoDownloadTask> get downloadVideoRecords {
-    String? downloadVideoRecords =
-        _storage.read(StorageKey.downloadVideoRecords);
-    return downloadVideoRecords == null
-        ? []
-        : (jsonDecode(downloadVideoRecords) as List<dynamic>)
-            .map((item) => VideoDownloadTask.fromJson(item))
-            .toList();
-  }
-
-  static Future<void> addDownloadVideoRecord(VideoDownloadTask newItem) async {
-    List<VideoDownloadTask> records = downloadVideoRecords;
-    if (records.isNotEmpty) {
-      records.removeWhere(
-          (item) => item.offlineMedia.id == newItem.offlineMedia.id);
-    }
-    List<VideoDownloadTask> list = [newItem];
-    list.addAll(records);
-    return await _storage.write(
-        StorageKey.downloadVideoRecords, jsonEncode(list));
-  }
-
-  static Future<void> updateDownloadVideoRecord(
-      String taskId, VideoDownloadTask newItem) async {
-    List<VideoDownloadTask> list = downloadVideoRecords;
-    int index = list.indexWhere((element) => element.taskId == taskId);
-    list[index] = newItem;
-    return await _storage.write(
-        StorageKey.downloadVideoRecords, jsonEncode(list));
-  }
-
-  static Future<void> deleteDownloadVideoRecord(int index) async {
-    List<VideoDownloadTask> list = downloadVideoRecords;
-    list.removeAt(index);
-    return await _storage.write(
-        StorageKey.downloadVideoRecords, jsonEncode(list));
-  }
-
-  static Future<void> cleanDownloadVideoRecords() async {
-    return await _storage.write(StorageKey.downloadVideoRecords, "[]");
-  }
+  static GStorageRecord<VideoDownloadTask> downloadVideoRecords =
+      GStorageRecord(
+    _storage,
+    StorageKey.downloadVideoRecords,
+    VideoDownloadTask.fromJson,
+    (VideoDownloadTask newItem, VideoDownloadTask oldItem) =>
+        newItem.taskId == oldItem.taskId,
+  );
 }

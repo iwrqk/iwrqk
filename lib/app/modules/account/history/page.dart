@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
+import '../../../components/app_bar_switcher.dart';
 import '../../../data/enums/types.dart';
-import '../../../global_widgets/tab_indicator.dart';
 import 'controller.dart';
 import 'widgets/history_media_preview_list/widget.dart';
 
@@ -14,97 +12,96 @@ class HistoryPage extends GetView<HistoryController> {
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
-        ),
-      ),
       padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
       alignment: Alignment.centerLeft,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        TabBar(
-          isScrollable: true,
-          physics: const BouncingScrollPhysics(),
-          indicator: TabIndicator(context),
-          indicatorSize: TabBarIndicatorSize.label,
-          labelColor: Theme.of(context).primaryColor,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Theme.of(context).primaryColor,
-          tabs: [
-            Tab(text: L10n.of(context).all),
-            Tab(text: L10n.of(context).videos),
-            Tab(
-              text: L10n.of(context).images,
-            )
-          ],
-        ),
-        IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.solidTrashCan,
-            size: 20,
-          ),
-          color: Colors.grey,
-          onPressed: () {
-            Get.dialog(
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                backgroundColor: Theme.of(context).canvasColor,
-                title: Text(
-                  L10n.of(context).confirm,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                content:
-                    Text(L10n.of(context).message_history_delete_all_confirm),
-                contentPadding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
-                actionsAlignment: MainAxisAlignment.end,
-                actionsPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-                actions: [
-                  CupertinoButton(
-                    onPressed: () async {
-                      await controller.cleanHistoryList();
-                      Get.back();
-                    },
-                    child: Text(
-                      L10n.of(context).apply,
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ]),
+      child: TabBar(
+        controller: controller.tabController,
+        isScrollable: true,
+        indicatorSize: TabBarIndicatorSize.label,
+        dividerColor: Colors.transparent,
+        tabAlignment: TabAlignment.center,
+        splashBorderRadius: BorderRadius.circular(8),
+        tabs: [
+          Tab(text: t.filter.all),
+          Tab(text: t.nav.videos),
+          Tab(
+            text: t.nav.images,
+          )
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.chevronLeft,
-            ),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBarSwitcher(
+          visible: controller.enableMultipleSelection,
+          primary: AppBar(
+            title: Text(t.user.history),
+            actions: [
+              IconButton(
+                onPressed: () => Get.toNamed('/historySearch'),
+                icon: const Icon(Icons.search),
+              ),
+              PopupMenuButton<String>(
+                onSelected: (String type) {
+                  switch (type) {
+                    case 'all':
+                      controller.cleanHistoryList();
+                      break;
+                    case 'multiple':
+                      controller.enableMultipleSelection = true;
+                      break;
+                    default:
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'all',
+                    child: Text(t.records.delete_all),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'multiple',
+                    child: Text(t.records.multiple_selection_mode),
+                  ),
+                ],
+              ),
+            ],
           ),
-          centerTitle: true,
-          title: Text(
-            L10n.of(context).user_history,
-          )),
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
+          secondary: AppBar(
+            titleSpacing: 0,
+            centerTitle: false,
+            leading: IconButton(
+              onPressed: () {
+                controller.enableMultipleSelection = false;
+                controller.checkedList.clear();
+                controller.checkedCount = 0;
+              },
+              icon: const Icon(Icons.close_outlined),
+            ),
+            title: Text(
+              t.records.selected_num(num: controller.checkedCount),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: controller.toggleCheckedAll,
+                child: Text(t.records.select_inverse),
+              ),
+              TextButton(
+                onPressed: controller.deleteChecked,
+                child: Text(
+                  t.records.delete,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              ),
+              const SizedBox(width: 6),
+            ],
+          ),
+        ),
+        body: Column(
           children: [
             _buildTabBar(context),
             Expanded(
@@ -112,6 +109,7 @@ class HistoryPage extends GetView<HistoryController> {
                 top: false,
                 bottom: false,
                 child: TabBarView(
+                  controller: controller.tabController,
                   children: [
                     HistoryMediaPreviewList(
                       tag: controller.childrenControllerTags[0],

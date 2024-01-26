@@ -1,10 +1,10 @@
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/playlist/playlist.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
 import 'repository.dart';
 
 class PlaylistsPreviewListController
-    extends SliverRefreshController<PlaylistModel> {
+    extends IwrRefreshController<PlaylistModel> {
   final PlaylistsPreviewListRepository repository =
       PlaylistsPreviewListRepository();
 

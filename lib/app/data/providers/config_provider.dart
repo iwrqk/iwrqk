@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../core/const/config.dart';
+import '../../const/config.dart';
 import '../enums/result.dart';
 import '../models/config.dart';
 

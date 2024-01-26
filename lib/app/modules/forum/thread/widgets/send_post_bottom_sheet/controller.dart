@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../../../data/services/user_service.dart';
 
@@ -14,13 +15,14 @@ class SendPostBottomSheetController extends GetxController {
 
   TextEditingController contentController = TextEditingController();
 
-  Future<void> sendPost(
-      String threadId, String emptyMessage, String sentMessage) async {
+  final FocusNode contentFocusNode = FocusNode();
+
+  Future<void> sendPost(String threadId) async {
     String content = contentController.text;
     bool success = false;
 
     if (content.isEmpty) {
-      showToast(emptyMessage);
+      SmartDialog.showToast(t.message.comment.content_empty);
       return;
     }
 
@@ -38,7 +40,7 @@ class SendPostBottomSheetController extends GetxController {
     _sending.value = false;
 
     if (success) {
-      showToast(sentMessage);
+      SmartDialog.showToast(t.message.comment.sent);
       Get.back();
     }
   }

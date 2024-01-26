@@ -1,20 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../l10n.dart';
+import 'package:get/get.dart' hide Translations;
+import 'package:iwrqk/i18n/strings.g.dart';
 import '../../../data/enums/types.dart';
 
 class ImagesTabController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late BuildContext outterContext;
   late String tag;
 
   List<String> get tabNameList => [
-        L10n.of(outterContext).sort_latest,
-        L10n.of(outterContext).sort_trending,
-        L10n.of(outterContext).sort_popularity,
-        L10n.of(outterContext).sort_most_views,
-        L10n.of(outterContext).sort_most_likes,
+        t.sort.latest,
+        t.sort.trending,
+        t.sort.popularity,
+        t.sort.most_views,
+        t.sort.most_likes,
       ];
 
   List<String> get tabTagList => [
@@ -33,8 +30,7 @@ class ImagesTabController extends GetxController
         OrderType.likes
       ];
 
-  void init(BuildContext context, String tabTag) {
-    outterContext = context;
+  void init(String tabTag) {
     tag = tabTag;
   }
 }

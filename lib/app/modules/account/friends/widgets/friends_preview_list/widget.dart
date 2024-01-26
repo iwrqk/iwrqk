@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 
-import '../../../../../global_widgets/placeholders/user_preview.dart';
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
-import '../../../../../global_widgets/user_preview/user_preview.dart';
+import '../../../../../components/iwr_refresh/widget.dart';
+import '../../../../../components/user_preview/user_preview.dart';
 import '../../controller.dart';
 import 'controller.dart';
 
@@ -39,37 +37,27 @@ class _FriendsPreviewListState extends State<FriendsPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SliverRefresh(
+    return IwrRefresh(
       controller: _controller,
       scrollController: _scrollController,
-      builder: (data, reachBottomCallback) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              reachBottomCallback(index);
-
-              final item = data[index];
-
-              Widget child = SizedBox(
-                height: 100,
-                child: UserPreview(
-                  user: item,
-                  showFollowButton: false,
-                  showFriendButton: true,
-                ),
-              );
-
-              return FrameSeparateWidget(
-                index: index,
-                placeHolder: const SizedBox(
-                  height: 100,
-                  child: UserPreviewPlaceholder(),
-                ),
-                child: child,
-              );
-            },
-            childCount: data.length,
-          ),
+      builder: (data, scrollController) {
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final item = data[index];
+                  return UserPreview(
+                    user: item,
+                    showFollowButton: false,
+                    showFriendButton: true,
+                  );
+                },
+                childCount: data.length,
+              ),
+            ),
+          ],
         );
       },
     );

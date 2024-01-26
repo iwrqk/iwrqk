@@ -31,6 +31,6 @@ class PlaylistsPreviewController extends GetxController {
   }
 
   Future<void> refreshData() {
-    return _targetController.refreshData(showSplash: true, showFooter: false);
+    return _targetController.refreshData(showSplash: true);
   }
 }

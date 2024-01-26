@@ -4,13 +4,13 @@ import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../core/utils/display_util.dart';
 import '../models/download_task.dart';
 import '../models/offline/download_task_media.dart';
 import '../providers/storage_provider.dart';
@@ -137,7 +137,7 @@ class DownloadService extends GetxService {
   }) async {
     bool isStorage = await _checkPermission();
     if (!isStorage) {
-      showToast(DisplayUtil.messageNoStoragePermission);
+      SmartDialog.showToast(t.message.download.no_provide_storage_permission);
       return null;
     }
     var records = await FlutterDownloader.loadTasks() ?? [];
@@ -145,7 +145,7 @@ class DownloadService extends GetxService {
       bool hasExisted =
           records.any((var record) => record.filename == fileName);
       if (hasExisted) {
-        showToast(DisplayUtil.messageDownloadTaskAlreadyExist);
+        SmartDialog.showToast(t.message.download.task_already_exists);
         return null;
       }
     }
@@ -221,7 +221,7 @@ class DownloadService extends GetxService {
         ).obs
       });
 
-      StorageProvider.addDownloadVideoRecord(task);
+      StorageProvider.downloadVideoRecords.add(task);
       return true;
     } else {
       return false;
@@ -278,6 +278,7 @@ class DownloadService extends GetxService {
       refreshTask(taskId, newTaskId);
 
       VideoDownloadTask task = StorageProvider.downloadVideoRecords
+          .get()
           .firstWhere((element) => element.taskId == taskId);
 
       VideoDownloadTask newTask = VideoDownloadTask(
@@ -288,8 +289,8 @@ class DownloadService extends GetxService {
         offlineMedia: task.offlineMedia,
       );
 
-      StorageProvider.updateDownloadVideoRecord(
-        taskId,
+      StorageProvider.downloadVideoRecords.updateWhere(
+        (element) => element.taskId == taskId,
         newTask,
       );
 
@@ -304,6 +305,7 @@ class DownloadService extends GetxService {
       refreshTask(taskId, newTaskId);
 
       VideoDownloadTask task = StorageProvider.downloadVideoRecords
+          .get()
           .firstWhere((element) => element.taskId == taskId);
 
       VideoDownloadTask newTask = VideoDownloadTask(
@@ -314,8 +316,8 @@ class DownloadService extends GetxService {
         offlineMedia: task.offlineMedia,
       );
 
-      StorageProvider.updateDownloadVideoRecord(
-        taskId,
+      StorageProvider.downloadVideoRecords.updateWhere(
+        (element) => element.taskId == taskId,
         newTask,
       );
 

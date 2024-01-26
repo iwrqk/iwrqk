@@ -1,5 +1,5 @@
-import '../../core/const/iwara.dart';
-import 'file.dart';
+import '../../const/iwara.dart';
+import 'avatar.dart';
 
 class UserModel {
   String id;
@@ -12,7 +12,7 @@ class UserModel {
   bool friend;
   bool premium;
   String? seenAt;
-  FileModel? avatar;
+  AvatarModel? avatar;
   String createdAt;
   String updatedAt;
 
@@ -35,9 +35,19 @@ class UserModel {
   String get avatarUrl {
     if (avatar == null) return IwaraConst.defaultAvatarUrl;
 
+    bool animated = avatar!.mime == "image/gif" ||
+        avatar!.mime == "image/webp" ||
+        avatar!.mime == "image/apng";
+
+    if (animated) {
+      return IwaraConst.originalAvatarUrl
+          .replaceFirst("{id}", avatar!.id)
+          .replaceFirst("{name}", avatar!.name!);
+    }
+
     return IwaraConst.avatarUrl
-      .replaceFirst("{id}", avatar!.id)
-      .replaceFirst("{name}", avatar!.name!);
+        .replaceFirst("{id}", avatar!.id)
+        .replaceFirst("{name}", avatar!.name!);
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -53,7 +63,7 @@ class UserModel {
       premium: json['premium'],
       seenAt: json['seenAt'],
       avatar:
-          json['avatar'] != null ? FileModel.fromJson(json['avatar']) : null,
+          json['avatar'] != null ? AvatarModel.fromJson(json['avatar']) : null,
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );

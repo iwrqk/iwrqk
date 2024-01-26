@@ -17,7 +17,7 @@ class ImagesTabPage extends GetView<ImagesTabController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.init(context, tabTag);
+    controller.init(tabTag);
     return MediaGridTabPage(
       tag: controller.tag,
       tabNameList: controller.tabNameList,

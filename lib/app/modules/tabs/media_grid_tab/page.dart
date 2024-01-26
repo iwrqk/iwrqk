@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:keframe/keframe.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../../components/media_preview/media_preview_grid/widget.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/account/settings/media_sort_setting.dart';
-import '../../../global_widgets/media_preview/media_preview_grid/widget.dart';
-import '../../../global_widgets/tab_indicator.dart';
 import 'controller.dart';
+import 'widgets/filter_page/widget.dart';
 
 class MediaGridTabPage extends StatefulWidget {
   final String tag;
@@ -17,6 +15,7 @@ class MediaGridTabPage extends StatefulWidget {
   final List<OrderType>? orderTypeList;
   final MediaSourceType? sourceType;
   final List<MediaSourceType>? customSourceTypeList;
+  final TabAlignment tabAlignment;
 
   const MediaGridTabPage({
     Key? key,
@@ -27,6 +26,7 @@ class MediaGridTabPage extends StatefulWidget {
     this.orderTypeList,
     this.sourceType,
     this.customSourceTypeList,
+    this.tabAlignment = TabAlignment.start,
   }) : super(key: key);
 
   @override
@@ -46,49 +46,37 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
-        ),
-      ),
-      padding: MediaQuery.of(context).padding.copyWith(bottom: 0, top: 0),
+      padding: MediaQuery.of(context).padding.copyWith(bottom: 0),
       alignment: Alignment.centerLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: TabBar(
-              isScrollable: true,
-              physics: const BouncingScrollPhysics(),
-              controller: _controller.tabController,
-              indicator: TabIndicator(context),
-              indicatorSize: TabBarIndicatorSize.label,
-              tabs: widget.tabNameList
-                  .map((e) => Tab(
-                        text: e,
-                      ))
-                  .toList(),
-              onTap: (value) {},
-            ),
-          ),
-          Visibility(
-            visible: widget.showFilter,
-            child: IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.sliders,
-                size: 20,
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Material(
+                child: TabBar(
+                  tabAlignment: widget.tabAlignment,
+                  isScrollable: true,
+                  controller: _controller.tabController,
+                  dividerColor: Colors.transparent,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  splashBorderRadius: BorderRadius.circular(8),
+                  tabs: widget.tabNameList
+                      .map((e) => Tab(
+                            text: e,
+                          ))
+                      .toList(),
+                ),
               ),
-              color: Colors.grey,
-              onPressed: () {
-                _controller.popFilterDialog();
-              },
             ),
-          ),
-        ],
+            Visibility(
+              visible: widget.showFilter,
+              child: FilterPage(
+                targetTag: widget.tag,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -96,39 +84,34 @@ class _MediaGridTabPageState extends State<MediaGridTabPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: Column(
-        children: [
-          _buildTabBar(context),
-          Expanded(
-            child: SafeArea(
-              top: false,
-              bottom: false,
-              child: SizeCacheWidget(
-                child: TabBarView(
-                  controller: _controller.tabController,
-                  children: List.generate(
-                    widget.tabTagList.length,
-                    (index) => MediaPreviewGrid(
-                      sourceType: widget.sourceType == null
-                          ? widget.customSourceTypeList![index]
-                          : widget.sourceType!,
-                      sortSetting: MediaSortSettingModel(
-                          orderType: widget.orderTypeList == null
-                              ? null
-                              : widget.orderTypeList![index]),
-                      tag: widget.tabTagList[index],
-                      scrollController: _controller.scrollControllers[index],
-                      applyFilter: true,
-                    ),
-                  ),
+    return Column(
+      children: [
+        _buildTabBar(context),
+        Expanded(
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: TabBarView(
+              controller: _controller.tabController,
+              children: List.generate(
+                widget.tabTagList.length,
+                (index) => MediaPreviewGrid(
+                  sourceType: widget.sourceType == null
+                      ? widget.customSourceTypeList![index]
+                      : widget.sourceType!,
+                  sortSetting: MediaSortSettingModel(
+                      orderType: widget.orderTypeList == null
+                          ? null
+                          : widget.orderTypeList![index]),
+                  tag: widget.tabTagList[index],
+                  scrollController: _controller.scrollControllers[index],
+                  applyFilter: true,
                 ),
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 

@@ -1,19 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
 
 class VideosTabController extends GetxController {
-  late BuildContext outterContext;
   late String tag;
 
   List<String> get tabNameList => [
-        L10n.of(outterContext).sort_latest,
-        L10n.of(outterContext).sort_trending,
-        L10n.of(outterContext).sort_popularity,
-        L10n.of(outterContext).sort_most_views,
-        L10n.of(outterContext).sort_most_likes,
+        t.sort.latest,
+        t.sort.trending,
+        t.sort.popularity,
+        t.sort.most_views,
+        t.sort.most_likes,
       ];
 
   List<String> get tabTagList => [
@@ -32,8 +30,7 @@ class VideosTabController extends GetxController {
         OrderType.likes
       ];
 
-  void init(BuildContext context, String tabTag) {
-    outterContext = context;
+  void init(String tabTag) {
     tag = tabTag;
   }
 }

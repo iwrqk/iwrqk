@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../l10n.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
 class SubscriptionTabController extends GetxController {
-  late BuildContext outterContext;
   late String tag;
 
   List<String> get tabNameList => [
-        L10n.of(outterContext).videos,
-        L10n.of(outterContext).images,
+        t.nav.videos,
+        t.nav.images,
       ];
 
   List<String> get tabTagList => [
@@ -17,8 +14,7 @@ class SubscriptionTabController extends GetxController {
         "${tag}_images",
       ];
 
-  void init(BuildContext context, String tabTag) {
-    outterContext = context;
+  void init(String tabTag) {
     tag = tabTag;
   }
 }

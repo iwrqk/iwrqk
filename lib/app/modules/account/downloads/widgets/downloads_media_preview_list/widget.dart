@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../../../l10n.dart';
-import '../../../../../data/enums/types.dart';
+import '../../../../../components/iwr_refresh/widget.dart';
 import '../../../../../data/models/download_task.dart';
-import '../../../../../global_widgets/placeholders/media_flat_preview.dart';
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../../controller.dart';
 import '../download_media_preview.dart';
+import '../download_task_dialog.dart';
 import 'controller.dart';
 
 class DownloadsMediaPreviewList extends StatefulWidget {
-  final MediaType filterType;
+  final DownloadTaskStatus filterType;
   final String tag;
   final bool isPlaylist;
   final String? currentMediaId;
@@ -48,29 +43,26 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
     super.initState();
     _controller =
         Get.find<DownloadsMediaPreviewListController>(tag: widget.tag);
-    _controller.initConfig(widget.filterType);
     _parentController.childrenControllers[widget.tag] = _controller;
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SizeCacheWidget(
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return Obx(
-            () => SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  reachBottomCallback(index);
+    return IwrRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, scrollController) {
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            Obx(
+              () => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final item = _controller.data[index];
+                    final taskId = item.taskId;
 
-                  final item = _controller.data[index];
-
-                  late Widget child;
-
-                  return Obx(() {
                     final DownloadTaskStatus status = _controller
                             .downloadService
                             .downloadTasksStatus[item.taskId]
@@ -78,140 +70,72 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             .status ??
                         DownloadTaskStatus.undefined;
 
-                    if (widget.isPlaylist ||
-                        status == DownloadTaskStatus.enqueued) {
-                      child = Container(
-                        height: 100,
-                        color: widget.currentMediaId == item.offlineMedia.id
-                            ? Theme.of(context).primaryColor.withOpacity(0.1)
-                            : null,
-                        child: DownloadMediaPreview(
-                          taskData: item,
-                          onResumed: (newTaskId) {
-                            _controller.onResumed(index, newTaskId);
-                          },
-                          customOnTap:
-                              widget.currentMediaId == item.offlineMedia.id
-                                  ? null
-                                  : widget.onChangeVideo,
-                        ),
-                      );
-                    } else {
-                      child = Slidable(
-                        key: Key(item.offlineMedia.id),
-                        startActionPane: status != DownloadTaskStatus.complete
-                            ? null
-                            : ActionPane(
-                                motion: const DrawerMotion(),
-                                extentRatio: 0.5,
-                                children: [
-                                  SlidableAction(
-                                    flex: 1,
-                                    onPressed: (context) async {
-                                      OpenFile.open(
-                                          (await _controller.downloadService
-                                              .getTaskFilePath(item.taskId))!,
-                                          type: item.offlineMedia.type ==
-                                                  MediaType.video
-                                              ? 'video/mp4'
-                                              : 'image/png',
-                                          uti: item.offlineMedia.type ==
-                                                  MediaType.video
-                                              ? 'public.mpeg-4'
-                                              : 'public.png');
-                                    },
-                                    backgroundColor: Colors.blue,
-                                    foregroundColor: Colors.white,
-                                    icon: FontAwesomeIcons.folderOpen,
-                                    label: L10n.of(context).open,
-                                  ),
-                                  SlidableAction(
-                                    flex: 1,
-                                    onPressed: (context) async {
-                                      Share.shareXFiles([
-                                        XFile(
-                                            (await _controller.downloadService
-                                                .getTaskFilePath(item.taskId))!,
-                                            mimeType: item.offlineMedia.type ==
-                                                    MediaType.video
-                                                ? 'video/mp4'
-                                                : 'image/png')
-                                      ]);
-                                    },
-                                    backgroundColor: Colors.lightBlue,
-                                    foregroundColor: Colors.white,
-                                    icon: FontAwesomeIcons.shareFromSquare,
-                                    label: L10n.of(context).export,
-                                  ),
-                                ],
-                              ),
-                        endActionPane: ActionPane(
-                          motion: const DrawerMotion(),
-                          extentRatio: status == DownloadTaskStatus.complete ||
-                                  status == DownloadTaskStatus.running ||
-                                  status == DownloadTaskStatus.paused
-                              ? 0.25
-                              : 0.5,
-                          children: [
-                            if (status == DownloadTaskStatus.failed ||
-                                status == DownloadTaskStatus.canceled ||
-                                status == DownloadTaskStatus.undefined)
-                              SlidableAction(
-                                flex: 1,
-                                onPressed: (context) async {
-                                  await _controller.retryTask(
-                                    index,
-                                    item.taskId,
-                                  );
-                                },
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                                icon: FontAwesomeIcons.arrowRotateLeft,
-                                label: L10n.of(context).retry,
-                              ),
-                            SlidableAction(
-                              flex: 1,
-                              onPressed: (context) async {
-                                await _controller.deleteVideoTask(
-                                  index,
-                                  item.taskId,
-                                );
-                              },
-                              backgroundColor: Colors.red.shade700,
-                              foregroundColor: Colors.white,
-                              icon: FontAwesomeIcons.trashCan,
-                              label: L10n.of(context).delete,
-                            ),
-                          ],
-                        ),
-                        child: SizedBox(
-                          height: 100,
-                          child: DownloadMediaPreview(
-                            taskData: item,
-                            onResumed: (newTaskId) {
-                              _controller.onResumed(index, newTaskId);
-                            },
-                          ),
-                        ),
-                      );
+                    if (status != widget.filterType) {
+                      return const SizedBox.shrink();
                     }
 
-                    return FrameSeparateWidget(
-                      index: index,
-                      placeHolder: const SizedBox(
-                        height: 100,
-                        child: MediaFlatPreviewPlaceholder(),
-                      ),
-                      child: child,
+                    void popupDialog() {
+                      Get.dialog(DownloadTaskDialog(
+                        taskData: item,
+                        onPaused: () {
+                          _controller.downloadService.pauseTask(taskId);
+                        },
+                        onResumed: () {
+                          _controller.downloadService
+                              .resumeTask(taskId)
+                              .then((newTaskId) {
+                            if (newTaskId != null) {
+                              _controller.onResumed(index, newTaskId);
+                            }
+                          });
+                        },
+                        onRetry: () async {
+                          await _controller.retryTask(
+                            index,
+                            item.taskId,
+                          );
+                        },
+                        onDeleted: () async {
+                          await _controller.deleteVideoTask(
+                            index,
+                            item.taskId,
+                          );
+                        },
+                        onOpen: () async {
+                          OpenFile.open(
+                              (await _controller.downloadService
+                                  .getTaskFilePath(item.taskId))!,
+                              type: 'video/mp4',
+                              uti: 'public.mpeg-4');
+                        },
+                        onShare: () async {
+                          Share.shareXFiles([
+                            XFile(
+                                (await _controller.downloadService
+                                    .getTaskFilePath(item.taskId))!,
+                                mimeType: 'video/mp4')
+                          ]);
+                        },
+                      ));
+                    }
+
+                    return DownloadMediaPreview(
+                      onTap: status == DownloadTaskStatus.complete
+                          ? () {}
+                          : popupDialog,
+                      onDoubleTap: status == DownloadTaskStatus.complete
+                          ? popupDialog
+                          : null,
+                      taskData: item,
                     );
-                  });
-                },
-                childCount: data.length,
+                  },
+                  childCount: data.length,
+                ),
               ),
-            ),
-          );
-        },
-      ),
+            )
+          ],
+        );
+      },
     );
   }
 

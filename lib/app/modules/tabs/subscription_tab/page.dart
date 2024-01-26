@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/enums/types.dart';
@@ -15,7 +15,7 @@ class SubscriptionTabPage extends GetView<SubscriptionTabController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.init(context, tabTag);
+    controller.init(tabTag);
     return MediaGridTabPage(
       tag: controller.tag,
       showFilter: false,
@@ -25,6 +25,7 @@ class SubscriptionTabPage extends GetView<SubscriptionTabController> {
         MediaSourceType.subscribedVideos,
         MediaSourceType.subscribedImages
       ],
+      tabAlignment: TabAlignment.center,
     );
   }
 }

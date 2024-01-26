@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
+import '../../../components/user_preview/users_preview_list/controller.dart';
+import '../../../components/user_preview/users_preview_list/widget.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/account/settings/users_sort_setting.dart';
 import '../../../data/models/user.dart';
-import '../../../global_widgets/user_preview/users_preview_list/controller.dart';
-import '../../../global_widgets/user_preview/users_preview_list/widget.dart';
 
 class FollowersFollowingPage extends StatelessWidget {
   FollowersFollowingPage({super.key});
@@ -24,24 +23,9 @@ class FollowersFollowingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
-          ),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
         title: Text(sourceType == UsersSourceType.followers
-            ? L10n.of(context).followers
-            : L10n.of(context).following),
+            ? t.profile.followers
+            : t.profile.following),
       ),
       body: SafeArea(
         top: false,

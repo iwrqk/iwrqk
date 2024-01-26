@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
-import '../../../core/utils/display_util.dart';
+import '../../../components/load_fail.dart';
+import '../../../components/network_image.dart';
 import '../../../data/models/forum/channel.dart';
-import '../../../global_widgets/iwr_progress_indicator.dart';
-import '../../../global_widgets/reloadable_image.dart';
-import '../../../global_widgets/sliver_refresh/widgets/iwr_sliver_refresh_control.dart';
 import '../../../routes/pages.dart';
+import '../../../utils/display_util.dart';
 import 'controller.dart';
 
 class ForumTabPage extends GetView<ForumTabController> {
@@ -21,12 +19,12 @@ class ForumTabPage extends GetView<ForumTabController> {
     required ChannelModel channel,
   }) {
     return Card(
-      color: Theme.of(context).canvasColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(24),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: GestureDetector(
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: InkWell(
         onTap: () {
           Get.toNamed(AppRoutes.channel, arguments: {
             'channelName': channel.id,
@@ -34,7 +32,7 @@ class ForumTabPage extends GetView<ForumTabController> {
           });
         },
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+          padding: const EdgeInsets.fromLTRB(20, 12, 16, 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,13 +41,13 @@ class ForumTabPage extends GetView<ForumTabController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 8),
                     child: SizedBox(
-                      width: 30,
+                      width: 32,
                       child: Center(
-                        child: FaIcon(
+                        child: Icon(
                           _getChannelIcon(channel.id),
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
@@ -61,13 +59,15 @@ class ForumTabPage extends GetView<ForumTabController> {
                         _getChannelTitle(context, channel.id),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                       ),
                       Text(
-                        L10n.of(context).channel_label(
-                          DisplayUtil.compactBigNumber(channel.numThreads),
-                          DisplayUtil.compactBigNumber(channel.numPosts),
+                        t.channel.label(
+                          numThread:
+                              DisplayUtil.compactBigNumber(channel.numThreads),
+                          numPosts:
+                              DisplayUtil.compactBigNumber(channel.numPosts),
                         ),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -78,10 +78,10 @@ class ForumTabPage extends GetView<ForumTabController> {
               if (channel.lastThread != null)
                 ListTile(
                   leading: ClipOval(
-                    child: ReloadableImage(
+                    child: NetworkImg(
                       imageUrl: channel.lastThread!.user.avatarUrl,
-                      width: 40,
-                      height: 40,
+                      width: 42,
+                      height: 42,
                     ),
                   ),
                   title: Text(
@@ -103,56 +103,26 @@ class ForumTabPage extends GetView<ForumTabController> {
     );
   }
 
-  Widget _buildLoadFailWidget(BuildContext context, String errorMessage) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-              onTap: () {
-                controller.refreshData(showSplash: true);
-              },
-              child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.arrowRotateLeft,
-                  color: Theme.of(context).primaryColor,
-                  size: 42,
-                ),
-              )),
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: Text(
-              errorMessage,
-              textAlign: TextAlign.left,
-              style: const TextStyle(color: Colors.grey),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   IconData _getChannelIcon(String channelTitle) {
     switch (channelTitle.split("-").first) {
       case "announcements":
-        return FontAwesomeIcons.bullhorn;
+        return Icons.campaign;
       case "feedback":
-        return FontAwesomeIcons.solidCommentDots;
+        return Icons.feedback;
       case "general":
-        return FontAwesomeIcons.solidComments;
+        return Icons.forum;
       case "guides":
-        return FontAwesomeIcons.bookOpenReader;
+        return Icons.book;
       case "questions":
-        return FontAwesomeIcons.solidCircleQuestion;
+        return Icons.question_mark;
       case "requests":
-        return FontAwesomeIcons.solidLightbulb;
+        return Icons.lightbulb;
       case "sharing":
-        return FontAwesomeIcons.solidShareFromSquare;
+        return Icons.share;
       case "support":
-        return FontAwesomeIcons.userShield;
+        return Icons.support;
       default:
-        return FontAwesomeIcons.question;
+        return Icons.forum;
     }
   }
 
@@ -160,21 +130,21 @@ class ForumTabPage extends GetView<ForumTabController> {
     channelTitle = channelTitle.split("-").first;
     switch (channelTitle) {
       case "announcements":
-        return L10n.of(context).channel_announcements;
+        return t.channel.announcements;
       case "feedback":
-        return L10n.of(context).channel_feedback;
+        return t.channel.feedback;
       case "general":
-        return L10n.of(context).channel_general;
+        return t.channel.general;
       case "guides":
-        return L10n.of(context).channel_guides;
+        return t.channel.guides;
       case "questions":
-        return L10n.of(context).channel_questions;
+        return t.channel.questions;
       case "requests":
-        return L10n.of(context).channel_requests;
+        return t.channel.requests;
       case "sharing":
-        return L10n.of(context).channel_sharing;
+        return t.channel.sharing;
       case "support":
-        return L10n.of(context).channel_support;
+        return t.channel.support;
       default:
         return channelTitle[0].toUpperCase() + channelTitle.substring(1);
     }
@@ -184,9 +154,9 @@ class ForumTabPage extends GetView<ForumTabController> {
     groupTitle = groupTitle.split("-").first;
     switch (groupTitle) {
       case "administration":
-        return L10n.of(context).channel_administration;
+        return t.channel.administration;
       case "global":
-        return L10n.of(context).channel_global;
+        return t.channel.global;
       default:
         return groupTitle[0].toUpperCase() + groupTitle.substring(1);
     }
@@ -200,7 +170,7 @@ class ForumTabPage extends GetView<ForumTabController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 25, left: 15, bottom: 5),
+              padding: const EdgeInsets.only(top: 24, left: 16, bottom: 8),
               child: Text(
                 groupTitle,
                 style: Theme.of(context).textTheme.titleLarge,
@@ -225,43 +195,52 @@ class ForumTabPage extends GetView<ForumTabController> {
   }
 
   Widget _buildDataWidget(BuildContext context) {
-    List<Widget> children = [
-      IwrSliverRefreshControl(
-        onRefresh: controller.refreshData,
-      ),
-    ];
+    List<Widget> children = [];
 
     controller.channelModels
         .forEach((String groupTitle, List<ChannelModel> channels) {
-      children.addAll(_buildGroupChannelsWidget(
-          context, _getGroupTitle(context, groupTitle), channels));
+      children.addAll(
+        _buildGroupChannelsWidget(
+            context, _getGroupTitle(context, groupTitle), channels),
+      );
     });
 
-    return CustomScrollView(
-      controller: controller.scrollController,
-      physics:
-          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      slivers: children,
+    children.add(
+      const SliverToBoxAdapter(
+        child: SizedBox(height: 16),
+      ),
+    );
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        await controller.refreshData();
+      },
+      child: CustomScrollView(
+        controller: controller.scrollController,
+        slivers: children,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     controller.checkFirstLoad();
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: controller.obx(
-        (state) {
-          return SafeArea(
-            child: _buildDataWidget(context),
-          );
-        },
-        onError: (error) {
-          return _buildLoadFailWidget(context, error!);
-        },
-        onLoading: const Center(
-          child: IwrProgressIndicator(),
-        ),
+    return controller.obx(
+      (state) {
+        return _buildDataWidget(context);
+      },
+      onError: (error) {
+        return Center(
+          child: LoadFail(
+            errorMessage: error!,
+            onRefresh: () {
+              controller.refreshData(showSplash: true);
+            },
+          ),
+        );
+      },
+      onLoading: const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }

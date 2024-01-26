@@ -1,9 +1,10 @@
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/enums/result.dart';
 import '../../../../../data/models/user.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
+
 import 'repository.dart';
 
-class FriendsPreviewListController extends SliverRefreshController<UserModel> {
+class FriendsPreviewListController extends IwrRefreshController<UserModel> {
   final FriendsPreviewListRepository repository =
       FriendsPreviewListRepository();
 

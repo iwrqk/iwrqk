@@ -1,7 +1,7 @@
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../core/utils/display_util.dart';
 import '../enums/result.dart';
 import '../enums/types.dart';
 import '../models/account/conversations/conversation.dart';
@@ -27,7 +27,7 @@ class UserService extends GetxService {
   Future<bool> init() async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return Future.value(flag);
     }
@@ -49,13 +49,13 @@ class UserService extends GetxService {
   Future<bool> getUser() {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return Future.value(flag);
     }
     return ApiProvider.getAppUser().then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         user = value.data!.user;
@@ -70,13 +70,13 @@ class UserService extends GetxService {
   Future<bool> getNotificationsCounts() {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return Future.value(flag);
     }
     return ApiProvider.getNotificationsCounts().then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         notificationsCounts = value.data;
@@ -89,9 +89,9 @@ class UserService extends GetxService {
   Future<ApiResult<GroupResult<ConversationModel>>> getConversations(
       int pageNum) {
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       return Future.value(ApiResult(
-          data: null, message: DisplayUtil.messageNeedLogin, success: false));
+          data: null, message: t.account.require_login, success: false));
     }
     return ApiProvider.getConversations(user!.id, pageNum);
   }
@@ -99,13 +99,13 @@ class UserService extends GetxService {
   Future<bool> followUser(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.followUser(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -117,13 +117,13 @@ class UserService extends GetxService {
   Future<bool> unfollowUser(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.unfollowUser(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -136,13 +136,13 @@ class UserService extends GetxService {
     bool flag = false;
     FriendRelationType? relation;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return ApiResult(data: null, success: flag);
     }
     await ApiProvider.getFriendRelation(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -155,13 +155,13 @@ class UserService extends GetxService {
   Future<bool> sendFriendRequest(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.sendFriendRequest(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -173,13 +173,13 @@ class UserService extends GetxService {
   Future<bool> acceptFriendRequest(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.acceptFriendRequest(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -191,13 +191,13 @@ class UserService extends GetxService {
   Future<bool> rejectFriendRequest(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.rejectFriendRequest(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -209,13 +209,13 @@ class UserService extends GetxService {
   Future<bool> unfriend(String userId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.unfriend(userId: userId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -227,13 +227,13 @@ class UserService extends GetxService {
   Future<bool> favoriteMedia(String id) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.favoriteMedia(id: id).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -245,13 +245,13 @@ class UserService extends GetxService {
   Future<bool> unfavoriteMedia(String id) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.unfavoriteMedia(id: id).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -265,13 +265,13 @@ class UserService extends GetxService {
     bool flag = false;
     List<LightPlaylistModel>? result;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return ApiResult(data: null, success: flag);
     }
     await ApiProvider.getLightPlaylists(videoId: videoId).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -284,13 +284,13 @@ class UserService extends GetxService {
   Future<bool> createPlaylist(String title) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.createPlaylist(title: title).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -302,7 +302,7 @@ class UserService extends GetxService {
   Future<bool> addToPlaylist(String videoId, List<String> playlistIds) async {
     bool flag = true;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -310,7 +310,7 @@ class UserService extends GetxService {
       await ApiProvider.addToPlaylist(videoId: videoId, playlistId: playlistId)
           .then((value) {
         if (!value.success) {
-          showToast(value.message!);
+          SmartDialog.showToast(value.message!);
           flag = false;
         } else {
           flag &= true;
@@ -324,7 +324,7 @@ class UserService extends GetxService {
       String videoId, List<String> playlistIds) async {
     bool flag = true;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -333,7 +333,7 @@ class UserService extends GetxService {
               videoId: videoId, playlistId: playlistId)
           .then((value) {
         if (!value.success) {
-          showToast(value.message!);
+          SmartDialog.showToast(value.message!);
           flag = false;
         } else {
           flag &= true;
@@ -351,7 +351,7 @@ class UserService extends GetxService {
   }) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -362,7 +362,7 @@ class UserService extends GetxService {
       parentId: parentId,
     ).then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -374,14 +374,14 @@ class UserService extends GetxService {
   Future<bool> deleteComment(String sourceType, String commentId) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
     await ApiProvider.deleteComment(sourceType: sourceType, id: commentId)
         .then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -396,7 +396,7 @@ class UserService extends GetxService {
   }) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -405,7 +405,7 @@ class UserService extends GetxService {
             conversationId: conversationId, content: content)
         .then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -421,7 +421,7 @@ class UserService extends GetxService {
   }) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -430,7 +430,7 @@ class UserService extends GetxService {
             channelName: channelName, title: title, content: content)
         .then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -445,7 +445,7 @@ class UserService extends GetxService {
   }) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -453,7 +453,7 @@ class UserService extends GetxService {
     await ApiProvider.sendPost(threadId: threadId, content: content)
         .then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;
@@ -462,10 +462,10 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> saveBlockedTags(List<TagModel> blockedTags) async {
+  Future<bool> saveBlockedTags(List<String> blockedTags) async {
     bool flag = false;
     if (!accountService.isLogin) {
-      showToast(DisplayUtil.messageNeedLogin);
+      SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
@@ -473,7 +473,7 @@ class UserService extends GetxService {
     await ApiProvider.updateAppUser(userId: user!.id, tagBlacklist: blockedTags)
         .then((value) {
       if (!value.success) {
-        showToast(value.message!);
+        SmartDialog.showToast(value.message!);
         flag = false;
       } else {
         flag = true;

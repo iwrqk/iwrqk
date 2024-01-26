@@ -1,39 +1,31 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../data/enums/result.dart';
+import '../../data/enums/types.dart';
+import '../../data/models/media/media.dart';
 import '../../data/models/profile.dart';
 import '../../data/providers/api_provider.dart';
+import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 
 class ProfileController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
   final UserService userService = Get.find();
+  final ConfigService configService = Get.find();
 
   late String userName;
   late ProfileModel profile;
   late int followingNum;
   late int followersNum;
 
-  late TabController _tabController;
+  late GroupResult<MediaModel> popularVideos;
+  late GroupResult<MediaModel> popularImages;
 
-  final ScrollController scrollController = ScrollController();
+  ProfileModel? profileModel;
 
-  final RxBool _detailExpanded = false.obs;
-
-  final RxDouble _hideAppbarFactor = 1.0.obs;
-  final RxInt _currentTabIndex = 0.obs;
-
-  int get currentTabIndex => _currentTabIndex.value;
-
-  TabController get tabController => _tabController;
-
-  bool get detailExpanded => _detailExpanded.value;
-
-  double get hideAppbarFactor => _hideAppbarFactor.value;
-
-  set detailExpanded(bool value) {
-    _detailExpanded.value = value;
-  }
+  String? fetchWorksPreviewMessage;
+  final RxBool _isFetchingWorksPreview = false.obs;
+  bool get isFetchingWorksPreview => _isFetchingWorksPreview.value;
 
   @override
   void onInit() {
@@ -41,43 +33,12 @@ class ProfileController extends GetxController
 
     userName = Get.arguments;
 
-    _tabController = TabController(length: 3, vsync: this);
-
-    _tabController.addListener(() {
-      _currentTabIndex.value = _tabController.index;
-    });
-
-    scrollController.addListener(_onScroll);
-
     loadData();
-  }
-
-  void _onScroll() {
-    double position = scrollController.position.pixels;
-    double hideAppbarHit = scrollController.position.maxScrollExtent;
-    double newValue = (hideAppbarHit - position) > 0
-        ? (hideAppbarHit - position) / hideAppbarHit
-        : 0;
-    if (hideAppbarFactor - newValue >= 0.25 ||
-        hideAppbarFactor - newValue <= -0.25 ||
-        newValue == 0 ||
-        newValue == 1) {
-      _hideAppbarFactor.value = newValue;
-    }
-  }
-
-  void jumpToTop() {
-    scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
   }
 
   Future<void> loadData() async {
     change(null, status: RxStatus.loading());
 
-    ProfileModel? profileModel;
     String? message;
     bool success = true;
 
@@ -128,6 +89,46 @@ class ProfileController extends GetxController
     } else {
       profile = profileModel!;
       change(null, status: RxStatus.success());
+
+      fetchWorksPreview();
     }
+  }
+
+  Future<void> fetchWorksPreview() async {
+    fetchWorksPreviewMessage = null;
+    _isFetchingWorksPreview.value = true;
+    bool success = true;
+    await ApiProvider.getMedia(
+            path: "/videos",
+            queryParameters: {"user": profileModel!.user!.id, "limit": 8},
+            type: MediaType.video)
+        .then((value) {
+      success = value.success;
+      if (!success) {
+        fetchWorksPreviewMessage = value.message;
+      } else {
+        popularVideos = value.data!;
+      }
+    });
+
+    if (!success) {
+      _isFetchingWorksPreview.value = false;
+      return;
+    }
+
+    await ApiProvider.getMedia(
+            path: "/images",
+            queryParameters: {"user": profileModel!.user!.id, "limit": 8},
+            type: MediaType.image)
+        .then((value) {
+      success = value.success;
+      if (!success) {
+        fetchWorksPreviewMessage = value.message;
+      } else {
+        popularImages = value.data!;
+      }
+    });
+
+    _isFetchingWorksPreview.value = false;
   }
 }

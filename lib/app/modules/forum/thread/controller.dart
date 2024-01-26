@@ -6,12 +6,16 @@ class ThreadController extends GetxController {
 
   late String title;
   late String starterUserName;
+  late String starteName;
+  late String timestamp;
+  late String starterAvatarUrl;
   late String channelName;
   late String threadId;
   late bool locked;
 
-  final RxBool _showToTopButton = false.obs;
-  bool get showToTopButton => _showToTopButton.value;
+  final RxBool _showTitle = false.obs;
+  bool get showTitle => _showTitle.value;
+  set showTitle(bool value) => _showTitle.value = value;
 
   @override
   void onInit() {
@@ -21,16 +25,18 @@ class ThreadController extends GetxController {
 
     title = arguments['title'];
     starterUserName = arguments['starterUserName'];
+    starteName = arguments['starterName'];
+    timestamp = arguments['timestamp'];
+    starterAvatarUrl = arguments['starterAvatarUrl'];
     channelName = arguments['channelName'];
     threadId = arguments['threadId'];
     locked = arguments['locked'];
 
     scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-          MediaQuery.of(Get.context!).size.height / 2) {
-        _showToTopButton.value = true;
+      if (scrollController.position.pixels >= 55) {
+        _showTitle.value = true;
       } else {
-        _showToTopButton.value = false;
+        _showTitle.value = false;
       }
     });
   }

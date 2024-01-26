@@ -1,4 +1,4 @@
-import '../../../core/const/iwara.dart';
+import '../../../const/iwara.dart';
 import '../file.dart';
 import '../tag.dart';
 import '../user.dart';

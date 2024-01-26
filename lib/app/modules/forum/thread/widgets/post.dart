@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../../l10n.dart';
-import '../../../../core/utils/display_util.dart';
+import '../../../../components/iwr_markdown.dart';
+import '../../../../components/network_image.dart';
 import '../../../../data/models/forum/post.dart';
-import '../../../../data/providers/translate_provider.dart';
-import '../../../../global_widgets/iwr_markdown.dart';
-import '../../../../global_widgets/reloadable_image.dart';
-import '../../../../global_widgets/translated_content.dart';
 import '../../../../routes/pages.dart';
+import '../../../../utils/display_util.dart';
 
 class Post extends StatefulWidget {
   final PostModel post;
   final int index;
+  final bool showDivider;
   final String starterUserName;
 
   const Post({
     Key? key,
     required this.post,
     required this.index,
+    this.showDivider = true,
     required this.starterUserName,
   }) : super(key: key);
 
@@ -33,15 +31,18 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
 
   Widget _buildStarterBadge(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(5),
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(16),
       ),
-      child: const Text(
+      child: Text(
         "OP",
-        style: TextStyle(color: Colors.white, fontSize: 12.5),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: 12,
+        ),
       ),
     );
   }
@@ -56,47 +57,73 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
         );
       },
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipOval(
-            child: ReloadableImage(
-              imageUrl: widget.post.user.avatarUrl,
-              width: 30,
-              height: 30,
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Text(
-                widget.post.user.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipOval(
+                  child: NetworkImg(
+                    imageUrl: widget.post.user.avatarUrl,
+                    width: 40,
+                    height: 40,
+                  ),
                 ),
-                maxLines: 1,
-              ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Text(
+                      widget.post.user.name,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
+                if (widget.starterUserName == widget.post.user.username)
+                  _buildStarterBadge(context)
+              ],
             ),
           ),
-          if (widget.starterUserName == widget.post.user.username)
-            _buildStarterBadge(context)
+          PopupMenuButton(
+            padding: EdgeInsets.zero,
+            position: PopupMenuPosition.under,
+            icon: Icon(
+              Icons.more_horiz,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: "translate",
+                  onTap: _getTranslatedContent,
+                  child: Text(
+                    t.common.translate,
+                  ),
+                )
+              ];
+            },
+          ),
         ],
       ),
     );
   }
 
   void _getTranslatedContent() async {
-    TranslateProvider.google(
-      text: widget.post.body,
-    ).then((value) {
-      if (value.success) {
-        setState(() {
-          translatedContent = value.data;
-        });
-      } else {
-        showToast(value.message!);
-      }
-    });
+    // TranslateProvider.google(
+    //   text: widget.post.body,
+    // ).then((value) {
+    //   if (value.success) {
+    //     setState(() {
+    //       translatedContent = value.data;
+    //     });
+    //   } else {
+    //     showToast(value.message!);
+    //   }
+    // });
   }
 
   Widget _buildBottomWidget(BuildContext context) {
@@ -104,78 +131,50 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
         DisplayUtil.getDisplayTime(DateTime.parse(widget.post.createAt));
     if (widget.post.createAt != widget.post.updateAt) {
       text +=
-          "\n${L10n.of(context).updated_at(DisplayUtil.getDisplayTime(DateTime.parse(widget.post.updateAt)))}";
+          "\n${t.media.updated_at(time: DisplayUtil.getDisplayTime(DateTime.parse(widget.post.updateAt)))}";
     }
+
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Flexible(
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "#${widget.index} ",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: text,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12.5),
-                  ),
-                ],
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: "#${widget.index} ",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 12.5,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: "translate",
-                  child: Text(
-                    L10n.of(context).translate,
-                  ),
-                ),
-              ];
-            },
-            onSelected: (String value) {
-              if (value == "translate") {
-                _getTranslatedContent();
-              }
-            },
-            child: FaIcon(
-              FontAwesomeIcons.ellipsis,
-              size: 15,
-              color: Theme.of(context).primaryColor,
+            TextSpan(
+              text: text,
+              style: const TextStyle(color: Colors.grey, fontSize: 12.5),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildContent(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 45),
+      padding: const EdgeInsets.only(left: 50),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IwrMarkdown(
-            padding: const EdgeInsets.only(top: 5),
             selectable: true,
             data: widget.post.body,
           ),
-          if (translatedContent != null)
-            TranslatedContent(
-              padding: const EdgeInsets.only(top: 10),
-              translatedContent: translatedContent!,
-            ),
+          // if (translatedContent != null)
+          //   TranslatedContent(
+          //     padding: const EdgeInsets.only(top: 10),
+          //     translatedContent: translatedContent!,
+          //   ),
           _buildBottomWidget(context),
+          if (widget.showDivider) const SizedBox(height: 12),
+          if (widget.showDivider) const Divider(height: 0),
         ],
       ),
     );
@@ -185,21 +184,11 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Card(
-      color: Theme.of(context).canvasColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildUserWidget(context),
-            _buildContent(context),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_buildUserWidget(context), _buildContent(context)],
       ),
     );
   }

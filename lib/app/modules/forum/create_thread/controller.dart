@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../data/services/user_service.dart';
 
@@ -20,11 +21,11 @@ class CreateThreadController extends GetxController {
     channelName = Get.arguments!;
   }
 
-  void createThread(String titleEmptyMessage, String contentEmptyMessage) {
+  void createThread() {
     if (titleController.text.isEmpty) {
-      showToast(titleEmptyMessage);
+      SmartDialog.showToast(t.message.create_thread.title_empty);
     } else if (contentController.text.isEmpty) {
-      showToast(contentEmptyMessage);
+      SmartDialog.showToast(t.message.create_thread.title_empty);
     } else {
       _userService
           .createThread(

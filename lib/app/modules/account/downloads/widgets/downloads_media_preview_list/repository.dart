@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import '../../../../../core/const/widget.dart';
+import 'package:iwrqk/app/const/widget.dart';
+
 import '../../../../../data/enums/result.dart';
-import '../../../../../data/enums/types.dart';
 import '../../../../../data/models/download_task.dart';
 import '../../../../../data/providers/storage_provider.dart';
 
@@ -10,12 +10,11 @@ class DownloadMediaPreviewListRepository {
   DownloadMediaPreviewListRepository();
 
   GroupResult<MediaDownloadTask> getDownloadRecords(
-      int currentPage, MediaType type) {
+    int currentPage,
+  ) {
     List<MediaDownloadTask> records = [];
 
-    if (type == MediaType.video) {
-      records = StorageProvider.downloadVideoRecords;
-    }
+    records = StorageProvider.downloadVideoRecords.get();
 
     var newData = records.getRange(currentPage * WidgetConst.pageLimit,
         min((currentPage + 1) * WidgetConst.pageLimit, records.length));

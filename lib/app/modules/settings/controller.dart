@@ -1,72 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:local_auth_android/local_auth_android.dart';
-import 'package:local_auth_ios/local_auth_ios.dart';
 
-import '../../../l10n.dart';
-import '../../core/utils/display_util.dart';
+import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
-import '../../data/services/auto_lock_service.dart';
 import '../../data/services/config_service.dart';
 import '../../routes/pages.dart';
+import '../../utils/display_util.dart';
 
 class SettingsController extends GetxController {
   final ConfigService configService = Get.find();
   final AccountService accountService = Get.find();
-  final AutoLockService autoLockService = Get.find();
 
-  late List<BiometricType> _availableBiometrics;
-  late bool _canCheckBiometrics;
+  ThemeMode getCurrentTheme() {
+    return configService.themeMode;
+  }
 
-  final LocalAuthentication auth = LocalAuthentication();
+  void setThemeMode(ThemeMode themeMode) {
+    configService.themeMode = themeMode;
+  }
 
-  IOSAuthMessages iOSAuthMessages = IOSAuthMessages(
-    cancelButton: DisplayUtil.cancel,
-  );
+  String getCurrentLocalecode() {
+    return DisplayUtil.getLocalecode();
+  }
 
-  AndroidAuthMessages androidAuthMessages = AndroidAuthMessages(
-    signInTitle: DisplayUtil.authenticateRequired,
-    biometricHint: DisplayUtil.messageAuthenticateToEnableBiometric,
-    cancelButton: DisplayUtil.cancel,
-  );
+  void setLanguage(String localeCode) {
+    configService.setLocale(localeCode);
+    Get.updateLocale(Locale(localeCode));
+  }
+
+  final RxBool _autoPlay = false.obs;
+  bool get autoPlay => _autoPlay.value;
+  set autoPlay(bool value) {
+    _autoPlay.value = value;
+    configService.config[ConfigKey.autoPlay] = value;
+  }
+
+  final RxBool _enableProxy = false.obs;
+  bool get enableProxy => _enableProxy.value;
+  set enableProxy(bool value) {
+    _enableProxy.value = value;
+    StorageProvider.config[StorageKey.proxyEnable] = value;
+  }
+
+  bool get workMode => configService.workMode;
+  set workMode(bool value) {
+    configService.workMode = value;
+  }
 
   @override
   void onInit() {
     super.onInit();
-    auth.canCheckBiometrics.then((value) => _canCheckBiometrics = value);
-    auth.getAvailableBiometrics().then((value) => _availableBiometrics = value);
-  }
-
-  Future<bool> getBiometricsAuth() async {
-    if (!_canCheckBiometrics || _availableBiometrics.isEmpty) return false;
-
-    bool didAuthenticate = await auth.authenticate(
-      localizedReason: DisplayUtil.messageAuthenticateToEnableBiometric,
-      authMessages: <AuthMessages>[
-        androidAuthMessages,
-        iOSAuthMessages,
-      ],
-      options: const AuthenticationOptions(biometricOnly: true),
-    );
-
-    return didAuthenticate;
-  }
-
-  String getCurrentThemeName(BuildContext context) {
-    return configService.themeMode == ThemeMode.system
-        ? L10n.of(context).theme_system
-        : configService.themeMode == ThemeMode.light
-            ? L10n.of(context).theme_light_mode
-            : L10n.of(context).theme_dark_mode;
-  }
-
-  String getCurrentLanguageName() {
-    return L10n.languageMap[configService.localeCode]!;
+    _autoPlay.value = configService.config[ConfigKey.autoPlay] ?? false;
+    _enableProxy.value =
+        StorageProvider.config[StorageKey.proxyEnable] ?? false;
   }
 
   void logout() {
     accountService.logout();
-    Get.offNamedUntil(AppRoutes.root, (route) => false);
+    Get.offNamedUntil(AppRoutes.home, (route) => false);
   }
 }

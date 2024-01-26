@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keframe/keframe.dart';
 
+import '../../../../../components/iwr_refresh/widget.dart';
 import '../../../../../data/models/playlist/playlist.dart';
-import '../../../../../global_widgets/placeholders/media_flat_preview.dart';
-import '../../../../../global_widgets/sliver_refresh/widget.dart';
 import '../playlist_preview.dart';
 import 'controller.dart';
 
@@ -39,78 +37,31 @@ class _PlaylistsPreviewListState extends State<PlaylistsPreviewList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SizeCacheWidget(
-      child: SliverRefresh(
-        controller: _controller,
-        scrollController: _scrollController,
-        builder: (data, reachBottomCallback) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                reachBottomCallback(index);
+    return IwrRefresh(
+      controller: _controller,
+      scrollController: _scrollController,
+      builder: (data, scrollController) {
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  PlaylistModel playlist = _controller.data[index];
 
-                PlaylistModel playlist = _controller.data[index];
-                /*
-                  Widget child = Dismissible(
-                    key: Key(item.id),
-                    direction: DismissDirection.endToStart,
-                    onDismissed: (direction) {
-                      showToast(
-                        L10n.of(context).message_deleted_item.replaceFirst(
-                              "\$s",
-                              item.title,
-                            ),
-                      );
-                      _controller.deletePlaylist(index);
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 20),
-                          child: Text(
-                            L10n.of(context).delete,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    child: SizedBox(
-                      height: 100,
-                      child: PlaylistPreview(
-                        playlistId: item.id,
-                        title: item.title,
-                        videosCount: item.total,
-                      ),
-                    ),
-                  );
-                  */
-
-                Widget child = SizedBox(
-                  height: 100,
-                  child: PlaylistPreview(
+                  return PlaylistPreview(
                     playlistId: playlist.id,
                     title: playlist.title,
                     videosCount: playlist.numVideos,
                     requireMyself: widget.requireMyself,
-                  ),
-                );
-
-                return FrameSeparateWidget(
-                  index: index,
-                  placeHolder: const SizedBox(
-                    height: 100,
-                    child: MediaFlatPreviewPlaceholder(),
-                  ),
-                  child: child,
-                );
-              },
-              childCount: _controller.data.length,
-            ),
-          );
-        },
-      ),
+                  );
+                },
+                childCount: _controller.data.length,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 

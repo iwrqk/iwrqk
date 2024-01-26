@@ -1,10 +1,11 @@
 import 'package:iwrqk/app/data/enums/result.dart';
 
+import '../../../../../components/iwr_refresh/controller.dart';
 import '../../../../../data/models/forum/thread.dart';
-import '../../../../../global_widgets/sliver_refresh/controller.dart';
+
 import 'repository.dart';
 
-class ThreadPreviewListController extends SliverRefreshController<ThreadModel> {
+class ThreadPreviewListController extends IwrRefreshController<ThreadModel> {
   final ThreadPreviewListRepository repository = ThreadPreviewListRepository();
 
   late String _channelName;

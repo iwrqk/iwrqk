@@ -1,6 +1,10 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
 
-import '../../../core/const/iwara.dart';
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
+
+import '../../../const/iwara.dart';
+import '../storage_provider.dart';
 import 'refresh_token_interceptor.dart';
 
 class NetworkProvider {
@@ -28,6 +32,23 @@ class NetworkProvider {
     _dio.options.connectTimeout = const Duration(seconds: 15);
     _dio.interceptors.add(RefreshTokenInterceptor(_dio));
     _dio.interceptors.add(LogInterceptor());
+
+    // if (StorageProvider.config[StorageKey.proxyEnable] ?? false) {
+    //   String? proxyHost = StorageProvider.config[StorageKey.proxyHost];
+    //   String? proxyPort = StorageProvider.config[StorageKey.proxyPort];
+
+    //   if (proxyHost != null && proxyPort != null) {
+    //     _dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
+    //       final client = HttpClient();
+    //       client.findProxy = (uri) {
+    //         return 'PROXY $proxyHost:$proxyPort';
+    //       };
+    //       client.badCertificateCallback =
+    //           (X509Certificate cert, String host, int port) => true;
+    //       return client;
+    //     });
+    //   }
+    // }
   }
 
   void dispose() {

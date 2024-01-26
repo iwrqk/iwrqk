@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
 
 import '../../../data/models/forum/channel.dart';
 import '../../../data/providers/api_provider.dart';
@@ -49,7 +48,6 @@ class ForumTabController extends GetxController with StateMixin {
     });
 
     if (!success) {
-      showToast(message!);
       change(null, status: RxStatus.error(message!));
       return;
     } else {
@@ -66,8 +64,9 @@ class ForumTabController extends GetxController with StateMixin {
 
   void scrollToTopRefresh() {
     if (scrollController.hasClients) {
-      scrollController.animateTo(-100,
+      scrollController.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
+    refreshData(showSplash: true);
   }
 }

@@ -1,4 +1,4 @@
-import '../../core/utils/log_util.dart';
+import '../../utils/log_util.dart';
 import '../enums/result.dart';
 import '../enums/types.dart';
 import '../models/account/friend_request.dart';
@@ -37,7 +37,7 @@ class ApiProvider {
         token = value.data["token"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: token, success: message == null, message: message);
@@ -60,7 +60,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: null, success: success, message: message);
@@ -76,7 +76,7 @@ class ApiProvider {
         accessToken = value.data["accessToken"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(
@@ -93,7 +93,7 @@ class ApiProvider {
         appUser = AppUserModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -102,16 +102,15 @@ class ApiProvider {
 
   static Future<ApiResult<void>> updateAppUser({
     required String userId,
-    List<TagModel>? tagBlacklist,
+    List<String>? tagBlacklist,
   }) {
     String? message;
     return networkProvider.put("/user/$userId", data: {
-      if (tagBlacklist != null)
-        "tagBlacklist": tagBlacklist.map((e) => e.id).toList(),
+      if (tagBlacklist != null) "tagBlacklist": tagBlacklist,
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -133,7 +132,7 @@ class ApiProvider {
         notificationsCounts = NotificationsCountsModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -158,7 +157,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -194,7 +193,7 @@ class ApiProvider {
         last = value.data["last"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -220,7 +219,7 @@ class ApiProvider {
         data: {"body": content}).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -241,7 +240,7 @@ class ApiProvider {
         profile = ProfileModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: profile, success: message == null, message: message);
@@ -259,7 +258,7 @@ class ApiProvider {
         count = value.data["count"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: count, success: message == null, message: message);
@@ -302,7 +301,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -337,7 +336,7 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -364,7 +363,7 @@ class ApiProvider {
         data = VideoModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: data, success: message == null, message: message);
@@ -380,7 +379,7 @@ class ApiProvider {
         image = ImageModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: image, success: message == null, message: message);
@@ -401,7 +400,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -453,7 +452,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -501,7 +500,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -552,7 +551,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -577,7 +576,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -615,7 +614,7 @@ class ApiProvider {
         );
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -657,7 +656,7 @@ class ApiProvider {
         );
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -687,7 +686,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -709,7 +708,7 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -736,7 +735,7 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -763,7 +762,7 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -778,6 +777,7 @@ class ApiProvider {
     required String keyword,
     required MediaType type,
     required int pageNum,
+    OrderType? orderType,
   }) async {
     String? message;
     int count = 0;
@@ -787,6 +787,7 @@ class ApiProvider {
       "query": keyword,
       "page": pageNum,
       "type": type.value,
+      if (orderType != null) "sort": orderType.value,
     }).then((value) {
       message = value.data["message"];
 
@@ -809,7 +810,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -831,7 +832,7 @@ class ApiProvider {
     await networkProvider.post("/user/$userId/followers").then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -852,7 +853,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -882,7 +883,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -903,7 +904,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -924,7 +925,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -950,7 +951,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -984,7 +985,7 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1016,7 +1017,7 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1038,7 +1039,7 @@ class ApiProvider {
     await networkProvider.post("/video/$id/like").then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1059,7 +1060,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1080,7 +1081,7 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1112,7 +1113,7 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1143,7 +1144,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1165,7 +1166,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1189,7 +1190,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1215,7 +1216,7 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1237,7 +1238,7 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1263,7 +1264,7 @@ class ApiProvider {
         newUserName = value.data["url"].split("/").last;
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e("Error", e, stackTrace);
+      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 

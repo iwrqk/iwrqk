@@ -28,7 +28,10 @@ enum MediaSourceType {
   subscribedVideos,
   subscribedImages,
   subscribedPosts,
+  search,
 }
+
+enum SearchType { videos, images, users }
 
 enum UsersSourceType { following, followers, search }
 

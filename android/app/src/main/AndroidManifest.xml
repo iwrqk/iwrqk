@@ -1,13 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.iwrqk.app">
-    
+    xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
-
-   <application
+    
+    <application
         android:label="IwrQk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -37,6 +35,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="${applicationId}.fileProvider"
@@ -78,6 +77,5 @@
                     android:name="vn.hunghd.flutterdownloader.MAX_CONCURRENT_TASKS"
                     android:value="5"/>
         </provider>
-
     </application>
 </manifest>

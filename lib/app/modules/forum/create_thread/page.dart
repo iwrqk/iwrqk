@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
 import 'controller.dart';
 
 class CreateThreadPage extends GetView<CreateThreadController> {
@@ -12,34 +11,19 @@ class CreateThreadPage extends GetView<CreateThreadController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const FaIcon(FontAwesomeIcons.chevronLeft),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          L10n.of(context).thread,
-        ),
+        title: Text(t.create_thread.create_thread),
       ),
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 500),
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(left: 10, top: 20, bottom: 5),
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  L10n.of(context).title,
+                  t.create_thread.title,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -47,10 +31,14 @@ class CreateThreadPage extends GetView<CreateThreadController> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.circular(5),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .secondaryContainer
+                      .withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 child: Theme(
                   data: Theme.of(context).brightness == Brightness.light
                       ? ThemeData.light()
@@ -58,16 +46,15 @@ class CreateThreadPage extends GetView<CreateThreadController> {
                   child: TextFormField(
                     controller: controller.titleController,
                     decoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
+                        border: InputBorder.none, isDense: true),
                   ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(left: 10, top: 20, bottom: 5),
+                padding: const EdgeInsets.only(top: 16, bottom: 16),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  L10n.of(context).content,
+                  t.create_thread.content,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -76,18 +63,21 @@ class CreateThreadPage extends GetView<CreateThreadController> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).canvasColor,
-                    borderRadius: BorderRadius.circular(5),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondaryContainer
+                        .withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: Theme(
                     data: Theme.of(context).brightness == Brightness.light
                         ? ThemeData.light()
                         : ThemeData.dark(),
                     child: TextFormField(
                       controller: controller.contentController,
-                      decoration:
-                          const InputDecoration(border: InputBorder.none),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none, isDense: true),
                       expands: true,
                       maxLines: null,
                       maxLength: 20000,
@@ -96,16 +86,14 @@ class CreateThreadPage extends GetView<CreateThreadController> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 25),
+                margin: EdgeInsets.only(
+                    top: 16, bottom: Get.mediaQuery.padding.bottom + 16),
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    controller.createThread(
-                      L10n.of(context).message_cannot_be_empty(L10n.of(context).title),
-                      L10n.of(context).message_cannot_be_empty(L10n.of(context).content),
-                    );
+                    controller.createThread();
                   },
-                  child: Text(L10n.of(context).create),
+                  child: Text(t.notifications.confirm),
                 ),
               ),
             ],

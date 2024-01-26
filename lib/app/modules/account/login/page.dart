@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
 import '../../../routes/pages.dart';
 import 'controller.dart';
 
@@ -18,52 +17,23 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            controller.cancel();
-            Get.back();
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronLeft,
-          ),
-        ),
-        shape: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 0,
-          ),
-        ),
-        centerTitle: true,
         title: Text(
-          L10n.of(context).login,
+          t.account.login,
         ),
       ),
       body: Form(
         key: controller.formKey,
         child: ListView(
           padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.1,
+            vertical: MediaQuery.of(context).size.height * 0.2,
           ),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 25,
-              ),
-              child: ClipOval(
-                child: Image.asset(
-                  "assets/app_icon.png",
-                  width: 100,
-                  height: 100,
-                ),
-              ),
-            ),
             Column(
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   constraints: constraints,
                   child: TextFormField(
-                    cursorColor: Theme.of(context).primaryColor,
                     controller: controller.accountController,
                     validator: (input) {
                       if (input != null) {
@@ -71,12 +41,11 @@ class LoginPage extends GetView<LoginController> {
                           return null;
                         }
                       }
-                      return L10n.of(context)
-                          .message_please_type_email_or_username;
+                      return t.message.account.please_type_email_or_username;
                     },
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
-                      labelText: L10n.of(context).email_or_username,
+                      prefixIcon: const Icon(Icons.person),
+                      labelText: t.account.email_or_username,
                       border: const OutlineInputBorder(),
                     ),
                     onSaved: (input) => controller.account = input,
@@ -87,39 +56,35 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   constraints: constraints,
                   child: Obx(
                     () => TextFormField(
                       controller: controller.passwordController,
                       obscureText: !controller.passwordVisibility,
-                      cursorColor: Theme.of(context).primaryColor,
                       validator: (input) {
                         if (input == null) {
-                          return L10n.of(context).message_please_type_password;
+                          return t.message.account.please_type_password;
                         }
                         if (input.length < 6) {
-                          return L10n.of(context)
-                              .message_login_password_longer_than_6;
+                          return t.message.account.login_password_longer_than_6;
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        prefixIcon: const Icon(FontAwesomeIcons.lock),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             controller.togglePasswordVisibility();
                           },
                           child: Icon(
                             controller.passwordVisibility
-                                ? FontAwesomeIcons.solidEye
-                                : FontAwesomeIcons.solidEyeSlash,
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(7.5),
-                        ),
-                        labelText: L10n.of(context).password,
+                        border: const OutlineInputBorder(),
+                        labelText: t.account.password,
                       ),
                       onSaved: (input) => controller.password = input,
                       focusNode: focusNode,
@@ -132,46 +97,28 @@ class LoginPage extends GetView<LoginController> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.5),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            side: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
+                        child: FilledButton.tonal(
                           onPressed: () {
                             FocusScope.of(context).requestFocus(blankNode);
                             Get.toNamed(AppRoutes.register);
                           },
                           child: Text(
-                            L10n.of(context).register,
-                            style: const TextStyle(fontSize: 17.5),
+                            t.account.register,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(width: 20),
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.5),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 15,
-                            ),
-                          ),
+                        child: FilledButton(
                           onPressed: () {
                             FocusScope.of(context).requestFocus(blankNode);
                             controller.login(context);
                           },
                           child: Text(
-                            L10n.of(context).login,
-                            style: const TextStyle(fontSize: 17.5),
+                            t.account.login,
                           ),
                         ),
                       ),

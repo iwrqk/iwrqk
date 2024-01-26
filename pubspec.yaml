@@ -2,64 +2,75 @@ name: iwrqk
 description: Unofficial Iwara Flutter Client.
 
 publish_to: 'none'
-
-version: 1.2.5
+version: 2.0.0
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.1.3 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  
+  # state management
+  get: ^4.6.6
+
+  # local storage
+  get_storage: ^2.1.1
+  flutter_secure_storage: ^9.0.0
+  path_provider: ^2.1.1
+  path: ^1.8.3
+
+  # ui
+  dynamic_color: ^1.6.9
+  flutter_displaymode: ^0.6.0
+  flutter_smart_dialog: ^4.9.6
+  easy_refresh: ^3.3.4
+  animations: ^2.0.11
+  auto_size_text: ^3.0.0
+
+  # i18n
+  slang: ^3.28.0
+  slang_flutter: ^3.28.0
   flutter_localizations:
     sdk: flutter
-  package_info_plus: ^3.1.2
-  device_info_plus: ^8.2.2
-  intl: ^0.18.0
-  logger: ^1.3.0
-  get_storage: ^2.1.1
-  flutter_slidable: ^3.0.0
-  flutter_launcher_icons: any
-  font_awesome_flutter: ^10.4.0
-  get: ^4.6.5
-  dio: ^5.1.2
-  crypto: ^3.0.3
+
+  # network
+  dio: ^5.4.0
   queue: ^3.1.0+2
-  cached_network_image: ^3.2.3
-  keframe: ^3.0.0
-  extended_nested_scroll_view: ^6.1.0
-  auto_size_text: ^3.0.0
-  flutter_secure_storage: ^8.0.0
-  oktoast: ^3.3.1
-  better_player: ^0.0.83
-  local_auth: ^2.1.6
-  local_auth_android: ^1.0.28
-  local_auth_ios: ^1.1.3
-  flutter_downloader: ^1.11.1
-  path_provider: ^2.0.14
-  path: ^1.8.2
-  open_file: ^3.3.2
-  permission_handler: ^10.2.0
+  crypto: ^3.0.3
+  cached_network_image: ^3.3.1
+  intl: ^0.18.1
+
+  # utils
+  package_info_plus: ^5.0.1
+  logger: ^2.0.2+1
+  device_info_plus: ^9.1.1
+  permission_handler: ^11.2.0
+  url_launcher: ^6.2.2
+  markdown_widget: ^2.3.2+3
   photo_view: ^0.14.0
-  flutter_markdown: ^0.6.14
-  share_plus: ^6.3.1
-  url_launcher: ^6.1.11
+  share_plus: ^7.2.1
+  open_file: ^3.3.2
+
+  # download
+  flutter_downloader: ^1.11.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
-  generate: true
-  uses-material-design: false
-  assets:
-    - assets/app_icon.png
+  uses-material-design: true
 
-flutter_icons:
+flutter_launcher_icons:
   ios: true
   android: true
-  image_path_ios: "assets/launcher/ios.png"
-  image_path_android: "assets/launcher/android.png"
-  adaptive_icon_background: "assets/launcher/background.png"
+  remove_alpha_ios: true
+  image_path: "assets/launcher/icon.png"
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+  adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/launcher/foreground.png"
+  adaptive_icon_monochrome: "assets/launcher/foreground.png"

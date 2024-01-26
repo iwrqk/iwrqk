@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../global_widgets/media_preview/media_preview_grid/controller.dart';
-import 'widgets/filter_bottom_sheet/widget.dart';
+import '../../../components/media_preview/media_preview_grid/controller.dart';
+import 'widgets/filter_page/widget.dart';
 
 class MediaGridTabController extends GetxController
     with GetTickerProviderStateMixin {
@@ -23,7 +23,7 @@ class MediaGridTabController extends GetxController
 
   void popFilterDialog() {
     Get.bottomSheet(
-      FilterBottomSheet(
+      FilterPage(
         targetTag: _tabTagList[tabController.index],
       ),
     );
@@ -40,8 +40,18 @@ class MediaGridTabController extends GetxController
   void scrollToTopRefresh() {
     ScrollController controller = scrollControllers[tabController.index];
     if (controller.hasClients) {
-      controller.animateTo(-100,
+      controller.animateTo(0,
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
+    refreshCurrentTab();
+  }
+
+  void refreshCurrentTab() {
+    MediaPreviewGridController targetController =
+        Get.find<MediaPreviewGridController>(
+            tag: _tabTagList[tabController.index]);
+
+    targetController.resetScrollPosition();
+    targetController.refreshData(showSplash: true);
   }
 }

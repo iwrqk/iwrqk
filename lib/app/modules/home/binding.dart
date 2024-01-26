@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
+import '../tabs/forum_tab/controller.dart';
 import '../tabs/images_tab/controller.dart';
 import '../tabs/subscription_tab/controller.dart';
-import '../tabs/forum_tab/controller.dart';
 import '../tabs/videos_tab/controller.dart';
 import 'controller.dart';
 

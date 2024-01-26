@@ -1,14 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../../l10n.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/services/account_service.dart';
 import '../../../data/services/user_service.dart';
 import '../../../routes/pages.dart';
-import 'user_avatar.dart';
+import '../../../components/user_avatar.dart';
 
 class UserDrawer extends StatelessWidget {
   UserService get _userService => Get.find();
@@ -24,57 +22,130 @@ class UserDrawer extends StatelessWidget {
     dynamic arguments,
     bool requireLogin = true,
   }) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        highlightColor: Theme.of(context).brightness == Brightness.light
-            ? ThemeData.light().highlightColor
-            : ThemeData.dark().highlightColor,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: MaterialButton(
-          onPressed: () {
-            if (_accountService.isLogin || !requireLogin) {
-              Get.toNamed(routeName, arguments: arguments);
-            } else {
-              Get.toNamed(AppRoutes.login);
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 30,
-                        height: 35,
-                        child: Center(
-                          child: icon,
-                        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(36),
+      child: MaterialButton(
+        onPressed: () {
+          if (_accountService.isLogin || !requireLogin) {
+            Get.toNamed(routeName, arguments: arguments);
+          } else {
+            Get.toNamed(AppRoutes.login);
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 32,
+                      height: 36,
+                      child: Center(
+                        child: icon,
                       ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const FaIcon(
-                  FontAwesomeIcons.chevronRight,
-                  size: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUserCard(BuildContext context) {
+    return Card(
+      elevation: 0,
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 16,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      color: Theme.of(context).colorScheme.secondaryContainer.withAlpha(115),
+      child: InkWell(
+        onTap: () {
+          if (_accountService.isLogin) {
+            Get.toNamed(
+              AppRoutes.profile,
+              arguments: _userService.user!.username,
+              preventDuplicates: true,
+            );
+          } else {
+            Get.toNamed(AppRoutes.login);
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Row(
+                  children: [
+                    ClipOval(
+                      child: UserAvatar(
+                        width: 48,
+                        height: 48,
+                      ),
+                    ),
+                    Expanded(
+                      child: Obx(
+                        () => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Text(
+                            !_accountService.isLogin ||
+                                    _userService.user == null
+                                ? t.account.login
+                                : _userService.user!.username,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+              IconButton(
+                onPressed: () {
+                  if (_accountService.isLogin) {
+                    _accountService.logout();
+                    Get.offNamedUntil(AppRoutes.splash, (route) => false);
+                  } else {
+                    Get.toNamed(AppRoutes.login);
+                  }
+                },
+                icon: const Icon(
+                  Icons.logout,
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -87,107 +158,37 @@ class UserDrawer extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
           slivers: [
-            SliverToBoxAdapter(
-              child: GestureDetector(
-                onTap: () {
-                  if (_accountService.isLogin) {
-                    Get.toNamed(
-                      AppRoutes.profile,
-                      arguments: _userService.user!.username,
-                      preventDuplicates: true,
-                    );
-                  } else {
-                    Get.toNamed(AppRoutes.login);
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).canvasColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: [
-                                ClipOval(
-                                  child: UserAvatar(
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: AutoSizeText(
-                                      !_accountService.isLogin ||
-                                              _userService.user == null
-                                          ? L10n.of(context).login
-                                          : _userService.user!.username,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                          overflow: TextOverflow.ellipsis),
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 15),
-                          child: const FaIcon(
-                            FontAwesomeIcons.chevronRight,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            SliverToBoxAdapter(child: _buildUserCard(context)),
             SliverToBoxAdapter(
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_friends,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.userGroup,
-                        size: 25,
+                      title: t.user.friends,
+                      icon: const Icon(
+                        Icons.people,
+                        size: 24,
                       ),
                       routeName: AppRoutes.friends,
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_blocked_tags,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.ban,
-                        size: 25,
+                      title: t.user.blocked_tags,
+                      icon: const Icon(
+                        Icons.block,
+                        size: 24,
                       ),
                       routeName: AppRoutes.blockedTags,
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).following,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.solidBell,
-                        size: 25,
+                      title: t.user.following,
+                      icon: const Icon(
+                        Icons.subscriptions,
+                        size: 24,
                       ),
                       routeName: AppRoutes.followersFollowing,
                       arguments: {
@@ -197,39 +198,39 @@ class UserDrawer extends StatelessWidget {
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_history,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.clockRotateLeft,
-                        size: 25,
+                      title: t.user.history,
+                      icon: const Icon(
+                        Icons.history,
+                        size: 24,
                       ),
                       routeName: AppRoutes.history,
                       requireLogin: false,
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_downloads,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.download,
-                        size: 25,
+                      title: t.user.downloads,
+                      icon: const Icon(
+                        Icons.download,
+                        size: 24,
                       ),
                       routeName: AppRoutes.downloads,
                       requireLogin: false,
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_favorites,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.solidHeart,
-                        size: 25,
+                      title: t.user.favorites,
+                      icon: const Icon(
+                        Icons.favorite,
+                        size: 24,
                       ),
                       routeName: AppRoutes.favorites,
                     ),
                     _buildUserItem(
                       context,
-                      title: L10n.of(context).user_playlists,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.list,
-                        size: 25,
+                      title: t.user.playlists,
+                      icon: const Icon(
+                        Icons.playlist_play,
+                        size: 24,
                       ),
                       routeName: AppRoutes.playlistsPreview,
                       arguments: {
@@ -238,13 +239,13 @@ class UserDrawer extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      padding: const EdgeInsets.symmetric(vertical: 32),
                       child: _buildUserItem(
                         context,
-                        title: L10n.of(context).user_settings,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.gear,
-                          size: 25,
+                        title: t.user.settings,
+                        icon: const Icon(
+                          Icons.settings,
+                          size: 24,
                         ),
                         routeName: AppRoutes.settings,
                         requireLogin: false,
