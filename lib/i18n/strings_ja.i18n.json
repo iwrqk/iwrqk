@@ -1,0 +1,275 @@
+{
+    "locales(map)": {
+        "en": "English",
+        "ja": "日本語",
+        "zh-CN": "简体中文"
+    },
+    "nav": {
+        "subscriptions": "サブスク",
+        "videos": "動画",
+        "images": "画像",
+        "forum": "フォーラム",
+        "search": "検索"
+    },
+    "common": {
+        "video": "動画",
+        "image": "画像",
+        "collapse": "折りたたむ",
+        "expand": "展開",
+        "translate": "翻訳",
+        "open": "開く"
+    },
+    "refresh": {
+        "empty": "何もありません",
+        "drag_to_load": "引っ張って読み込む",
+        "release_to_load": "リリースして読み込む",
+        "success": "読み込み成功",
+        "failed": "読み込み失敗",
+        "no_more": "これ以上なし",
+        "last_load": "前回の読み込み： %T"
+    },
+    "records": {
+        "select_all": "すべて選択",
+        "select_inverse": "逆選択",
+        "selected_num": "選択済み $num 項目",
+        "multiple_selection_mode": "複数選択モード",
+        "delete": "削除",
+        "delete_all": "すべて削除"
+    },
+    "account": {
+        "captcha": "キャプチャ",
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "register": "登録",
+        "email": "メール",
+        "email_or_username": "メールまたはユーザー名",
+        "password": "パスワード",
+        "forgot_password": "パスワードを忘れた",
+        "require_login": "ログインしてください"
+    },
+    "profile": {
+        "profile": "プロフィール",
+        "follow": "フォロー",
+        "followers": "フォロワー",
+        "following": "フォロー中",
+        "nickname": "ニックネーム",
+        "username": "ユーザー名",
+        "user_id": "ユーザーID",
+        "description": "自己紹介",
+        "no_description": "自分の周りに謎の空気を漂わせるのが好きです。",
+        "join_date": "参加日",
+        "last_active_time": "最終アクティブ時間",
+        "online": "オンライン",
+        "message": "メッセージ",
+        "guestbook": "ゲストブック",
+        "view_more": "もっと見る"
+    },
+    "sort": {
+        "latest": "最新",
+        "trending": "トレンド",
+        "popularity": "人気順",
+        "most_views": "閲覧数",
+        "most_likes": "お気に入り数"
+    },
+    "filter": {
+        "all": "すべて",
+        "filter": "フィルター",
+        "rating": "評価",
+        "tag": "タグ",
+        "tags": "タグ",
+        "date": "日付",
+        "general": "全年齢対象",
+        "ecchi": "エッチ",
+        "select_rating": "評価を選択",
+        "select_year": "年を選択",
+        "select_month": "月を選択"
+    },
+    "search": {
+        "users": "ユーザー",
+        "search": "検索",
+        "history": {
+            "delete": "すべての記録を削除"
+        }
+    },
+    "time": {
+        "seconds_ago": "$time 秒前",
+        "minutes_ago": "$time 分前",
+        "hours_ago": "$time 時間前",
+        "days_ago": "$time 日前"
+    },
+    "media": {
+        "private": "プライベート",
+        "add_to_playlist": "プレイリストに追加",
+        "external_video": "外部動画",
+        "share": "共有",
+        "download": "ダウンロード",
+        "more_from": "$username からのその他",
+        "more_like_this": "同様の作品",
+        "updated_at": "$time に更新"
+    },
+    "comment": {
+        "comment": "コメント",
+        "comments": "コメント",
+        "comment_detail": "コメントの詳細",
+        "edit_comment": "コメントの編集",
+        "delete_comment": "コメントの削除",
+        "reply": "返信",
+        "replies_in_total": "合計 $numReply 件の返信",
+        "show_all_replies": "すべての $numReply 件の返信を表示"
+    },
+    "user": {
+        "following": "フォロー中",
+        "history": "履歴",
+        "blocked_tags": "ブロックされたタグ",
+        "friends": "友達",
+        "downloads": "ダウンロード",
+        "favorites": "お気に入り",
+        "playlists": "プレイリスト",
+        "settings": "設定",
+        "about": "について"
+    },
+    "friend": {
+        "friend_requests": "友達リクエスト",
+        "add_friend": "友達に追加",
+        "pending": "保留中",
+        "unfriend": "友達解除",
+        "accept": "承認",
+        "reject": "拒否"
+    },
+    "blocked_tags": {
+        "add_blocked_tag": "ブロックされたタグを追加",
+        "blocked_tag": "ブロックされたタグ"
+    },
+    "download": {
+        "create_download_task": "ダウンロードタスクの作成",
+        "unknown": "不明",
+        "enqueued": "待機中",
+        "downloading": "ダウンロード中",
+        "paused": "一時停止済み",
+        "finished": "完了",
+        "failed": "ダウンロード失敗"
+    },
+    "playlist": {
+        "title": "プレイリストのタイトル",
+        "create": "プレイリストの作成",
+        "select": "プレイリストの選択",
+        "videos_count": "$numVideo 本のビデオ",
+        "videos_count_plural": "$numVideo 本のビデオ"
+    },
+    "channel": {
+        "administration": "管理者",
+        "announcements": "お知らせ",
+        "feedback": "フィードバック",
+        "support": "サポート",
+        "global": "一般",
+        "general": "一般",
+        "guides": "ガイド",
+        "questions": "ヘルプ/質問",
+        "requests": "リクエスト",
+        "sharing": "共有",
+        "label": "$numThread 本のスレッド $numPosts 本の返信"
+    },
+    "create_thread": {
+        "create_thread": "スレッドの作成",
+        "title": "タイトル",
+        "content": "内容"
+    },
+    "notifications": {
+        "ok": "OK",
+        "success": "成功",
+        "error": "エラー",
+        "loading": "読み込み中...",
+        "cancel": "キャンセル",
+        "confirm": "確認",
+        "apply": "適用"
+    },
+    "settings": {
+        "appearance": "外観設定",
+        "theme": "テーマ",
+        "theme_desc": "アプリのテーマを設定します",
+        "language": "言語",
+        "language_desc": "アプリの言語を設定します",
+        "display_mode": "表示モード",
+        "display_mode_desc": "アプリの表示モードを設定します",
+        "work_mode": "作業モード",
+        "work_mode_desc": "NSFW コンテンツのカバーを非表示にします",
+        "network": "ネットワーク設定",
+        "enable_proxy": "プロキシを有効にする",
+        "enable_proxy_desc": "プロキシサービスを有効にします",
+        "proxy": "プロキシ設定",
+        "proxy_desc": "プロキシサーバーを設定します",
+        "player": "プレイヤー設定",
+        "autoplay": "自動再生",
+        "autoplay_desc": "ビデオページを開くときに自動でビデオを再生します",
+        "about": "情報",
+        "thrid_party_license": "サードパーティのライセンス",
+        "thrid_party_license_desc": "サードパーティのライブラリのライセンスを確認します"
+    },
+    "theme": {
+        "system": "システムに従う",
+        "light": "ライト",
+        "dark": "ダーク"
+    },
+    "display_mode": {
+        "no_available": "利用可能な表示モードはありません",
+        "auto": "自動",
+        "system": "システム"
+    },
+    "proxy": {
+        "host": "ホスト名",
+        "port": "ポート"
+    },
+    "message": {
+        "are_you_sure_to_do_that": "それを行うことを確認していますか？",
+        "restart_required": "再起動後に有効",
+        "please_type_host": "ホスト名を入力してください",
+        "please_type_port": "ポートを入力してください",
+        "account": {
+            "login_success": "ログイン成功！",
+            "register_success": "登録が成功しました。メールでアカウントを有効にしてください。",
+            "login_password_longer_than_6": "パスワードは少なくとも6文字である必要があります",
+            "please_type_email": "メールアドレスを入力してください",
+            "please_type_email_or_username": "メールアドレスまたはユーザー名を入力してください",
+            "please_type_valid_email": "正しいメールアドレスを入力してください",
+            "please_type_password": "パスワードを入力してください",
+            "please_type_captcha": "キャプチャを入力してください"
+        },
+        "comment": {
+            "content_empty": "内容は空であってはいけません。",
+            "content_too_long": "内容は1000文字を超えてはいけません。",
+            "sent": "返信が送信されました。"
+        },
+        "create_thread": {
+            "title_empty": "タイトルは空であってはいけません。",
+            "title_too_long": "タイトルは長すぎてはいけません。",
+            "content_empty": "内容は空であってはいけません。",
+            "content_too_long": "内容は20000文字を超えてはいけません。",
+            "created": "スレッドが送信されました。"
+        },
+        "blocked_tags": {
+            "save_confirm": "タグのブロックを保存しますか？",
+            "saved": "ブロックされたタグが保存されました。",
+            "reached_limit": "ブロックされたタグの数が上限に達しました。"
+        },
+        "playlist": {
+            "empty_playlist_title": "プレイリストのタイトルは空であってはいけません。",
+            "playlist_created": "プレイリストが作成されました。"
+        },
+        "download": {
+            "no_provide_storage_permission": "ストレージの許可がありません。",
+            "task_already_exists": "ダウンロードタスクはすでに存在します。",
+            "task_created": "ダウンロードタスクが作成されました。",
+            "maximum_simultaneous_download_reached": "最大同時ダウンロード数に達しました。"
+        }
+    },
+    "error": {
+        "retry": "読み込みに失敗しました。再試行する",
+        "fetch_failed": "ビデオリンクを取得できません",
+        "fetch_user_info_failed": "ユーザー情報を取得できません",
+        "account": {
+            "invalid_login": "無効なメールアドレスまたはパスワード",
+            "invalid_host": "無効なホスト名",
+            "invalid_captcha": "無効なキャプチャ"
+        }
+    }
+}

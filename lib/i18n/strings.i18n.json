@@ -1,7 +1,8 @@
 {
     "locales(map)": {
         "en": "English",
-        "zh-CN": "Chinese (Simplified)"
+        "ja": "日本語",
+        "zh-CN": "简体中文"
     },
     "nav": {
         "subscriptions": "Subscriptions",

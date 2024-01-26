@@ -376,7 +376,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              expandedHeight: Get.width / 150 * 43,
+              expandedHeight: Get.width / 3,
               pinned: true,
               iconTheme: innerBoxIsScrolled
                   ? null

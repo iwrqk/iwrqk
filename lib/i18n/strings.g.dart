@@ -3,10 +3,10 @@
 /// Original: lib/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 404 (202 per locale)
+/// Locales: 3
+/// Strings: 609 (203 per locale)
 ///
-/// Built on 2024-01-25 at 17:20 UTC
+/// Built on 2024-01-26 at 15:18 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -26,6 +26,7 @@ const AppLocale _baseLocale = AppLocale.en;
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en', build: Translations.build),
+	ja(languageCode: 'ja', build: _StringsJa.build),
 	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
@@ -150,7 +151,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	Map<String, String> get locales => {
 		'en': 'English',
-		'zh-CN': 'Chinese (Simplified)',
+		'ja': '日本語',
+		'zh-CN': '简体中文',
 	};
 	late final _StringsNavEn nav = _StringsNavEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
@@ -695,6 +697,577 @@ class _StringsErrorAccountEn {
 }
 
 // Path: <root>
+class _StringsJa implements Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsJa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.ja,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <ja>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
+
+	@override late final _StringsJa _root = this; // ignore: unused_field
+
+	// Translations
+	@override Map<String, String> get locales => {
+		'en': 'English',
+		'ja': '日本語',
+		'zh-CN': '简体中文',
+	};
+	@override late final _StringsNavJa nav = _StringsNavJa._(_root);
+	@override late final _StringsCommonJa common = _StringsCommonJa._(_root);
+	@override late final _StringsRefreshJa refresh = _StringsRefreshJa._(_root);
+	@override late final _StringsRecordsJa records = _StringsRecordsJa._(_root);
+	@override late final _StringsAccountJa account = _StringsAccountJa._(_root);
+	@override late final _StringsProfileJa profile = _StringsProfileJa._(_root);
+	@override late final _StringsSortJa sort = _StringsSortJa._(_root);
+	@override late final _StringsFilterJa filter = _StringsFilterJa._(_root);
+	@override late final _StringsSearchJa search = _StringsSearchJa._(_root);
+	@override late final _StringsTimeJa time = _StringsTimeJa._(_root);
+	@override late final _StringsMediaJa media = _StringsMediaJa._(_root);
+	@override late final _StringsCommentJa comment = _StringsCommentJa._(_root);
+	@override late final _StringsUserJa user = _StringsUserJa._(_root);
+	@override late final _StringsFriendJa friend = _StringsFriendJa._(_root);
+	@override late final _StringsBlockedTagsJa blocked_tags = _StringsBlockedTagsJa._(_root);
+	@override late final _StringsDownloadJa download = _StringsDownloadJa._(_root);
+	@override late final _StringsPlaylistJa playlist = _StringsPlaylistJa._(_root);
+	@override late final _StringsChannelJa channel = _StringsChannelJa._(_root);
+	@override late final _StringsCreateThreadJa create_thread = _StringsCreateThreadJa._(_root);
+	@override late final _StringsNotificationsJa notifications = _StringsNotificationsJa._(_root);
+	@override late final _StringsSettingsJa settings = _StringsSettingsJa._(_root);
+	@override late final _StringsThemeJa theme = _StringsThemeJa._(_root);
+	@override late final _StringsDisplayModeJa display_mode = _StringsDisplayModeJa._(_root);
+	@override late final _StringsProxyJa proxy = _StringsProxyJa._(_root);
+	@override late final _StringsMessageJa message = _StringsMessageJa._(_root);
+	@override late final _StringsErrorJa error = _StringsErrorJa._(_root);
+}
+
+// Path: nav
+class _StringsNavJa implements _StringsNavEn {
+	_StringsNavJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get subscriptions => 'サブスク';
+	@override String get videos => '動画';
+	@override String get images => '画像';
+	@override String get forum => 'フォーラム';
+	@override String get search => '検索';
+}
+
+// Path: common
+class _StringsCommonJa implements _StringsCommonEn {
+	_StringsCommonJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get video => '動画';
+	@override String get image => '画像';
+	@override String get collapse => '折りたたむ';
+	@override String get expand => '展開';
+	@override String get translate => '翻訳';
+	@override String get open => '開く';
+}
+
+// Path: refresh
+class _StringsRefreshJa implements _StringsRefreshEn {
+	_StringsRefreshJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '何もありません';
+	@override String get drag_to_load => '引っ張って読み込む';
+	@override String get release_to_load => 'リリースして読み込む';
+	@override String get success => '読み込み成功';
+	@override String get failed => '読み込み失敗';
+	@override String get no_more => 'これ以上なし';
+	@override String get last_load => '前回の読み込み： %T';
+}
+
+// Path: records
+class _StringsRecordsJa implements _StringsRecordsEn {
+	_StringsRecordsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get select_all => 'すべて選択';
+	@override String get select_inverse => '逆選択';
+	@override String selected_num({required Object num}) => '選択済み ${num} 項目';
+	@override String get multiple_selection_mode => '複数選択モード';
+	@override String get delete => '削除';
+	@override String get delete_all => 'すべて削除';
+}
+
+// Path: account
+class _StringsAccountJa implements _StringsAccountEn {
+	_StringsAccountJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get captcha => 'キャプチャ';
+	@override String get login => 'ログイン';
+	@override String get logout => 'ログアウト';
+	@override String get register => '登録';
+	@override String get email => 'メール';
+	@override String get email_or_username => 'メールまたはユーザー名';
+	@override String get password => 'パスワード';
+	@override String get forgot_password => 'パスワードを忘れた';
+	@override String get require_login => 'ログインしてください';
+}
+
+// Path: profile
+class _StringsProfileJa implements _StringsProfileEn {
+	_StringsProfileJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get profile => 'プロフィール';
+	@override String get follow => 'フォロー';
+	@override String get followers => 'フォロワー';
+	@override String get following => 'フォロー中';
+	@override String get nickname => 'ニックネーム';
+	@override String get username => 'ユーザー名';
+	@override String get user_id => 'ユーザーID';
+	@override String get description => '自己紹介';
+	@override String get no_description => 'このユーザーは神秘的な存在で、人々に見られるのが好きではありません。';
+	@override String get join_date => '参加日';
+	@override String get last_active_time => '最終アクティブ時間';
+	@override String get online => 'オンライン';
+	@override String get message => 'メッセージ';
+	@override String get guestbook => 'ゲストブック';
+	@override String get view_more => 'もっと見る';
+}
+
+// Path: sort
+class _StringsSortJa implements _StringsSortEn {
+	_StringsSortJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get latest => '最新';
+	@override String get trending => 'トレンド';
+	@override String get popularity => '人気順';
+	@override String get most_views => '閲覧数';
+	@override String get most_likes => 'お気に入り数';
+}
+
+// Path: filter
+class _StringsFilterJa implements _StringsFilterEn {
+	_StringsFilterJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'すべて';
+	@override String get filter => 'フィルター';
+	@override String get rating => '評価';
+	@override String get tag => 'タグ';
+	@override String get tags => 'タグ';
+	@override String get date => '日付';
+	@override String get general => '全年齢対象';
+	@override String get ecchi => 'エッチ';
+	@override String get select_rating => '評価を選択';
+	@override String get select_year => '年を選択';
+	@override String get select_month => '月を選択';
+}
+
+// Path: search
+class _StringsSearchJa implements _StringsSearchEn {
+	_StringsSearchJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get users => 'ユーザー';
+	@override String get search => '検索';
+	@override late final _StringsSearchHistoryJa history = _StringsSearchHistoryJa._(_root);
+}
+
+// Path: time
+class _StringsTimeJa implements _StringsTimeEn {
+	_StringsTimeJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String seconds_ago({required Object time}) => '${time} 秒前';
+	@override String minutes_ago({required Object time}) => '${time} 分前';
+	@override String hours_ago({required Object time}) => '${time} 時間前';
+	@override String days_ago({required Object time}) => '${time} 日前';
+}
+
+// Path: media
+class _StringsMediaJa implements _StringsMediaEn {
+	_StringsMediaJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get private => 'プライベート';
+	@override String get add_to_playlist => 'プレイリストに追加';
+	@override String get external_video => '外部動画';
+	@override String get share => '共有';
+	@override String get download => 'ダウンロード';
+	@override String more_from({required Object username}) => '${username} からのその他';
+	@override String get more_like_this => '同様の作品';
+	@override String updated_at({required Object time}) => '${time} に更新';
+}
+
+// Path: comment
+class _StringsCommentJa implements _StringsCommentEn {
+	_StringsCommentJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get comment => 'コメント';
+	@override String get comments => 'コメント';
+	@override String get comment_detail => 'コメントの詳細';
+	@override String get edit_comment => 'コメントの編集';
+	@override String get delete_comment => 'コメントの削除';
+	@override String get reply => '返信';
+	@override String replies_in_total({required Object numReply}) => '合計 ${numReply} 件の返信';
+	@override String show_all_replies({required Object numReply}) => 'すべての ${numReply} 件の返信を表示';
+}
+
+// Path: user
+class _StringsUserJa implements _StringsUserEn {
+	_StringsUserJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get following => 'フォロー中';
+	@override String get history => '履歴';
+	@override String get blocked_tags => 'ブロックされたタグ';
+	@override String get friends => '友達';
+	@override String get downloads => 'ダウンロード';
+	@override String get favorites => 'お気に入り';
+	@override String get playlists => 'プレイリスト';
+	@override String get settings => '設定';
+	@override String get about => 'について';
+}
+
+// Path: friend
+class _StringsFriendJa implements _StringsFriendEn {
+	_StringsFriendJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get friend_requests => '友達リクエスト';
+	@override String get add_friend => '友達に追加';
+	@override String get pending => '保留中';
+	@override String get unfriend => '友達解除';
+	@override String get accept => '承認';
+	@override String get reject => '拒否';
+}
+
+// Path: blocked_tags
+class _StringsBlockedTagsJa implements _StringsBlockedTagsEn {
+	_StringsBlockedTagsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_blocked_tag => 'ブロックされたタグを追加';
+	@override String get blocked_tag => 'ブロックされたタグ';
+}
+
+// Path: download
+class _StringsDownloadJa implements _StringsDownloadEn {
+	_StringsDownloadJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get create_download_task => 'ダウンロードタスクの作成';
+	@override String get unknown => '不明';
+	@override String get enqueued => '待機中';
+	@override String get downloading => 'ダウンロード中';
+	@override String get paused => '一時停止済み';
+	@override String get finished => '完了';
+	@override String get failed => 'ダウンロード失敗';
+}
+
+// Path: playlist
+class _StringsPlaylistJa implements _StringsPlaylistEn {
+	_StringsPlaylistJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'プレイリストのタイトル';
+	@override String get create => 'プレイリストの作成';
+	@override String get select => 'プレイリストの選択';
+	@override String videos_count({required Object numVideo}) => '${numVideo} 本のビデオ';
+	@override String videos_count_plural({required Object numVideo}) => '${numVideo} 本のビデオ';
+}
+
+// Path: channel
+class _StringsChannelJa implements _StringsChannelEn {
+	_StringsChannelJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get administration => '管理者';
+	@override String get announcements => 'お知らせ';
+	@override String get feedback => 'フィードバック';
+	@override String get support => 'サポート';
+	@override String get global => '一般';
+	@override String get general => '一般';
+	@override String get guides => 'ガイド';
+	@override String get questions => 'ヘルプ/質問';
+	@override String get requests => 'リクエスト';
+	@override String get sharing => '共有';
+	@override String label({required Object numThread, required Object numPosts}) => '${numThread} 本のスレッド ${numPosts} 本の返信';
+}
+
+// Path: create_thread
+class _StringsCreateThreadJa implements _StringsCreateThreadEn {
+	_StringsCreateThreadJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get create_thread => 'スレッドの作成';
+	@override String get title => 'タイトル';
+	@override String get content => '内容';
+}
+
+// Path: notifications
+class _StringsNotificationsJa implements _StringsNotificationsEn {
+	_StringsNotificationsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get ok => 'OK';
+	@override String get success => '成功';
+	@override String get error => 'エラー';
+	@override String get loading => '読み込み中...';
+	@override String get cancel => 'キャンセル';
+	@override String get confirm => '確認';
+	@override String get apply => '適用';
+}
+
+// Path: settings
+class _StringsSettingsJa implements _StringsSettingsEn {
+	_StringsSettingsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get appearance => '外観設定';
+	@override String get theme => 'テーマ';
+	@override String get theme_desc => 'アプリのテーマを設定します';
+	@override String get language => '言語';
+	@override String get language_desc => 'アプリの言語を設定します';
+	@override String get display_mode => '表示モード';
+	@override String get display_mode_desc => 'アプリの表示モードを設定します';
+	@override String get work_mode => '作業モード';
+	@override String get work_mode_desc => 'NSFW コンテンツのカバーを非表示にします';
+	@override String get network => 'ネットワーク設定';
+	@override String get enable_proxy => 'プロキシを有効にする';
+	@override String get enable_proxy_desc => 'プロキシサービスを有効にします';
+	@override String get proxy => 'プロキシ設定';
+	@override String get proxy_desc => 'プロキシサーバーを設定します';
+	@override String get player => 'プレイヤー設定';
+	@override String get autoplay => '自動再生';
+	@override String get autoplay_desc => 'ビデオページを開くときに自動でビデオを再生します';
+	@override String get about => '情報';
+	@override String get thrid_party_license => 'サードパーティのライセンス';
+	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
+}
+
+// Path: theme
+class _StringsThemeJa implements _StringsThemeEn {
+	_StringsThemeJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get system => 'システムに従う';
+	@override String get light => 'ライト';
+	@override String get dark => 'ダーク';
+}
+
+// Path: display_mode
+class _StringsDisplayModeJa implements _StringsDisplayModeEn {
+	_StringsDisplayModeJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get no_available => '利用可能な表示モードはありません';
+	@override String get auto => '自動';
+	@override String get system => 'システム';
+}
+
+// Path: proxy
+class _StringsProxyJa implements _StringsProxyEn {
+	_StringsProxyJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get host => 'ホスト名';
+	@override String get port => 'ポート';
+}
+
+// Path: message
+class _StringsMessageJa implements _StringsMessageEn {
+	_StringsMessageJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get are_you_sure_to_do_that => 'それを行うことを確認していますか？';
+	@override String get restart_required => '再起動後に有効';
+	@override String get please_type_host => 'ホスト名を入力してください';
+	@override String get please_type_port => 'ポートを入力してください';
+	@override late final _StringsMessageAccountJa account = _StringsMessageAccountJa._(_root);
+	@override late final _StringsMessageCommentJa comment = _StringsMessageCommentJa._(_root);
+	@override late final _StringsMessageCreateThreadJa create_thread = _StringsMessageCreateThreadJa._(_root);
+	@override late final _StringsMessageBlockedTagsJa blocked_tags = _StringsMessageBlockedTagsJa._(_root);
+	@override late final _StringsMessagePlaylistJa playlist = _StringsMessagePlaylistJa._(_root);
+	@override late final _StringsMessageDownloadJa download = _StringsMessageDownloadJa._(_root);
+}
+
+// Path: error
+class _StringsErrorJa implements _StringsErrorEn {
+	_StringsErrorJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get retry => '読み込みに失敗しました。再試行する';
+	@override String get fetch_failed => 'ビデオリンクを取得できません';
+	@override String get fetch_user_info_failed => 'ユーザー情報を取得できません';
+	@override late final _StringsErrorAccountJa account = _StringsErrorAccountJa._(_root);
+}
+
+// Path: search.history
+class _StringsSearchHistoryJa implements _StringsSearchHistoryEn {
+	_StringsSearchHistoryJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get delete => 'すべての記録を削除';
+}
+
+// Path: message.account
+class _StringsMessageAccountJa implements _StringsMessageAccountEn {
+	_StringsMessageAccountJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get login_success => 'ログイン成功！';
+	@override String get register_success => '登録が成功しました。メールでアカウントを有効にしてください。';
+	@override String get login_password_longer_than_6 => 'パスワードは少なくとも6文字である必要があります';
+	@override String get please_type_email => 'メールアドレスを入力してください';
+	@override String get please_type_email_or_username => 'メールアドレスまたはユーザー名を入力してください';
+	@override String get please_type_valid_email => '正しいメールアドレスを入力してください';
+	@override String get please_type_password => 'パスワードを入力してください';
+	@override String get please_type_captcha => 'キャプチャを入力してください';
+}
+
+// Path: message.comment
+class _StringsMessageCommentJa implements _StringsMessageCommentEn {
+	_StringsMessageCommentJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get content_empty => '内容は空であってはいけません。';
+	@override String get content_too_long => '内容は1000文字を超えてはいけません。';
+	@override String get sent => '返信が送信されました。';
+}
+
+// Path: message.create_thread
+class _StringsMessageCreateThreadJa implements _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title_empty => 'タイトルは空であってはいけません。';
+	@override String get title_too_long => 'タイトルは長すぎてはいけません。';
+	@override String get content_empty => '内容は空であってはいけません。';
+	@override String get content_too_long => '内容は20000文字を超えてはいけません。';
+	@override String get created => 'スレッドが送信されました。';
+}
+
+// Path: message.blocked_tags
+class _StringsMessageBlockedTagsJa implements _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get save_confirm => 'タグのブロックを保存しますか？';
+	@override String get saved => 'ブロックされたタグが保存されました。';
+	@override String get reached_limit => 'ブロックされたタグの数が上限に達しました。';
+}
+
+// Path: message.playlist
+class _StringsMessagePlaylistJa implements _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_playlist_title => 'プレイリストのタイトルは空であってはいけません。';
+	@override String get playlist_created => 'プレイリストが作成されました。';
+}
+
+// Path: message.download
+class _StringsMessageDownloadJa implements _StringsMessageDownloadEn {
+	_StringsMessageDownloadJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get no_provide_storage_permission => 'ストレージの許可がありません。';
+	@override String get task_already_exists => 'ダウンロードタスクはすでに存在します。';
+	@override String get task_created => 'ダウンロードタスクが作成されました。';
+	@override String get maximum_simultaneous_download_reached => '最大同時ダウンロード数に達しました。';
+}
+
+// Path: error.account
+class _StringsErrorAccountJa implements _StringsErrorAccountEn {
+	_StringsErrorAccountJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get invalid_login => '無効なメールアドレスまたはパスワード';
+	@override String get invalid_host => '無効なホスト名';
+	@override String get invalid_captcha => '無効なキャプチャ';
+}
+
+// Path: <root>
 class _StringsZhCn implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
@@ -719,7 +1292,8 @@ class _StringsZhCn implements Translations {
 
 	// Translations
 	@override Map<String, String> get locales => {
-		'en': '英语',
+		'en': 'English',
+		'ja': '日本語',
 		'zh-CN': '简体中文',
 	};
 	@override late final _StringsNavZhCn nav = _StringsNavZhCn._(_root);
@@ -1271,7 +1845,8 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return 'Chinese (Simplified)';
+			case 'locales.ja': return '日本語';
+			case 'locales.zh-CN': return '简体中文';
 			case 'nav.subscriptions': return 'Subscriptions';
 			case 'nav.videos': return 'Videos';
 			case 'nav.images': return 'Images';
@@ -1477,10 +2052,222 @@ extension on Translations {
 	}
 }
 
+extension on _StringsJa {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'locales.en': return 'English';
+			case 'locales.ja': return '日本語';
+			case 'locales.zh-CN': return '简体中文';
+			case 'nav.subscriptions': return 'サブスク';
+			case 'nav.videos': return '動画';
+			case 'nav.images': return '画像';
+			case 'nav.forum': return 'フォーラム';
+			case 'nav.search': return '検索';
+			case 'common.video': return '動画';
+			case 'common.image': return '画像';
+			case 'common.collapse': return '折りたたむ';
+			case 'common.expand': return '展開';
+			case 'common.translate': return '翻訳';
+			case 'common.open': return '開く';
+			case 'refresh.empty': return '何もありません';
+			case 'refresh.drag_to_load': return '引っ張って読み込む';
+			case 'refresh.release_to_load': return 'リリースして読み込む';
+			case 'refresh.success': return '読み込み成功';
+			case 'refresh.failed': return '読み込み失敗';
+			case 'refresh.no_more': return 'これ以上なし';
+			case 'refresh.last_load': return '前回の読み込み： %T';
+			case 'records.select_all': return 'すべて選択';
+			case 'records.select_inverse': return '逆選択';
+			case 'records.selected_num': return ({required Object num}) => '選択済み ${num} 項目';
+			case 'records.multiple_selection_mode': return '複数選択モード';
+			case 'records.delete': return '削除';
+			case 'records.delete_all': return 'すべて削除';
+			case 'account.captcha': return 'キャプチャ';
+			case 'account.login': return 'ログイン';
+			case 'account.logout': return 'ログアウト';
+			case 'account.register': return '登録';
+			case 'account.email': return 'メール';
+			case 'account.email_or_username': return 'メールまたはユーザー名';
+			case 'account.password': return 'パスワード';
+			case 'account.forgot_password': return 'パスワードを忘れた';
+			case 'account.require_login': return 'ログインしてください';
+			case 'profile.profile': return 'プロフィール';
+			case 'profile.follow': return 'フォロー';
+			case 'profile.followers': return 'フォロワー';
+			case 'profile.following': return 'フォロー中';
+			case 'profile.nickname': return 'ニックネーム';
+			case 'profile.username': return 'ユーザー名';
+			case 'profile.user_id': return 'ユーザーID';
+			case 'profile.description': return '自己紹介';
+			case 'profile.no_description': return 'このユーザーは神秘的な存在で、人々に見られるのが好きではありません。';
+			case 'profile.join_date': return '参加日';
+			case 'profile.last_active_time': return '最終アクティブ時間';
+			case 'profile.online': return 'オンライン';
+			case 'profile.message': return 'メッセージ';
+			case 'profile.guestbook': return 'ゲストブック';
+			case 'profile.view_more': return 'もっと見る';
+			case 'sort.latest': return '最新';
+			case 'sort.trending': return 'トレンド';
+			case 'sort.popularity': return '人気順';
+			case 'sort.most_views': return '閲覧数';
+			case 'sort.most_likes': return 'お気に入り数';
+			case 'filter.all': return 'すべて';
+			case 'filter.filter': return 'フィルター';
+			case 'filter.rating': return '評価';
+			case 'filter.tag': return 'タグ';
+			case 'filter.tags': return 'タグ';
+			case 'filter.date': return '日付';
+			case 'filter.general': return '全年齢対象';
+			case 'filter.ecchi': return 'エッチ';
+			case 'filter.select_rating': return '評価を選択';
+			case 'filter.select_year': return '年を選択';
+			case 'filter.select_month': return '月を選択';
+			case 'search.users': return 'ユーザー';
+			case 'search.search': return '検索';
+			case 'search.history.delete': return 'すべての記録を削除';
+			case 'time.seconds_ago': return ({required Object time}) => '${time} 秒前';
+			case 'time.minutes_ago': return ({required Object time}) => '${time} 分前';
+			case 'time.hours_ago': return ({required Object time}) => '${time} 時間前';
+			case 'time.days_ago': return ({required Object time}) => '${time} 日前';
+			case 'media.private': return 'プライベート';
+			case 'media.add_to_playlist': return 'プレイリストに追加';
+			case 'media.external_video': return '外部動画';
+			case 'media.share': return '共有';
+			case 'media.download': return 'ダウンロード';
+			case 'media.more_from': return ({required Object username}) => '${username} からのその他';
+			case 'media.more_like_this': return '同様の作品';
+			case 'media.updated_at': return ({required Object time}) => '${time} に更新';
+			case 'comment.comment': return 'コメント';
+			case 'comment.comments': return 'コメント';
+			case 'comment.comment_detail': return 'コメントの詳細';
+			case 'comment.edit_comment': return 'コメントの編集';
+			case 'comment.delete_comment': return 'コメントの削除';
+			case 'comment.reply': return '返信';
+			case 'comment.replies_in_total': return ({required Object numReply}) => '合計 ${numReply} 件の返信';
+			case 'comment.show_all_replies': return ({required Object numReply}) => 'すべての ${numReply} 件の返信を表示';
+			case 'user.following': return 'フォロー中';
+			case 'user.history': return '履歴';
+			case 'user.blocked_tags': return 'ブロックされたタグ';
+			case 'user.friends': return '友達';
+			case 'user.downloads': return 'ダウンロード';
+			case 'user.favorites': return 'お気に入り';
+			case 'user.playlists': return 'プレイリスト';
+			case 'user.settings': return '設定';
+			case 'user.about': return 'について';
+			case 'friend.friend_requests': return '友達リクエスト';
+			case 'friend.add_friend': return '友達に追加';
+			case 'friend.pending': return '保留中';
+			case 'friend.unfriend': return '友達解除';
+			case 'friend.accept': return '承認';
+			case 'friend.reject': return '拒否';
+			case 'blocked_tags.add_blocked_tag': return 'ブロックされたタグを追加';
+			case 'blocked_tags.blocked_tag': return 'ブロックされたタグ';
+			case 'download.create_download_task': return 'ダウンロードタスクの作成';
+			case 'download.unknown': return '不明';
+			case 'download.enqueued': return '待機中';
+			case 'download.downloading': return 'ダウンロード中';
+			case 'download.paused': return '一時停止済み';
+			case 'download.finished': return '完了';
+			case 'download.failed': return 'ダウンロード失敗';
+			case 'playlist.title': return 'プレイリストのタイトル';
+			case 'playlist.create': return 'プレイリストの作成';
+			case 'playlist.select': return 'プレイリストの選択';
+			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
+			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
+			case 'channel.administration': return '管理者';
+			case 'channel.announcements': return 'お知らせ';
+			case 'channel.feedback': return 'フィードバック';
+			case 'channel.support': return 'サポート';
+			case 'channel.global': return '一般';
+			case 'channel.general': return '一般';
+			case 'channel.guides': return 'ガイド';
+			case 'channel.questions': return 'ヘルプ/質問';
+			case 'channel.requests': return 'リクエスト';
+			case 'channel.sharing': return '共有';
+			case 'channel.label': return ({required Object numThread, required Object numPosts}) => '${numThread} 本のスレッド ${numPosts} 本の返信';
+			case 'create_thread.create_thread': return 'スレッドの作成';
+			case 'create_thread.title': return 'タイトル';
+			case 'create_thread.content': return '内容';
+			case 'notifications.ok': return 'OK';
+			case 'notifications.success': return '成功';
+			case 'notifications.error': return 'エラー';
+			case 'notifications.loading': return '読み込み中...';
+			case 'notifications.cancel': return 'キャンセル';
+			case 'notifications.confirm': return '確認';
+			case 'notifications.apply': return '適用';
+			case 'settings.appearance': return '外観設定';
+			case 'settings.theme': return 'テーマ';
+			case 'settings.theme_desc': return 'アプリのテーマを設定します';
+			case 'settings.language': return '言語';
+			case 'settings.language_desc': return 'アプリの言語を設定します';
+			case 'settings.display_mode': return '表示モード';
+			case 'settings.display_mode_desc': return 'アプリの表示モードを設定します';
+			case 'settings.work_mode': return '作業モード';
+			case 'settings.work_mode_desc': return 'NSFW コンテンツのカバーを非表示にします';
+			case 'settings.network': return 'ネットワーク設定';
+			case 'settings.enable_proxy': return 'プロキシを有効にする';
+			case 'settings.enable_proxy_desc': return 'プロキシサービスを有効にします';
+			case 'settings.proxy': return 'プロキシ設定';
+			case 'settings.proxy_desc': return 'プロキシサーバーを設定します';
+			case 'settings.player': return 'プレイヤー設定';
+			case 'settings.autoplay': return '自動再生';
+			case 'settings.autoplay_desc': return 'ビデオページを開くときに自動でビデオを再生します';
+			case 'settings.about': return '情報';
+			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
+			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
+			case 'theme.system': return 'システムに従う';
+			case 'theme.light': return 'ライト';
+			case 'theme.dark': return 'ダーク';
+			case 'display_mode.no_available': return '利用可能な表示モードはありません';
+			case 'display_mode.auto': return '自動';
+			case 'display_mode.system': return 'システム';
+			case 'proxy.host': return 'ホスト名';
+			case 'proxy.port': return 'ポート';
+			case 'message.are_you_sure_to_do_that': return 'それを行うことを確認していますか？';
+			case 'message.restart_required': return '再起動後に有効';
+			case 'message.please_type_host': return 'ホスト名を入力してください';
+			case 'message.please_type_port': return 'ポートを入力してください';
+			case 'message.account.login_success': return 'ログイン成功！';
+			case 'message.account.register_success': return '登録が成功しました。メールでアカウントを有効にしてください。';
+			case 'message.account.login_password_longer_than_6': return 'パスワードは少なくとも6文字である必要があります';
+			case 'message.account.please_type_email': return 'メールアドレスを入力してください';
+			case 'message.account.please_type_email_or_username': return 'メールアドレスまたはユーザー名を入力してください';
+			case 'message.account.please_type_valid_email': return '正しいメールアドレスを入力してください';
+			case 'message.account.please_type_password': return 'パスワードを入力してください';
+			case 'message.account.please_type_captcha': return 'キャプチャを入力してください';
+			case 'message.comment.content_empty': return '内容は空であってはいけません。';
+			case 'message.comment.content_too_long': return '内容は1000文字を超えてはいけません。';
+			case 'message.comment.sent': return '返信が送信されました。';
+			case 'message.create_thread.title_empty': return 'タイトルは空であってはいけません。';
+			case 'message.create_thread.title_too_long': return 'タイトルは長すぎてはいけません。';
+			case 'message.create_thread.content_empty': return '内容は空であってはいけません。';
+			case 'message.create_thread.content_too_long': return '内容は20000文字を超えてはいけません。';
+			case 'message.create_thread.created': return 'スレッドが送信されました。';
+			case 'message.blocked_tags.save_confirm': return 'タグのブロックを保存しますか？';
+			case 'message.blocked_tags.saved': return 'ブロックされたタグが保存されました。';
+			case 'message.blocked_tags.reached_limit': return 'ブロックされたタグの数が上限に達しました。';
+			case 'message.playlist.empty_playlist_title': return 'プレイリストのタイトルは空であってはいけません。';
+			case 'message.playlist.playlist_created': return 'プレイリストが作成されました。';
+			case 'message.download.no_provide_storage_permission': return 'ストレージの許可がありません。';
+			case 'message.download.task_already_exists': return 'ダウンロードタスクはすでに存在します。';
+			case 'message.download.task_created': return 'ダウンロードタスクが作成されました。';
+			case 'message.download.maximum_simultaneous_download_reached': return '最大同時ダウンロード数に達しました。';
+			case 'error.retry': return '読み込みに失敗しました。再試行する';
+			case 'error.fetch_failed': return 'ビデオリンクを取得できません';
+			case 'error.fetch_user_info_failed': return 'ユーザー情報を取得できません';
+			case 'error.account.invalid_login': return '無効なメールアドレスまたはパスワード';
+			case 'error.account.invalid_host': return '無効なホスト名';
+			case 'error.account.invalid_captcha': return '無効なキャプチャ';
+			default: return null;
+		}
+	}
+}
+
 extension on _StringsZhCn {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'locales.en': return '英语';
+			case 'locales.en': return 'English';
+			case 'locales.ja': return '日本語';
 			case 'locales.zh-CN': return '简体中文';
 			case 'nav.subscriptions': return '订阅';
 			case 'nav.videos': return '视频';

@@ -15,14 +15,23 @@ class ChannelPage extends GetView<ChannelController> {
         title: Text(controller.channelDisplayName),
       ),
       floatingActionButton: controller.channelName != "announcements"
-          ? FloatingActionButton(
-              foregroundColor: Theme.of(context).colorScheme.onSecondary,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                Get.toNamed(AppRoutes.createThread,
-                    arguments: controller.channelName);
-              },
-              child: const Icon(Icons.reply),
+          ? SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 2),
+                end: const Offset(0, 0),
+              ).animate(CurvedAnimation(
+                parent: controller.fabAnimationController,
+                curve: Curves.easeInOut,
+              )),
+              child: FloatingActionButton(
+                foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                onPressed: () {
+                  Get.toNamed(AppRoutes.createThread,
+                      arguments: controller.channelName);
+                },
+                child: const Icon(Icons.reply),
+              ),
             )
           : null,
       body: ThreadPreviewList(

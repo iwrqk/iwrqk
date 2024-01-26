@@ -44,19 +44,28 @@ class ThreadPage extends GetWidget<ThreadController> {
         ),
         titleSpacing: 0,
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 64),
-        child: FloatingActionButton(
-          onPressed: controller.locked
-              ? null
-              : () {
-                  Get.bottomSheet(SendPostBottomSheet(
-                    threadId: controller.threadId,
-                  ));
-                },
-          child: controller.locked
-              ? const Icon(Icons.lock)
-              : const Icon(Icons.reply),
+      floatingActionButton: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, 2),
+          end: const Offset(0, 0),
+        ).animate(CurvedAnimation(
+          parent: controller.fabAnimationController,
+          curve: Curves.easeInOut,
+        )),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 64),
+          child: FloatingActionButton(
+            onPressed: controller.locked
+                ? null
+                : () {
+                    Get.bottomSheet(SendPostBottomSheet(
+                      threadId: controller.threadId,
+                    ));
+                  },
+            child: controller.locked
+                ? const Icon(Icons.lock)
+                : const Icon(Icons.reply),
+          ),
         ),
       ),
       body: Column(

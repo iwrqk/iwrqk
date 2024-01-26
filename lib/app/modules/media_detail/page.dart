@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -38,10 +39,43 @@ class MediaDetailPage extends StatefulWidget {
 class _MediaDetailPageState extends State<MediaDetailPage>
     with TickerProviderStateMixin {
   final MediaDetailController _controller = Get.find();
+  bool _isFabVisible = true;
+  final ScrollController commentsScrollController = ScrollController();
+  late AnimationController fabAnimationController;
 
   @override
   void initState() {
     super.initState();
+
+    fabAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    fabAnimationController.forward();
+
+    commentsScrollController.addListener(() {
+      final ScrollDirection direction =
+          commentsScrollController.position.userScrollDirection;
+      if (direction == ScrollDirection.forward) {
+        if (!_isFabVisible) {
+          _isFabVisible = true;
+          fabAnimationController.forward();
+        }
+      } else if (direction == ScrollDirection.reverse) {
+        if (_isFabVisible) {
+          _isFabVisible = false;
+          fabAnimationController.reverse();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    commentsScrollController.removeListener(() {});
+    fabAnimationController.dispose();
+    commentsScrollController.dispose();
+    super.dispose();
   }
 
   Widget _buildLoadingWidget() {
@@ -368,6 +402,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   Widget _buildCommentsTab() {
     return Stack(children: [
       CommentsList(
+        scrollController: commentsScrollController,
         uploaderUserName: _controller.media.user.username,
         sourceId: _controller.media.id,
         sourceType: _controller.mediaType == MediaType.video
@@ -377,18 +412,27 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       Positioned(
         bottom: MediaQuery.of(context).padding.bottom + 16,
         right: 14,
-        child: FloatingActionButton(
-          onPressed: () {
-            Get.bottomSheet(
-              SendCommentBottomSheet(
-                sourceId: _controller.media.id,
-                sourceType: _controller.mediaType == MediaType.video
-                    ? CommentsSourceType.video
-                    : CommentsSourceType.image,
-              ),
-            );
-          },
-          child: const Icon(Icons.reply),
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 2),
+            end: const Offset(0, 0),
+          ).animate(CurvedAnimation(
+            parent: fabAnimationController,
+            curve: Curves.easeInOut,
+          )),
+          child: FloatingActionButton(
+            onPressed: () {
+              Get.bottomSheet(
+                SendCommentBottomSheet(
+                  sourceId: _controller.media.id,
+                  sourceType: _controller.mediaType == MediaType.video
+                      ? CommentsSourceType.video
+                      : CommentsSourceType.image,
+                ),
+              );
+            },
+            child: const Icon(Icons.reply),
+          ),
         ),
       ),
     ]);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -9,14 +10,14 @@ import 'comments_list/widget.dart';
 import 'send_comment_bottom_sheet/widget.dart';
 import 'user_comment.dart';
 
-class RepliesDetail extends StatelessWidget {
+class RepliesDetail extends StatefulWidget {
   final String uploaderUserName;
   final CommentModel parentComment;
   final String sourceId;
   final bool showInPage;
   final CommentsSourceType sourceType;
 
-  RepliesDetail({
+  const RepliesDetail({
     super.key,
     required this.uploaderUserName,
     required this.parentComment,
@@ -25,41 +26,95 @@ class RepliesDetail extends StatelessWidget {
     required this.sourceType,
   });
 
+  @override
+  State<RepliesDetail> createState() => _RepliesDetailState();
+}
+
+class _RepliesDetailState extends State<RepliesDetail>
+    with TickerProviderStateMixin {
   final UserService userService = Get.find();
+  bool _isFabVisible = true;
+  final ScrollController scrollController = ScrollController();
+  late AnimationController fabAnimationController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fabAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    fabAnimationController.forward();
+
+    scrollController.addListener(() {
+      final ScrollDirection direction =
+          scrollController.position.userScrollDirection;
+      if (direction == ScrollDirection.forward) {
+        if (!_isFabVisible) {
+          _isFabVisible = true;
+          fabAnimationController.forward();
+        }
+      } else if (direction == ScrollDirection.reverse) {
+        if (_isFabVisible) {
+          _isFabVisible = false;
+          fabAnimationController.reverse();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(() {});
+    fabAnimationController.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget fab = FloatingActionButton(
-      onPressed: () {
-        Get.bottomSheet(SendCommentBottomSheet(
-          sourceId: sourceId,
-          sourceType: sourceType,
-          parentId: parentComment.id,
-        ));
-      },
-      child: const Icon(Icons.reply),
+    Widget fab = SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0, 2),
+        end: const Offset(0, 0),
+      ).animate(CurvedAnimation(
+        parent: fabAnimationController,
+        curve: Curves.easeInOut,
+      )),
+      child: FloatingActionButton(
+        onPressed: () {
+          Get.bottomSheet(SendCommentBottomSheet(
+            sourceId: widget.sourceId,
+            sourceType: widget.sourceType,
+            parentId: widget.parentComment.id,
+          ));
+        },
+        child: const Icon(Icons.reply),
+      ),
     );
 
-    if (showInPage) {
+    if (widget.showInPage) {
       return Scaffold(
         appBar: AppBar(
           title: Text(t.comment.comment_detail),
         ),
         floatingActionButton: fab,
         body: CommentsList(
-          uploaderUserName: uploaderUserName,
-          sourceType: sourceType,
-          sourceId: sourceId,
-          parentId: parentComment.id,
+          scrollController: scrollController,
+          uploaderUserName: widget.uploaderUserName,
+          sourceType: widget.sourceType,
+          sourceId: widget.sourceId,
+          parentId: widget.parentComment.id,
           canJumpToDetail: false,
           paginated: false,
           parentComment: UserComment(
-            uploaderUserName: uploaderUserName,
-            comment: parentComment,
+            uploaderUserName: widget.uploaderUserName,
+            comment: widget.parentComment,
             showReplies: false,
             canJumpToDetail: false,
             showDivider: false,
-            isMyComment: userService.user?.id == uploaderUserName,
+            isMyComment: userService.user?.id == widget.uploaderUserName,
           ),
         ),
       );
@@ -90,19 +145,21 @@ class RepliesDetail extends StatelessWidget {
                 const Divider(height: 1),
                 Expanded(
                   child: CommentsList(
-                    uploaderUserName: uploaderUserName,
-                    sourceType: sourceType,
-                    sourceId: sourceId,
-                    parentId: parentComment.id,
+                    scrollController: scrollController,
+                    uploaderUserName: widget.uploaderUserName,
+                    sourceType: widget.sourceType,
+                    sourceId: widget.sourceId,
+                    parentId: widget.parentComment.id,
                     canJumpToDetail: false,
                     paginated: false,
                     parentComment: UserComment(
-                      uploaderUserName: uploaderUserName,
-                      comment: parentComment,
+                      uploaderUserName: widget.uploaderUserName,
+                      comment: widget.parentComment,
                       showReplies: false,
                       canJumpToDetail: false,
                       showDivider: false,
-                      isMyComment: userService.user?.id == uploaderUserName,
+                      isMyComment:
+                          userService.user?.id == widget.uploaderUserName,
                     ),
                   ),
                 ),
