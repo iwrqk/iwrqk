@@ -12,7 +12,7 @@ import '../download_task_dialog.dart';
 import 'controller.dart';
 
 class DownloadsMediaPreviewList extends StatefulWidget {
-  final DownloadTaskStatus filterType;
+  final bool showCompleted;
   final String tag;
   final bool isPlaylist;
   final String? currentMediaId;
@@ -20,7 +20,7 @@ class DownloadsMediaPreviewList extends StatefulWidget {
 
   const DownloadsMediaPreviewList({
     super.key,
-    required this.filterType,
+    this.showCompleted = false,
     required this.tag,
     this.isPlaylist = false,
     this.currentMediaId,
@@ -70,7 +70,11 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             .status ??
                         DownloadTaskStatus.undefined;
 
-                    if (status != widget.filterType) {
+                    if (status != DownloadTaskStatus.complete &&
+                        widget.showCompleted) {
+                      return const SizedBox.shrink();
+                    } else if (status == DownloadTaskStatus.complete &&
+                        !widget.showCompleted) {
                       return const SizedBox.shrink();
                     }
 

@@ -9,9 +9,7 @@ import '../../../../../data/providers/storage_provider.dart';
 class DownloadMediaPreviewListRepository {
   DownloadMediaPreviewListRepository();
 
-  GroupResult<MediaDownloadTask> getDownloadRecords(
-    int currentPage,
-  ) {
+  GroupResult<MediaDownloadTask> getDownloadRecords(int currentPage) {
     List<MediaDownloadTask> records = [];
 
     records = StorageProvider.downloadVideoRecords.get();

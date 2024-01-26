@@ -53,13 +53,7 @@ class DownloadMediaPreview extends StatelessWidget {
             ),
           ),
         ),
-        LinearProgressIndicator(
-          value: progress,
-          backgroundColor:
-              Theme.of(context).colorScheme.primary.withOpacity(0.5),
-          valueColor:
-              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-        )
+        LinearProgressIndicator(value: progress)
       ],
     );
   }

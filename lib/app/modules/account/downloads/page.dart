@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -48,11 +47,10 @@ class DownloadsPage extends GetView<DownloadsController> {
               controller: controller.tabController,
               children: [
                 DownloadsMediaPreviewList(
-                  filterType: DownloadTaskStatus.complete,
+                  showCompleted: true,
                   tag: controller.childrenControllerTags[0],
                 ),
                 DownloadsMediaPreviewList(
-                  filterType: DownloadTaskStatus.running,
                   tag: controller.childrenControllerTags[1],
                 )
               ],

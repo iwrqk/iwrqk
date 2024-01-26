@@ -189,9 +189,8 @@ class DownloadTaskDialog extends StatelessWidget {
                 alignment: MainAxisAlignment.end,
                 children: [
                   if (taskStatus?.value.status == null ||
-                      taskStatus?.value.status == DownloadTaskStatus.failed ||
                       taskStatus?.value.status ==
-                          DownloadTaskStatus.paused) ...[
+                          DownloadTaskStatus.failed) ...[
                     IconButton(
                       onPressed: () {
                         onRetry?.call();
@@ -224,13 +223,14 @@ class DownloadTaskDialog extends StatelessWidget {
                       icon: const Icon(Icons.share),
                     ),
                   ] else ...[
-                    IconButton(
-                      onPressed: onPaused,
-                      icon:
-                          taskStatus?.value.status == DownloadTaskStatus.paused
-                              ? const Icon(Icons.play_arrow)
-                              : const Icon(Icons.pause),
-                    ),
+                    taskStatus?.value.status == DownloadTaskStatus.paused
+                        ? IconButton(
+                            onPressed: onResumed,
+                            icon: const Icon(Icons.play_arrow))
+                        : IconButton(
+                            onPressed: onPaused,
+                            icon: const Icon(Icons.pause),
+                          ),
                     IconButton(
                       onPressed: () {
                         onDeleted?.call();
