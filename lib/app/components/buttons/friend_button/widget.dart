@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
@@ -47,7 +48,10 @@ class _FriendButtonState extends State<FriendButton>
                 : () {
                     _controller.sendFriendRequest(context);
                   },
-            child: Text(t.friend.add_friend),
+            child: AutoSizeText(
+              t.friend.add_friend,
+              maxLines: 1,
+            ),
           );
         case FriendRelationType.pending:
           return FilledButton(
@@ -56,7 +60,10 @@ class _FriendButtonState extends State<FriendButton>
               backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
             ),
             onPressed: null,
-            child: Text(t.friend.pending),
+            child: AutoSizeText(
+              t.friend.pending,
+              maxLines: 1,
+            ),
           );
         case FriendRelationType.friended:
           return FilledButton(
@@ -69,7 +76,10 @@ class _FriendButtonState extends State<FriendButton>
                 : () {
                     _controller.unfriend(context);
                   },
-            child: Text(t.friend.unfriend),
+            child: AutoSizeText(
+              t.friend.unfriend,
+              maxLines: 1,
+            ),
           );
       }
     });

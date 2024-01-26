@@ -44,6 +44,12 @@ class ThreadController extends GetxController with GetTickerProviderStateMixin {
     scrollController.addListener(() {
       final ScrollDirection direction =
           scrollController.position.userScrollDirection;
+      if (scrollController.position.pixels >= 55) {
+        _showTitle.value = true;
+      } else {
+        _showTitle.value = false;
+      }
+
       if (direction == ScrollDirection.forward) {
         if (!_isFabVisible) {
           _isFabVisible = true;

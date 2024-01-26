@@ -69,6 +69,8 @@ class _GuestbookPageState extends State<GuestbookPage>
       ),
       title: Text(
         widget.user.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

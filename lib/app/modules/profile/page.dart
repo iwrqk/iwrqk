@@ -200,6 +200,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           child: Text(
             controller.profile.user!.name,
             maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -211,6 +212,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           child: Text(
             "@${controller.profile.user!.username}",
             maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 14,
             ),
@@ -366,6 +368,8 @@ class ProfilePage extends GetWidget<ProfileController> {
       ),
       title: Text(
         controller.profile.user!.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

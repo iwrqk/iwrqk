@@ -180,12 +180,16 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 Icons.playlist_add,
                 t.media.add_to_playlist,
                 () {
-                  Get.bottomSheet(
-                    AddToPlaylistBottomSheet(
-                      videoId: _controller.media.id,
-                    ),
+                  showModalBottomSheet(
+                    context: context,
                     isScrollControlled: true,
                     enableDrag: true,
+                    builder: (context) => Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: AddToPlaylistBottomSheet(
+                          videoId: _controller.media.id),
+                    ),
                   );
                 },
               ),
@@ -233,11 +237,16 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         Material(
           child: InkWell(
             onTap: () {
-              Get.bottomSheet(
-                MeidaDescription(media: _controller.media),
+              showModalBottomSheet(
+                context: context,
                 isScrollControlled: true,
                 enableDrag: true,
                 barrierColor: Colors.transparent,
+                builder: (context) => Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: MeidaDescription(media: _controller.media),
+                ),
               );
             },
             child: Padding(
@@ -323,8 +332,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               style: const TextStyle(
                 fontSize: 12.5,
                 color: Colors.grey,
-                overflow: TextOverflow.ellipsis,
               ),
+              overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
           ),
@@ -333,6 +342,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             child: Text(
               _controller.media.user.name,
               style: Theme.of(context).textTheme.titleMedium,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           trailing: FollowButton(
@@ -422,12 +433,18 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           )),
           child: FloatingActionButton(
             onPressed: () {
-              Get.bottomSheet(
-                SendCommentBottomSheet(
-                  sourceId: _controller.media.id,
-                  sourceType: _controller.mediaType == MediaType.video
-                      ? CommentsSourceType.video
-                      : CommentsSourceType.image,
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: SendCommentBottomSheet(
+                    sourceId: _controller.media.id,
+                    sourceType: _controller.mediaType == MediaType.video
+                        ? CommentsSourceType.video
+                        : CommentsSourceType.image,
+                  ),
                 ),
               );
             },

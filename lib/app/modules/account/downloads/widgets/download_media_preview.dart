@@ -81,12 +81,12 @@ class DownloadMediaPreview extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 2, right: 2),
                         child: Text(
                           media.uploader.name,
-                          maxLines: 1,
                           style: const TextStyle(
                             fontSize: 12.5,
                             color: Colors.grey,
-                            overflow: TextOverflow.ellipsis,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     )

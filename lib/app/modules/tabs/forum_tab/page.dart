@@ -216,6 +216,7 @@ class ForumTabPage extends GetView<ForumTabController> {
         await controller.refreshData();
       },
       child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         controller: controller.scrollController,
         slivers: children,
       ),

@@ -295,17 +295,22 @@ class _UserCommentState extends State<UserComment>
           ),
         );
       } else {
-        Get.bottomSheet(
-          RepliesDetail(
-            uploaderUserName: widget.uploaderUserName,
-            parentComment: widget.comment,
-            sourceId: widget.sourceId!,
-            showInPage: showInPage,
-            sourceType: detailSourceType,
-          ),
+        showModalBottomSheet(
+          context: context,
           isScrollControlled: true,
           enableDrag: true,
           barrierColor: Colors.transparent,
+          builder: (context) => Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: RepliesDetail(
+              uploaderUserName: widget.uploaderUserName,
+              parentComment: widget.comment,
+              sourceId: widget.sourceId!,
+              showInPage: showInPage,
+              sourceType: detailSourceType,
+            ),
+          ),
         );
       }
     }

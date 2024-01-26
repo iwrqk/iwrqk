@@ -39,6 +39,8 @@ class UploadedMediaPage extends GetView<UploadedMediaController> {
       ),
       title: Text(
         controller.user.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

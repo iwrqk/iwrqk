@@ -22,10 +22,14 @@ class ThreadPage extends GetWidget<ThreadController> {
       title: Text(
         controller.starteName,
         style: const TextStyle(fontSize: 14),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
         DisplayUtil.getDisplayTime(DateTime.parse(controller.timestamp)),
         style: const TextStyle(fontSize: 12),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -58,9 +62,17 @@ class ThreadPage extends GetWidget<ThreadController> {
             onPressed: controller.locked
                 ? null
                 : () {
-                    Get.bottomSheet(SendPostBottomSheet(
-                      threadId: controller.threadId,
-                    ));
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: SendPostBottomSheet(
+                          threadId: controller.threadId,
+                        ),
+                      ),
+                    );
                   },
             child: controller.locked
                 ? const Icon(Icons.lock)

@@ -84,11 +84,19 @@ class _RepliesDetailState extends State<RepliesDetail>
       )),
       child: FloatingActionButton(
         onPressed: () {
-          Get.bottomSheet(SendCommentBottomSheet(
-            sourceId: widget.sourceId,
-            sourceType: widget.sourceType,
-            parentId: widget.parentComment.id,
-          ));
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: SendCommentBottomSheet(
+                sourceId: widget.sourceId,
+                sourceType: widget.sourceType,
+                parentId: widget.parentComment.id,
+              ),
+            ),
+          );
         },
         child: const Icon(Icons.reply),
       ),

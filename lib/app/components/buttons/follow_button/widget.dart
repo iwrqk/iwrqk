@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
@@ -40,12 +41,18 @@ class _FollowButtonState extends State<FollowButton>
             backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
           ),
           onPressed: _controller.isProcessing ? null : _controller.unfollow,
-          child: Text(t.profile.following),
+          child: AutoSizeText(
+            t.profile.following,
+            maxLines: 1,
+          ),
         );
       } else {
         return FilledButton(
           onPressed: _controller.isProcessing ? null : _controller.follow,
-          child: Text(t.profile.follow),
+          child: AutoSizeText(
+            t.profile.follow,
+            maxLines: 1,
+          ),
         );
       }
     });

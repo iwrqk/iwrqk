@@ -218,6 +218,8 @@ class HistoryMediaPreview extends StatelessWidget {
               ),
             ],
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
