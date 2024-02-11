@@ -7,7 +7,9 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:media_kit/media_kit.dart';
 
+import 'app/data/services/plugin/pl_player/service_locator.dart';
 import 'app/utils/proxy_util.dart';
 import 'i18n/strings.g.dart';
 import 'app/data/providers/storage_provider.dart';
@@ -18,11 +20,13 @@ import 'getx.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
 
   await StorageProvider.init();
   await LogUtil.init();
   await FlutterDownloader.initialize(debug: kDebugMode);
   ProxyUtil.init();
+  await setupServiceLocator();
 
   initGetx();
 

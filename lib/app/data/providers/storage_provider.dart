@@ -22,6 +22,24 @@ abstract class StorageKey {
   static const String proxyPort = "proxyPort";
 }
 
+abstract class PLPlayerConfigKey {
+  static const String fullScreenMode = 'fullScreenMode';
+  static const String cacheVideoFit = 'cacheVideoFit';
+  static const String playSpeedDefault = 'playSpeedDefault';
+  static const String longPressSpeedDefault = 'longPressSpeedDefault';
+
+  static const String enableQuickDouble = 'enableQuickDouble';
+  static const String enableBackgroundPlay = 'enableBackgroundPlay';
+  static const String enableAutoLongPressSpeed = 'enableAutoLongPressSpeed';
+  static const String enableAutoPlay = 'enableAutoPlay';
+  static const String enableHA = 'enableHA';
+  static const String enableAutoEnter = 'enableAutoEnter';
+  static const String enableAutoBrightness = 'enableAutoBrightness';
+  static const String enableAutoExit = 'enableAutoExit';
+  static const String autoPiP = 'autoPiP';
+  static const String autoPlayEnable = 'autoPlayEnable';
+}
+
 class GStorageConfig {
   final GetStorage storage;
 

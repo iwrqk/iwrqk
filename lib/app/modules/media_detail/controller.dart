@@ -1,6 +1,9 @@
+import 'package:floating/floating.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
+import '../../components/plugin/pl_player/index.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
@@ -12,6 +15,7 @@ import '../../data/providers/storage_provider.dart';
 import '../../data/services/config_service.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
+import 'widgets/header_control.dart';
 
 class MediaDetailController extends GetxController
     with GetTickerProviderStateMixin {
@@ -26,11 +30,11 @@ class MediaDetailController extends GetxController
   late String id;
 
   List<ResolutionModel> resolutions = [];
-
-  bool _refectchVideoCancelToken = false;
+  int resolutionIndex = 0;
 
   final RxBool _isLoading = true.obs;
   final RxBool _isFectchingResolution = false.obs;
+  final RxBool _isLoadingPlayer = false.obs;
   final RxBool _isFectchingRecommendation = true.obs;
 
   bool tempFavorite = false;
@@ -50,6 +54,7 @@ class MediaDetailController extends GetxController
 
   bool get isLoading => _isLoading.value;
   bool get isFectchingResolution => _isFectchingResolution.value;
+  bool get isLoadingPlayer => _isLoadingPlayer.value;
   bool get isFectchingRecommendation => _isFectchingRecommendation.value;
 
   OfflineMediaModel get offlineMedia => OfflineMediaModel.fromMediaModel(media);
@@ -86,8 +91,25 @@ class MediaDetailController extends GetxController
     _isFectchingRecommendation.value = value;
   }
 
+  GStorageConfig setting = StorageProvider.config;
+
+  Rational aspectRatio = const Rational(16, 9);
+
+  /// PL player
+  PlPlayerController plPlayerController = PlPlayerController.getInstance();
+  Duration defaultST = Duration.zero;
+  // 亮度
+  double? brightness;
+  // 硬解
+  RxBool enableHA = true.obs;
+  // 是否开始自动播放
+  RxBool autoPlay = true.obs;
+  Floating? floating;
+
+  late PreferredSizeWidget headerControl;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
 
     dynamic arguments = Get.arguments;
@@ -95,21 +117,22 @@ class MediaDetailController extends GetxController
     mediaType = arguments["mediaType"];
     id = arguments["id"];
 
+    autoPlay.value =
+        setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
+    enableHA.value =
+        setting.get(PLPlayerConfigKey.enableHA, defaultValue: true);
+
+    if (GetPlatform.isAndroid) {
+      floating = Floating();
+    }
+
+    headerControl = HeaderControl(
+      controller: plPlayerController,
+      videoDetailCtr: this,
+      floating: floating,
+    );
+
     loadData();
-  }
-
-  @override
-  void onClose() {
-    _refectchVideoCancelToken = true;
-    closePlayer();
-    super.onClose();
-  }
-
-  void closePlayer() {
-    // if (GetPlatform.isAndroid) {
-    //   _androidService.unsetPlayer();
-    // }
-    // iwrPlayerController?.close();
   }
 
   Future<void> loadData() async {
@@ -144,59 +167,54 @@ class MediaDetailController extends GetxController
     }
   }
 
-  void _initPlayer() {
-    // Map<String, String> resolutionsMap = {};
-    // for (var resolution in resolutions) {
-    //   resolutionsMap.addAll({resolution.name: resolution.src.viewUrl});
-    // }
+  /// 更新画质、音质
+  /// TODO 继续进度播放
+  updatePlayer() {
+    defaultST = plPlayerController.position.value;
+    plPlayerController.removeListeners();
+    plPlayerController.isBuffering.value = false;
+    plPlayerController.buffered.value = Duration.zero;
 
-    // String tag = "${media.id}_${DateTime.now().millisecondsSinceEpoch}";
-
-    // if (!_refectchVideoCancelToken) {
-    //   Get.put(
-    //     IwrPlayerController(
-    //       tag: tag,
-    //       id: media.id,
-    //       resolutions: resolutionsMap,
-    //       title: media.title,
-    //       author: media.user.name,
-    //       thumbnail: media.hasCover() ? media.getCoverUrl() : null,
-    //       setting: configService.playerSetting,
-    //       onPlayerSettingSaved: (setting) {
-    //         configService.playerSetting = setting;
-    //       },
-    //     ),
-    //     tag: tag,
-    //   );
-
-    //   iwrPlayerController = Get.find<IwrPlayerController>(tag: tag);
-
-    //   if (GetPlatform.isAndroid) {
-    //     _androidService.currentPlayer = iwrPlayerController;
-    //   }
-
-    //   iwrPlayerController!.onPlayStop = (playing) {
-    //     if (playing) {
-    //       scrollController.animateTo(
-    //         0,
-    //         duration: const Duration(milliseconds: 300),
-    //         curve: Curves.ease,
-    //       );
-    //       _hideAppbarFactor.value = 1;
-    //       lockingScroll = true;
-    //     } else {
-    //       lockingScroll = false;
-    //     }
-    //   };
-    // }
-
-    // if (_refectchVideoCancelToken) {
-    //   closePlayer();
-    // }
+    playerInit();
   }
 
-  void pauseVideo() {
-    // iwrPlayerController?.pause();
+  Future playerInit({
+    video,
+    audio,
+    seekToTime,
+    duration,
+    bool autoplay = true,
+  }) async {
+    _isLoadingPlayer.value = true;
+
+    /// 设置/恢复 屏幕亮度
+    if (brightness != null) {
+      ScreenBrightness().setScreenBrightness(brightness!);
+    } else {
+      ScreenBrightness().resetScreenBrightness();
+    }
+
+    await plPlayerController.setDataSource(
+      DataSource(
+        videoSource: video ?? resolutions[resolutionIndex].src.view,
+        type: DataSourceType.network,
+      ),
+      // 硬解
+      enableHA: enableHA.value,
+      seekTo: seekToTime ?? defaultST,
+      autoplay: autoplay,
+    );
+
+    /// 开启自动全屏时，在player初始化完成后立即传入headerControl
+    plPlayerController.headerControl = headerControl;
+
+    plPlayerController.width.listen((value) {
+      if (value > 0) {
+        aspectRatio = Rational(value, plPlayerController.height.value);
+      }
+    });
+
+    _isLoadingPlayer.value = false;
   }
 
   Future<void> refectchVideo() async {
@@ -211,7 +229,7 @@ class MediaDetailController extends GetxController
       if (value.success) {
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;
-          _initPlayer();
+          playerInit();
           return;
         }
       }
