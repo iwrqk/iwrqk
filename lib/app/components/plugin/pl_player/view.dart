@@ -454,7 +454,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             /// 水平位置 快进 live模式下禁用
             onHorizontalDragUpdate: (DragUpdateDetails details) {
               // live模式下禁用 锁定时🔒禁用
-              if (_.videoType.value == 'live' || _.controlsLock.value) {
+              if (_.controlsLock.value) {
                 return;
               }
               // final double tapPosition = details.localPosition.dx;
@@ -471,7 +471,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               // _initTapPositoin = tapPosition;
             },
             onHorizontalDragEnd: (DragEndDetails details) {
-              if (_.videoType.value == 'live' || _.controlsLock.value) {
+              if (_.controlsLock.value) {
                 return;
               }
               _.onChangedSliderEnd();
@@ -562,9 +562,10 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     position: 'bottom',
                     child: widget.bottomControl ??
                         BottomControl(
-                            controller: widget.controller,
-                            triggerFullScreen:
-                                widget.controller.triggerFullScreen),
+                          controller: widget.controller,
+                          triggerFullScreen:
+                              widget.controller.triggerFullScreen,
+                        ),
                   ),
                 ),
               ],
@@ -579,11 +580,8 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             final int value = _.sliderPositionSeconds.value;
             final int max = _.durationSeconds.value;
             final int buffer = _.bufferedSeconds.value;
-            if (_.showControls.value) {
-              return const SizedBox.shrink();
-            }
 
-            if (_.videoType.value == 'live') {
+            if (_.showControls.value) {
               return const SizedBox.shrink();
             }
 
@@ -637,22 +635,18 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
 
         // 锁
         Obx(
-          () => Visibility(
-            visible: _.videoType.value != 'live',
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: FractionalTranslation(
-                translation: const Offset(1, 0.0),
-                child: Visibility(
-                  visible: _.showControls.value,
-                  child: ComBtn(
-                    icon: Icon(
-                      _.controlsLock.value ? Icons.lock : Icons.lock_open,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                    fuc: () => _.onLockControl(!_.controlsLock.value),
+          () => Align(
+            alignment: Alignment.centerLeft,
+            child: FractionalTranslation(
+              translation: const Offset(1, 0.0),
+              child: Visibility(
+                visible: _.showControls.value,
+                child: ComBtn(
+                  icon: Icon(
+                    _.controlsLock.value ? Icons.lock : Icons.lock_open,
+                    color: Colors.white,
                   ),
+                  fuc: () => _.onLockControl(!_.controlsLock.value),
                 ),
               ),
             ),

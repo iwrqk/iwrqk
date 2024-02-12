@@ -119,22 +119,6 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
               //     ),
               //   ),
               // ),
-              SizedBox(
-                height: 30,
-                child: TextButton(
-                  onPressed: () => _.toggleVideoFit(),
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  ),
-                  child: Obx(
-                    () => Text(
-                      _.videoFitDEsc.value,
-                      style: const TextStyle(color: Colors.white, fontSize: 13),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
               // 全屏
               Obx(
                 () => ComBtn(
@@ -142,7 +126,6 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                     _.isFullScreen.value
                         ? Icons.fullscreen_exit
                         : Icons.fullscreen,
-                    size: 20,
                     color: Colors.white,
                   ),
                   fuc: () => triggerFullScreen!(),

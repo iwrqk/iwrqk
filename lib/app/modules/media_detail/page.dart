@@ -686,79 +686,91 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildPlayer() {
+    Widget buildWithExitBtn(Widget child) {
+      return Stack(
+        children: [
+          Container(color: Colors.black, child: Center(child: child)),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: IconButton(
+              padding: const EdgeInsets.all(16),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: Theme.of(context).appBarTheme.iconTheme?.size,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+        ],
+      );
+    }
+
     return Obx(() {
       Widget child;
 
       if (_controller.isFectchingResolution ||
           _controller.fetchFailed ||
           _controller.isLoadingPlayer) {
-        child = Container(
-          color: Colors.black,
-          child: Obx(
-            () => Center(
-              child: !_controller.fetchFailed
-                  ? const CircularProgressIndicator()
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            _controller.refectchVideo();
-                          },
-                          icon: Icon(
-                            Icons.refresh,
-                            color: Theme.of(context).primaryColor,
-                            size: 42,
-                          ),
+        child = buildWithExitBtn(
+          Obx(
+            () => !_controller.fetchFailed
+                ? const CircularProgressIndicator()
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _controller.refectchVideo();
+                        },
+                        icon: Icon(
+                          Icons.refresh,
+                          color: Theme.of(context).primaryColor,
+                          size: 42,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            t.error.fetch_failed,
-                            style: const TextStyle(color: Colors.white),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      ],
-                    ),
-            ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          t.error.fetch_failed,
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
           ),
         );
       } else if ((_controller.media as VideoModel).embedUrl != null) {
-        child = Container(
-          color: Colors.black,
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.info,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      t.media.external_video,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                FilledButton.icon(
-                  onPressed: () {
-                    launchUrlString(
-                        (_controller.media as VideoModel).embedUrl!);
-                  },
-                  label: Text(
-                    t.common.open,
-                    style: const TextStyle(color: Colors.white),
+        child = buildWithExitBtn(
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.info, size: 32),
+                  const SizedBox(width: 4),
+                  Text(
+                    t.media.external_video,
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  icon: const Icon(
-                    Icons.open_in_browser,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              FilledButton.icon(
+                onPressed: () {
+                  launchUrlString((_controller.media as VideoModel).embedUrl!);
+                },
+                label: Text(t.common.open),
+                icon: const Icon(Icons.open_in_browser),
+              ),
+            ],
           ),
         );
       } else {
@@ -799,10 +811,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildPageFuture([bool inPip = false]) {
     return Obx(() {
-      if (MediaQuery.of(context).orientation == Orientation.landscape ||
+      if (Get.mediaQuery.orientation == Orientation.landscape ||
           plPlayerController?.isFullScreen.value == true) {
         enterFullScreen();
       } else {
@@ -810,44 +821,91 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       }
 
       if (_controller.isLoading) {
-        return Scaffold(
-          appBar: AppBar(),
-          body: _buildLoadingWidget(),
-        );
+        return inPip
+            ? _buildLoadingWidget()
+            : Scaffold(
+                appBar: AppBar(),
+                body: _buildLoadingWidget(),
+              );
       } else {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.black,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(0),
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-          ),
-          body: Column(
-            children: [
-              AspectRatio(
+        Widget buildMedia() {
+          if (inPip) {
+            return _buildPlayer();
+          } else {
+            Widget child;
+            if (Get.mediaQuery.orientation == Orientation.landscape) {
+              child = _controller.mediaType == MediaType.video
+                  ? _buildPlayer()
+                  : _buildGallery();
+            } else {
+              child = AspectRatio(
                 aspectRatio: 16 / 9,
                 child: _controller.mediaType == MediaType.video
                     ? _buildPlayer()
                     : _buildGallery(),
-              ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.surface,
-                  child: DefaultTabController(
-                    length: 2,
-                    child: TabBarView(
-                      children: [_buildDetailTab(), _buildCommentsTab()],
-                    ),
+              );
+            }
+            return SafeArea(
+              top: Get.mediaQuery.orientation == Orientation.portrait &&
+                  plPlayerController?.isFullScreen.value == true,
+              bottom: Get.mediaQuery.orientation == Orientation.portrait &&
+                  plPlayerController?.isFullScreen.value == true,
+              child: child,
+            );
+          }
+        }
+
+        return inPip
+            ? buildMedia()
+            : Scaffold(
+                resizeToAvoidBottomInset: inPip ? null : false,
+                backgroundColor: Colors.black,
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(0),
+                  child: AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
+                body: Get.mediaQuery.orientation == Orientation.landscape
+                    ? buildMedia()
+                    : Column(
+                        children: [
+                          buildMedia(),
+                          Expanded(
+                            child: Container(
+                              color: Theme.of(context).colorScheme.surface,
+                              child: DefaultTabController(
+                                length: 2,
+                                child: TabBarView(
+                                  children: [
+                                    _buildDetailTab(),
+                                    _buildCommentsTab()
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+              );
       }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget childWhenDisabled = _buildPageFuture();
+    Widget childWhenEnabled = _buildPageFuture(true);
+
+    if (GetPlatform.isAndroid) {
+      return PiPSwitcher(
+        childWhenDisabled: childWhenDisabled,
+        childWhenEnabled: childWhenEnabled,
+        floating: floating,
+      );
+    } else {
+      return childWhenDisabled;
+    }
   }
 }

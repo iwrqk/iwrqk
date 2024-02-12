@@ -63,8 +63,6 @@ class PlPlayerController {
   final Rx<bool> _doubleSpeedStatus = false.obs;
   final Rx<bool> _controlsLock = false.obs;
   final Rx<bool> _isFullScreen = false.obs;
-  // 默认投稿视频格式
-  static Rx<String> _videoType = 'archive'.obs;
 
   final Rx<String> _direction = 'horizontal'.obs;
 
@@ -195,9 +193,7 @@ class PlPlayerController {
 
   Rx<int> get playerCount => _playerCount;
 
-  ///
-  Rx<String> get videoType => _videoType;
-
+  late List<double> speedsList;
   // 缓存
   double? defaultDuration;
   late bool enableAutoLongPressSpeed = false;
@@ -232,7 +228,6 @@ class PlPlayerController {
 
   // 添加一个私有构造函数
   PlPlayerController._() {
-    _videoType = videoType;
     _playbackSpeed.value =
         setting.get(PLPlayerConfigKey.playSpeedDefault, defaultValue: 1.0);
     enableAutoLongPressSpeed = setting
@@ -243,9 +238,10 @@ class PlPlayerController {
     }
     // speedsList = List<double>.from(videoStorage
     //     .get(VideoBoxKey.customSpeedsList, defaultValue: <double>[]));
-    // for (final PlaySpeed i in PlaySpeed.values) {
-    //   speedsList.add(i.value);
-    // }
+    speedsList = [];
+    for (final PlaySpeed i in PlaySpeed.values) {
+      speedsList.add(i.value);
+    }
 
     // _playerEventSubs = onPlayerStatusChanged.listen((PlayerStatus status) {
     //   if (status == PlayerStatus.playing) {
@@ -257,13 +253,10 @@ class PlPlayerController {
   }
 
   // 获取实例 传参
-  static PlPlayerController getInstance({
-    String videoType = 'archive',
-  }) {
+  static PlPlayerController getInstance() {
     // 如果实例尚未创建，则创建一个新实例
     _instance ??= PlPlayerController._();
     _instance!._playerCount.value += 1;
-    _videoType.value = videoType;
     return _instance!;
   }
 
@@ -427,14 +420,10 @@ class PlPlayerController {
     Duration? duration,
   }) async {
     // 设置倍速
-    if (videoType.value == 'live') {
-      await setPlaybackSpeed(1.0);
+    if (_playbackSpeed.value != 1.0) {
+      await setPlaybackSpeed(_playbackSpeed.value);
     } else {
-      if (_playbackSpeed.value != 1.0) {
-        await setPlaybackSpeed(_playbackSpeed.value);
-      } else {
-        await setPlaybackSpeed(1.0);
-      }
+      await setPlaybackSpeed(1.0);
     }
     getVideoFit();
     // if (_looping) {
@@ -764,50 +753,6 @@ class PlPlayerController {
     }
   }
 
-  /// Toggle Change the videofit accordingly
-  void toggleVideoFit() {
-    showDialog(
-      context: Get.context!,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('画面比例'),
-          content: StatefulBuilder(builder: (context, StateSetter setState) {
-            return Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 8,
-              runSpacing: 2,
-              children: [
-                for (var i in videoFitType) ...[
-                  if (_videoFit.value == i['attr']) ...[
-                    FilledButton(
-                      onPressed: () async {
-                        _videoFit.value = i['attr'];
-                        _videoFitDesc.value = i['desc'];
-                        setVideoFit();
-                        Get.back();
-                      },
-                      child: Text(i['desc']),
-                    ),
-                  ] else ...[
-                    FilledButton.tonal(
-                      onPressed: () async {
-                        _videoFit.value = i['attr'];
-                        _videoFitDesc.value = i['desc'];
-                        setVideoFit();
-                        Get.back();
-                      },
-                      child: Text(i['desc']),
-                    ),
-                  ]
-                ]
-              ],
-            );
-          }),
-        );
-      },
-    );
-  }
-
   /// 缓存fit
   Future<void> setVideoFit() async {
     List attrs = videoFitType.map((e) => e['attr']).toList();
@@ -844,9 +789,6 @@ class PlPlayerController {
 
   /// 设置长按倍速状态 live模式下禁用
   void setDoubleSpeedStatus(bool val) {
-    if (videoType.value == 'live') {
-      return;
-    }
     if (controlsLock.value) {
       return;
     }
