@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_brightness/screen_brightness.dart';
@@ -68,7 +69,7 @@ class PlPlayerController {
 
   Rx<bool> videoFitChanged = false.obs;
   final Rx<BoxFit> _videoFit = Rx(BoxFit.contain);
-  final Rx<String> _videoFitDesc = Rx('包含');
+  final Rx<String> _videoFitDesc = Rx(t.player.aspect_ratio);
 
   ///
   // ignore: prefer_final_fields
@@ -88,12 +89,12 @@ class PlPlayerController {
   // final Durations durations;
 
   List<Map<String, dynamic>> videoFitType = [
-    {'attr': BoxFit.contain, 'desc': '包含'},
-    {'attr': BoxFit.cover, 'desc': '覆盖'},
-    {'attr': BoxFit.fill, 'desc': '填充'},
-    {'attr': BoxFit.fitHeight, 'desc': '高度适应'},
-    {'attr': BoxFit.fitWidth, 'desc': '宽度适应'},
-    {'attr': BoxFit.scaleDown, 'desc': '缩小适应'},
+    {'attr': BoxFit.contain, 'desc': t.player.aspect_ratios.contain},
+    {'attr': BoxFit.cover, 'desc': t.player.aspect_ratios.cover},
+    {'attr': BoxFit.fill, 'desc': t.player.aspect_ratios.fill},
+    {'attr': BoxFit.fitHeight, 'desc': t.player.aspect_ratios.fit_height},
+    {'attr': BoxFit.fitWidth, 'desc': t.player.aspect_ratios.fit_width},
+    {'attr': BoxFit.scaleDown, 'desc': t.player.aspect_ratios.scale_down},
   ];
 
   final RxInt width = 0.obs;
@@ -380,6 +381,16 @@ class PlPlayerController {
       await pp.setProperty("subs-with-matching-audio", "no");
       await pp.setProperty("sub-forced-only", "yes");
       await pp.setProperty("blend-subtitles", "video");
+    }
+
+    // Proxy
+    if (StorageProvider.config[StorageKey.proxyEnable] ?? false) {
+      String? proxyHost = StorageProvider.config[StorageKey.proxyHost];
+      String? proxyPort = StorageProvider.config[StorageKey.proxyPort];
+
+      if (proxyHost != null && proxyPort != null) {
+        await pp.setProperty('http-proxy', 'http://$proxyHost:$proxyPort');
+      }
     }
 
     _videoController = _videoController ??

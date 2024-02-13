@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:screen_brightness/screen_brightness.dart';
@@ -233,10 +234,11 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                     ),
                     height: 32.0,
                     width: 70.0,
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        '倍速中',
-                        style: TextStyle(color: Colors.white, fontSize: 13),
+                        t.player.speeding_up_playback,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 13),
                       ),
                     )),
               ),

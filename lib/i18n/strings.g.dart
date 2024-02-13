@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 609 (203 per locale)
+/// Strings: 657 (219 per locale)
 ///
-/// Built on 2024-01-26 at 15:18 UTC
+/// Built on 2024-02-13 at 11:25 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -165,6 +165,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsSearchEn search = _StringsSearchEn._(_root);
 	late final _StringsTimeEn time = _StringsTimeEn._(_root);
 	late final _StringsMediaEn media = _StringsMediaEn._(_root);
+	late final _StringsPlayerEn player = _StringsPlayerEn._(_root);
 	late final _StringsCommentEn comment = _StringsCommentEn._(_root);
 	late final _StringsUserEn user = _StringsUserEn._(_root);
 	late final _StringsFriendEn friend = _StringsFriendEn._(_root);
@@ -358,6 +359,26 @@ class _StringsMediaEn {
 	String more_from({required Object username}) => 'More from ${username}';
 	String get more_like_this => 'More like this';
 	String updated_at({required Object time}) => 'Updated at ${time}';
+}
+
+// Path: player
+class _StringsPlayerEn {
+	_StringsPlayerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String current_item({required Object item}) => 'Current: ${item}';
+	String get quality => 'Quality';
+	String get select_quality => 'Select quality';
+	String get playback_speed => 'Playback speed';
+	String get select_playback_speed => 'Select playback speed';
+	String get aspect_ratio => 'Aspect ratio';
+	String get select_aspect_ratio => 'Select aspect ratio';
+	late final _StringsPlayerAspectRatiosEn aspect_ratios = _StringsPlayerAspectRatiosEn._(_root);
+	String get speeding_up_playback => 'Speeding up playback';
+	String rewind_seconds({required Object value}) => 'Rewind ${value} seconds';
+	String fast_forward_seconds({required Object value}) => 'Fast forward ${value} seconds';
 }
 
 // Path: comment
@@ -605,6 +626,21 @@ class _StringsSearchHistoryEn {
 	String get delete => 'Delete All';
 }
 
+// Path: player.aspect_ratios
+class _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get contain => 'Contain';
+	String get cover => 'Cover';
+	String get fill => 'Fill';
+	String get fit_height => 'Fit height';
+	String get fit_width => 'Fit width';
+	String get scale_down => 'Scale down';
+}
+
 // Path: message.account
 class _StringsMessageAccountEn {
 	_StringsMessageAccountEn._(this._root);
@@ -736,6 +772,7 @@ class _StringsJa implements Translations {
 	@override late final _StringsSearchJa search = _StringsSearchJa._(_root);
 	@override late final _StringsTimeJa time = _StringsTimeJa._(_root);
 	@override late final _StringsMediaJa media = _StringsMediaJa._(_root);
+	@override late final _StringsPlayerJa player = _StringsPlayerJa._(_root);
 	@override late final _StringsCommentJa comment = _StringsCommentJa._(_root);
 	@override late final _StringsUserJa user = _StringsUserJa._(_root);
 	@override late final _StringsFriendJa friend = _StringsFriendJa._(_root);
@@ -846,7 +883,7 @@ class _StringsProfileJa implements _StringsProfileEn {
 	@override String get username => 'ユーザー名';
 	@override String get user_id => 'ユーザーID';
 	@override String get description => '自己紹介';
-	@override String get no_description => 'このユーザーは神秘的な存在で、人々に見られるのが好きではありません。';
+	@override String get no_description => '自分の周りに謎の空気を漂わせるのが好きです。';
 	@override String get join_date => '参加日';
 	@override String get last_active_time => '最終アクティブ時間';
 	@override String get online => 'オンライン';
@@ -929,6 +966,26 @@ class _StringsMediaJa implements _StringsMediaEn {
 	@override String more_from({required Object username}) => '${username} からのその他';
 	@override String get more_like_this => '同様の作品';
 	@override String updated_at({required Object time}) => '${time} に更新';
+}
+
+// Path: player
+class _StringsPlayerJa implements _StringsPlayerEn {
+	_StringsPlayerJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String current_item({required Object item}) => '現在：${item}';
+	@override String get quality => '画質';
+	@override String get select_quality => '画質を選択';
+	@override String get playback_speed => '再生速度';
+	@override String get select_playback_speed => '再生速度を選択';
+	@override String get aspect_ratio => 'アスペクト比';
+	@override String get select_aspect_ratio => 'アスペクト比を選択';
+	@override late final _StringsPlayerAspectRatiosJa aspect_ratios = _StringsPlayerAspectRatiosJa._(_root);
+	@override String get speeding_up_playback => '倍速再生中';
+	@override String rewind_seconds({required Object value}) => '${value} 秒巻き戻し';
+	@override String fast_forward_seconds({required Object value}) => '${value} 秒早送り';
 }
 
 // Path: comment
@@ -1176,6 +1233,21 @@ class _StringsSearchHistoryJa implements _StringsSearchHistoryEn {
 	@override String get delete => 'すべての記録を削除';
 }
 
+// Path: player.aspect_ratios
+class _StringsPlayerAspectRatiosJa implements _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get contain => '含む';
+	@override String get cover => 'カバー';
+	@override String get fill => 'フィル';
+	@override String get fit_height => '高さに合わせる';
+	@override String get fit_width => '幅に合わせる';
+	@override String get scale_down => '縮小';
+}
+
 // Path: message.account
 class _StringsMessageAccountJa implements _StringsMessageAccountEn {
 	_StringsMessageAccountJa._(this._root);
@@ -1307,6 +1379,7 @@ class _StringsZhCn implements Translations {
 	@override late final _StringsSearchZhCn search = _StringsSearchZhCn._(_root);
 	@override late final _StringsTimeZhCn time = _StringsTimeZhCn._(_root);
 	@override late final _StringsMediaZhCn media = _StringsMediaZhCn._(_root);
+	@override late final _StringsPlayerZhCn player = _StringsPlayerZhCn._(_root);
 	@override late final _StringsCommentZhCn comment = _StringsCommentZhCn._(_root);
 	@override late final _StringsUserZhCn user = _StringsUserZhCn._(_root);
 	@override late final _StringsFriendZhCn friend = _StringsFriendZhCn._(_root);
@@ -1500,6 +1573,26 @@ class _StringsMediaZhCn implements _StringsMediaEn {
 	@override String more_from({required Object username}) => '更多来自 ${username}';
 	@override String get more_like_this => '类似作品';
 	@override String updated_at({required Object time}) => '更新于 ${time}';
+}
+
+// Path: player
+class _StringsPlayerZhCn implements _StringsPlayerEn {
+	_StringsPlayerZhCn._(this._root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String current_item({required Object item}) => '当前: ${item}';
+	@override String get quality => '画质';
+	@override String get select_quality => '选择画质';
+	@override String get playback_speed => '播放速度';
+	@override String get select_playback_speed => '选择播放速度';
+	@override String get aspect_ratio => '宽高比';
+	@override String get select_aspect_ratio => '选择宽高比';
+	@override late final _StringsPlayerAspectRatiosZhCn aspect_ratios = _StringsPlayerAspectRatiosZhCn._(_root);
+	@override String get speeding_up_playback => '倍速播放中';
+	@override String rewind_seconds({required Object value}) => '快退 ${value} 秒';
+	@override String fast_forward_seconds({required Object value}) => '快进 ${value} 秒';
 }
 
 // Path: comment
@@ -1747,6 +1840,21 @@ class _StringsSearchHistoryZhCn implements _StringsSearchHistoryEn {
 	@override String get delete => '删除所有记录';
 }
 
+// Path: player.aspect_ratios
+class _StringsPlayerAspectRatiosZhCn implements _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosZhCn._(this._root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get contain => '包含';
+	@override String get cover => '覆盖';
+	@override String get fill => '填充';
+	@override String get fit_height => '适应高度';
+	@override String get fit_width => '适应宽度';
+	@override String get scale_down => '缩小适应';
+}
+
 // Path: message.account
 class _StringsMessageAccountZhCn implements _StringsMessageAccountEn {
 	_StringsMessageAccountZhCn._(this._root);
@@ -1926,6 +2034,22 @@ extension on Translations {
 			case 'media.more_from': return ({required Object username}) => 'More from ${username}';
 			case 'media.more_like_this': return 'More like this';
 			case 'media.updated_at': return ({required Object time}) => 'Updated at ${time}';
+			case 'player.current_item': return ({required Object item}) => 'Current: ${item}';
+			case 'player.quality': return 'Quality';
+			case 'player.select_quality': return 'Select quality';
+			case 'player.playback_speed': return 'Playback speed';
+			case 'player.select_playback_speed': return 'Select playback speed';
+			case 'player.aspect_ratio': return 'Aspect ratio';
+			case 'player.select_aspect_ratio': return 'Select aspect ratio';
+			case 'player.aspect_ratios.contain': return 'Contain';
+			case 'player.aspect_ratios.cover': return 'Cover';
+			case 'player.aspect_ratios.fill': return 'Fill';
+			case 'player.aspect_ratios.fit_height': return 'Fit height';
+			case 'player.aspect_ratios.fit_width': return 'Fit width';
+			case 'player.aspect_ratios.scale_down': return 'Scale down';
+			case 'player.speeding_up_playback': return 'Speeding up playback';
+			case 'player.rewind_seconds': return ({required Object value}) => 'Rewind ${value} seconds';
+			case 'player.fast_forward_seconds': return ({required Object value}) => 'Fast forward ${value} seconds';
 			case 'comment.comment': return 'Comment';
 			case 'comment.comments': return 'Comments';
 			case 'comment.comment_detail': return 'Comment detail';
@@ -2099,7 +2223,7 @@ extension on _StringsJa {
 			case 'profile.username': return 'ユーザー名';
 			case 'profile.user_id': return 'ユーザーID';
 			case 'profile.description': return '自己紹介';
-			case 'profile.no_description': return 'このユーザーは神秘的な存在で、人々に見られるのが好きではありません。';
+			case 'profile.no_description': return '自分の周りに謎の空気を漂わせるのが好きです。';
 			case 'profile.join_date': return '参加日';
 			case 'profile.last_active_time': return '最終アクティブ時間';
 			case 'profile.online': return 'オンライン';
@@ -2137,6 +2261,22 @@ extension on _StringsJa {
 			case 'media.more_from': return ({required Object username}) => '${username} からのその他';
 			case 'media.more_like_this': return '同様の作品';
 			case 'media.updated_at': return ({required Object time}) => '${time} に更新';
+			case 'player.current_item': return ({required Object item}) => '現在：${item}';
+			case 'player.quality': return '画質';
+			case 'player.select_quality': return '画質を選択';
+			case 'player.playback_speed': return '再生速度';
+			case 'player.select_playback_speed': return '再生速度を選択';
+			case 'player.aspect_ratio': return 'アスペクト比';
+			case 'player.select_aspect_ratio': return 'アスペクト比を選択';
+			case 'player.aspect_ratios.contain': return '含む';
+			case 'player.aspect_ratios.cover': return 'カバー';
+			case 'player.aspect_ratios.fill': return 'フィル';
+			case 'player.aspect_ratios.fit_height': return '高さに合わせる';
+			case 'player.aspect_ratios.fit_width': return '幅に合わせる';
+			case 'player.aspect_ratios.scale_down': return '縮小';
+			case 'player.speeding_up_playback': return '倍速再生中';
+			case 'player.rewind_seconds': return ({required Object value}) => '${value} 秒巻き戻し';
+			case 'player.fast_forward_seconds': return ({required Object value}) => '${value} 秒早送り';
 			case 'comment.comment': return 'コメント';
 			case 'comment.comments': return 'コメント';
 			case 'comment.comment_detail': return 'コメントの詳細';
@@ -2348,6 +2488,22 @@ extension on _StringsZhCn {
 			case 'media.more_from': return ({required Object username}) => '更多来自 ${username}';
 			case 'media.more_like_this': return '类似作品';
 			case 'media.updated_at': return ({required Object time}) => '更新于 ${time}';
+			case 'player.current_item': return ({required Object item}) => '当前: ${item}';
+			case 'player.quality': return '画质';
+			case 'player.select_quality': return '选择画质';
+			case 'player.playback_speed': return '播放速度';
+			case 'player.select_playback_speed': return '选择播放速度';
+			case 'player.aspect_ratio': return '宽高比';
+			case 'player.select_aspect_ratio': return '选择宽高比';
+			case 'player.aspect_ratios.contain': return '包含';
+			case 'player.aspect_ratios.cover': return '覆盖';
+			case 'player.aspect_ratios.fill': return '填充';
+			case 'player.aspect_ratios.fit_height': return '适应高度';
+			case 'player.aspect_ratios.fit_width': return '适应宽度';
+			case 'player.aspect_ratios.scale_down': return '缩小适应';
+			case 'player.speeding_up_playback': return '倍速播放中';
+			case 'player.rewind_seconds': return ({required Object value}) => '快退 ${value} 秒';
+			case 'player.fast_forward_seconds': return ({required Object value}) => '快进 ${value} 秒';
 			case 'comment.comment': return '评论';
 			case 'comment.comments': return '评论';
 			case 'comment.comment_detail': return '评论详情';

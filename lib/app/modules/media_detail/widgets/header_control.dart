@@ -1,7 +1,6 @@
 import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -196,25 +195,32 @@ class _HeaderControlState extends State<HeaderControl> {
                     children: [
                       ListTile(
                         leading: const Icon(Icons.hd),
-                        title: const Text('画质', style: titleStyle),
+                        title: Text(t.player.quality, style: titleStyle),
                         subtitle: Text(
-                            '当前： ${widget.videoDetailCtr!.resolutions[widget.videoDetailCtr!.resolutionIndex].name}',
+                            t.player.current_item(
+                                item: widget
+                                    .videoDetailCtr!
+                                    .resolutions[
+                                        widget.videoDetailCtr!.resolutionIndex]
+                                    .name),
                             style: subTitleStyle),
                         onTap: () => {Get.back(), showResolutionSheet()},
                       ),
                       ListTile(
                         leading: const Icon(Icons.speed),
-                        title: const Text('播放速度', style: titleStyle),
+                        title: Text(t.player.playback_speed, style: titleStyle),
                         subtitle: Text(
-                            '当前： ${widget.controller!.playbackSpeed}X',
+                            t.player.current_item(
+                                item: '${widget.controller!.playbackSpeed}X'),
                             style: subTitleStyle),
                         onTap: () => {Get.back(), showSetSpeedSheet()},
                       ),
                       ListTile(
                         leading: const Icon(Icons.rectangle),
-                        title: const Text('画面比例', style: titleStyle),
+                        title: Text(t.player.aspect_ratio, style: titleStyle),
                         subtitle: Text(
-                            '当前： ${widget.controller!.videoFitDEsc.value}',
+                            t.player.current_item(
+                                item: widget.controller!.videoFitDEsc.value),
                             style: subTitleStyle),
                         onTap: () => {Get.back(), showVideoFitSheet()},
                       ),
@@ -250,7 +256,7 @@ class _HeaderControlState extends State<HeaderControl> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text('选择播放速度', style: titleStyle),
+                child: Text(t.player.select_playback_speed, style: titleStyle),
               ),
               Expanded(
                 child: Material(
@@ -308,7 +314,7 @@ class _HeaderControlState extends State<HeaderControl> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text('选择画面比例', style: titleStyle),
+                child: Text(t.player.select_aspect_ratio, style: titleStyle),
               ),
               Expanded(
                 child: Material(
@@ -363,7 +369,7 @@ class _HeaderControlState extends State<HeaderControl> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text('选择画质', style: titleStyle),
+                child: Text(t.player.select_quality, style: titleStyle),
               ),
               Expanded(
                 child: Material(

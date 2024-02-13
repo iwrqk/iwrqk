@@ -72,7 +72,8 @@ class ConfigService extends GetxService {
     }
 
     var width = (size.width - (number + 1) * 8) / number;
-    var height = width * 9 / 16 + WidgetConst.mediaPreviewTitleHeight;
+    var height = width * 9 / 16 +
+        WidgetConst.mediaPreviewTitleHeight * Get.textScaleFactor;
 
     gridChildAspectRatio = width / height;
     crossAxisCount = number;
