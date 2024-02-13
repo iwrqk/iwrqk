@@ -123,9 +123,8 @@
             "fit_width": "Fit width",
             "scale_down": "Scale down"
         },
-        "speeding_up_playback": "Speeding up playback",
-        "rewind_seconds": "Rewind $value seconds",
-        "fast_forward_seconds": "Fast forward $value seconds"
+        "seconds": "$value seconds",
+        "double_speed": "2x"
     },
     "comment": {
         "comment": "Comment",

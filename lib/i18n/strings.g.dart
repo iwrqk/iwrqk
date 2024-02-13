@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 657 (219 per locale)
+/// Strings: 654 (218 per locale)
 ///
-/// Built on 2024-02-13 at 11:25 UTC
+/// Built on 2024-02-13 at 17:56 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -376,9 +376,8 @@ class _StringsPlayerEn {
 	String get aspect_ratio => 'Aspect ratio';
 	String get select_aspect_ratio => 'Select aspect ratio';
 	late final _StringsPlayerAspectRatiosEn aspect_ratios = _StringsPlayerAspectRatiosEn._(_root);
-	String get speeding_up_playback => 'Speeding up playback';
-	String rewind_seconds({required Object value}) => 'Rewind ${value} seconds';
-	String fast_forward_seconds({required Object value}) => 'Fast forward ${value} seconds';
+	String seconds({required Object value}) => '${value} seconds';
+	String get double_speed => '2x';
 }
 
 // Path: comment
@@ -983,9 +982,8 @@ class _StringsPlayerJa implements _StringsPlayerEn {
 	@override String get aspect_ratio => 'アスペクト比';
 	@override String get select_aspect_ratio => 'アスペクト比を選択';
 	@override late final _StringsPlayerAspectRatiosJa aspect_ratios = _StringsPlayerAspectRatiosJa._(_root);
-	@override String get speeding_up_playback => '倍速再生中';
-	@override String rewind_seconds({required Object value}) => '${value} 秒巻き戻し';
-	@override String fast_forward_seconds({required Object value}) => '${value} 秒早送り';
+	@override String seconds({required Object value}) => '${value} 秒';
+	@override String get double_speed => '2 倍';
 }
 
 // Path: comment
@@ -1590,9 +1588,8 @@ class _StringsPlayerZhCn implements _StringsPlayerEn {
 	@override String get aspect_ratio => '宽高比';
 	@override String get select_aspect_ratio => '选择宽高比';
 	@override late final _StringsPlayerAspectRatiosZhCn aspect_ratios = _StringsPlayerAspectRatiosZhCn._(_root);
-	@override String get speeding_up_playback => '倍速播放中';
-	@override String rewind_seconds({required Object value}) => '快退 ${value} 秒';
-	@override String fast_forward_seconds({required Object value}) => '快进 ${value} 秒';
+	@override String seconds({required Object value}) => '${value} 秒';
+	@override String get double_speed => '2 倍速';
 }
 
 // Path: comment
@@ -2047,9 +2044,8 @@ extension on Translations {
 			case 'player.aspect_ratios.fit_height': return 'Fit height';
 			case 'player.aspect_ratios.fit_width': return 'Fit width';
 			case 'player.aspect_ratios.scale_down': return 'Scale down';
-			case 'player.speeding_up_playback': return 'Speeding up playback';
-			case 'player.rewind_seconds': return ({required Object value}) => 'Rewind ${value} seconds';
-			case 'player.fast_forward_seconds': return ({required Object value}) => 'Fast forward ${value} seconds';
+			case 'player.seconds': return ({required Object value}) => '${value} seconds';
+			case 'player.double_speed': return '2x';
 			case 'comment.comment': return 'Comment';
 			case 'comment.comments': return 'Comments';
 			case 'comment.comment_detail': return 'Comment detail';
@@ -2274,9 +2270,8 @@ extension on _StringsJa {
 			case 'player.aspect_ratios.fit_height': return '高さに合わせる';
 			case 'player.aspect_ratios.fit_width': return '幅に合わせる';
 			case 'player.aspect_ratios.scale_down': return '縮小';
-			case 'player.speeding_up_playback': return '倍速再生中';
-			case 'player.rewind_seconds': return ({required Object value}) => '${value} 秒巻き戻し';
-			case 'player.fast_forward_seconds': return ({required Object value}) => '${value} 秒早送り';
+			case 'player.seconds': return ({required Object value}) => '${value} 秒';
+			case 'player.double_speed': return '2 倍';
 			case 'comment.comment': return 'コメント';
 			case 'comment.comments': return 'コメント';
 			case 'comment.comment_detail': return 'コメントの詳細';
@@ -2501,9 +2496,8 @@ extension on _StringsZhCn {
 			case 'player.aspect_ratios.fit_height': return '适应高度';
 			case 'player.aspect_ratios.fit_width': return '适应宽度';
 			case 'player.aspect_ratios.scale_down': return '缩小适应';
-			case 'player.speeding_up_playback': return '倍速播放中';
-			case 'player.rewind_seconds': return ({required Object value}) => '快退 ${value} 秒';
-			case 'player.fast_forward_seconds': return ({required Object value}) => '快进 ${value} 秒';
+			case 'player.seconds': return ({required Object value}) => '${value} 秒';
+			case 'player.double_speed': return '2 倍速';
 			case 'comment.comment': return '评论';
 			case 'comment.comments': return '评论';
 			case 'comment.comment_detail': return '评论详情';

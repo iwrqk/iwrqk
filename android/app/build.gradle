@@ -109,6 +109,12 @@ android {
                 shrinkResources true
             }
         }
+    } else {
+        buildTypes {
+            release {
+                signingConfig signingConfigs.debug
+            }
+        }
     }
 }
 

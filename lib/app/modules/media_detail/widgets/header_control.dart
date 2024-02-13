@@ -60,7 +60,7 @@ class _HeaderControlState extends State<HeaderControl> {
       primary: false,
       centerTitle: false,
       automaticallyImplyLeading: false,
-      titleSpacing: 14,
+      titleSpacing: 8,
       title: Row(
         children: [
           ComBtn(
@@ -126,23 +126,39 @@ class _HeaderControlState extends State<HeaderControl> {
             ),
             SizedBox(width: buttonSpace),
           ],
-          Obx(
-            () => SizedBox(
-              width: 46,
+          if (Get.mediaQuery.orientation == Orientation.landscape) ...[
+            Obx(
+              () => SizedBox(
+                width: 46,
+                height: 34,
+                child: TextButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  ),
+                  onPressed: () => showSetSpeedSheet(),
+                  child: Text(
+                    '${_.playbackSpeed}X',
+                    style: textStyle,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: buttonSpace),
+            SizedBox(
               height: 34,
               child: TextButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                onPressed: () => showSetSpeedSheet(),
+                onPressed: () => showResolutionSheet(),
                 child: Text(
-                  '${_.playbackSpeed}X',
+                  widget.videoDetailCtr!
+                      .resolutions[widget.videoDetailCtr!.resolutionIndex].name,
                   style: textStyle,
                 ),
               ),
             ),
-          ),
-          SizedBox(width: buttonSpace),
+          ],
           ComBtn(
             icon: const Icon(
               Icons.more_vert_outlined,
@@ -167,7 +183,7 @@ class _HeaderControlState extends State<HeaderControl> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
             children: <Widget>[
@@ -250,7 +266,7 @@ class _HeaderControlState extends State<HeaderControl> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
             children: <Widget>[
@@ -308,7 +324,7 @@ class _HeaderControlState extends State<HeaderControl> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
             children: <Widget>[
@@ -363,7 +379,7 @@ class _HeaderControlState extends State<HeaderControl> {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           ),
           child: Column(
             children: <Widget>[

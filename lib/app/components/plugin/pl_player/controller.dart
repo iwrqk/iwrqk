@@ -273,9 +273,6 @@ class PlPlayerController {
     double speed = 1.0,
     // 硬件加速
     bool enableHA = true,
-    double? width,
-    double? height,
-    Duration? duration,
     // 是否首次加载
     bool isFirstTime = true,
   }) async {
@@ -296,25 +293,31 @@ class PlPlayerController {
         return;
       }
       // 配置Player 音轨、字幕等等
-      _videoPlayerController = await _createVideoController(
-          dataSource, _looping, enableHA, width, height);
-      // 获取视频时长 00:00
-      _duration.value = duration ?? _videoPlayerController!.state.duration;
-      updateDurationSecond();
-      // 数据加载完成
-      dataStatus.status.value = DataStatus.loaded;
+      _videoPlayerController =
+          await _createVideoController(dataSource, _looping, enableHA);
+      // 等待视频加载完成
+      loadingSubs = _videoPlayerController!.stream.duration.listen((event) {
+        if (loaded) return;
 
-      // listen the video player events
-      if (!_listenersInitialized) {
-        startListeners();
-      }
-      await _initializePlayer(seekTo: seekTo, duration: _duration.value);
-      bool autoEnterFullcreen =
-          setting.get(PLPlayerConfigKey.enableAutoEnter, defaultValue: false);
-      if (autoEnterFullcreen) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        triggerFullScreen();
-      }
+        _duration.value = event;
+        updateDurationSecond();
+        // 数据加载完成
+        dataStatus.status.value = DataStatus.loaded;
+        // listen the video player events
+        if (!_listenersInitialized) {
+          startListeners();
+        }
+        _initializePlayer(seekTo: seekTo, duration: _duration.value);
+        bool autoEnterFullcreen =
+            setting.get(PLPlayerConfigKey.enableAutoEnter, defaultValue: false);
+        if (autoEnterFullcreen) {
+          Future.delayed(const Duration(milliseconds: 100), () {
+            triggerFullScreen();
+          });
+        }
+
+        loaded = true;
+      });
     } catch (err) {
       dataStatus.status.value = DataStatus.error;
       print('plPlayer err:  $err');
@@ -326,8 +329,6 @@ class PlPlayerController {
     DataSource dataSource,
     PlaylistMode looping,
     bool enableHA,
-    double? width,
-    double? height,
   ) async {
     // 每次配置时先移除监听
     removeListeners();
@@ -389,9 +390,11 @@ class PlPlayerController {
       String? proxyPort = StorageProvider.config[StorageKey.proxyPort];
 
       if (proxyHost != null && proxyPort != null) {
-        await pp.setProperty('http-proxy', 'http://$proxyHost:$proxyPort');
+        await pp.setProperty("http-proxy", "http://$proxyHost:$proxyPort");
       }
     }
+
+    await pp.setProperty('demuxer-lavf-o', 'allowed_extensions=[ts,key]');
 
     _videoController = _videoController ??
         VideoController(
@@ -408,12 +411,12 @@ class PlPlayerController {
       final assetUrl = dataSource.videoSource!.startsWith("asset://")
           ? dataSource.videoSource!
           : "asset://${dataSource.videoSource!}";
-      player.open(
+      await player.open(
         Media(assetUrl, httpHeaders: dataSource.httpHeaders),
         play: false,
       );
     }
-    player.open(
+    await player.open(
       Media(dataSource.videoSource!, httpHeaders: dataSource.httpHeaders),
       play: false,
     );
@@ -452,6 +455,8 @@ class PlPlayerController {
     }
   }
 
+  bool loaded = false;
+  StreamSubscription? loadingSubs;
   List<StreamSubscription> subscriptions = [];
   final List<Function(Duration position)> _positionListeners = [];
   final List<Function(PlayerStatus status)> _statusListeners = [];
@@ -463,14 +468,14 @@ class PlPlayerController {
         // Get aspact ratio
         _videoPlayerController!.stream.width.listen((event) {
           width.value = event ?? 0;
-          if (event != null && event > 0) {
+          if (event != null && event > 0 && height.value > 0) {
             _direction.value = event > height.value ? 'horizontal' : 'vertical';
           }
         }),
 
         _videoPlayerController!.stream.height.listen((event) {
           height.value = event ?? 0;
-          if (event != null && event > 0) {
+          if (event != null && event > 0 && width.value > 0) {
             _direction.value = width.value > event ? 'horizontal' : 'vertical';
           }
         }),
@@ -548,6 +553,8 @@ class PlPlayerController {
     for (final s in subscriptions) {
       s.cancel();
     }
+    subscriptions.clear();
+    loadingSubs?.cancel();
   }
 
   /// 跳转至指定位置

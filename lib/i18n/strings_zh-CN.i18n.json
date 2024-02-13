@@ -123,9 +123,8 @@
             "fit_width": "适应宽度",
             "scale_down": "缩小适应"
         },
-        "speeding_up_playback": "倍速播放中",
-        "rewind_seconds": "快退 $value 秒",
-        "fast_forward_seconds": "快进 $value 秒"
+        "seconds": "$value 秒",
+        "double_speed": "2 倍速"
     },
     "comment": {
         "comment": "评论",

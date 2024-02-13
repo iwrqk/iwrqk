@@ -123,9 +123,8 @@
             "fit_width": "幅に合わせる",
             "scale_down": "縮小"
         },
-        "speeding_up_playback": "倍速再生中",
-        "rewind_seconds": "$value 秒巻き戻し",
-        "fast_forward_seconds": "$value 秒早送り"
+        "seconds": "$value 秒",
+        "double_speed": "2 倍"
     },
     "comment": {
         "comment": "コメント",

@@ -47,9 +47,11 @@ class ForwardSeekIndicatorState extends State<ForwardSeekIndicator> {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0x00767676),
-            Color(0x88767676),
+            Color(0x00000000),
+            Color(0x5F000000),
+            Color(0x7F000000),
           ],
+          stops: [0.0, 0.3, 1.0],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -70,9 +72,9 @@ class ForwardSeekIndicatorState extends State<ForwardSeekIndicator> {
               ),
               const SizedBox(height: 8.0),
               Text(
-                t.player.fast_forward_seconds(value: value.inSeconds),
+                t.player.seconds(value: value.inSeconds),
                 style: const TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 14,
                   color: Color(0xFFFFFFFF),
                 ),
               ),

@@ -196,7 +196,7 @@ class MediaDetailController extends GetxController
 
     await plPlayerController.setDataSource(
       DataSource(
-        videoSource: video ?? resolutions[resolutionIndex].src.view,
+        videoSource: video ?? resolutions[resolutionIndex].src.viewUrl,
         type: DataSourceType.network,
       ),
       // 硬解
@@ -209,8 +209,14 @@ class MediaDetailController extends GetxController
     plPlayerController.headerControl = headerControl;
 
     plPlayerController.width.listen((value) {
-      if (value > 0) {
+      if (value > 0 && plPlayerController.height.value > 0) {
         aspectRatio = Rational(value, plPlayerController.height.value);
+      }
+    });
+
+    plPlayerController.height.listen((value) {
+      if (value > 0 && plPlayerController.width.value > 0) {
+        aspectRatio = Rational(plPlayerController.width.value, value);
       }
     });
 

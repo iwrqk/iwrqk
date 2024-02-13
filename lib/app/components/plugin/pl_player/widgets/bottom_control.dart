@@ -27,7 +27,7 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       color: Colors.transparent,
       height: 90,
-      padding: const EdgeInsets.only(left: 18, right: 18),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -40,7 +40,7 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                 return const SizedBox.shrink();
               }
               return Padding(
-                padding: const EdgeInsets.only(left: 7, right: 7, bottom: 6),
+                padding: const EdgeInsets.only(left: 6, right: 6),
                 child: ProgressBar(
                   progress: Duration(seconds: value),
                   buffered: Duration(seconds: buffer),
@@ -131,9 +131,12 @@ class BottomControl extends StatelessWidget implements PreferredSizeWidget {
                   fuc: () => triggerFullScreen!(),
                 ),
               ),
+              const SizedBox(width: 4),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(
+              height:
+                  Get.mediaQuery.orientation == Orientation.landscape ? 12 : 6),
         ],
       ),
     );

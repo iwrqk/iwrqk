@@ -226,21 +226,43 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                 curve: Curves.easeInOut,
                 opacity: _.doubleSpeedStatus.value ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 150),
-                child: Container(
-                    alignment: Alignment.center,
+                child: IntrinsicWidth(
+                  child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0x88000000),
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    height: 32.0,
-                    width: 70.0,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    height: 32,
                     child: Center(
-                      child: Text(
-                        t.player.speeding_up_playback,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 13),
+                      child: Text.rich(
+                        TextSpan(
+                          text: t.player.double_speed,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                          children: const [
+                            WidgetSpan(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 4),
+                                child: Icon(
+                                  Icons.fast_forward,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
