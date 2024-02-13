@@ -107,6 +107,26 @@
         "more_like_this": "类似作品",
         "updated_at": "更新于 $time"
     },
+    "player": {
+        "current_item": "当前: $item",
+        "quality": "画质",
+        "select_quality": "选择画质",
+        "playback_speed": "播放速度",
+        "select_playback_speed": "选择播放速度",
+        "aspect_ratio": "宽高比",
+        "select_aspect_ratio": "选择宽高比",
+        "aspect_ratios": {
+            "contain": "包含",
+            "cover": "覆盖",
+            "fill": "填充",
+            "fit_height": "适应高度",
+            "fit_width": "适应宽度",
+            "scale_down": "缩小适应"
+        },
+        "speeding_up_playback": "倍速播放中",
+        "rewind_seconds": "快退 $value 秒",
+        "fast_forward_seconds": "快进 $value 秒"
+    },
     "comment": {
         "comment": "评论",
         "comments": "评论",

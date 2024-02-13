@@ -142,6 +142,7 @@ class MeidaDescription extends StatelessWidget {
                         ),
                       ),
                     ),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom),
                 ],
               ),
             ),

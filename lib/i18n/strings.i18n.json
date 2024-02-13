@@ -107,6 +107,26 @@
         "more_like_this": "More like this",
         "updated_at": "Updated at $time"
     },
+    "player": {
+        "current_item": "Current: $item",
+        "quality": "Quality",
+        "select_quality": "Select quality",
+        "playback_speed": "Playback speed",
+        "select_playback_speed": "Select playback speed",
+        "aspect_ratio": "Aspect ratio",
+        "select_aspect_ratio": "Select aspect ratio",
+        "aspect_ratios": {
+            "contain": "Contain",
+            "cover": "Cover",
+            "fill": "Fill",
+            "fit_height": "Fit height",
+            "fit_width": "Fit width",
+            "scale_down": "Scale down"
+        },
+        "speeding_up_playback": "Speeding up playback",
+        "rewind_seconds": "Rewind $value seconds",
+        "fast_forward_seconds": "Fast forward $value seconds"
+    },
     "comment": {
         "comment": "Comment",
         "comments": "Comments",

@@ -107,6 +107,26 @@
         "more_like_this": "同様の作品",
         "updated_at": "$time に更新"
     },
+    "player": {
+        "current_item": "現在：$item",
+        "quality": "画質",
+        "select_quality": "画質を選択",
+        "playback_speed": "再生速度",
+        "select_playback_speed": "再生速度を選択",
+        "aspect_ratio": "アスペクト比",
+        "select_aspect_ratio": "アスペクト比を選択",
+        "aspect_ratios": {
+            "contain": "含む",
+            "cover": "カバー",
+            "fill": "フィル",
+            "fit_height": "高さに合わせる",
+            "fit_width": "幅に合わせる",
+            "scale_down": "縮小"
+        },
+        "speeding_up_playback": "倍速再生中",
+        "rewind_seconds": "$value 秒巻き戻し",
+        "fast_forward_seconds": "$value 秒早送り"
+    },
     "comment": {
         "comment": "コメント",
         "comments": "コメント",
