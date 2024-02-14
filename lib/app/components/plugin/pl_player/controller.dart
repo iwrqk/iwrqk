@@ -278,6 +278,7 @@ class PlPlayerController {
     VoidCallback? onVideoLoad,
   }) async {
     try {
+      loaded = false;
       _autoPlay = autoplay;
       _looping = looping;
       // 初始化视频倍速

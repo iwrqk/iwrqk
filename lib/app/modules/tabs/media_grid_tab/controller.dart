@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/media_preview/media_preview_grid/controller.dart';
-import 'widgets/filter_page/widget.dart';
 
 class MediaGridTabController extends GetxController
     with GetTickerProviderStateMixin {

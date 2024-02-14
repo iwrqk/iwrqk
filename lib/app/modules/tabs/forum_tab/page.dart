@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
@@ -211,7 +212,8 @@ class ForumTabPage extends GetView<ForumTabController> {
       ),
     );
 
-    return RefreshIndicator(
+    return EasyRefresh(
+      header: const MaterialHeader(),
       onRefresh: () async {
         await controller.refreshData();
       },
