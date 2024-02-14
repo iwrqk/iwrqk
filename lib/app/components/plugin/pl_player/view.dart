@@ -26,9 +26,11 @@ class PLVideoPlayer extends StatefulWidget {
     required this.controller,
     this.headerControl,
     this.bottomControl,
+    this.inPip = false,
     super.key,
   });
 
+  final bool inPip;
   final PlPlayerController controller;
   final PreferredSizeWidget? headerControl;
   final PreferredSizeWidget? bottomControl;
@@ -567,32 +569,35 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           top: false,
           bottom: false,
           child: Obx(
-            () => Column(
-              children: [
-                if (widget.headerControl != null || _.headerControl != null)
+            () => Visibility(
+              visible: !widget.inPip,
+              child: Column(
+                children: [
+                  if (widget.headerControl != null || _.headerControl != null)
+                    ClipRect(
+                      child: AppBarAni(
+                        controller: animationController,
+                        visible: !_.controlsLock.value && _.showControls.value,
+                        position: 'top',
+                        child: widget.headerControl ?? _.headerControl!,
+                      ),
+                    ),
+                  const Spacer(),
                   ClipRect(
                     child: AppBarAni(
                       controller: animationController,
                       visible: !_.controlsLock.value && _.showControls.value,
-                      position: 'top',
-                      child: widget.headerControl ?? _.headerControl!,
+                      position: 'bottom',
+                      child: widget.bottomControl ??
+                          BottomControl(
+                            controller: widget.controller,
+                            triggerFullScreen:
+                                widget.controller.triggerFullScreen,
+                          ),
                     ),
                   ),
-                const Spacer(),
-                ClipRect(
-                  child: AppBarAni(
-                    controller: animationController,
-                    visible: !_.controlsLock.value && _.showControls.value,
-                    position: 'bottom',
-                    child: widget.bottomControl ??
-                        BottomControl(
-                          controller: widget.controller,
-                          triggerFullScreen:
-                              widget.controller.triggerFullScreen,
-                        ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

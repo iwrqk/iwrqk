@@ -71,6 +71,8 @@ class ConfigService extends GetxService {
       number = 2;
     }
 
+    if (number <= 0) return;
+
     var width = (size.width - (number + 1) * 8) / number;
     var height = width * 9 / 16 +
         WidgetConst.mediaPreviewTitleHeight * Get.textScaleFactor;

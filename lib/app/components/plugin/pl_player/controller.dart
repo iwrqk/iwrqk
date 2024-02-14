@@ -275,6 +275,7 @@ class PlPlayerController {
     bool enableHA = true,
     // 是否首次加载
     bool isFirstTime = true,
+    VoidCallback? onVideoLoad,
   }) async {
     try {
       _autoPlay = autoplay;
@@ -301,6 +302,9 @@ class PlPlayerController {
 
         _duration.value = event;
         updateDurationSecond();
+
+        onVideoLoad?.call();
+
         // 数据加载完成
         dataStatus.status.value = DataStatus.loaded;
         // listen the video player events

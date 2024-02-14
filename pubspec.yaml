@@ -67,7 +67,10 @@ dependencies:
   auto_orientation: ^2.3.1
   audio_service: ^0.18.12
   audio_session: ^0.1.18
-  floating: ^2.0.1
+  floating:
+    git:
+      url: https://github.com/iwrqk/floating.git
+      ref: main
 
 dev_dependencies:
   flutter_test:

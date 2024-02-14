@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:media_kit/media_kit.dart';
 
 import 'app/data/services/plugin/pl_player/service_locator.dart';
+import 'app/modules/media_detail/page.dart';
 import 'app/utils/proxy_util.dart';
 import 'i18n/strings.g.dart';
 import 'app/data/providers/storage_provider.dart';
@@ -167,6 +168,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
                 initialRoute: AppRoutes.splash,
                 defaultTransition: Transition.native,
                 getPages: AppPages.pages,
+                navigatorObservers: [
+                  MediaDetailPage.routeObserver,
+                ],
                 theme: ThemeData(
                   colorScheme: lightColorScheme,
                   useMaterial3: true,

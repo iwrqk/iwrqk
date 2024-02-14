@@ -76,7 +76,6 @@ abstract class AppPages {
       name: AppRoutes.mediaDetail,
       page: () => const MediaDetailPage(),
       binding: MediaDetailBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.profile,

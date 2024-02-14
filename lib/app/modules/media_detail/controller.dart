@@ -13,6 +13,7 @@ import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../data/services/user_service.dart';
 import 'repository.dart';
 import 'widgets/header_control.dart';
@@ -182,7 +183,6 @@ class MediaDetailController extends GetxController
     video,
     audio,
     seekToTime,
-    duration,
     bool autoplay = true,
   }) async {
     _isLoadingPlayer.value = true;
@@ -203,6 +203,15 @@ class MediaDetailController extends GetxController
       enableHA: enableHA.value,
       seekTo: seekToTime ?? defaultST,
       autoplay: autoplay,
+      onVideoLoad: () {
+        videoPlayerServiceHandler.onVideoChange({
+          "id": media.id,
+          "title": media.title,
+          "artist": media.user.name,
+          "duration": plPlayerController.duration.value.inSeconds,
+          if (media.hasCover()) "cover": media.getCoverUrl(),
+        });
+      },
     );
 
     /// 开启自动全屏时，在player初始化完成后立即传入headerControl

@@ -101,7 +101,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
       title: data["title"],
       artist: data["artist"],
       duration: Duration(seconds: data["duration"]),
-      artUri: Uri.parse(data["cover"]),
+      artUri: data.containsKey("cover") ? Uri.parse(data["cover"]) : null,
     );
 
     setMediaItem(mediaItem);

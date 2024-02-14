@@ -169,6 +169,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   // 离开当前页面时
   void didPushNext() async {
+    if (_controller.mediaType != MediaType.video) {
+      return;
+    }
+
     /// 开启
     if (setting.get(PLPlayerConfigKey.enableAutoBrightness, defaultValue: false)
         as bool) {
@@ -186,6 +190,10 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   // 返回当前页面时
   void didPopNext() async {
+    if (_controller.mediaType != MediaType.video) {
+      return;
+    }
+
     setState(() => isShowing = true);
     final bool autoplay = autoPlayEnable;
     _controller.playerInit(autoplay: autoplay);
@@ -685,7 +693,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     });
   }
 
-  Widget _buildPlayer() {
+  Widget _buildPlayer([bool inPip = false]) {
     Widget buildWithExitBtn(Widget child) {
       return Stack(
         children: [
@@ -776,14 +784,14 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       } else {
         child = Container(
           color: Colors.black,
-          child: _buildPLPlayer(),
+          child: _buildPLPlayer(inPip),
         );
       }
       return child;
     });
   }
 
-  Widget _buildPLPlayer() {
+  Widget _buildPLPlayer([bool inPip = false]) {
     return PopScope(
       canPop: plPlayerController?.isFullScreen.value != true,
       onPopInvoked: (bool didPop) {
@@ -798,6 +806,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         () => !_controller.autoPlay.value
             ? const SizedBox.shrink()
             : PLVideoPlayer(
+                inPip: inPip,
                 controller: plPlayerController!,
                 headerControl: _controller.headerControl,
               ),
@@ -830,7 +839,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       } else {
         Widget buildMedia() {
           if (inPip) {
-            return _buildPlayer();
+            return _buildPlayer(true);
           } else {
             Widget child;
             if (Get.mediaQuery.orientation == Orientation.landscape) {
