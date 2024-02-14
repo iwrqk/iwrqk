@@ -169,7 +169,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   // 离开当前页面时
   void didPushNext() async {
-    if (_controller.mediaType != MediaType.video) {
+    if (_controller.mediaType != MediaType.video ||
+        _controller.resolutions.isEmpty) {
       return;
     }
 
@@ -190,7 +191,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   // 返回当前页面时
   void didPopNext() async {
-    if (_controller.mediaType != MediaType.video) {
+    if (_controller.mediaType != MediaType.video ||
+        _controller.resolutions.isEmpty) {
       return;
     }
 

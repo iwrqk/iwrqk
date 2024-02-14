@@ -63,6 +63,15 @@ android {
         versionName flutterVersionName
         minSdkVersion 24
         multiDexEnabled true
+        archivesBaseName = "iwrqk-$versionName"
+        splits {
+            abi {
+                enable true
+                reset()
+                universalApk true
+                include "armeabi-v7a", "arm64-v8a", "x86_64"
+            }
+        }
     }
 
     if (_storeFile.exists()) {
@@ -114,14 +123,3 @@ flutter {
 }
 
 dependencies {}
-
-ext.abiCodes = ["x86_64": 1, "armeabi-v7a": 2, "arm64-v8a": 3]
-import com.android.build.OutputFile
-android.applicationVariants.all { variant ->
-  variant.outputs.each { output ->
-    def abiVersionCode = project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
-    if (abiVersionCode != null) {
-      output.versionCodeOverride = variant.versionCode * 10 + abiVersionCode
-    }
-  }
-}
