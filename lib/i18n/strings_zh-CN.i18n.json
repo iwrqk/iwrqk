@@ -124,7 +124,7 @@
             "scale_down": "缩小适应"
         },
         "seconds": "$value 秒",
-        "double_speed": "2 倍速"
+        "double_speed": "2 倍"
     },
     "comment": {
         "comment": "评论",
@@ -220,6 +220,8 @@
         "player": "播放器设置",
         "autoplay": "自动播放",
         "autoplay_desc": "打开视频页面时自动播放视频",
+        "background_play": "后台播放",
+        "background_play_desc": "允许应用在后台播放视频",
         "about": "关于",
         "thrid_party_license": "第三方库许可",
         "thrid_party_license_desc": "查看第三方库的许可证"
@@ -239,6 +241,7 @@
         "port": "端口"
     },
     "message": {
+        "exit_app": "再按一次退出应用",
         "are_you_sure_to_do_that": "你确定要这么做吗？",
         "restart_required": "重启后生效",
         "please_type_host": "请输入主机名",

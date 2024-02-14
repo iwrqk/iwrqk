@@ -220,6 +220,8 @@
         "player": "プレイヤー設定",
         "autoplay": "自動再生",
         "autoplay_desc": "ビデオページを開くときに自動でビデオを再生します",
+        "background_play": "バックグラウンド再生",
+        "background_play_desc": "アプリをバックグラウンドでビデオを再生することを許可します",
         "about": "情報",
         "thrid_party_license": "サードパーティのライセンス",
         "thrid_party_license_desc": "サードパーティのライブラリのライセンスを確認します"
@@ -239,6 +241,7 @@
         "port": "ポート"
     },
     "message": {
+        "exit_app": "アプリを終了するにはもう一度押してください",
         "are_you_sure_to_do_that": "それを行うことを確認していますか？",
         "restart_required": "再起動後に有効",
         "please_type_host": "ホスト名を入力してください",

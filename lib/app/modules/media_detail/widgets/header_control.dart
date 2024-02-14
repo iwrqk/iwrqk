@@ -126,15 +126,11 @@ class _HeaderControlState extends State<HeaderControl> {
             ),
             SizedBox(width: buttonSpace),
           ],
-          if (Get.mediaQuery.orientation == Orientation.landscape) ...[
+          if (MediaQuery.of(context).orientation == Orientation.landscape) ...[
             Obx(
               () => SizedBox(
-                width: 46,
                 height: 34,
                 child: TextButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  ),
                   onPressed: () => showSetSpeedSheet(),
                   child: Text(
                     '${_.playbackSpeed}X',
@@ -147,9 +143,6 @@ class _HeaderControlState extends State<HeaderControl> {
             SizedBox(
               height: 34,
               child: TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                ),
                 onPressed: () => showResolutionSheet(),
                 child: Text(
                   widget.videoDetailCtr!
@@ -406,9 +399,17 @@ class _HeaderControlState extends State<HeaderControl> {
                                   )
                                 : null,
                             onTap: () async {
-                              widget.videoDetailCtr!.resolutionIndex =
-                                  resolutions.indexOf(i);
+                              int index = resolutions.indexOf(i);
+
+                              widget.videoDetailCtr!.resolutionIndex = index;
                               widget.videoDetailCtr!.updatePlayer();
+
+                              setting[PLPlayerConfigKey
+                                  .qualityIndexSaved] = index ==
+                                      resolutions.length - 1
+                                  ? 99 /* Source is always the last, use 99 to represent it */
+                                  : index;
+
                               Get.back();
                             },
                           ),

@@ -670,12 +670,20 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
               translation: const Offset(1, 0.0),
               child: Visibility(
                 visible: _.showControls.value,
-                child: ComBtn(
-                  icon: Icon(
-                    _.controlsLock.value ? Icons.lock : Icons.lock_open,
-                    color: Colors.white,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [Colors.black26, Colors.transparent],
+                    ),
                   ),
-                  fuc: () => _.onLockControl(!_.controlsLock.value),
+                  child: ComBtn(
+                    icon: Icon(
+                      _.controlsLock.value ? Icons.lock : Icons.lock_open,
+                      color: Colors.white,
+                    ),
+                    fuc: () => _.onLockControl(!_.controlsLock.value),
+                  ),
                 ),
               ),
             ),

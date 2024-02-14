@@ -14,6 +14,8 @@ Future<VideoPlayerServiceHandler> initAudioService() async {
       androidStopForegroundOnPause: true,
       fastForwardInterval: Duration(seconds: 10),
       rewindInterval: Duration(seconds: 10),
+      androidNotificationChannelDescription: 'Media notification channel',
+      androidNotificationIcon: 'drawable/ic_notification_icon',
     ),
   );
 }
@@ -72,11 +74,9 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
       processingState:
           isBuffering ? AudioProcessingState.buffering : processingState,
       controls: [
-        MediaControl.rewind
-            .copyWith(androidIcon: 'drawable/ic_baseline_replay_10_24'),
+        MediaControl.rewind,
         if (playing) MediaControl.pause else MediaControl.play,
-        MediaControl.fastForward
-            .copyWith(androidIcon: 'drawable/ic_baseline_forward_10_24'),
+        MediaControl.fastForward,
       ],
       playing: playing,
       systemActions: const {

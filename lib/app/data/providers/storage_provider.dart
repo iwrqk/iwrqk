@@ -27,6 +27,7 @@ abstract class PLPlayerConfigKey {
   static const String cacheVideoFit = 'cacheVideoFit';
   static const String playSpeedDefault = 'playSpeedDefault';
   static const String longPressSpeedDefault = 'longPressSpeedDefault';
+  static const String qualityIndexSaved = 'qualityIndexSaved';
 
   static const String enableQuickDouble = 'enableQuickDouble';
   static const String enableBackgroundPlay = 'enableBackgroundPlay';
@@ -36,8 +37,6 @@ abstract class PLPlayerConfigKey {
   static const String enableAutoEnter = 'enableAutoEnter';
   static const String enableAutoBrightness = 'enableAutoBrightness';
   static const String enableAutoExit = 'enableAutoExit';
-  static const String autoPiP = 'autoPiP';
-  static const String autoPlayEnable = 'autoPlayEnable';
 }
 
 class GStorageConfig {

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 654 (218 per locale)
+/// Strings: 663 (221 per locale)
 ///
-/// Built on 2024-02-13 at 17:56 UTC
+/// Built on 2024-02-14 at 15:12 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -376,7 +376,7 @@ class _StringsPlayerEn {
 	String get aspect_ratio => 'Aspect ratio';
 	String get select_aspect_ratio => 'Select aspect ratio';
 	late final _StringsPlayerAspectRatiosEn aspect_ratios = _StringsPlayerAspectRatiosEn._(_root);
-	String seconds({required Object value}) => '${value} seconds';
+	String seconds({required Object value}) => '${value}s';
 	String get double_speed => '2x';
 }
 
@@ -543,6 +543,8 @@ class _StringsSettingsEn {
 	String get player => 'Player';
 	String get autoplay => 'Autoplay';
 	String get autoplay_desc => 'Autoplay video when opening a video page.';
+	String get background_play => 'Background Play';
+	String get background_play_desc => 'Allow the App to play video in the background.';
 	String get about => 'About';
 	String get thrid_party_license => 'Third Party License';
 	String get thrid_party_license_desc => 'View the license of third party libraries.';
@@ -590,6 +592,7 @@ class _StringsMessageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get exit_app => 'Press again to exit the App';
 	String get are_you_sure_to_do_that => 'Are you sure to do that?';
 	String get restart_required => 'Restart the App to apply the changes.';
 	String get please_type_host => 'Please type the host';
@@ -1149,6 +1152,8 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get player => 'プレイヤー設定';
 	@override String get autoplay => '自動再生';
 	@override String get autoplay_desc => 'ビデオページを開くときに自動でビデオを再生します';
+	@override String get background_play => 'バックグラウンド再生';
+	@override String get background_play_desc => 'アプリをバックグラウンドでビデオを再生することを許可します';
 	@override String get about => '情報';
 	@override String get thrid_party_license => 'サードパーティのライセンス';
 	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
@@ -1196,6 +1201,7 @@ class _StringsMessageJa implements _StringsMessageEn {
 	@override final _StringsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get exit_app => 'アプリを終了するにはもう一度押してください';
 	@override String get are_you_sure_to_do_that => 'それを行うことを確認していますか？';
 	@override String get restart_required => '再起動後に有効';
 	@override String get please_type_host => 'ホスト名を入力してください';
@@ -1589,7 +1595,7 @@ class _StringsPlayerZhCn implements _StringsPlayerEn {
 	@override String get select_aspect_ratio => '选择宽高比';
 	@override late final _StringsPlayerAspectRatiosZhCn aspect_ratios = _StringsPlayerAspectRatiosZhCn._(_root);
 	@override String seconds({required Object value}) => '${value} 秒';
-	@override String get double_speed => '2 倍速';
+	@override String get double_speed => '2 倍';
 }
 
 // Path: comment
@@ -1755,6 +1761,8 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get player => '播放器设置';
 	@override String get autoplay => '自动播放';
 	@override String get autoplay_desc => '打开视频页面时自动播放视频';
+	@override String get background_play => '后台播放';
+	@override String get background_play_desc => '允许应用在后台播放视频';
 	@override String get about => '关于';
 	@override String get thrid_party_license => '第三方库许可';
 	@override String get thrid_party_license_desc => '查看第三方库的许可证';
@@ -1802,6 +1810,7 @@ class _StringsMessageZhCn implements _StringsMessageEn {
 	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
+	@override String get exit_app => '再按一次退出应用';
 	@override String get are_you_sure_to_do_that => '你确定要这么做吗？';
 	@override String get restart_required => '重启后生效';
 	@override String get please_type_host => '请输入主机名';
@@ -2044,7 +2053,7 @@ extension on Translations {
 			case 'player.aspect_ratios.fit_height': return 'Fit height';
 			case 'player.aspect_ratios.fit_width': return 'Fit width';
 			case 'player.aspect_ratios.scale_down': return 'Scale down';
-			case 'player.seconds': return ({required Object value}) => '${value} seconds';
+			case 'player.seconds': return ({required Object value}) => '${value}s';
 			case 'player.double_speed': return '2x';
 			case 'comment.comment': return 'Comment';
 			case 'comment.comments': return 'Comments';
@@ -2121,6 +2130,8 @@ extension on Translations {
 			case 'settings.player': return 'Player';
 			case 'settings.autoplay': return 'Autoplay';
 			case 'settings.autoplay_desc': return 'Autoplay video when opening a video page.';
+			case 'settings.background_play': return 'Background Play';
+			case 'settings.background_play_desc': return 'Allow the App to play video in the background.';
 			case 'settings.about': return 'About';
 			case 'settings.thrid_party_license': return 'Third Party License';
 			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries.';
@@ -2132,6 +2143,7 @@ extension on Translations {
 			case 'display_mode.system': return 'System';
 			case 'proxy.host': return 'Host';
 			case 'proxy.port': return 'Port';
+			case 'message.exit_app': return 'Press again to exit the App';
 			case 'message.are_you_sure_to_do_that': return 'Are you sure to do that?';
 			case 'message.restart_required': return 'Restart the App to apply the changes.';
 			case 'message.please_type_host': return 'Please type the host';
@@ -2347,6 +2359,8 @@ extension on _StringsJa {
 			case 'settings.player': return 'プレイヤー設定';
 			case 'settings.autoplay': return '自動再生';
 			case 'settings.autoplay_desc': return 'ビデオページを開くときに自動でビデオを再生します';
+			case 'settings.background_play': return 'バックグラウンド再生';
+			case 'settings.background_play_desc': return 'アプリをバックグラウンドでビデオを再生することを許可します';
 			case 'settings.about': return '情報';
 			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
 			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
@@ -2358,6 +2372,7 @@ extension on _StringsJa {
 			case 'display_mode.system': return 'システム';
 			case 'proxy.host': return 'ホスト名';
 			case 'proxy.port': return 'ポート';
+			case 'message.exit_app': return 'アプリを終了するにはもう一度押してください';
 			case 'message.are_you_sure_to_do_that': return 'それを行うことを確認していますか？';
 			case 'message.restart_required': return '再起動後に有効';
 			case 'message.please_type_host': return 'ホスト名を入力してください';
@@ -2497,7 +2512,7 @@ extension on _StringsZhCn {
 			case 'player.aspect_ratios.fit_width': return '适应宽度';
 			case 'player.aspect_ratios.scale_down': return '缩小适应';
 			case 'player.seconds': return ({required Object value}) => '${value} 秒';
-			case 'player.double_speed': return '2 倍速';
+			case 'player.double_speed': return '2 倍';
 			case 'comment.comment': return '评论';
 			case 'comment.comments': return '评论';
 			case 'comment.comment_detail': return '评论详情';
@@ -2573,6 +2588,8 @@ extension on _StringsZhCn {
 			case 'settings.player': return '播放器设置';
 			case 'settings.autoplay': return '自动播放';
 			case 'settings.autoplay_desc': return '打开视频页面时自动播放视频';
+			case 'settings.background_play': return '后台播放';
+			case 'settings.background_play_desc': return '允许应用在后台播放视频';
 			case 'settings.about': return '关于';
 			case 'settings.thrid_party_license': return '第三方库许可';
 			case 'settings.thrid_party_license_desc': return '查看第三方库的许可证';
@@ -2584,6 +2601,7 @@ extension on _StringsZhCn {
 			case 'display_mode.system': return '系统';
 			case 'proxy.host': return '主机名';
 			case 'proxy.port': return '端口';
+			case 'message.exit_app': return '再按一次退出应用';
 			case 'message.are_you_sure_to_do_that': return '你确定要这么做吗？';
 			case 'message.restart_required': return '重启后生效';
 			case 'message.please_type_host': return '请输入主机名';

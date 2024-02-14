@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -67,6 +68,7 @@ class TabPages {
 
 class HomeController extends GetxController {
   final ConfigService configService = Get.find<ConfigService>();
+  DateTime? _lastPressedAt;
 
   List<Widget> get pageList => tabPages.tabPages.values.toList();
 
@@ -155,5 +157,16 @@ class HomeController extends GetxController {
 
   void openDrawer() {
     scaffoldKey.currentState!.openDrawer();
+  }
+
+  void onBackPressed(BuildContext context) {
+    if (_lastPressedAt == null ||
+        DateTime.now().difference(_lastPressedAt!) >
+            const Duration(seconds: 2)) {
+      _lastPressedAt = DateTime.now();
+      SmartDialog.showToast(t.message.exit_app);
+      return;
+    }
+    SystemNavigator.pop();
   }
 }

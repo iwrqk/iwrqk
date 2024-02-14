@@ -25,7 +25,6 @@ abstract class ConfigKey {
   static const String playerSetting = "playerSetting";
 
   static const String notificationPlayer = "notificationPlayer";
-  static const String autoPlay = "autoPlay";
 }
 
 class ConfigService extends GetxService {

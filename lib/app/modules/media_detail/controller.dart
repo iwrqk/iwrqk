@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:floating/floating.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -118,20 +120,22 @@ class MediaDetailController extends GetxController
     mediaType = arguments["mediaType"];
     id = arguments["id"];
 
-    autoPlay.value =
-        setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
-    enableHA.value =
-        setting.get(PLPlayerConfigKey.enableHA, defaultValue: true);
+    if (mediaType == MediaType.video) {
+      autoPlay.value =
+          setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
+      enableHA.value =
+          setting.get(PLPlayerConfigKey.enableHA, defaultValue: true);
 
-    if (GetPlatform.isAndroid) {
-      floating = Floating();
+      if (GetPlatform.isAndroid) {
+        floating = Floating();
+      }
+
+      headerControl = HeaderControl(
+        controller: plPlayerController,
+        videoDetailCtr: this,
+        floating: floating,
+      );
     }
-
-    headerControl = HeaderControl(
-      controller: plPlayerController,
-      videoDetailCtr: this,
-      floating: floating,
-    );
 
     loadData();
   }
@@ -244,6 +248,10 @@ class MediaDetailController extends GetxController
       if (value.success) {
         if (value.data!.isNotEmpty) {
           resolutions = value.data!;
+          resolutionIndex = min(
+              setting.get(PLPlayerConfigKey.qualityIndexSaved,
+                  defaultValue: 99),
+              resolutions.length - 1);
           playerInit();
           return;
         }

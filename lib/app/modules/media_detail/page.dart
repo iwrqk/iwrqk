@@ -62,8 +62,6 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   // 自动退出全屏
   late bool autoExitFullcreen;
   late bool autoPlayEnable;
-  late bool autoPiP;
-  final Floating floating = Floating();
   // 生命周期监听
   late final AppLifecycleListener _lifecycleListener;
   bool isShowing = true;
@@ -94,17 +92,18 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       }
     });
 
-    autoExitFullcreen =
-        setting.get(PLPlayerConfigKey.enableAutoExit, defaultValue: false);
-    autoPlayEnable =
-        setting.get(PLPlayerConfigKey.autoPlayEnable, defaultValue: true);
-    autoPiP = setting.get(PLPlayerConfigKey.autoPiP, defaultValue: false);
+    if (_controller.mediaType == MediaType.video) {
+      autoExitFullcreen =
+          setting.get(PLPlayerConfigKey.enableAutoExit, defaultValue: false);
+      autoPlayEnable =
+          setting.get(PLPlayerConfigKey.enableAutoPlay, defaultValue: true);
 
-    if (_controller.autoPlay.value) {
-      plPlayerController = _controller.plPlayerController;
-      plPlayerController!.addStatusLister(playerListener);
+      if (_controller.autoPlay.value) {
+        plPlayerController = _controller.plPlayerController;
+        plPlayerController!.addStatusLister(playerListener);
+      }
+      lifecycleListener();
     }
-    lifecycleListener();
   }
 
   // 播放器状态监听
@@ -148,15 +147,6 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   // 生命周期监听
   void lifecycleListener() {
     _lifecycleListener = AppLifecycleListener(
-      onResume: () => _handleTransition('resume'),
-      // 后台
-      onInactive: () => _handleTransition('inactive'),
-      // 在Android和iOS端不生效
-      onHide: () => _handleTransition('hide'),
-      onShow: () => _handleTransition('show'),
-      onPause: () => _handleTransition('pause'),
-      onRestart: () => _handleTransition('restart'),
-      onDetach: () => _handleTransition('detach'),
       // 只作用于桌面端
       onExitRequested: () {
         ScaffoldMessenger.maybeOf(context)
@@ -169,45 +159,39 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   @override
   // 离开当前页面时
   void didPushNext() async {
-    if (_controller.mediaType != MediaType.video ||
-        _controller.resolutions.isEmpty) {
-      return;
+    if (_controller.mediaType == MediaType.video) {
+      /// 开启
+      if (setting.get(PLPlayerConfigKey.enableAutoBrightness,
+          defaultValue: false) as bool) {
+        _controller.brightness = plPlayerController!.brightness.value;
+      }
+      if (plPlayerController != null) {
+        _controller.defaultST = plPlayerController!.position.value;
+        plPlayerController!.removeStatusLister(playerListener);
+        plPlayerController!.pause();
+      }
+      setState(() => isShowing = false);
     }
-
-    /// 开启
-    if (setting.get(PLPlayerConfigKey.enableAutoBrightness, defaultValue: false)
-        as bool) {
-      _controller.brightness = plPlayerController!.brightness.value;
-    }
-    if (plPlayerController != null) {
-      _controller.defaultST = plPlayerController!.position.value;
-      plPlayerController!.removeStatusLister(playerListener);
-      plPlayerController!.pause();
-    }
-    setState(() => isShowing = false);
     super.didPushNext();
   }
 
   @override
   // 返回当前页面时
   void didPopNext() async {
-    if (_controller.mediaType != MediaType.video ||
-        _controller.resolutions.isEmpty) {
-      return;
-    }
+    if (_controller.mediaType == MediaType.video) {
+      setState(() => isShowing = true);
+      final bool autoplay = autoPlayEnable;
+      _controller.playerInit(autoplay: autoplay);
 
-    setState(() => isShowing = true);
-    final bool autoplay = autoPlayEnable;
-    _controller.playerInit(autoplay: autoplay);
-
-    /// 未开启自动播放时，未播放跳转下一页返回/播放后跳转下一页返回
-    _controller.autoPlay.value = !_controller.isLoading;
-    if (autoplay) {
-      await Future.delayed(const Duration(milliseconds: 300));
-      plPlayerController?.seekTo(_controller.defaultST);
-      plPlayerController?.play();
+      /// 未开启自动播放时，未播放跳转下一页返回/播放后跳转下一页返回
+      _controller.autoPlay.value = !_controller.isLoading;
+      if (autoplay) {
+        await Future.delayed(const Duration(milliseconds: 300));
+        plPlayerController?.seekTo(_controller.defaultST);
+        plPlayerController?.play();
+      }
+      plPlayerController?.addStatusLister(playerListener);
     }
-    plPlayerController?.addStatusLister(playerListener);
     super.didPopNext();
   }
 
@@ -218,44 +202,21 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         .subscribe(this, ModalRoute.of(context)! as PageRoute);
   }
 
-  void _handleTransition(String name) {
-    switch (name) {
-      case 'inactive':
-        if (plPlayerController != null &&
-            playerStatus == PlayerStatus.playing) {
-          autoEnterPip();
-        }
-        break;
-    }
-  }
-
-  void autoEnterPip() {
-    final String routePath = Get.currentRoute;
-    final bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-
-    /// TODO 横屏全屏状态下误触pip
-    if (autoPiP && routePath.startsWith(AppRoutes.mediaDetail) && isPortrait) {
-      floating.enable(aspectRatio: _controller.aspectRatio);
-    }
-  }
-
   @override
   void dispose() {
     commentsScrollController.removeListener(() {});
     fabAnimationController.dispose();
     commentsScrollController.dispose();
 
-    if (plPlayerController != null) {
-      plPlayerController!.removeStatusLister(playerListener);
-      plPlayerController!.dispose();
+    if (_controller.mediaType == MediaType.video) {
+      if (plPlayerController != null) {
+        plPlayerController!.removeStatusLister(playerListener);
+        plPlayerController!.dispose();
+      }
+      _controller.floating?.dispose();
+      videoPlayerServiceHandler.onVideoDetailDispose();
+      _lifecycleListener.dispose();
     }
-    if (_controller.floating != null) {
-      _controller.floating!.dispose();
-    }
-    videoPlayerServiceHandler.onVideoDetailDispose();
-    floating.dispose();
-    _lifecycleListener.dispose();
 
     super.dispose();
   }
@@ -844,10 +805,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             return _buildPlayer(true);
           } else {
             Widget child;
-            if (Get.mediaQuery.orientation == Orientation.landscape) {
-              child = _controller.mediaType == MediaType.video
-                  ? _buildPlayer()
-                  : _buildGallery();
+            if (Get.mediaQuery.orientation == Orientation.landscape &&
+                _controller.mediaType == MediaType.image) {
+              child = _buildGallery();
+            } else if (plPlayerController?.isFullScreen.value == true &&
+                _controller.mediaType == MediaType.video) {
+              child = _buildPlayer();
             } else {
               child = AspectRatio(
                 aspectRatio: 16 / 9,
@@ -878,7 +841,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     elevation: 0,
                   ),
                 ),
-                body: Get.mediaQuery.orientation == Orientation.landscape
+                body: plPlayerController?.isFullScreen.value == true
                     ? buildMedia()
                     : Column(
                         children: [
@@ -913,7 +876,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       return PiPSwitcher(
         childWhenDisabled: childWhenDisabled,
         childWhenEnabled: childWhenEnabled,
-        floating: floating,
+        floating: _controller.floating,
       );
     } else {
       return childWhenDisabled;

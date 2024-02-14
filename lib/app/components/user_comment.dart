@@ -177,7 +177,8 @@ class _UserCommentState extends State<UserComment>
       onTap: () {
         _jumpToDetail();
       },
-      child: Padding(
+      child: Container(
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Text.rich(
           TextSpan(
@@ -229,13 +230,11 @@ class _UserCommentState extends State<UserComment>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: widget.comment.children.length >= 2
+                  ...List.generate(
+                    widget.comment.children.length >= 2
                         ? 2
                         : widget.comment.children.length,
-                    itemBuilder: _repliesBuilder,
+                    (index) => _repliesBuilder(context, index),
                   ),
                   if (widget.comment.numReplies > 2)
                     InkWell(

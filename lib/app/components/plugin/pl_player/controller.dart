@@ -489,7 +489,7 @@ class PlPlayerController {
           if (event) {
             playerStatus.status.value = PlayerStatus.playing;
           } else {
-            // playerStatus.status.value = PlayerStatus.paused;
+            playerStatus.status.value = PlayerStatus.paused;
           }
 
           /// 触发回调事件
@@ -497,6 +497,7 @@ class PlPlayerController {
             element(event ? PlayerStatus.playing : PlayerStatus.paused);
           }
         }),
+
         videoPlayerController!.stream.completed.listen((event) {
           if (event) {
             playerStatus.status.value = PlayerStatus.completed;
@@ -659,7 +660,7 @@ class PlPlayerController {
   /// 暂停播放
   Future<void> pause({bool notify = true, bool isInterrupt = false}) async {
     await _videoPlayerController?.pause();
-    playerStatus.status.value = PlayerStatus.paused;
+    // playerStatus.status.value = PlayerStatus.paused;
 
     // 主动暂停时让出音频焦点
     if (!isInterrupt) {

@@ -184,6 +184,21 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildBackgroundPlaySetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.background_play,
+        description: t.settings.background_play_desc,
+        iconData: Icons.music_video,
+        value: controller.backgroundPlay,
+        onChanged: (value) {
+          controller.backgroundPlay = value;
+        },
+      ),
+    );
+  }
+
   Widget _buildLanguageSetting(BuildContext context) {
     return _buildMultiSetting<String>(
       context,
@@ -279,6 +294,7 @@ class SettingsPage extends GetView<SettingsController> {
           _buildSetProxyButton(context),
           SettingTitle(title: t.settings.player),
           _buildAutoPlaySetting(context),
+          _buildBackgroundPlaySetting(context),
           SettingTitle(title: t.settings.about),
           _buildLicenseButton(context),
         ],

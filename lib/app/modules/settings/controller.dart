@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../routes/pages.dart';
 import '../../utils/display_util.dart';
 
@@ -32,7 +33,15 @@ class SettingsController extends GetxController {
   bool get autoPlay => _autoPlay.value;
   set autoPlay(bool value) {
     _autoPlay.value = value;
-    configService.config[ConfigKey.autoPlay] = value;
+    StorageProvider.config[PLPlayerConfigKey.enableQuickDouble] = value;
+  }
+
+  final RxBool _backgroundPlay = false.obs;
+  bool get backgroundPlay => _backgroundPlay.value;
+  set backgroundPlay(bool value) {
+    _backgroundPlay.value = value;
+    videoPlayerServiceHandler.enableBackgroundPlay = value;
+    StorageProvider.config[PLPlayerConfigKey.enableBackgroundPlay] = value;
   }
 
   final RxBool _enableProxy = false.obs;
@@ -50,7 +59,10 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _autoPlay.value = configService.config[ConfigKey.autoPlay] ?? false;
+    _autoPlay.value =
+        configService.config[PLPlayerConfigKey.enableQuickDouble] ?? true;
+    _backgroundPlay.value =
+        configService.config[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
     _enableProxy.value =
         StorageProvider.config[StorageKey.proxyEnable] ?? false;
   }
