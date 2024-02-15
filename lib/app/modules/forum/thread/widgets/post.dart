@@ -149,7 +149,8 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
             ),
             TextSpan(
               text: text,
-              style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline, fontSize: 12.5),
             ),
           ],
         ),

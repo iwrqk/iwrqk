@@ -75,17 +75,15 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _autoPlay.value =
-        configService.config[PLPlayerConfigKey.enableQuickDouble] ?? true;
 
-    _allowMediaScan.value =
-        StorageProvider.config[StorageKey.allowMediaScan] ?? false;
+    _autoPlay.value =
+        configService.setting[PLPlayerConfigKey.enableQuickDouble] ?? true;
 
     downloadService.downloadDirectory
         .then((value) => _downloadPath.value = value ?? '');
 
     _backgroundPlay.value =
-        configService.config[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
+        configService.setting[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
 
     _enableProxy.value =
         StorageProvider.config[StorageKey.proxyEnable] ?? false;

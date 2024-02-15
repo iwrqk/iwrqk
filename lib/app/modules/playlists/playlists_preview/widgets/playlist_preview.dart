@@ -80,9 +80,9 @@ class PlaylistPreview extends StatelessWidget {
                                     .videos_count(numVideo: "$videosCount")
                                 : t.playlist.videos_count_plural(
                                     numVideo: "$videosCount"),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12.5,
-                              color: Colors.grey,
+                              color: Theme.of(context).colorScheme.outline,
                               overflow: TextOverflow.ellipsis,
                             ),
                             maxLines: 2,
@@ -90,10 +90,10 @@ class PlaylistPreview extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.arrow_forward,
                       size: 24,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ],
                 ),

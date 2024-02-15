@@ -166,7 +166,8 @@ class _UserCommentState extends State<UserComment>
       padding: const EdgeInsets.only(top: 10),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.grey, fontSize: 12.5),
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.outline, fontSize: 12.5),
       ),
     );
   }

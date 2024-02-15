@@ -106,6 +106,9 @@ class MediaDetailController extends GetxController
 
   late String offlinePlaylistTag;
 
+  String? currentOfflineVideoUrl;
+  String? currentOfflineTaskId;
+
   /// PL player
   PlPlayerController plPlayerController = PlPlayerController.getInstance();
   Duration defaultST = Duration.zero;
@@ -163,8 +166,11 @@ class MediaDetailController extends GetxController
   }
 
   void getOfflineMedia(String taskId) {
+    currentOfflineTaskId = taskId;
+    defaultST = Duration.zero;
     _downloadService.getTaskFilePath(taskId).then((value) {
       _isLoading.value = false;
+      currentOfflineVideoUrl = value;
       playerInit(video: value);
     });
   }

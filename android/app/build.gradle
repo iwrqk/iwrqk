@@ -34,6 +34,7 @@ def _keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("ke
 def _keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
 def _storeFile = file(System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile") ?: "keystore.jks")
 def _storePassword = System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
+def _canSign = _keyAlias != null && _keyPassword != null && _storeFile.exists() && _storePassword != null
 
 android {
     namespace "com.iwrqk.app"
@@ -74,7 +75,7 @@ android {
         }
     }
 
-    if (_storeFile.exists()) {
+    if (_canSign) {
         android.signingConfigs {
             debug {
                 storeFile _storeFile

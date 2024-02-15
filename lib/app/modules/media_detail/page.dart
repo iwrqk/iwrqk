@@ -182,7 +182,12 @@ class _MediaDetailPageState extends State<MediaDetailPage>
     if (_controller.mediaType == MediaType.video) {
       setState(() => isShowing = true);
       final bool autoplay = autoPlayEnable;
-      _controller.playerInit(autoplay: autoplay);
+      if (_controller.isOffline) {
+        _controller.playerInit(
+            autoplay: autoplay, video: _controller.currentOfflineVideoUrl);
+      } else {
+        _controller.playerInit(autoplay: autoplay);
+      }
 
       /// 未开启自动播放时，未播放跳转下一页返回/播放后跳转下一页返回
       _controller.autoPlay.value = !_controller.isLoading;
@@ -239,17 +244,19 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
                     child: Icon(
                       Icons.lock,
                       size: 42,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                   Text(
                     t.media.private,
-                    style: const TextStyle(fontSize: 20, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ],
               ),
@@ -473,9 +480,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             onTap: gotoProfile,
             child: Text(
               '@${_controller.media.user.username}',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12.5,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.outline,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -859,11 +866,13 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                                 child: DownloadsMediaPreviewList(
                                   isPlaylist: true,
                                   showCompleted: true,
-                                  currentMediaId: _controller.id,
+                                  initialMediaId: _controller.id,
                                   tag: _controller.offlinePlaylistTag,
                                   onChangeVideo: (task) {
                                     if (task.taskId ==
-                                        _controller.taskData.taskId) return;
+                                        _controller.currentOfflineTaskId) {
+                                      return;
+                                    }
                                     if (task.offlineMedia.type ==
                                         MediaType.video) {
                                       _controller.getOfflineMedia(task.taskId);

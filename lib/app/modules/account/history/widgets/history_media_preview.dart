@@ -199,21 +199,21 @@ class HistoryMediaPreview extends StatelessWidget {
         Text.rich(
           TextSpan(
             children: [
-              const WidgetSpan(
+              WidgetSpan(
                 child: Padding(
-                  padding: EdgeInsets.only(right: 2),
+                  padding: const EdgeInsets.only(right: 2),
                   child: Icon(
                     Icons.person,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
               TextSpan(
                 text: media.uploader.name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12.5,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
               ),
             ],
@@ -227,10 +227,10 @@ class HistoryMediaPreview extends StatelessWidget {
             Flexible(
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.tv,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                   Flexible(
                     child: Padding(
@@ -238,9 +238,9 @@ class HistoryMediaPreview extends StatelessWidget {
                       child: Text(
                         DisplayUtil.getDisplayDate(media.viewedDate),
                         maxLines: 1,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12.5,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.outline,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -252,7 +252,9 @@ class HistoryMediaPreview extends StatelessWidget {
             if (showType)
               Text(
                 media.type == MediaType.video ? t.common.video : t.common.image,
-                style: const TextStyle(fontSize: 12.5, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 12.5,
+                    color: Theme.of(context).colorScheme.outline),
               )
           ],
         ),

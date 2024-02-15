@@ -34,7 +34,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
   Future<void> fetchAll() async {
     preferred = await FlutterDisplayMode.preferred;
     active = await FlutterDisplayMode.active;
-    _configService.config[ConfigKey.displayMode] = preferred.toString();
+    _configService.setting[ConfigKey.displayMode] = preferred.toString();
     setState(() {});
   }
 
@@ -51,7 +51,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
   }
 
   Future<DisplayMode> getDisplayModeType(modes) async {
-    var value = _configService.config[ConfigKey.displayMode];
+    var value = _configService.setting[ConfigKey.displayMode];
     DisplayMode f = DisplayMode.auto;
     if (value != null) {
       f = modes.firstWhere((e) => e.toString() == value);

@@ -9,6 +9,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:media_kit/media_kit.dart';
 
+import 'app/const/colors.dart';
 import 'app/data/services/plugin/pl_player/service_locator.dart';
 import 'app/modules/media_detail/page.dart';
 import 'app/utils/proxy_util.dart';
@@ -80,7 +81,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         late List modes;
         FlutterDisplayMode.supported.then((value) {
           modes = value;
-          var storageDisplay = _configService.config.get(ConfigKey.displayMode);
+          var storageDisplay =
+              _configService.setting.get(ConfigKey.displayMode);
           DisplayMode f = DisplayMode.auto;
           if (storageDisplay != null) {
             f = modes.firstWhere((e) => e.toString() == storageDisplay);
@@ -141,25 +143,30 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
 
     Widget mainApp() => DynamicColorBuilder(
           builder: ((ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-            ColorScheme? lightColorScheme;
-            ColorScheme? darkColorScheme;
+            return Obx(() {
+              ColorScheme? lightColorScheme;
+              ColorScheme? darkColorScheme;
 
-            if (lightDynamic != null && darkDynamic != null) {
-              lightColorScheme = lightDynamic.harmonized();
-              darkColorScheme = darkDynamic.harmonized();
-            } else {
-              lightColorScheme = ColorScheme.fromSeed(
-                seedColor: Colors.lightBlue,
-                brightness: Brightness.light,
-              );
-              darkColorScheme = ColorScheme.fromSeed(
-                seedColor: Colors.lightBlue,
-                brightness: Brightness.dark,
-              );
-            }
+              Color defaultColor =
+                  colorThemeTypes[_configService.customColor]['color'];
 
-            return Obx(
-              () => GetMaterialApp(
+              if (lightDynamic != null &&
+                  darkDynamic != null &&
+                  _configService.enableDynamicColor) {
+                lightColorScheme = lightDynamic.harmonized();
+                darkColorScheme = darkDynamic.harmonized();
+              } else {
+                lightColorScheme = ColorScheme.fromSeed(
+                  seedColor: defaultColor,
+                  brightness: Brightness.light,
+                );
+                darkColorScheme = ColorScheme.fromSeed(
+                  seedColor: defaultColor,
+                  brightness: Brightness.dark,
+                );
+              }
+
+              return GetMaterialApp(
                 locale: TranslationProvider.of(context).flutterLocale,
                 builder: _buildToast,
                 debugShowCheckedModeBanner: false,
@@ -190,8 +197,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
                   ),
                 ),
                 themeMode: _configService.themeMode,
-              ),
-            );
+              );
+            });
           }),
         );
 

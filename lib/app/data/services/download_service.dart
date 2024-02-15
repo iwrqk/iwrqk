@@ -203,8 +203,9 @@ class DownloadService extends GetxService {
     }
     var records = await FlutterDownloader.loadTasks() ?? [];
     if (records.isNotEmpty) {
-      bool hasExisted =
-          records.any((var record) => record.filename == fileName);
+      bool hasExisted = records.any((var record) =>
+          basename(record.savedDir) == subDirectory &&
+          record.filename == fileName);
       if (hasExisted) {
         SmartDialog.showToast(t.message.download.task_already_exists);
         return null;

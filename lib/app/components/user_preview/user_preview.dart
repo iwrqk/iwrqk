@@ -49,9 +49,9 @@ class UserPreview extends StatelessWidget {
         ),
         subtitle: Text(
           '@${user.username}',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 12.5,
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.outline,
             overflow: TextOverflow.ellipsis,
           ),
           maxLines: 1,

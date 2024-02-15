@@ -51,9 +51,9 @@ class DownloadMediaPreview extends StatelessWidget {
           child: AutoSizeText(
             message,
             maxLines: 1,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12.5,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.outline,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -76,19 +76,19 @@ class DownloadMediaPreview extends StatelessWidget {
             Flexible(
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.person,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 2, right: 2),
                       child: Text(
                         media.uploader.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12.5,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -108,9 +108,9 @@ class DownloadMediaPreview extends StatelessWidget {
               Text(
                 totalSize,
                 maxLines: 1,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12.5,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -150,10 +150,10 @@ class DownloadMediaPreview extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Icon(
+              Icon(
                 Icons.download,
                 size: 16,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.outline,
               ),
               Expanded(
                 child: Container(
@@ -161,9 +161,9 @@ class DownloadMediaPreview extends StatelessWidget {
                   child: Text(
                     DisplayUtil.getDisplayDate(taskData.createTime),
                     maxLines: 1,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12.5,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.outline,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -172,9 +172,9 @@ class DownloadMediaPreview extends StatelessWidget {
               AutoSizeText(
                 totalSize,
                 maxLines: 1,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12.5,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                   overflow: TextOverflow.ellipsis,
                 ),
               )
@@ -352,30 +352,17 @@ class DownloadMediaPreview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (isPlaying) ...[
-            Flexible(
-              child: AutoSizeText(
-                "\u25B6 ${media.title}",
-                maxLines: 2,
-                style: TextStyle(
-                  fontSize: 14,
-                  overflow: TextOverflow.ellipsis,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+          Flexible(
+            child: AutoSizeText(
+              media.title,
+              maxLines: 2,
+              style: TextStyle(
+                fontSize: 14,
+                overflow: TextOverflow.ellipsis,
+                color: isPlaying ? Theme.of(context).colorScheme.primary : null,
               ),
             ),
-          ] else ...[
-            Flexible(
-              child: AutoSizeText(
-                media.title,
-                maxLines: 2,
-                style: const TextStyle(
-                  fontSize: 14,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
-          ],
+          ),
           if (isPlaylist) ...[
             (taskStatus?.value.status) == DownloadTaskStatus.complete
                 ? _buildCompleteWidget(context)

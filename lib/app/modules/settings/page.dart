@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:shared_storage/shared_storage.dart' as ss;
 
 import 'controller.dart';
+import 'widgets/custom_color_page.dart';
 import 'widgets/display_mode_dialog.dart';
 import 'widgets/proxy_dialog.dart';
 
@@ -143,7 +144,7 @@ class SettingsPage extends GetView<SettingsController> {
       context,
       title: t.settings.theme,
       description: t.settings.theme_desc,
-      iconData: Icons.color_lens,
+      iconData: Icons.wb_sunny,
       currentOption: controller.getCurrentTheme(),
       options: {
         ThemeMode.system: t.theme.system,
@@ -152,6 +153,33 @@ class SettingsPage extends GetView<SettingsController> {
       },
       onSelected: (value) {
         controller.setThemeMode(value);
+      },
+    );
+  }
+
+  Widget _buildDynamicColorSetting(BuildContext context) {
+    return Obx(
+      () => _buildSwitchSetting(
+        context,
+        title: t.settings.dynamic_color,
+        description: t.settings.dynamic_color_desc,
+        iconData: Icons.palette,
+        value: controller.configService.enableDynamicColor,
+        onChanged: (value) {
+          controller.configService.enableDynamicColor = value;
+        },
+      ),
+    );
+  }
+
+  Widget _buildCustomColorButton(BuildContext context) {
+    return _buildButton(
+      context,
+      title: t.settings.custom_color,
+      description: t.settings.custom_color_desc,
+      iconData: Icons.colorize,
+      onPressed: () {
+        Get.to(() => const CustomColorPage());
       },
     );
   }
@@ -328,6 +356,13 @@ class SettingsPage extends GetView<SettingsController> {
         children: [
           SettingTitle(title: t.settings.appearance),
           _buildThemeSetting(context),
+          _buildDynamicColorSetting(context),
+          Obx(
+            () => Visibility(
+              visible: !controller.configService.enableDynamicColor,
+              child: _buildCustomColorButton(context),
+            ),
+          ),
           _buildLanguageSetting(context),
           if (GetPlatform.isAndroid) _buildDisplayModeButton(context),
           _buildWorkModeSetting(context),

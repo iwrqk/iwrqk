@@ -13,6 +13,8 @@ abstract class DynamicConfigKey {
   static const String firstRun = "firstRun";
 
   static const String themeMode = "themeMode";
+  static const String enableDynamicColor = "enableDynamicColor";
+  static const String customColor = "customColor";
 
   static const String workMode = "workMode";
 }
@@ -28,23 +30,35 @@ abstract class ConfigKey {
 }
 
 class ConfigService extends GetxService {
+  final GStorageConfig setting = StorageProvider.config;
+
   final Rx<ThemeMode> _themeMode = ThemeMode.system.obs;
-
-  final GStorageConfig config = StorageProvider.config;
-
   ThemeMode get themeMode => _themeMode.value;
-
   set themeMode(ThemeMode themeMode) {
     _themeMode.value = themeMode;
     Get.changeThemeMode(themeMode);
-    StorageProvider.config[DynamicConfigKey.themeMode] = themeMode.index;
+    setting[DynamicConfigKey.themeMode] = themeMode.index;
+  }
+
+  final RxBool _enableDynamicColor = false.obs;
+  bool get enableDynamicColor => _enableDynamicColor.value;
+  set enableDynamicColor(bool value) {
+    _enableDynamicColor.value = value;
+    setting[DynamicConfigKey.enableDynamicColor] = value;
+  }
+
+  final RxInt _customColor = 0.obs;
+  int get customColor => _customColor.value;
+  set customColor(int value) {
+    _customColor.value = value;
+    setting[DynamicConfigKey.customColor] = value;
   }
 
   final RxBool _workMode = false.obs;
   bool get workMode => _workMode.value;
   set workMode(bool workMode) {
     _workMode.value = workMode;
-    StorageProvider.config[DynamicConfigKey.workMode] = workMode;
+    setting[DynamicConfigKey.workMode] = workMode;
   }
 
   final RxDouble _gridChildAspectRatio = 1.0.obs;
@@ -82,7 +96,7 @@ class ConfigService extends GetxService {
 
   void setLocale(String localeCode) {
     LocaleSettings.setLocaleRaw(localeCode);
-    StorageProvider.config[ConfigKey.localeCode] = localeCode;
+    setting[ConfigKey.localeCode] = localeCode;
   }
 
   void resetEasyRefresh() {
@@ -102,11 +116,15 @@ class ConfigService extends GetxService {
   void onInit() {
     super.onInit();
 
-    _themeMode.value = ThemeMode.values[StorageProvider.config
-        .get(DynamicConfigKey.themeMode, defaultValue: 0)];
+    _enableDynamicColor.value =
+        setting.get(DynamicConfigKey.enableDynamicColor, defaultValue: true);
+    _customColor.value =
+        setting.get(DynamicConfigKey.customColor, defaultValue: 10);
+    _themeMode.value = ThemeMode
+        .values[setting.get(DynamicConfigKey.themeMode, defaultValue: 0)];
 
-    _workMode.value = StorageProvider.config
-        .get(DynamicConfigKey.workMode, defaultValue: false);
+    _workMode.value =
+        setting.get(DynamicConfigKey.workMode, defaultValue: false);
   }
 
   Future<void> checkLatestVersion(

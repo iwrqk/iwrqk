@@ -10,15 +10,15 @@ class LoadEmpty extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(
+        Icon(
           Icons.inbox,
-          color: Colors.grey,
+          color: Theme.of(context).colorScheme.outline,
           size: 42,
         ),
         const SizedBox(height: 16),
         Text(
           t.refresh.empty,
-          style: const TextStyle(color: Colors.grey),
+          style: TextStyle(color: Theme.of(context).colorScheme.outline),
         ),
       ],
     );

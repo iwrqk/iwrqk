@@ -21,7 +21,7 @@ class LoadFail extends StatelessWidget {
           child: Text(
             errorMessage,
             textAlign: TextAlign.left,
-            style: const TextStyle(color: Colors.grey),
+            style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
         )
       ],

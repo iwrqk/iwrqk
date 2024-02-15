@@ -143,38 +143,38 @@ class MediaPreview extends StatelessWidget {
         Text.rich(
           TextSpan(
             children: [
-              const WidgetSpan(
+              WidgetSpan(
                 child: Padding(
-                  padding: EdgeInsets.only(right: 2),
+                  padding: const EdgeInsets.only(right: 2),
                   child: Icon(
                     Icons.remove_red_eye_outlined,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
               TextSpan(
                 text: DisplayUtil.compactBigNumber(media.numViews),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12.5,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
               ),
-              const WidgetSpan(
+              WidgetSpan(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 8, right: 2),
+                  padding: const EdgeInsets.only(left: 8, right: 2),
                   child: Icon(
                     Icons.favorite_outline,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
               TextSpan(
                 text: DisplayUtil.compactBigNumber(media.numLikes),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12.5,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
               ),
             ],
@@ -185,10 +185,10 @@ class MediaPreview extends StatelessWidget {
           children: [
             Flexible(
               child: Row(children: [
-                const Icon(
+                Icon(
                   Icons.person,
                   size: 16,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 Flexible(
                   child: Padding(
@@ -196,9 +196,9 @@ class MediaPreview extends StatelessWidget {
                     child: Text(
                       media.user.name,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12.5,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.outline,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -208,7 +208,8 @@ class MediaPreview extends StatelessWidget {
             ),
             Text(
               DisplayUtil.getDisplayDate(DateTime.parse(media.createdAt)),
-              style: const TextStyle(fontSize: 12.5, color: Colors.grey),
+              style: TextStyle(
+                  fontSize: 12.5, color: Theme.of(context).colorScheme.outline),
             )
           ],
         )

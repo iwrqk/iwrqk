@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 678 (226 per locale)
+/// Strings: 744 (248 per locale)
 ///
-/// Built on 2024-02-15 at 10:02 UTC
+/// Built on 2024-02-15 at 13:09 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -177,6 +177,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsNotificationsEn notifications = _StringsNotificationsEn._(_root);
 	late final _StringsSettingsEn settings = _StringsSettingsEn._(_root);
 	late final _StringsThemeEn theme = _StringsThemeEn._(_root);
+	late final _StringsColorsEn colors = _StringsColorsEn._(_root);
 	late final _StringsDisplayModeEn display_mode = _StringsDisplayModeEn._(_root);
 	late final _StringsProxyEn proxy = _StringsProxyEn._(_root);
 	late final _StringsMessageEn message = _StringsMessageEn._(_root);
@@ -530,6 +531,10 @@ class _StringsSettingsEn {
 	String get appearance => 'Appearance';
 	String get theme => 'Theme';
 	String get theme_desc => 'Change the theme of the App.';
+	String get dynamic_color => 'Dynamic Color';
+	String get dynamic_color_desc => 'Change the color of the App according to the device theme.';
+	String get custom_color => 'Custom Color';
+	String get custom_color_desc => 'Customize the color of the App.';
 	String get language => 'Language';
 	String get language_desc => 'Change the language of the App.';
 	String get display_mode => 'Display Mode';
@@ -549,7 +554,7 @@ class _StringsSettingsEn {
 	String get download => 'Download';
 	String get download_path => 'Download Path';
 	String get allow_media_scan => 'Allow Media Scan';
-	String get allow_media_scan_desc => 'Allow other apps to scan the downloaded media.';
+	String get allow_media_scan_desc => 'Allow media scanner to read downloaded media files.';
 	String get about => 'About';
 	String get thrid_party_license => 'Third Party License';
 	String get thrid_party_license_desc => 'View the license of third party libraries.';
@@ -565,6 +570,33 @@ class _StringsThemeEn {
 	String get system => 'System';
 	String get light => 'Light';
 	String get dark => 'Dark';
+}
+
+// Path: colors
+class _StringsColorsEn {
+	_StringsColorsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get pink => 'Pink';
+	String get red => 'Red';
+	String get orange => 'Orange';
+	String get amber => 'Amber';
+	String get yellow => 'Yellow';
+	String get lime => 'Lime';
+	String get lightGreen => 'Light Green';
+	String get green => 'Green';
+	String get teal => 'Teal';
+	String get cyan => 'Cyan';
+	String get lightBlue => 'Light Blue';
+	String get blue => 'Blue';
+	String get indigo => 'Indigo';
+	String get purple => 'Purple';
+	String get deepPurple => 'Deep Purple';
+	String get blueGrey => 'Blue Grey';
+	String get brown => 'Brown';
+	String get grey => 'Grey';
 }
 
 // Path: display_mode
@@ -791,6 +823,7 @@ class _StringsJa implements Translations {
 	@override late final _StringsNotificationsJa notifications = _StringsNotificationsJa._(_root);
 	@override late final _StringsSettingsJa settings = _StringsSettingsJa._(_root);
 	@override late final _StringsThemeJa theme = _StringsThemeJa._(_root);
+	@override late final _StringsColorsJa colors = _StringsColorsJa._(_root);
 	@override late final _StringsDisplayModeJa display_mode = _StringsDisplayModeJa._(_root);
 	@override late final _StringsProxyJa proxy = _StringsProxyJa._(_root);
 	@override late final _StringsMessageJa message = _StringsMessageJa._(_root);
@@ -1144,6 +1177,10 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get appearance => '外観設定';
 	@override String get theme => 'テーマ';
 	@override String get theme_desc => 'アプリのテーマを設定します';
+	@override String get dynamic_color => 'ダイナミックカラー';
+	@override String get dynamic_color_desc => 'システムのテーマに従ってアプリのテーマカラーを変更します';
+	@override String get custom_color => 'カスタムカラー';
+	@override String get custom_color_desc => 'アプリのテーマカラーをカスタマイズします';
 	@override String get language => '言語';
 	@override String get language_desc => 'アプリの言語を設定します';
 	@override String get display_mode => '表示モード';
@@ -1163,7 +1200,7 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get download => 'ダウンロード設定';
 	@override String get download_path => 'ダウンロードパス';
 	@override String get allow_media_scan => 'メディアスキャンを許可';
-	@override String get allow_media_scan_desc => 'ダウンロードしたメディアを他のアプリにスキャンさせることを許可します';
+	@override String get allow_media_scan_desc => 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します。';
 	@override String get about => '情報';
 	@override String get thrid_party_license => 'サードパーティのライセンス';
 	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
@@ -1179,6 +1216,33 @@ class _StringsThemeJa implements _StringsThemeEn {
 	@override String get system => 'システムに従う';
 	@override String get light => 'ライト';
 	@override String get dark => 'ダーク';
+}
+
+// Path: colors
+class _StringsColorsJa implements _StringsColorsEn {
+	_StringsColorsJa._(this._root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get pink => 'ピンク';
+	@override String get red => '赤';
+	@override String get orange => 'オレンジ';
+	@override String get amber => 'アンバー';
+	@override String get yellow => '黄';
+	@override String get lime => 'ライム';
+	@override String get lightGreen => 'ライトグリーン';
+	@override String get green => '緑';
+	@override String get teal => 'ティール';
+	@override String get cyan => 'シアン';
+	@override String get lightBlue => 'ライトブルー';
+	@override String get blue => '青';
+	@override String get indigo => 'インディゴ';
+	@override String get purple => '紫';
+	@override String get deepPurple => 'ディープパープル';
+	@override String get blueGrey => 'ブルーグレー';
+	@override String get brown => '茶色';
+	@override String get grey => 'グレー';
 }
 
 // Path: display_mode
@@ -1405,6 +1469,7 @@ class _StringsZhCn implements Translations {
 	@override late final _StringsNotificationsZhCn notifications = _StringsNotificationsZhCn._(_root);
 	@override late final _StringsSettingsZhCn settings = _StringsSettingsZhCn._(_root);
 	@override late final _StringsThemeZhCn theme = _StringsThemeZhCn._(_root);
+	@override late final _StringsColorsZhCn colors = _StringsColorsZhCn._(_root);
 	@override late final _StringsDisplayModeZhCn display_mode = _StringsDisplayModeZhCn._(_root);
 	@override late final _StringsProxyZhCn proxy = _StringsProxyZhCn._(_root);
 	@override late final _StringsMessageZhCn message = _StringsMessageZhCn._(_root);
@@ -1758,6 +1823,10 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get appearance => '外观设置';
 	@override String get theme => '主题';
 	@override String get theme_desc => '设置应用的主题';
+	@override String get dynamic_color => '动态取色';
+	@override String get dynamic_color_desc => '根据系统主题改变应用的主题色。';
+	@override String get custom_color => '自定义颜色';
+	@override String get custom_color_desc => '自定义应用的主题色。';
 	@override String get language => '语言';
 	@override String get language_desc => '设置应用的语言';
 	@override String get display_mode => '显示模式';
@@ -1777,7 +1846,7 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get download => '下载设置';
 	@override String get download_path => '下载路径';
 	@override String get allow_media_scan => '允许媒体扫描';
-	@override String get allow_media_scan_desc => '允许其他应用扫描下载的媒体。';
+	@override String get allow_media_scan_desc => '允许媒体扫描程序读取下载的媒体文件。';
 	@override String get about => '关于';
 	@override String get thrid_party_license => '第三方库许可';
 	@override String get thrid_party_license_desc => '查看第三方库的许可证';
@@ -1793,6 +1862,33 @@ class _StringsThemeZhCn implements _StringsThemeEn {
 	@override String get system => '跟随系统';
 	@override String get light => '浅色';
 	@override String get dark => '深色';
+}
+
+// Path: colors
+class _StringsColorsZhCn implements _StringsColorsEn {
+	_StringsColorsZhCn._(this._root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get pink => '粉红';
+	@override String get red => '红色';
+	@override String get orange => '橙色';
+	@override String get amber => '琥珀';
+	@override String get yellow => '黄色';
+	@override String get lime => '绿黄';
+	@override String get lightGreen => '浅绿';
+	@override String get green => '绿色';
+	@override String get teal => '青色';
+	@override String get cyan => '青绿';
+	@override String get lightBlue => '浅蓝';
+	@override String get blue => '蓝色';
+	@override String get indigo => '靛蓝';
+	@override String get purple => '紫色';
+	@override String get deepPurple => '深紫';
+	@override String get blueGrey => '蓝灰';
+	@override String get brown => '棕色';
+	@override String get grey => '灰色';
 }
 
 // Path: display_mode
@@ -2132,6 +2228,10 @@ extension on Translations {
 			case 'settings.appearance': return 'Appearance';
 			case 'settings.theme': return 'Theme';
 			case 'settings.theme_desc': return 'Change the theme of the App.';
+			case 'settings.dynamic_color': return 'Dynamic Color';
+			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the device theme.';
+			case 'settings.custom_color': return 'Custom Color';
+			case 'settings.custom_color_desc': return 'Customize the color of the App.';
 			case 'settings.language': return 'Language';
 			case 'settings.language_desc': return 'Change the language of the App.';
 			case 'settings.display_mode': return 'Display Mode';
@@ -2151,13 +2251,31 @@ extension on Translations {
 			case 'settings.download': return 'Download';
 			case 'settings.download_path': return 'Download Path';
 			case 'settings.allow_media_scan': return 'Allow Media Scan';
-			case 'settings.allow_media_scan_desc': return 'Allow other apps to scan the downloaded media.';
+			case 'settings.allow_media_scan_desc': return 'Allow media scanner to read downloaded media files.';
 			case 'settings.about': return 'About';
 			case 'settings.thrid_party_license': return 'Third Party License';
 			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries.';
 			case 'theme.system': return 'System';
 			case 'theme.light': return 'Light';
 			case 'theme.dark': return 'Dark';
+			case 'colors.pink': return 'Pink';
+			case 'colors.red': return 'Red';
+			case 'colors.orange': return 'Orange';
+			case 'colors.amber': return 'Amber';
+			case 'colors.yellow': return 'Yellow';
+			case 'colors.lime': return 'Lime';
+			case 'colors.lightGreen': return 'Light Green';
+			case 'colors.green': return 'Green';
+			case 'colors.teal': return 'Teal';
+			case 'colors.cyan': return 'Cyan';
+			case 'colors.lightBlue': return 'Light Blue';
+			case 'colors.blue': return 'Blue';
+			case 'colors.indigo': return 'Indigo';
+			case 'colors.purple': return 'Purple';
+			case 'colors.deepPurple': return 'Deep Purple';
+			case 'colors.blueGrey': return 'Blue Grey';
+			case 'colors.brown': return 'Brown';
+			case 'colors.grey': return 'Grey';
 			case 'display_mode.no_available': return 'No available display mode';
 			case 'display_mode.auto': return 'Auto';
 			case 'display_mode.system': return 'System';
@@ -2366,6 +2484,10 @@ extension on _StringsJa {
 			case 'settings.appearance': return '外観設定';
 			case 'settings.theme': return 'テーマ';
 			case 'settings.theme_desc': return 'アプリのテーマを設定します';
+			case 'settings.dynamic_color': return 'ダイナミックカラー';
+			case 'settings.dynamic_color_desc': return 'システムのテーマに従ってアプリのテーマカラーを変更します';
+			case 'settings.custom_color': return 'カスタムカラー';
+			case 'settings.custom_color_desc': return 'アプリのテーマカラーをカスタマイズします';
 			case 'settings.language': return '言語';
 			case 'settings.language_desc': return 'アプリの言語を設定します';
 			case 'settings.display_mode': return '表示モード';
@@ -2385,13 +2507,31 @@ extension on _StringsJa {
 			case 'settings.download': return 'ダウンロード設定';
 			case 'settings.download_path': return 'ダウンロードパス';
 			case 'settings.allow_media_scan': return 'メディアスキャンを許可';
-			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアを他のアプリにスキャンさせることを許可します';
+			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します。';
 			case 'settings.about': return '情報';
 			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
 			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
 			case 'theme.system': return 'システムに従う';
 			case 'theme.light': return 'ライト';
 			case 'theme.dark': return 'ダーク';
+			case 'colors.pink': return 'ピンク';
+			case 'colors.red': return '赤';
+			case 'colors.orange': return 'オレンジ';
+			case 'colors.amber': return 'アンバー';
+			case 'colors.yellow': return '黄';
+			case 'colors.lime': return 'ライム';
+			case 'colors.lightGreen': return 'ライトグリーン';
+			case 'colors.green': return '緑';
+			case 'colors.teal': return 'ティール';
+			case 'colors.cyan': return 'シアン';
+			case 'colors.lightBlue': return 'ライトブルー';
+			case 'colors.blue': return '青';
+			case 'colors.indigo': return 'インディゴ';
+			case 'colors.purple': return '紫';
+			case 'colors.deepPurple': return 'ディープパープル';
+			case 'colors.blueGrey': return 'ブルーグレー';
+			case 'colors.brown': return '茶色';
+			case 'colors.grey': return 'グレー';
 			case 'display_mode.no_available': return '利用可能な表示モードはありません';
 			case 'display_mode.auto': return '自動';
 			case 'display_mode.system': return 'システム';
@@ -2600,6 +2740,10 @@ extension on _StringsZhCn {
 			case 'settings.appearance': return '外观设置';
 			case 'settings.theme': return '主题';
 			case 'settings.theme_desc': return '设置应用的主题';
+			case 'settings.dynamic_color': return '动态取色';
+			case 'settings.dynamic_color_desc': return '根据系统主题改变应用的主题色。';
+			case 'settings.custom_color': return '自定义颜色';
+			case 'settings.custom_color_desc': return '自定义应用的主题色。';
 			case 'settings.language': return '语言';
 			case 'settings.language_desc': return '设置应用的语言';
 			case 'settings.display_mode': return '显示模式';
@@ -2619,13 +2763,31 @@ extension on _StringsZhCn {
 			case 'settings.download': return '下载设置';
 			case 'settings.download_path': return '下载路径';
 			case 'settings.allow_media_scan': return '允许媒体扫描';
-			case 'settings.allow_media_scan_desc': return '允许其他应用扫描下载的媒体。';
+			case 'settings.allow_media_scan_desc': return '允许媒体扫描程序读取下载的媒体文件。';
 			case 'settings.about': return '关于';
 			case 'settings.thrid_party_license': return '第三方库许可';
 			case 'settings.thrid_party_license_desc': return '查看第三方库的许可证';
 			case 'theme.system': return '跟随系统';
 			case 'theme.light': return '浅色';
 			case 'theme.dark': return '深色';
+			case 'colors.pink': return '粉红';
+			case 'colors.red': return '红色';
+			case 'colors.orange': return '橙色';
+			case 'colors.amber': return '琥珀';
+			case 'colors.yellow': return '黄色';
+			case 'colors.lime': return '绿黄';
+			case 'colors.lightGreen': return '浅绿';
+			case 'colors.green': return '绿色';
+			case 'colors.teal': return '青色';
+			case 'colors.cyan': return '青绿';
+			case 'colors.lightBlue': return '浅蓝';
+			case 'colors.blue': return '蓝色';
+			case 'colors.indigo': return '靛蓝';
+			case 'colors.purple': return '紫色';
+			case 'colors.deepPurple': return '深紫';
+			case 'colors.blueGrey': return '蓝灰';
+			case 'colors.brown': return '棕色';
+			case 'colors.grey': return '灰色';
 			case 'display_mode.no_available': return '无可用显示模式';
 			case 'display_mode.auto': return '自动';
 			case 'display_mode.system': return '系统';

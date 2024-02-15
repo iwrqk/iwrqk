@@ -15,7 +15,7 @@ class DownloadsMediaPreviewList extends StatefulWidget {
   final bool showCompleted;
   final String tag;
   final bool isPlaylist;
-  final String? currentMediaId;
+  final String? initialMediaId;
   final Function(MediaDownloadTask data)? onChangeVideo;
 
   const DownloadsMediaPreviewList({
@@ -23,7 +23,7 @@ class DownloadsMediaPreviewList extends StatefulWidget {
     this.showCompleted = false,
     required this.tag,
     this.isPlaylist = false,
-    this.currentMediaId,
+    this.initialMediaId,
     this.onChangeVideo,
   });
 
@@ -38,9 +38,12 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
   late DownloadsMediaPreviewListController _controller;
   final ScrollController _scrollController = ScrollController();
 
+  RxString currentMediaId = "".obs;
+
   @override
   void initState() {
     super.initState();
+    currentMediaId.value = widget.initialMediaId ?? "";
     _controller =
         Get.find<DownloadsMediaPreviewListController>(tag: widget.tag);
     _parentController.childrenControllers[widget.tag] = _controller;
@@ -80,16 +83,19 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                       }
 
                       if (widget.isPlaylist) {
-                        return DownloadMediaPreview(
-                          onTap: () {
-                            if (widget.onChangeVideo != null) {
-                              widget.onChangeVideo!(item);
-                            }
-                          },
-                          taskData: item,
-                          isPlaying:
-                              widget.currentMediaId == item.offlineMedia.id,
-                          isPlaylist: true,
+                        return Obx(
+                          () => DownloadMediaPreview(
+                            onTap: () {
+                              if (widget.onChangeVideo != null) {
+                                widget.onChangeVideo!(item);
+                                currentMediaId.value = item.offlineMedia.id;
+                              }
+                            },
+                            taskData: item,
+                            isPlaying:
+                                currentMediaId.value == item.offlineMedia.id,
+                            isPlaylist: true,
+                          ),
                         );
                       }
 

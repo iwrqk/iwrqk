@@ -88,7 +88,9 @@ class _IwrGalleryState extends State<IwrGallery> {
             margin: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: _currentIndex == index ? Colors.white : Colors.grey,
+              color: _currentIndex == index
+                  ? Colors.white
+                  : Theme.of(context).colorScheme.outline,
             ),
           ),
         );
