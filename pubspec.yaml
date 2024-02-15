@@ -53,6 +53,8 @@ dependencies:
   open_file: ^3.3.2
 
   # download
+  shared_storage: ^0.8.0
+  file_picker: ^6.1.1
   flutter_downloader: ^1.11.6
 
   # pl_player

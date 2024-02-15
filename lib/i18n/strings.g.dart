@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 663 (221 per locale)
+/// Strings: 678 (226 per locale)
 ///
-/// Built on 2024-02-14 at 15:12 UTC
+/// Built on 2024-02-15 at 10:02 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -455,6 +455,7 @@ class _StringsDownloadEn {
 	String get paused => 'Paused';
 	String get finished => 'Finished';
 	String get failed => 'Failed';
+	String get jump_to_detail => 'Jump to detail page';
 }
 
 // Path: playlist
@@ -545,6 +546,10 @@ class _StringsSettingsEn {
 	String get autoplay_desc => 'Autoplay video when opening a video page.';
 	String get background_play => 'Background Play';
 	String get background_play_desc => 'Allow the App to play video in the background.';
+	String get download => 'Download';
+	String get download_path => 'Download Path';
+	String get allow_media_scan => 'Allow Media Scan';
+	String get allow_media_scan_desc => 'Allow other apps to scan the downloaded media.';
 	String get about => 'About';
 	String get thrid_party_license => 'Third Party License';
 	String get thrid_party_license_desc => 'View the license of third party libraries.';
@@ -917,13 +922,13 @@ class _StringsFilterJa implements _StringsFilterEn {
 	// Translations
 	@override String get all => 'すべて';
 	@override String get filter => 'フィルター';
-	@override String get rating => '評価';
+	@override String get rating => 'レーティング';
 	@override String get tag => 'タグ';
 	@override String get tags => 'タグ';
 	@override String get date => '日付';
-	@override String get general => '全年齢対象';
+	@override String get general => '一般';
 	@override String get ecchi => 'エッチ';
-	@override String get select_rating => '評価を選択';
+	@override String get select_rating => 'レーティングを選択';
 	@override String get select_year => '年を選択';
 	@override String get select_month => '月を選択';
 }
@@ -1064,6 +1069,7 @@ class _StringsDownloadJa implements _StringsDownloadEn {
 	@override String get paused => '一時停止済み';
 	@override String get finished => '完了';
 	@override String get failed => 'ダウンロード失敗';
+	@override String get jump_to_detail => '詳細ページに移動';
 }
 
 // Path: playlist
@@ -1154,6 +1160,10 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get autoplay_desc => 'ビデオページを開くときに自動でビデオを再生します';
 	@override String get background_play => 'バックグラウンド再生';
 	@override String get background_play_desc => 'アプリをバックグラウンドでビデオを再生することを許可します';
+	@override String get download => 'ダウンロード設定';
+	@override String get download_path => 'ダウンロードパス';
+	@override String get allow_media_scan => 'メディアスキャンを許可';
+	@override String get allow_media_scan_desc => 'ダウンロードしたメディアを他のアプリにスキャンさせることを許可します';
 	@override String get about => '情報';
 	@override String get thrid_party_license => 'サードパーティのライセンス';
 	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
@@ -1673,6 +1683,7 @@ class _StringsDownloadZhCn implements _StringsDownloadEn {
 	@override String get paused => '已暂停';
 	@override String get finished => '已完成';
 	@override String get failed => '下载失败';
+	@override String get jump_to_detail => '查看详情页';
 }
 
 // Path: playlist
@@ -1763,6 +1774,10 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get autoplay_desc => '打开视频页面时自动播放视频';
 	@override String get background_play => '后台播放';
 	@override String get background_play_desc => '允许应用在后台播放视频';
+	@override String get download => '下载设置';
+	@override String get download_path => '下载路径';
+	@override String get allow_media_scan => '允许媒体扫描';
+	@override String get allow_media_scan_desc => '允许其他应用扫描下载的媒体。';
 	@override String get about => '关于';
 	@override String get thrid_party_license => '第三方库许可';
 	@override String get thrid_party_license_desc => '查看第三方库的许可证';
@@ -2087,6 +2102,7 @@ extension on Translations {
 			case 'download.paused': return 'Paused';
 			case 'download.finished': return 'Finished';
 			case 'download.failed': return 'Failed';
+			case 'download.jump_to_detail': return 'Jump to detail page';
 			case 'playlist.title': return 'Playlist title';
 			case 'playlist.create': return 'Create playlist';
 			case 'playlist.select': return 'Select playlist';
@@ -2132,6 +2148,10 @@ extension on Translations {
 			case 'settings.autoplay_desc': return 'Autoplay video when opening a video page.';
 			case 'settings.background_play': return 'Background Play';
 			case 'settings.background_play_desc': return 'Allow the App to play video in the background.';
+			case 'settings.download': return 'Download';
+			case 'settings.download_path': return 'Download Path';
+			case 'settings.allow_media_scan': return 'Allow Media Scan';
+			case 'settings.allow_media_scan_desc': return 'Allow other apps to scan the downloaded media.';
 			case 'settings.about': return 'About';
 			case 'settings.thrid_party_license': return 'Third Party License';
 			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries.';
@@ -2245,13 +2265,13 @@ extension on _StringsJa {
 			case 'sort.most_likes': return 'お気に入り数';
 			case 'filter.all': return 'すべて';
 			case 'filter.filter': return 'フィルター';
-			case 'filter.rating': return '評価';
+			case 'filter.rating': return 'レーティング';
 			case 'filter.tag': return 'タグ';
 			case 'filter.tags': return 'タグ';
 			case 'filter.date': return '日付';
-			case 'filter.general': return '全年齢対象';
+			case 'filter.general': return '一般';
 			case 'filter.ecchi': return 'エッチ';
-			case 'filter.select_rating': return '評価を選択';
+			case 'filter.select_rating': return 'レーティングを選択';
 			case 'filter.select_year': return '年を選択';
 			case 'filter.select_month': return '月を選択';
 			case 'search.users': return 'ユーザー';
@@ -2316,6 +2336,7 @@ extension on _StringsJa {
 			case 'download.paused': return '一時停止済み';
 			case 'download.finished': return '完了';
 			case 'download.failed': return 'ダウンロード失敗';
+			case 'download.jump_to_detail': return '詳細ページに移動';
 			case 'playlist.title': return 'プレイリストのタイトル';
 			case 'playlist.create': return 'プレイリストの作成';
 			case 'playlist.select': return 'プレイリストの選択';
@@ -2361,6 +2382,10 @@ extension on _StringsJa {
 			case 'settings.autoplay_desc': return 'ビデオページを開くときに自動でビデオを再生します';
 			case 'settings.background_play': return 'バックグラウンド再生';
 			case 'settings.background_play_desc': return 'アプリをバックグラウンドでビデオを再生することを許可します';
+			case 'settings.download': return 'ダウンロード設定';
+			case 'settings.download_path': return 'ダウンロードパス';
+			case 'settings.allow_media_scan': return 'メディアスキャンを許可';
+			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアを他のアプリにスキャンさせることを許可します';
 			case 'settings.about': return '情報';
 			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
 			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
@@ -2545,6 +2570,7 @@ extension on _StringsZhCn {
 			case 'download.paused': return '已暂停';
 			case 'download.finished': return '已完成';
 			case 'download.failed': return '下载失败';
+			case 'download.jump_to_detail': return '查看详情页';
 			case 'playlist.title': return '播放列表标题';
 			case 'playlist.create': return '创建播放列表';
 			case 'playlist.select': return '选择播放列表';
@@ -2590,6 +2616,10 @@ extension on _StringsZhCn {
 			case 'settings.autoplay_desc': return '打开视频页面时自动播放视频';
 			case 'settings.background_play': return '后台播放';
 			case 'settings.background_play_desc': return '允许应用在后台播放视频';
+			case 'settings.download': return '下载设置';
+			case 'settings.download_path': return '下载路径';
+			case 'settings.allow_media_scan': return '允许媒体扫描';
+			case 'settings.allow_media_scan_desc': return '允许其他应用扫描下载的媒体。';
 			case 'settings.about': return '关于';
 			case 'settings.thrid_party_license': return '第三方库许可';
 			case 'settings.thrid_party_license_desc': return '查看第三方库的许可证';

@@ -166,7 +166,8 @@
         "downloading": "下载中",
         "paused": "已暂停",
         "finished": "已完成",
-        "failed": "下载失败"
+        "failed": "下载失败",
+        "jump_to_detail": "查看详情页"
     },
     "playlist": {
         "title": "播放列表标题",
@@ -222,6 +223,10 @@
         "autoplay_desc": "打开视频页面时自动播放视频",
         "background_play": "后台播放",
         "background_play_desc": "允许应用在后台播放视频",
+        "download": "下载设置",
+        "download_path": "下载路径",
+        "allow_media_scan": "允许媒体扫描",
+        "allow_media_scan_desc": "允许其他应用扫描下载的媒体。",
         "about": "关于",
         "thrid_party_license": "第三方库许可",
         "thrid_party_license_desc": "查看第三方库的许可证"

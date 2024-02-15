@@ -8,6 +8,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 import 'package:path/path.dart';
+import 'package:shared_storage/shared_storage.dart' as ss;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -39,6 +40,11 @@ class DownloadService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+
+    allowMediaScan(
+      StorageProvider.config
+          .get(StorageKey.allowMediaScan, defaultValue: false),
+    );
 
     _bindBackgroundIsolate();
 
@@ -81,13 +87,68 @@ class DownloadService extends GetxService {
     IsolateNameServer.removePortNameMapping(_portName);
   }
 
-  Future<Directory?> get downloadDirectory async {
+  Future<void> allowMediaScan(bool allow) async {
+    final downloadPath = await downloadDirectory;
+
+    if (downloadPath == null) {
+      return;
+    }
+
+    final pathList = <String>[];
+
+    pathList.add(downloadPath);
+
+    for (final dirPath in pathList) {
+      if (dirPath.startsWith('content://')) {
+        if (allow) {
+          final file = await ss.findFile(Uri.parse(dirPath), '.nomedia');
+          if (file != null) {
+            await ss.delete(file.uri);
+          }
+        } else {
+          final file = await ss.findFile(Uri.parse(dirPath), '.nomedia');
+          if (file == null) {
+            await ss.createFileAsString(
+              Uri.parse(dirPath),
+              mimeType: '',
+              displayName: '.nomedia',
+              content: '',
+            );
+          }
+        }
+      } else {
+        final File noMediaFile = File(join(dirPath, '.nomedia'));
+
+        if (allow && await noMediaFile.exists()) {
+          noMediaFile.delete(recursive: true);
+        } else if (!allow && !await noMediaFile.exists()) {
+          noMediaFile.create(recursive: true);
+        }
+      }
+    }
+  }
+
+  Future<String?> get downloadDirectory async {
+    final String? savedDir = StorageProvider.config
+        .get(StorageKey.downloadDirectory, defaultValue: null);
+
+    if (savedDir != null && Directory(savedDir).existsSync()) {
+      return savedDir;
+    }
+
     if (GetPlatform.isAndroid) {
-      return getExternalStorageDirectory();
+      return getExternalStorageDirectory().then((value) {
+        if (value == null) return null;
+        return join(value.path, "downloads");
+      });
     } else if (GetPlatform.isIOS) {
-      return getApplicationDocumentsDirectory();
+      return getApplicationDocumentsDirectory().then((value) {
+        return join(value.path, "downloads");
+      });
     } else {
-      return getApplicationDocumentsDirectory();
+      return getApplicationDocumentsDirectory().then((value) {
+        return join(value.path, "downloads");
+      });
     }
   }
 
@@ -150,9 +211,14 @@ class DownloadService extends GetxService {
       }
     }
 
-    String directory = await downloadDirectory.then((value) => value!.path);
+    String? directory = await downloadDirectory;
 
-    String path = join(directory, "downloads", subDirectory);
+    if (directory == null) {
+      SmartDialog.showToast(t.message.download.no_provide_storage_permission);
+      return null;
+    }
+
+    String path = join(directory, subDirectory);
     Directory(path).createSync(recursive: true);
 
     return await FlutterDownloader.enqueue(
@@ -176,14 +242,10 @@ class DownloadService extends GetxService {
     int expireTime = int.parse(uri.queryParameters['expires']!);
     String fileName = uri.queryParameters['filename']!;
 
-    if (!GetPlatform.isIOS) {
-      fileName = fileName.split(".").first;
-    }
-
     await addDownloadTask(
       downloadUrl: url,
-      fileName: fileName,
-      subDirectory: join("videos", offlineMedia.id),
+      fileName: resolutionName + extension(fileName),
+      subDirectory: offlineMedia.title,
     ).then((value) {
       downloadTaskId = value;
     });

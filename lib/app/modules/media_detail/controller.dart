@@ -7,6 +7,7 @@ import 'package:screen_brightness/screen_brightness.dart';
 
 import '../../components/plugin/pl_player/index.dart';
 import '../../data/enums/types.dart';
+import '../../data/models/download_task.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
 import '../../data/models/offline/history_media.dart';
@@ -15,8 +16,10 @@ import '../../data/models/resolution.dart';
 import '../../data/models/user.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/download_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../data/services/user_service.dart';
+import '../account/downloads/widgets/downloads_media_preview_list/controller.dart';
 import 'repository.dart';
 import 'widgets/header_control.dart';
 
@@ -28,8 +31,11 @@ class MediaDetailController extends GetxController
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
+  final DownloadService _downloadService = Get.find();
 
+  bool isOffline = false;
   late MediaType mediaType;
+  late MediaDownloadTask taskData;
   late String id;
 
   List<ResolutionModel> resolutions = [];
@@ -98,6 +104,8 @@ class MediaDetailController extends GetxController
 
   Rational aspectRatio = const Rational(16, 9);
 
+  late String offlinePlaylistTag;
+
   /// PL player
   PlPlayerController plPlayerController = PlPlayerController.getInstance();
   Duration defaultST = Duration.zero;
@@ -115,10 +123,8 @@ class MediaDetailController extends GetxController
   void onInit() async {
     super.onInit();
 
-    dynamic arguments = Get.arguments;
-
-    mediaType = arguments["mediaType"];
-    id = arguments["id"];
+    mediaType = Get.arguments["mediaType"];
+    isOffline = Get.parameters["isOffline"]?.isNotEmpty ?? false;
 
     if (mediaType == MediaType.video) {
       autoPlay.value =
@@ -137,7 +143,30 @@ class MediaDetailController extends GetxController
       );
     }
 
-    loadData();
+    if (isOffline) {
+      taskData = Get.arguments["taskData"];
+      id = taskData.offlineMedia.id;
+      if (taskData.offlineMedia.type == MediaType.video) {
+        offlinePlaylistTag = "download_playlist_${taskData.offlineMedia.id}";
+
+        Get.lazyPut(() => DownloadsMediaPreviewListController(),
+            tag: offlinePlaylistTag);
+
+        getOfflineMedia(taskData.taskId);
+      } else {
+        _isLoading.value = false;
+      }
+    } else {
+      id = Get.parameters["id"]!;
+      loadData();
+    }
+  }
+
+  void getOfflineMedia(String taskId) {
+    _downloadService.getTaskFilePath(taskId).then((value) {
+      _isLoading.value = false;
+      playerInit(video: value);
+    });
   }
 
   Future<void> loadData() async {
@@ -174,13 +203,15 @@ class MediaDetailController extends GetxController
 
   /// 更新画质、音质
   /// TODO 继续进度播放
-  updatePlayer() {
+  updatePlayer({
+    video,
+  }) {
     defaultST = plPlayerController.position.value;
     plPlayerController.removeListeners();
     plPlayerController.isBuffering.value = false;
     plPlayerController.buffered.value = Duration.zero;
 
-    playerInit();
+    playerInit(video: video);
   }
 
   Future playerInit({
@@ -208,13 +239,24 @@ class MediaDetailController extends GetxController
       seekTo: seekToTime ?? defaultST,
       autoplay: autoplay,
       onVideoLoad: () {
-        videoPlayerServiceHandler.onVideoChange({
-          "id": media.id,
-          "title": media.title,
-          "artist": media.user.name,
-          "duration": plPlayerController.duration.value.inSeconds,
-          if (media.hasCover()) "cover": media.getCoverUrl(),
-        });
+        if (isOffline) {
+          videoPlayerServiceHandler.onVideoChange({
+            "id": taskData.offlineMedia.id,
+            "title": taskData.offlineMedia.title,
+            "artist": taskData.offlineMedia.uploader.name,
+            "duration": plPlayerController.duration.value.inSeconds,
+            if (taskData.offlineMedia.coverUrl != null)
+              "cover": taskData.offlineMedia.coverUrl,
+          });
+        } else {
+          videoPlayerServiceHandler.onVideoChange({
+            "id": media.id,
+            "title": media.title,
+            "artist": media.user.name,
+            "duration": plPlayerController.duration.value.inSeconds,
+            if (media.hasCover()) "cover": media.getCoverUrl(),
+          });
+        }
       },
     );
 

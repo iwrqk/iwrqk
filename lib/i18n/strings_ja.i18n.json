@@ -74,13 +74,13 @@
     "filter": {
         "all": "すべて",
         "filter": "フィルター",
-        "rating": "評価",
+        "rating": "レーティング",
         "tag": "タグ",
         "tags": "タグ",
         "date": "日付",
-        "general": "全年齢対象",
+        "general": "一般",
         "ecchi": "エッチ",
-        "select_rating": "評価を選択",
+        "select_rating": "レーティングを選択",
         "select_year": "年を選択",
         "select_month": "月を選択"
     },
@@ -166,7 +166,8 @@
         "downloading": "ダウンロード中",
         "paused": "一時停止済み",
         "finished": "完了",
-        "failed": "ダウンロード失敗"
+        "failed": "ダウンロード失敗",
+        "jump_to_detail": "詳細ページに移動"
     },
     "playlist": {
         "title": "プレイリストのタイトル",
@@ -222,6 +223,10 @@
         "autoplay_desc": "ビデオページを開くときに自動でビデオを再生します",
         "background_play": "バックグラウンド再生",
         "background_play_desc": "アプリをバックグラウンドでビデオを再生することを許可します",
+        "download": "ダウンロード設定",
+        "download_path": "ダウンロードパス",
+        "allow_media_scan": "メディアスキャンを許可",
+        "allow_media_scan_desc": "ダウンロードしたメディアを他のアプリにスキャンさせることを許可します",
         "about": "情報",
         "thrid_party_license": "サードパーティのライセンス",
         "thrid_party_license_desc": "サードパーティのライブラリのライセンスを確認します"

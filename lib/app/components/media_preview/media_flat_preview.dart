@@ -8,7 +8,6 @@ import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
 import '../../data/models/media/media.dart';
 import '../../data/models/media/video.dart';
-import '../../routes/pages.dart';
 import '../network_image.dart';
 
 class MediaFlatPreview extends StatelessWidget {
@@ -255,13 +254,11 @@ class MediaFlatPreview extends StatelessWidget {
       onTap: onTap ??
           () {
             Get.toNamed(
-              AppRoutes.mediaDetail,
+              "/mediaDetail?id=${media.id}",
               arguments: {
                 "mediaType":
                     media is VideoModel ? MediaType.video : MediaType.image,
-                "id": media.id,
               },
-              preventDuplicates: false,
             );
           },
       child: Container(

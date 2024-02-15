@@ -297,6 +297,9 @@ class PlPlayerController {
       // 配置Player 音轨、字幕等等
       _videoPlayerController =
           await _createVideoController(dataSource, _looping, enableHA);
+      sliderPositionSeconds.value = 0;
+      durationSeconds.value = 0;
+      bufferedSeconds.value = 0;
       // 等待视频加载完成
       loadingSubs = _videoPlayerController!.stream.duration.listen((event) {
         if (loaded) return;

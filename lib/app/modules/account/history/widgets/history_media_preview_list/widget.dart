@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../../components/iwr_refresh/widget.dart';
 import '../../../../../data/enums/types.dart';
-import '../../../../../routes/pages.dart';
 import '../../controller.dart';
 import '../history_media_preview.dart';
 import 'controller.dart';
@@ -75,14 +74,12 @@ class _HistoryMediaPreviewListState extends State<HistoryMediaPreviewList>
                           setState(() {});
                         } else {
                           Get.toNamed(
-                            AppRoutes.mediaDetail,
+                            "/mediaDetail?id=${item.id}",
                             arguments: {
                               "mediaType": item.type == MediaType.video
                                   ? MediaType.video
                                   : MediaType.image,
-                              "id": item.id,
                             },
-                            preventDuplicates: false,
                           );
                         }
                       },

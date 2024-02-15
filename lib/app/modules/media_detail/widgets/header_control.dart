@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../components/plugin/pl_player/index.dart';
+import '../../../data/models/download_task.dart';
 import '../../../data/models/resolution.dart';
 import '../../../data/providers/storage_provider.dart';
 import '../../../routes/pages.dart';
@@ -207,13 +208,19 @@ class _HeaderControlState extends State<HeaderControl> {
                         title: Text(t.player.quality, style: titleStyle),
                         subtitle: Text(
                             t.player.current_item(
-                                item: widget
-                                    .videoDetailCtr!
-                                    .resolutions[
-                                        widget.videoDetailCtr!.resolutionIndex]
-                                    .name),
+                                item: widget.videoDetailCtr!.isOffline
+                                    ? (widget.videoDetailCtr!.taskData
+                                            as VideoDownloadTask)
+                                        .resolutionName
+                                    : widget
+                                        .videoDetailCtr!
+                                        .resolutions[widget
+                                            .videoDetailCtr!.resolutionIndex]
+                                        .name),
                             style: subTitleStyle),
-                        onTap: () => {Get.back(), showResolutionSheet()},
+                        onTap: widget.videoDetailCtr!.isOffline
+                            ? null
+                            : () => {Get.back(), showResolutionSheet()},
                       ),
                       ListTile(
                         leading: const Icon(Icons.speed),

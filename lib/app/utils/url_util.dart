@@ -41,9 +41,8 @@ class UrlUtil {
     if (video.hasMatch(url)) {
       String videoid = video.firstMatch(url)!.group(1)!.split("/").last;
       Get.toNamed(
-        AppRoutes.mediaDetail,
-        arguments: {"mediaType": MediaType.video, "id": videoid},
-        preventDuplicates: true,
+        "/mediaDetail?id=$videoid",
+        arguments: {"mediaType": MediaType.video},
       );
       return true;
     }
@@ -53,9 +52,8 @@ class UrlUtil {
     if (image.hasMatch(url)) {
       String imageid = image.firstMatch(url)!.group(1)!.split("/").last;
       Get.toNamed(
-        AppRoutes.mediaDetail,
-        arguments: {"mediaType": MediaType.image, "id": imageid},
-        preventDuplicates: true,
+        "/mediaDetail?id=$imageid",
+        arguments: {"mediaType": MediaType.image},
       );
       return true;
     }

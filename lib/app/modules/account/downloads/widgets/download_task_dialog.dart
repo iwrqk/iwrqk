@@ -18,6 +18,7 @@ class DownloadTaskDialog extends StatelessWidget {
   final void Function()? onRetry;
   final void Function()? onOpen;
   final void Function()? onShare;
+  final void Function()? gotoDetail;
 
   DownloadTaskDialog({
     super.key,
@@ -28,6 +29,7 @@ class DownloadTaskDialog extends StatelessWidget {
     this.onRetry,
     this.onOpen,
     this.onShare,
+    this.gotoDetail,
   });
 
   final DownloadService _downloadService = Get.find();
@@ -165,17 +167,35 @@ class DownloadTaskDialog extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(24)),
-                  child: Container(
-                    color: Colors.black,
-                    alignment: Alignment.center,
-                    child: media.coverUrl != null
-                        ? NetworkImg(
-                            imageUrl: media.coverUrl!,
-                            aspectRatio: 16 / 9,
-                            fit: BoxFit.cover,
-                            isAdult: media.ratingType == RatingType.ecchi.value,
-                          )
-                        : const AspectRatio(aspectRatio: 16 / 9),
+                  child: Stack(
+                    children: [
+                      Container(
+                        color: Colors.black,
+                        alignment: Alignment.center,
+                        child: media.coverUrl != null
+                            ? NetworkImg(
+                                imageUrl: media.coverUrl!,
+                                aspectRatio: 16 / 9,
+                                fit: BoxFit.cover,
+                                isAdult:
+                                    media.ratingType == RatingType.ecchi.value,
+                              )
+                            : const AspectRatio(aspectRatio: 16 / 9),
+                      ),
+                      Positioned.fill(
+                        child: Material(
+                          color: Colors.black.withOpacity(0.4),
+                          child: InkWell(
+                            onTap: gotoDetail,
+                            child: const Icon(
+                              Icons.play_arrow,
+                              size: 48,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

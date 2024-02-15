@@ -17,6 +17,9 @@ abstract class StorageKey {
   static const String downloadImageRecords = "downloadImageRecords";
   static const String searchHistoryList = "searchHistoryList";
 
+  static const String downloadDirectory = "downloadDirectory";
+  static const String allowMediaScan = "allowMediaScan";
+
   static const String proxyEnable = "proxyEnable";
   static const String proxyHost = "proxyHost";
   static const String proxyPort = "proxyPort";

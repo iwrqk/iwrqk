@@ -166,7 +166,8 @@
         "downloading": "Downloading",
         "paused": "Paused",
         "finished": "Finished",
-        "failed": "Failed"
+        "failed": "Failed",
+        "jump_to_detail": "Jump to detail page"
     },
     "playlist": {
         "title": "Playlist title",
@@ -222,6 +223,10 @@
         "autoplay_desc": "Autoplay video when opening a video page.",
         "background_play": "Background Play",
         "background_play_desc": "Allow the App to play video in the background.",
+        "download": "Download",
+        "download_path": "Download Path",
+        "allow_media_scan": "Allow Media Scan",
+        "allow_media_scan_desc": "Allow other apps to scan the downloaded media.",
         "about": "About",
         "thrid_party_license": "Third Party License",
         "thrid_party_license_desc": "View the license of third party libraries."

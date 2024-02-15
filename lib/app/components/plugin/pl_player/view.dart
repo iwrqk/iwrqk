@@ -188,15 +188,6 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
   Widget build(BuildContext context) {
     final PlPlayerController _ = widget.controller;
     final Color colorTheme = Theme.of(context).colorScheme.primary;
-    const TextStyle subTitleStyle = TextStyle(
-      height: 1.5,
-      fontSize: 40.0,
-      letterSpacing: 0.0,
-      wordSpacing: 0.0,
-      color: Color(0xffffffff),
-      fontWeight: FontWeight.normal,
-      backgroundColor: Color(0xaa000000),
-    );
     const TextStyle textStyle = TextStyle(
       color: Colors.white,
       fontSize: 12,
@@ -210,10 +201,6 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
             controls: NoVideoControls,
             pauseUponEnteringBackgroundMode: !enableBackgroundPlay,
             resumeUponEnteringForegroundMode: true,
-            subtitleViewConfiguration: const SubtitleViewConfiguration(
-              style: subTitleStyle,
-              padding: EdgeInsets.all(24.0),
-            ),
             fit: _.videoFit.value,
           ),
         ),
@@ -602,8 +589,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
           ),
         ),
 
-        /// 进度条 live模式下禁用
-
+        /// 进度条
         Obx(
           () {
             final int value = _.sliderPositionSeconds.value;

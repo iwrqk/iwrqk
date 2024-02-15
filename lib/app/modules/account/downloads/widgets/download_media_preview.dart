@@ -10,21 +10,26 @@ import '../../../../data/models/download_task.dart';
 import '../../../../data/models/media/video.dart';
 import '../../../../data/models/offline/download_task_media.dart';
 import '../../../../data/services/download_service.dart';
-import '../../../../routes/pages.dart';
 import '../../../../utils/display_util.dart';
 
 class DownloadMediaPreview extends StatelessWidget {
   final MediaDownloadTask taskData;
+  final bool isPlaying;
+  final bool isPlaylist;
   final Widget? coverOverlay;
   final void Function()? onTap;
+  final void Function()? gotoDetail;
   final void Function()? onLongPress;
   final void Function()? onDoubleTap;
 
   DownloadMediaPreview({
     super.key,
     required this.taskData,
+    this.isPlaying = false,
+    this.isPlaylist = false,
     this.coverOverlay,
     this.onTap,
+    this.gotoDetail,
     this.onLongPress,
     this.onDoubleTap,
   });
@@ -58,75 +63,124 @@ class DownloadMediaPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildCompleteWidget() {
+  Widget _buildCompleteWidget(BuildContext context) {
     String totalSize = DisplayUtil.getDisplayFileSizeWithUnit(media.size);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.person,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
-                        child: Text(
-                          media.uploader.name,
-                          style: const TextStyle(
-                            fontSize: 12.5,
-                            color: Colors.grey,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ]),
-        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Icon(
-              Icons.download,
-              size: 16,
-              color: Colors.grey,
-            ),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.only(left: 2),
-                child: Text(
-                  DisplayUtil.getDisplayDate(taskData.createTime),
-                  maxLines: 1,
-                  style: const TextStyle(
-                    fontSize: 12.5,
+            Flexible(
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.person,
+                    size: 16,
                     color: Colors.grey,
-                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 2, right: 2),
+                      child: Text(
+                        media.uploader.name,
+                        style: const TextStyle(
+                          fontSize: 12.5,
+                          color: Colors.grey,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        if (isPlaylist) ...[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                totalSize,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: PopupMenuButton(
+                  padding: EdgeInsets.zero,
+                  position: PopupMenuPosition.under,
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  itemBuilder: (BuildContext context) {
+                    return <PopupMenuEntry<String>>[
+                      PopupMenuItem<String>(
+                        value: "toMediaDetail",
+                        onTap: () {
+                          Get.toNamed(
+                            "/mediaDetail?id=${media.id}",
+                            arguments: {
+                              "mediaType": media.type,
+                            },
+                          );
+                        },
+                        child: Text(
+                          t.download.jump_to_detail,
+                        ),
+                      ),
+                    ];
+                  },
+                ),
+              ),
+            ],
+          ),
+        ] else ...[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Icon(
+                Icons.download,
+                size: 16,
+                color: Colors.grey,
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 2),
+                  child: Text(
+                    DisplayUtil.getDisplayDate(taskData.createTime),
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),
-            ),
-            AutoSizeText(
-              totalSize,
-              maxLines: 1,
-              style: const TextStyle(
-                fontSize: 12.5,
-                color: Colors.grey,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
-          ],
-        ),
+              AutoSizeText(
+                totalSize,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
+          ),
+        ],
       ],
     );
   }
@@ -298,19 +352,37 @@ class DownloadMediaPreview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(
-            child: AutoSizeText(
-              media.title,
-              maxLines: 2,
-              style: const TextStyle(
-                fontSize: 14,
-                overflow: TextOverflow.ellipsis,
+          if (isPlaying) ...[
+            Flexible(
+              child: AutoSizeText(
+                "\u25B6 ${media.title}",
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 14,
+                  overflow: TextOverflow.ellipsis,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
-          ),
-          (taskStatus?.value.status) == DownloadTaskStatus.complete
-              ? _buildCompleteWidget()
-              : _buildStateWidget(context),
+          ] else ...[
+            Flexible(
+              child: AutoSizeText(
+                media.title,
+                maxLines: 2,
+                style: const TextStyle(
+                  fontSize: 14,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+          if (isPlaylist) ...[
+            (taskStatus?.value.status) == DownloadTaskStatus.complete
+                ? _buildCompleteWidget(context)
+                : _buildStateWidget(context),
+          ] else ...[
+            _buildCompleteWidget(context)
+          ]
         ],
       ),
     );
@@ -318,12 +390,7 @@ class DownloadMediaPreview extends StatelessWidget {
     return InkWell(
       onLongPress: onLongPress,
       onDoubleTap: onDoubleTap,
-      onTap: onTap ??
-          () {
-            if (media.type == MediaType.video) {
-              Get.toNamed(AppRoutes.downloadedVideoDetail, arguments: taskData);
-            }
-          },
+      onTap: onTap ?? gotoDetail,
       child: Container(
         constraints: const BoxConstraints(maxHeight: 116),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

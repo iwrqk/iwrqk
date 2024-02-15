@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
 import '../../data/services/config_service.dart';
+import '../../data/services/download_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../routes/pages.dart';
 import '../../utils/display_util.dart';
@@ -11,6 +12,7 @@ import '../../utils/display_util.dart';
 class SettingsController extends GetxController {
   final ConfigService configService = Get.find();
   final AccountService accountService = Get.find();
+  final DownloadService downloadService = Get.find();
 
   ThemeMode getCurrentTheme() {
     return configService.themeMode;
@@ -44,6 +46,20 @@ class SettingsController extends GetxController {
     StorageProvider.config[PLPlayerConfigKey.enableBackgroundPlay] = value;
   }
 
+  final RxString _downloadPath = ''.obs;
+  String get downloadPath => _downloadPath.value;
+  set downloadPath(String value) {
+    _downloadPath.value = value;
+    StorageProvider.config[StorageKey.downloadDirectory] = value;
+  }
+
+  final RxBool _allowMediaScan = false.obs;
+  bool get allowMediaScan => _allowMediaScan.value;
+  set allowMediaScan(bool value) {
+    _allowMediaScan.value = value;
+    StorageProvider.config[StorageKey.allowMediaScan] = value;
+  }
+
   final RxBool _enableProxy = false.obs;
   bool get enableProxy => _enableProxy.value;
   set enableProxy(bool value) {
@@ -61,8 +77,16 @@ class SettingsController extends GetxController {
     super.onInit();
     _autoPlay.value =
         configService.config[PLPlayerConfigKey.enableQuickDouble] ?? true;
+
+    _allowMediaScan.value =
+        StorageProvider.config[StorageKey.allowMediaScan] ?? false;
+
+    downloadService.downloadDirectory
+        .then((value) => _downloadPath.value = value ?? '');
+
     _backgroundPlay.value =
         configService.config[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
+
     _enableProxy.value =
         StorageProvider.config[StorageKey.proxyEnable] ?? false;
   }
