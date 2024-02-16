@@ -108,7 +108,7 @@ class HomeController extends GetxController {
 
     pageController = PageController(initialPage: currentIndex);
 
-    Get.engine.addPersistentFrameCallback((_) {
+    Get.engine.addPostFrameCallback((_) {
       _initSharingIntent();
     });
   }
