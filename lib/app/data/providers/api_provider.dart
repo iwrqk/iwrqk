@@ -1,4 +1,3 @@
-import '../../utils/log_util.dart';
 import '../enums/result.dart';
 import '../enums/types.dart';
 import '../models/account/friend_request.dart';
@@ -37,7 +36,6 @@ class ApiProvider {
         token = value.data["token"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: token, success: message == null, message: message);
@@ -60,7 +58,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: null, success: success, message: message);
@@ -76,7 +73,6 @@ class ApiProvider {
         accessToken = value.data["accessToken"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(
@@ -93,7 +89,6 @@ class ApiProvider {
         appUser = AppUserModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -110,7 +105,6 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -132,7 +126,6 @@ class ApiProvider {
         notificationsCounts = NotificationsCountsModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -157,7 +150,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -193,7 +185,6 @@ class ApiProvider {
         last = value.data["last"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -219,7 +210,6 @@ class ApiProvider {
         data: {"body": content}).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -240,7 +230,6 @@ class ApiProvider {
         profile = ProfileModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: profile, success: message == null, message: message);
@@ -258,7 +247,6 @@ class ApiProvider {
         count = value.data["count"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: count, success: message == null, message: message);
@@ -301,7 +289,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -336,7 +323,6 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -363,7 +349,6 @@ class ApiProvider {
         data = VideoModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: data, success: message == null, message: message);
@@ -379,7 +364,6 @@ class ApiProvider {
         image = ImageModel.fromJson(value.data);
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
     return ApiResult(data: image, success: message == null, message: message);
@@ -400,7 +384,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -452,7 +435,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -500,7 +482,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -551,7 +532,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -576,7 +556,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -614,7 +593,6 @@ class ApiProvider {
         );
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -623,6 +601,38 @@ class ApiProvider {
         count: count,
         results: threads,
       ),
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<ThreadModel>> getThread({
+    required String channelName,
+    required String threadId,
+  }) async {
+    String? message;
+    ThreadModel? thread;
+
+    await networkProvider
+        .get("/forum/$channelName/$threadId", queryParameters: {
+      "page": 0,
+      "limit": 1,
+    }).then((value) {
+      message = value.data["message"];
+
+      if (message != null) {
+        if (message == "errors.notFound") {
+          message = null;
+        }
+      } else {
+        thread = ThreadModel.fromJson(value.data["thread"]);
+      }
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: thread,
       success: message == null,
       message: message,
     );
@@ -656,7 +666,6 @@ class ApiProvider {
         );
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -686,7 +695,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -708,7 +716,6 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -735,7 +742,6 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -762,7 +768,6 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     }).then(
       (value) => ApiResult(
@@ -810,7 +815,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -832,7 +836,6 @@ class ApiProvider {
     await networkProvider.post("/user/$userId/followers").then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -853,7 +856,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -883,7 +885,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -904,7 +905,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -925,7 +925,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -951,7 +950,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -985,7 +983,6 @@ class ApiProvider {
         }
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1017,7 +1014,6 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1039,7 +1035,6 @@ class ApiProvider {
     await networkProvider.post("/video/$id/like").then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1060,7 +1055,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1081,7 +1075,6 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1113,7 +1106,6 @@ class ApiProvider {
             .toList();
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1122,6 +1114,29 @@ class ApiProvider {
         count: count,
         results: playlists,
       ),
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<String>> getPlaylistName({
+    required String playlistId,
+  }) async {
+    String? message;
+    String? name;
+
+    await networkProvider.get("/playlist/$playlistId").then((value) {
+      message = value.data["message"];
+
+      if (message == null) {
+        name = value.data["playlist"]["title"];
+      }
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: name,
       success: message == null,
       message: message,
     );
@@ -1144,7 +1159,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1166,7 +1180,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1190,7 +1203,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1216,7 +1228,6 @@ class ApiProvider {
     }).then((value) {
       message = value.data["message"];
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1238,7 +1249,6 @@ class ApiProvider {
         message = value.data["message"];
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
@@ -1264,12 +1274,36 @@ class ApiProvider {
         newUserName = value.data["url"].split("/").last;
       }
     }).catchError((e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
       message = e.toString();
     });
 
     return ApiResult(
       data: newUserName,
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<String>> getMigrationThreadUrl({
+    required String oldThreadTitle,
+  }) async {
+    String? message;
+    String? newThreadUrl;
+
+    await networkProvider
+        .get("/migration/lookup/forum/$oldThreadTitle")
+        .then((value) {
+      message = value.data["message"];
+
+      if (message == null) {
+        newThreadUrl = value.data["url"];
+      }
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: newThreadUrl,
       success: message == null,
       message: message,
     );

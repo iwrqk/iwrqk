@@ -91,7 +91,7 @@ jobs:
           mkdir -p build/ios/ipa/Payload
           cd build/ios/ipa/
           mv ../iphoneos/Runner.app Payload
-          zip -9 ${APP_PACK_NAME}_${{steps.get_version.outputs.version}}.ipa -r Payload
+          zip -9 ${APP_PACK_NAME}-${{steps.get_version.outputs.version}}.ipa -r Payload
       
       - name: Publish artifacts
         uses: actions/upload-artifact@v3

@@ -81,12 +81,10 @@ abstract class AppPages {
       name: AppRoutes.profile,
       page: () => const ProfilePage(),
       binding: ProfileBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.followersFollowing,
       page: () => FollowersFollowingPage(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.uploadedMedia,
@@ -97,7 +95,6 @@ abstract class AppPages {
       name: AppRoutes.searchResult,
       page: () => const SearchResultPage(),
       binding: SearchResultBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.channel,
@@ -108,7 +105,6 @@ abstract class AppPages {
       name: AppRoutes.thread,
       page: () => const ThreadPage(),
       binding: ThreadBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.createThread,
@@ -119,13 +115,11 @@ abstract class AppPages {
       name: AppRoutes.playlistsPreview,
       page: () => const PlaylistsPreviewPage(),
       binding: PlaylistsPreviewBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.playlistDetail,
       page: () => PlaylistDetailPage(),
       binding: PlayListDetailBinding(),
-      preventDuplicates: false,
     ),
     GetPage(
       name: AppRoutes.friends,

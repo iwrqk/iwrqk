@@ -75,6 +75,14 @@ android {
         }
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def newName = output.outputFileName
+            newName = newName.replace("-release", "")
+            output.outputFileName = newName
+        }
+    }
+
     if (_canSign) {
         android.signingConfigs {
             debug {

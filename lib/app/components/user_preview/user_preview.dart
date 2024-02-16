@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user.dart';
-import '../../routes/pages.dart';
 import '../buttons/follow_button/widget.dart';
 import '../buttons/friend_button/widget.dart';
 import '../network_image.dart';
@@ -25,11 +24,7 @@ class UserPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(
-          AppRoutes.profile,
-          arguments: user.username,
-          preventDuplicates: true,
-        );
+        Get.toNamed("/profile?userName=${user.username}");
       },
       child: ListTile(
         leading: ClipOval(

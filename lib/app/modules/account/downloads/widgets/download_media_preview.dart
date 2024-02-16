@@ -18,6 +18,7 @@ class DownloadMediaPreview extends StatelessWidget {
   final bool isPlaylist;
   final Widget? coverOverlay;
   final void Function()? onTap;
+  final void Function()? gotoPlayer;
   final void Function()? gotoDetail;
   final void Function()? onLongPress;
   final void Function()? onDoubleTap;
@@ -29,6 +30,7 @@ class DownloadMediaPreview extends StatelessWidget {
     this.isPlaylist = false,
     this.coverOverlay,
     this.onTap,
+    this.gotoPlayer,
     this.gotoDetail,
     this.onLongPress,
     this.onDoubleTap,
@@ -128,14 +130,7 @@ class DownloadMediaPreview extends StatelessWidget {
                     return <PopupMenuEntry<String>>[
                       PopupMenuItem<String>(
                         value: "toMediaDetail",
-                        onTap: () {
-                          Get.toNamed(
-                            "/mediaDetail?id=${media.id}",
-                            arguments: {
-                              "mediaType": media.type,
-                            },
-                          );
-                        },
+                        onTap: gotoDetail,
                         child: Text(
                           t.download.jump_to_detail,
                         ),
@@ -363,7 +358,7 @@ class DownloadMediaPreview extends StatelessWidget {
               ),
             ),
           ),
-          if (isPlaylist) ...[
+          if (!isPlaylist) ...[
             (taskStatus?.value.status) == DownloadTaskStatus.complete
                 ? _buildCompleteWidget(context)
                 : _buildStateWidget(context),
@@ -377,7 +372,7 @@ class DownloadMediaPreview extends StatelessWidget {
     return InkWell(
       onLongPress: onLongPress,
       onDoubleTap: onDoubleTap,
-      onTap: onTap ?? gotoDetail,
+      onTap: onTap ?? gotoPlayer,
       child: Container(
         constraints: const BoxConstraints(maxHeight: 116),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

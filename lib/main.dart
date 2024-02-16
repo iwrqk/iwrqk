@@ -12,6 +12,7 @@ import 'package:media_kit/media_kit.dart';
 import 'app/const/colors.dart';
 import 'app/data/services/plugin/pl_player/service_locator.dart';
 import 'app/modules/media_detail/page.dart';
+import 'app/utils/path_util.dart';
 import 'app/utils/proxy_util.dart';
 import 'i18n/strings.g.dart';
 import 'app/data/providers/storage_provider.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
 
+  await PathUtil.init();
   await StorageProvider.init();
   await LogUtil.init();
   await FlutterDownloader.initialize(debug: kDebugMode);

@@ -57,6 +57,19 @@ class CreateVideoDownloadDialog
             onPressed: controller.creatingDownloadTask
                 ? null
                 : () {
+                    Get.back();
+                  },
+            child: Text(
+              t.notifications.cancel,
+              style: TextStyle(color: Theme.of(context).colorScheme.outline),
+            ),
+          ),
+        ),
+        Obx(
+          () => TextButton(
+            onPressed: controller.creatingDownloadTask
+                ? null
+                : () {
                     controller.createVideoDownloadTask();
                   },
             child: Text(t.notifications.confirm),

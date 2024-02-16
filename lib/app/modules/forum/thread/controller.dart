@@ -2,15 +2,15 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class ThreadController extends GetxController with GetTickerProviderStateMixin {
-  late String title;
-  late String starterUserName;
-  late String starteName;
-  late String timestamp;
-  late String starterAvatarUrl;
+import '../../../data/models/forum/thread.dart';
+import '../../../data/providers/api_provider.dart';
+
+class ThreadController extends GetxController
+    with GetTickerProviderStateMixin, StateMixin {
+  late ThreadModel thread;
+  String? threadId;
+  bool fromExternal = false;
   late String channelName;
-  late String threadId;
-  late bool locked;
 
   final RxBool _showTitle = false.obs;
   bool get showTitle => _showTitle.value;
@@ -24,16 +24,14 @@ class ThreadController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     super.onInit();
 
-    dynamic arguments = Get.arguments;
-
-    title = arguments['title'];
-    starterUserName = arguments['starterUserName'];
-    starteName = arguments['starterName'];
-    timestamp = arguments['timestamp'];
-    starterAvatarUrl = arguments['starterAvatarUrl'];
-    channelName = arguments['channelName'];
-    threadId = arguments['threadId'];
-    locked = arguments['locked'];
+    threadId = Get.parameters['threadId'];
+    channelName = Get.parameters['channelName']!;
+    if (Get.arguments != null) {
+      thread = Get.arguments['threadModel'];
+    } else {
+      fromExternal = true;
+      loadData();
+    }
 
     fabAnimationController = AnimationController(
       vsync: this,
@@ -70,5 +68,36 @@ class ThreadController extends GetxController with GetTickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
+  }
+
+  Future<void> refreshData({bool showSplash = false}) async {
+    if (showSplash) {
+      change(null, status: RxStatus.loading());
+    } else {
+      change(null, status: RxStatus.success());
+    }
+    await loadData();
+  }
+
+  Future<void> loadData() async {
+    String? message;
+    bool success = true;
+
+    await ApiProvider.getThread(channelName: channelName, threadId: threadId!)
+        .then((value) {
+      success = value.success;
+      if (!success) {
+        message = value.message;
+      } else {
+        thread = value.data!;
+      }
+    });
+
+    if (!success) {
+      change(null, status: RxStatus.error(message!));
+      return;
+    } else {
+      change(null, status: RxStatus.success());
+    }
   }
 }

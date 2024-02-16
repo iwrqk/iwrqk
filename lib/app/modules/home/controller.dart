@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import '../../data/services/config_service.dart';
 import '../../routes/pages.dart';
+import '../../utils/log_util.dart';
+import '../../utils/url_util.dart';
 import '../tabs/forum_tab/controller.dart';
 import '../tabs/forum_tab/page.dart';
 import '../tabs/images_tab/page.dart';
@@ -77,6 +82,8 @@ class HomeController extends GetxController {
   late List<MediaGridTabController> mediaGridTabControllers;
   late ForumTabController forumTabController;
 
+  StreamSubscription? _intentDataStreamSubscription;
+
   PageController? pageController;
   final RxInt _currentIndex = 0.obs;
   int get currentIndex => _currentIndex.value;
@@ -100,6 +107,16 @@ class HomeController extends GetxController {
     forumTabController = Get.find<ForumTabController>();
 
     pageController = PageController(initialPage: currentIndex);
+
+    Get.engine.addPersistentFrameCallback((_) {
+      _initSharingIntent();
+    });
+  }
+
+  @override
+  void onClose() {
+    _intentDataStreamSubscription?.cancel();
+    super.onClose();
   }
 
   Future<void> onTap(int index) async {
@@ -168,5 +185,34 @@ class HomeController extends GetxController {
       return;
     }
     SystemNavigator.pop();
+  }
+
+  void _initSharingIntent() {
+    if (!GetPlatform.isAndroid) {
+      return;
+    }
+
+    ReceiveSharingIntent.getInitialText().then(
+      (String? rawText) {
+        if (rawText == null || rawText.isEmpty) {
+          return;
+        }
+
+        UrlUtil.jumpTo(rawText);
+      },
+    );
+
+    _intentDataStreamSubscription = ReceiveSharingIntent.getTextStream().listen(
+      (String url) {
+        if (url.isEmpty) {
+          return;
+        }
+
+        UrlUtil.jumpTo(url);
+      },
+      onError: (e, stackTrace) {
+        LogUtil.error('ReceiveSharingIntent Error!', e, stackTrace);
+      },
+    );
   }
 }

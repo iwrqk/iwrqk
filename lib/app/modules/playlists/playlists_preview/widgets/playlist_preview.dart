@@ -4,7 +4,6 @@ import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../../components/network_image.dart';
 import '../../../../const/iwara.dart';
-import '../../../../routes/pages.dart';
 
 class PlaylistPreview extends StatelessWidget {
   final String playlistId;
@@ -24,11 +23,10 @@ class PlaylistPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.playlistDetail, arguments: {
-          "playlistId": playlistId,
-          "requireMyself": requireMyself,
-          "title": title
-        });
+        Get.toNamed(
+          "/playlistDetail?playlistId=$playlistId&requireMyself=$requireMyself",
+          arguments: {"title": title},
+        );
       },
       child: Container(
         constraints: const BoxConstraints(maxHeight: 116),

@@ -42,7 +42,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
     try {
       modes = await FlutterDisplayMode.supported;
     } on PlatformException catch (e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
+      LogUtil.error("Failed to get display modes", e, stackTrace);
     }
     var res = await getDisplayModeType(modes);
 

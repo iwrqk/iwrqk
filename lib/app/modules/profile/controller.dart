@@ -31,7 +31,7 @@ class ProfileController extends GetxController
   void onInit() {
     super.onInit();
 
-    userName = Get.arguments;
+    userName = Get.parameters['userName']!;
 
     loadData();
   }

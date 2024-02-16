@@ -19,6 +19,7 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
   final AccountService accountService = Get.find();
 
   bool _pagination = false;
+  bool _requireLogin = false;
 
   RxInt _currentPage = 0.obs;
   int get currentPage => _currentPage.value;
@@ -36,9 +37,15 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
 
   List<T> get data => _data;
 
-  void init(ScrollController? scrollController, bool paginated, int pageSize) {
+  void init({
+    ScrollController? scrollController,
+    required bool paginated,
+    required bool requireLogin,
+    required int pageSize,
+  }) {
     _scrollController = scrollController;
     _pagination = paginated;
+    _requireLogin = requireLogin;
     this.pageSize = pageSize;
     refreshData(showSplash: true, paginated: paginated);
   }
@@ -59,6 +66,10 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
     paginated = false,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!accountService.isLogin && _requireLogin) {
+        change({"state": "requireLogin"}, status: RxStatus.success());
+        return;
+      }
       _count.value = 0;
       if (!paginated) {
         _currentPage.value = 0;
@@ -104,7 +115,7 @@ abstract class IwrRefreshController<T> extends GetxController with StateMixin {
         }
       }
     } catch (e, stackTrace) {
-      LogUtil.logger.e(e, stackTrace: stackTrace);
+      LogUtil.warning("Failed to load data", e, stackTrace);
 
       if (showSplash) {
         change({"state": "fail", "msg": e.toString()},

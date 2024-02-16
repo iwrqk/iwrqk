@@ -18,6 +18,7 @@ class DownloadTaskDialog extends StatelessWidget {
   final void Function()? onRetry;
   final void Function()? onOpen;
   final void Function()? onShare;
+  final void Function()? gotoPlayer;
   final void Function()? gotoDetail;
 
   DownloadTaskDialog({
@@ -29,6 +30,7 @@ class DownloadTaskDialog extends StatelessWidget {
     this.onRetry,
     this.onOpen,
     this.onShare,
+    this.gotoPlayer,
     this.gotoDetail,
   });
 
@@ -40,7 +42,6 @@ class DownloadTaskDialog extends StatelessWidget {
 
   Widget _buildStateWidget(BuildContext context) {
     final taskStatus = _downloadService.downloadTasksStatus[taskId];
-
     return Obx(() {
       if (taskStatus != null) {
         int downloadedSize = media.size * taskStatus.value.progress ~/ 100;
@@ -186,7 +187,7 @@ class DownloadTaskDialog extends StatelessWidget {
                         child: Material(
                           color: Colors.black.withOpacity(0.4),
                           child: InkWell(
-                            onTap: gotoDetail,
+                            onTap: gotoPlayer,
                             child: const Icon(
                               Icons.play_arrow,
                               size: 48,
@@ -208,6 +209,10 @@ class DownloadTaskDialog extends StatelessWidget {
               () => ButtonBar(
                 alignment: MainAxisAlignment.end,
                 children: [
+                  IconButton(
+                    onPressed: gotoDetail,
+                    icon: const Icon(Icons.open_in_browser),
+                  ),
                   if (taskStatus?.value.status == null ||
                       taskStatus?.value.status ==
                           DownloadTaskStatus.failed) ...[
@@ -236,7 +241,7 @@ class DownloadTaskDialog extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: onOpen,
-                      icon: const Icon(Icons.open_in_browser),
+                      icon: const Icon(Icons.folder),
                     ),
                     IconButton(
                       onPressed: onShare,

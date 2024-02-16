@@ -13,10 +13,9 @@ class PlaylistsPreviewController extends GetxController {
   void onInit() {
     super.onInit();
 
-    dynamic arguments = Get.arguments;
-
-    userId = arguments["userId"];
-    requireMyself = arguments["requireMyself"] ?? false;
+    userId = Get.parameters["userId"]!;
+    requireMyself = Get.parameters["requireMyself"] != null &&
+        Get.parameters["requireMyself"] == "true";
 
     tag = "playlists_$userId";
 

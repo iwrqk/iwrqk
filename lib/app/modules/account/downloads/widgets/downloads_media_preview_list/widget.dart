@@ -99,12 +99,21 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                         );
                       }
 
-                      gotoDetail() {
+                      void gotoPlayer() {
                         Get.toNamed(
                           "/mediaDetail?id=${item.offlineMedia.id}&isOffline=true",
                           arguments: {
                             "mediaType": item.offlineMedia.type,
                             "taskData": item,
+                          },
+                        );
+                      }
+
+                      void gotoDetail() {
+                        Get.toNamed(
+                          "/mediaDetail?id=${item.offlineMedia.id}",
+                          arguments: {
+                            "mediaType": item.offlineMedia.type,
                           },
                         );
                       }
@@ -151,12 +160,14 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                                   mimeType: 'video/mp4')
                             ]);
                           },
+                          gotoPlayer: gotoPlayer,
                           gotoDetail: gotoDetail,
                         ));
                       }
 
                       return DownloadMediaPreview(
                         onTap: popupDialog,
+                        gotoDetail: gotoDetail,
                         taskData: item,
                       );
                     });

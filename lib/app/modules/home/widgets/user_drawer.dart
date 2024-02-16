@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../data/enums/types.dart';
 import '../../../data/services/account_service.dart';
 import '../../../data/services/user_service.dart';
 import '../../../routes/pages.dart';
@@ -84,11 +83,7 @@ class UserDrawer extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (_accountService.isLogin) {
-            Get.toNamed(
-              AppRoutes.profile,
-              arguments: _userService.user!.username,
-              preventDuplicates: true,
-            );
+            Get.toNamed("/profile?userName=${_userService.user!.username}");
           } else {
             Get.toNamed(AppRoutes.login);
           }
@@ -190,11 +185,8 @@ class UserDrawer extends StatelessWidget {
                         Icons.subscriptions,
                         size: 24,
                       ),
-                      routeName: AppRoutes.followersFollowing,
-                      arguments: {
-                        "parentUser": _userService.user,
-                        "sourceType": UsersSourceType.following,
-                      },
+                      routeName:
+                          "/followersFollowing?type=following&userId=${_userService.user?.id}",
                     ),
                     _buildUserItem(
                       context,
@@ -232,11 +224,8 @@ class UserDrawer extends StatelessWidget {
                         Icons.playlist_play,
                         size: 24,
                       ),
-                      routeName: AppRoutes.playlistsPreview,
-                      arguments: {
-                        'requireMyself': true,
-                        'userId': _userService.user?.id,
-                      },
+                      routeName:
+                          "/playlistsPreview?userId=${_userService.user?.id}&requireMyself=true",
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 32),

@@ -6,19 +6,20 @@ import '../../../components/user_preview/users_preview_list/controller.dart';
 import '../../../components/user_preview/users_preview_list/widget.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/account/settings/users_sort_setting.dart';
-import '../../../data/models/user.dart';
 
 class FollowersFollowingPage extends StatelessWidget {
   FollowersFollowingPage({super.key});
 
-  final UsersSourceType sourceType = Get.arguments["sourceType"];
-  final UserModel parentUserData = Get.arguments["parentUser"];
+  final UsersSourceType sourceType = Get.parameters["type"] == "followers"
+      ? UsersSourceType.followers
+      : UsersSourceType.following;
+  final String userId = Get.parameters["userId"]!;
 
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(
       () => UsersPreviewListController(),
-      tag: "${parentUserData.username}_${sourceType.name}",
+      tag: "${userId}_${sourceType.name}",
     );
 
     return Scaffold(
@@ -31,9 +32,9 @@ class FollowersFollowingPage extends StatelessWidget {
         top: false,
         bottom: false,
         child: UsersPreviewList(
-          sortSetting: UsersSortSetting(userId: parentUserData.id),
+          sortSetting: UsersSortSetting(userId: userId),
           sourceType: sourceType,
-          tag: "${parentUserData.username}_${sourceType.name}",
+          tag: "${userId}_${sourceType.name}",
         ),
       ),
     );

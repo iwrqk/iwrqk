@@ -6,8 +6,15 @@ import '../../../components/network_image.dart';
 import '../../../data/models/account/settings/media_sort_setting.dart';
 import 'controller.dart';
 
-class UploadedMediaPage extends GetView<UploadedMediaController> {
+class UploadedMediaPage extends StatefulWidget {
   const UploadedMediaPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _UploadedMediaPageState();
+}
+
+class _UploadedMediaPageState extends State<UploadedMediaPage> {
+  final UploadedMediaController _controller = Get.find();
 
   Widget _buildTabBar(BuildContext context) {
     return Container(
@@ -19,7 +26,7 @@ class UploadedMediaPage extends GetView<UploadedMediaController> {
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.label,
         splashBorderRadius: BorderRadius.circular(8),
-        tabs: controller.tabNameList
+        tabs: _controller.tabNameList
             .map((e) => Tab(
                   text: e,
                 ))
@@ -32,13 +39,13 @@ class UploadedMediaPage extends GetView<UploadedMediaController> {
     return ListTile(
       leading: ClipOval(
         child: NetworkImg(
-          imageUrl: controller.user.avatarUrl,
+          imageUrl: _controller.user.avatarUrl,
           width: 40,
           height: 40,
         ),
       ),
       title: Text(
-        controller.user.name,
+        _controller.user.name,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -54,20 +61,20 @@ class UploadedMediaPage extends GetView<UploadedMediaController> {
         titleSpacing: 0,
       ),
       body: DefaultTabController(
-        length: controller.tabNameList.length,
+        length: _controller.tabNameList.length,
         child: Column(
           children: [
             _buildTabBar(context),
             Expanded(
               child: TabBarView(
                 children: List.generate(
-                  controller.tabNameList.length,
+                  _controller.tabNameList.length,
                   (index) => MediaPreviewGrid(
-                    tag: controller.tabTagList[index],
-                    sourceType: controller.sourceType,
+                    tag: _controller.tabTagList[index],
+                    sourceType: _controller.sourceType,
                     sortSetting: MediaSortSettingModel(
-                      orderType: controller.orderTypeList[index],
-                      userId: controller.user.id,
+                      orderType: _controller.orderTypeList[index],
+                      userId: _controller.user.id,
                     ),
                   ),
                 ),

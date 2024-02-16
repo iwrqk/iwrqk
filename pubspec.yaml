@@ -45,15 +45,16 @@ dependencies:
   package_info_plus: ^5.0.1
   logger: ^2.0.2+1
   device_info_plus: ^9.1.1
-  permission_handler: ^11.2.0
+  permission_handler: ^10.2.0
   url_launcher: ^6.2.2
   markdown_widget: ^2.3.2+3
   photo_view: ^0.14.0
   share_plus: ^7.2.1
+  receive_sharing_intent:
+    git: https://github.com/Nahrawene-ben-hmida/receive_sharing_intent.git
   open_file: ^3.3.2
 
   # download
-  shared_storage: ^0.8.0
   file_picker: ^6.1.1
   flutter_downloader: ^1.11.6
 

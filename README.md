@@ -12,12 +12,12 @@ Now with [Material Design 3](https://m3.material.io/).
 
 ## 🚩 Features
 
- - ✅ Download manager (WIP)
+ - ✅ Download manager (Only for videos)
  - ✅ Friends manager
- - ⬜ Notification and message manager (WIP)
+ - ⬜ Notification and message manager 
  - ✅ Follow, subscription, favorite, playlist, comments
  - ✅ Forum
- - ✅ Custom player and gallery viewer
+ - ✅ Player and gallery viewer
  - ✅ Login, logout, register
  - ✅ Blocklist for tags
  - ⬜ Advanced search
@@ -34,3 +34,5 @@ If you are a developer eager to contribute to this project, feel free to submit 
 In case you come across any bugs, please report them after ensuring they are not caused by network issues, as Iwara's servers may encounter errors.
 
 Let's collaborate to enhance the Iwara experience together!
+
+Special thanks to [guozhigq/pilipala](https://github.com/guozhigq/pilipala) for the inspiration and player implementation.

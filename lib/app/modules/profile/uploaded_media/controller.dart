@@ -32,7 +32,7 @@ class UploadedMediaController extends GetxController {
     user = Get.arguments["user"];
     sourceType = Get.arguments["sourceType"];
 
-    String tag = "${user.username}_${sourceType.name}";
+    String tag = "${user.id}_${sourceType.name}";
 
     tabTagList = [
       "${tag}_latest",

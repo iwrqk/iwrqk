@@ -8,10 +8,14 @@ import 'controller.dart';
 
 class FollowButton extends StatefulWidget {
   final UserModel user;
+  final bool isSmall;
+  final EdgeInsets smallPadding;
 
   const FollowButton({
     super.key,
     required this.user,
+    this.isSmall = false,
+    this.smallPadding = const EdgeInsets.all(8),
   });
 
   @override
@@ -36,10 +40,19 @@ class _FollowButtonState extends State<FollowButton>
     return Obx(() {
       if (_controller.isFollowing) {
         return FilledButton(
-          style: FilledButton.styleFrom(
-            foregroundColor: Theme.of(context).colorScheme.outline,
-            backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-          ),
+          style: widget.isSmall
+              ? FilledButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.outline,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.onInverseSurface,
+                  minimumSize: Size.zero,
+                  padding: widget.smallPadding,
+                )
+              : FilledButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.outline,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.onInverseSurface,
+                ),
           onPressed: _controller.isProcessing ? null : _controller.unfollow,
           child: AutoSizeText(
             t.profile.following,
@@ -48,6 +61,12 @@ class _FollowButtonState extends State<FollowButton>
         );
       } else {
         return FilledButton(
+          style: widget.isSmall
+              ? FilledButton.styleFrom(
+                  minimumSize: Size.zero,
+                  padding: widget.smallPadding,
+                )
+              : null,
           onPressed: _controller.isProcessing ? null : _controller.follow,
           child: AutoSizeText(
             t.profile.follow,

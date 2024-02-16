@@ -25,7 +25,6 @@ import '../../data/models/media/image.dart';
 import '../../data/models/media/video.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
-import '../../routes/pages.dart';
 import '../../utils/display_util.dart';
 import '../account/downloads/widgets/downloads_media_preview_list/widget.dart';
 import 'controller.dart';
@@ -508,11 +507,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
 
   void gotoProfile() {
     HapticFeedback.lightImpact();
-    Get.toNamed(
-      AppRoutes.profile,
-      arguments: _controller.media.user.username,
-      preventDuplicates: true,
-    );
+    Get.toNamed("/profile?userName=${_controller.media.user.username}");
   }
 
   List<Widget> _buildRecommendation() {

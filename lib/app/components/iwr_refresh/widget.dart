@@ -35,16 +35,16 @@ class _IwrRefreshState<T> extends State<IwrRefresh<T>> {
   @override
   void initState() {
     super.initState();
-    widget.controller
-        .init(widget.scrollController, widget.paginated, widget.pageSize);
+    widget.controller.init(
+      scrollController: widget.scrollController,
+      paginated: widget.paginated,
+      requireLogin: widget.requireLogin,
+      pageSize: widget.pageSize,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.controller.accountService.isLogin && widget.requireLogin) {
-      return _buildRequireLoginWidget();
-    }
-
     return EasyRefresh(
       controller: widget.controller.refreshController,
       header: const MaterialHeader(),
@@ -55,7 +55,9 @@ class _IwrRefreshState<T> extends State<IwrRefresh<T>> {
       triggerAxis: Axis.vertical,
       child: widget.controller.obx((state) {
         if (state is Map) {
-          if (state["state"] == "empty") {
+          if (state["state"] == "requireLogin") {
+            return _buildRequireLoginWidget();
+          } else if (state["state"] == "empty") {
             return const Center(
               child: LoadEmpty(),
             );

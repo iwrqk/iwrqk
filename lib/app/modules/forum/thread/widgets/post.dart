@@ -5,7 +5,6 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../../../../components/iwr_markdown.dart';
 import '../../../../components/network_image.dart';
 import '../../../../data/models/forum/post.dart';
-import '../../../../routes/pages.dart';
 import '../../../../utils/display_util.dart';
 
 class Post extends StatefulWidget {
@@ -50,11 +49,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
   Widget _buildUserWidget(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(
-          AppRoutes.profile,
-          arguments: widget.post.user.username,
-          preventDuplicates: false,
-        );
+        Get.toNamed("/profile?userName=${widget.post.user.username}");
       },
       child: Row(
         children: [

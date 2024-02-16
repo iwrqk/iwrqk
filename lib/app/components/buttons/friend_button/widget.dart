@@ -9,10 +9,14 @@ import 'controller.dart';
 
 class FriendButton extends StatefulWidget {
   final UserModel user;
+  final bool isSmall;
+  final EdgeInsets smallPadding;
 
   const FriendButton({
     super.key,
     required this.user,
+    this.isSmall = false,
+    this.smallPadding = const EdgeInsets.all(8),
   });
 
   @override
@@ -39,10 +43,19 @@ class _FriendButtonState extends State<FriendButton>
         case FriendRelationType.unknown:
         case FriendRelationType.none:
           return FilledButton(
-            style: FilledButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-            ),
+            style: widget.isSmall
+                ? FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                    minimumSize: Size.zero,
+                    padding: widget.smallPadding,
+                  )
+                : FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                  ),
             onPressed: _controller.isProcessing
                 ? null
                 : () {
@@ -55,10 +68,19 @@ class _FriendButtonState extends State<FriendButton>
           );
         case FriendRelationType.pending:
           return FilledButton(
-            style: FilledButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.outline,
-              backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-            ),
+            style: widget.isSmall
+                ? FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.outline,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                    minimumSize: Size.zero,
+                    padding: widget.smallPadding,
+                  )
+                : FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.outline,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                  ),
             onPressed: null,
             child: AutoSizeText(
               t.friend.pending,
@@ -67,10 +89,19 @@ class _FriendButtonState extends State<FriendButton>
           );
         case FriendRelationType.friended:
           return FilledButton(
-            style: FilledButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.outline,
-              backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-            ),
+            style: widget.isSmall
+                ? FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.outline,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                    minimumSize: Size.zero,
+                    padding: widget.smallPadding,
+                  )
+                : FilledButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.outline,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onInverseSurface,
+                  ),
             onPressed: _controller.isProcessing
                 ? null
                 : () {

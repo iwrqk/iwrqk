@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 744 (248 per locale)
+/// Strings: 765 (255 per locale)
 ///
-/// Built on 2024-02-15 at 13:09 UTC
+/// Built on 2024-02-16 at 06:58 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -530,34 +530,41 @@ class _StringsSettingsEn {
 	// Translations
 	String get appearance => 'Appearance';
 	String get theme => 'Theme';
-	String get theme_desc => 'Change the theme of the App.';
+	String get theme_desc => 'Change the theme of the App';
 	String get dynamic_color => 'Dynamic Color';
-	String get dynamic_color_desc => 'Change the color of the App according to the device theme.';
+	String get dynamic_color_desc => 'Change the color of the App according to the device theme';
 	String get custom_color => 'Custom Color';
-	String get custom_color_desc => 'Customize the color of the App.';
+	String get custom_color_desc => 'Customize the color of the App';
 	String get language => 'Language';
-	String get language_desc => 'Change the language of the App.';
+	String get language_desc => 'Change the language of the App';
 	String get display_mode => 'Display Mode';
-	String get display_mode_desc => 'Change the display mode of the App.';
+	String get display_mode_desc => 'Change the display mode of the App';
 	String get work_mode => 'Work Mode';
-	String get work_mode_desc => 'Hide all covers of NSFW content.';
+	String get work_mode_desc => 'Hide all covers of NSFW content';
 	String get network => 'Network';
 	String get enable_proxy => 'Enable Proxy';
-	String get enable_proxy_desc => 'Enable proxy for the App.';
+	String get enable_proxy_desc => 'Enable proxy for the App';
 	String get proxy => 'Proxy';
-	String get proxy_desc => 'Set the host and port of the proxy.';
+	String get proxy_desc => 'Set the host and port of the proxy';
 	String get player => 'Player';
 	String get autoplay => 'Autoplay';
-	String get autoplay_desc => 'Autoplay video when opening a video page.';
+	String get autoplay_desc => 'Autoplay video when opening a video page';
 	String get background_play => 'Background Play';
-	String get background_play_desc => 'Allow the App to play video in the background.';
+	String get background_play_desc => 'Allow the App to play video in the background';
 	String get download => 'Download';
 	String get download_path => 'Download Path';
 	String get allow_media_scan => 'Allow Media Scan';
-	String get allow_media_scan_desc => 'Allow media scanner to read downloaded media files.';
+	String get allow_media_scan_desc => 'Allow media scanner to read downloaded media files';
+	String get logging => 'Logging';
+	String get enable_logging => 'Enable Logging';
+	String get enable_logging_desc => 'Enable logging for the App';
+	String get clear_log => 'Clear Log';
+	String clear_log_desc({required Object size}) => 'Current log size: ${size}';
+	String get enable_verbose_logging => 'Enable Verbose Logging';
+	String get enable_verbose_logging_desc => 'Record more detailed logs';
 	String get about => 'About';
 	String get thrid_party_license => 'Third Party License';
-	String get thrid_party_license_desc => 'View the license of third party libraries.';
+	String get thrid_party_license_desc => 'View the license of third party libraries';
 }
 
 // Path: theme
@@ -1200,7 +1207,14 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get download => 'ダウンロード設定';
 	@override String get download_path => 'ダウンロードパス';
 	@override String get allow_media_scan => 'メディアスキャンを許可';
-	@override String get allow_media_scan_desc => 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します。';
+	@override String get allow_media_scan_desc => 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します';
+	@override String get logging => 'ログ';
+	@override String get enable_logging => 'ログを有効にする';
+	@override String get enable_logging_desc => 'アプリのログを有効にします';
+	@override String get clear_log => 'ログをクリア';
+	@override String clear_log_desc({required Object size}) => '現在のログサイズ：${size}';
+	@override String get enable_verbose_logging => '詳細なログを有効にする';
+	@override String get enable_verbose_logging_desc => 'より詳細なログを記録します';
 	@override String get about => '情報';
 	@override String get thrid_party_license => 'サードパーティのライセンス';
 	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
@@ -1824,9 +1838,9 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get theme => '主题';
 	@override String get theme_desc => '设置应用的主题';
 	@override String get dynamic_color => '动态取色';
-	@override String get dynamic_color_desc => '根据系统主题改变应用的主题色。';
+	@override String get dynamic_color_desc => '根据系统主题改变应用的主题色';
 	@override String get custom_color => '自定义颜色';
-	@override String get custom_color_desc => '自定义应用的主题色。';
+	@override String get custom_color_desc => '自定义应用的主题色';
 	@override String get language => '语言';
 	@override String get language_desc => '设置应用的语言';
 	@override String get display_mode => '显示模式';
@@ -1846,7 +1860,14 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get download => '下载设置';
 	@override String get download_path => '下载路径';
 	@override String get allow_media_scan => '允许媒体扫描';
-	@override String get allow_media_scan_desc => '允许媒体扫描程序读取下载的媒体文件。';
+	@override String get allow_media_scan_desc => '允许媒体扫描程序读取下载的媒体文件';
+	@override String get logging => '日志设置';
+	@override String get enable_logging => '启用日志';
+	@override String get enable_logging_desc => '启用应用的日志记录';
+	@override String get clear_log => '清除日志';
+	@override String clear_log_desc({required Object size}) => '当前日志大小: ${size}';
+	@override String get enable_verbose_logging => '启用详细日志';
+	@override String get enable_verbose_logging_desc => '记录更详细的日志';
 	@override String get about => '关于';
 	@override String get thrid_party_license => '第三方库许可';
 	@override String get thrid_party_license_desc => '查看第三方库的许可证';
@@ -2227,34 +2248,41 @@ extension on Translations {
 			case 'notifications.apply': return 'Apply';
 			case 'settings.appearance': return 'Appearance';
 			case 'settings.theme': return 'Theme';
-			case 'settings.theme_desc': return 'Change the theme of the App.';
+			case 'settings.theme_desc': return 'Change the theme of the App';
 			case 'settings.dynamic_color': return 'Dynamic Color';
-			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the device theme.';
+			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the device theme';
 			case 'settings.custom_color': return 'Custom Color';
-			case 'settings.custom_color_desc': return 'Customize the color of the App.';
+			case 'settings.custom_color_desc': return 'Customize the color of the App';
 			case 'settings.language': return 'Language';
-			case 'settings.language_desc': return 'Change the language of the App.';
+			case 'settings.language_desc': return 'Change the language of the App';
 			case 'settings.display_mode': return 'Display Mode';
-			case 'settings.display_mode_desc': return 'Change the display mode of the App.';
+			case 'settings.display_mode_desc': return 'Change the display mode of the App';
 			case 'settings.work_mode': return 'Work Mode';
-			case 'settings.work_mode_desc': return 'Hide all covers of NSFW content.';
+			case 'settings.work_mode_desc': return 'Hide all covers of NSFW content';
 			case 'settings.network': return 'Network';
 			case 'settings.enable_proxy': return 'Enable Proxy';
-			case 'settings.enable_proxy_desc': return 'Enable proxy for the App.';
+			case 'settings.enable_proxy_desc': return 'Enable proxy for the App';
 			case 'settings.proxy': return 'Proxy';
-			case 'settings.proxy_desc': return 'Set the host and port of the proxy.';
+			case 'settings.proxy_desc': return 'Set the host and port of the proxy';
 			case 'settings.player': return 'Player';
 			case 'settings.autoplay': return 'Autoplay';
-			case 'settings.autoplay_desc': return 'Autoplay video when opening a video page.';
+			case 'settings.autoplay_desc': return 'Autoplay video when opening a video page';
 			case 'settings.background_play': return 'Background Play';
-			case 'settings.background_play_desc': return 'Allow the App to play video in the background.';
+			case 'settings.background_play_desc': return 'Allow the App to play video in the background';
 			case 'settings.download': return 'Download';
 			case 'settings.download_path': return 'Download Path';
 			case 'settings.allow_media_scan': return 'Allow Media Scan';
-			case 'settings.allow_media_scan_desc': return 'Allow media scanner to read downloaded media files.';
+			case 'settings.allow_media_scan_desc': return 'Allow media scanner to read downloaded media files';
+			case 'settings.logging': return 'Logging';
+			case 'settings.enable_logging': return 'Enable Logging';
+			case 'settings.enable_logging_desc': return 'Enable logging for the App';
+			case 'settings.clear_log': return 'Clear Log';
+			case 'settings.clear_log_desc': return ({required Object size}) => 'Current log size: ${size}';
+			case 'settings.enable_verbose_logging': return 'Enable Verbose Logging';
+			case 'settings.enable_verbose_logging_desc': return 'Record more detailed logs';
 			case 'settings.about': return 'About';
 			case 'settings.thrid_party_license': return 'Third Party License';
-			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries.';
+			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries';
 			case 'theme.system': return 'System';
 			case 'theme.light': return 'Light';
 			case 'theme.dark': return 'Dark';
@@ -2507,7 +2535,14 @@ extension on _StringsJa {
 			case 'settings.download': return 'ダウンロード設定';
 			case 'settings.download_path': return 'ダウンロードパス';
 			case 'settings.allow_media_scan': return 'メディアスキャンを許可';
-			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します。';
+			case 'settings.allow_media_scan_desc': return 'ダウンロードしたメディアファイルをメディアスキャンアプリに読み取らせることを許可します';
+			case 'settings.logging': return 'ログ';
+			case 'settings.enable_logging': return 'ログを有効にする';
+			case 'settings.enable_logging_desc': return 'アプリのログを有効にします';
+			case 'settings.clear_log': return 'ログをクリア';
+			case 'settings.clear_log_desc': return ({required Object size}) => '現在のログサイズ：${size}';
+			case 'settings.enable_verbose_logging': return '詳細なログを有効にする';
+			case 'settings.enable_verbose_logging_desc': return 'より詳細なログを記録します';
 			case 'settings.about': return '情報';
 			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
 			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
@@ -2741,9 +2776,9 @@ extension on _StringsZhCn {
 			case 'settings.theme': return '主题';
 			case 'settings.theme_desc': return '设置应用的主题';
 			case 'settings.dynamic_color': return '动态取色';
-			case 'settings.dynamic_color_desc': return '根据系统主题改变应用的主题色。';
+			case 'settings.dynamic_color_desc': return '根据系统主题改变应用的主题色';
 			case 'settings.custom_color': return '自定义颜色';
-			case 'settings.custom_color_desc': return '自定义应用的主题色。';
+			case 'settings.custom_color_desc': return '自定义应用的主题色';
 			case 'settings.language': return '语言';
 			case 'settings.language_desc': return '设置应用的语言';
 			case 'settings.display_mode': return '显示模式';
@@ -2763,7 +2798,14 @@ extension on _StringsZhCn {
 			case 'settings.download': return '下载设置';
 			case 'settings.download_path': return '下载路径';
 			case 'settings.allow_media_scan': return '允许媒体扫描';
-			case 'settings.allow_media_scan_desc': return '允许媒体扫描程序读取下载的媒体文件。';
+			case 'settings.allow_media_scan_desc': return '允许媒体扫描程序读取下载的媒体文件';
+			case 'settings.logging': return '日志设置';
+			case 'settings.enable_logging': return '启用日志';
+			case 'settings.enable_logging_desc': return '启用应用的日志记录';
+			case 'settings.clear_log': return '清除日志';
+			case 'settings.clear_log_desc': return ({required Object size}) => '当前日志大小: ${size}';
+			case 'settings.enable_verbose_logging': return '启用详细日志';
+			case 'settings.enable_verbose_logging_desc': return '记录更详细的日志';
 			case 'settings.about': return '关于';
 			case 'settings.thrid_party_license': return '第三方库许可';
 			case 'settings.thrid_party_license_desc': return '查看第三方库的许可证';

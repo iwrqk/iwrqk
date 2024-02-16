@@ -10,22 +10,28 @@ import '../../components/load_fail.dart';
 import '../../components/media_preview/media_preview.dart';
 import '../../components/network_image.dart';
 import '../../data/enums/types.dart';
-import '../../routes/pages.dart';
 import '../../utils/display_util.dart';
 import 'controller.dart';
 import 'guestbook/page.dart';
 import 'profile_detail/page.dart';
 
-class ProfilePage extends GetWidget<ProfileController> {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  Widget _buildJoinSeenAtDate(BuildContext context) {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final ProfileController _controller = Get.find();
+
+  Widget _buildJoinSeenAtDate() {
     Widget createdAtWidget = Text(
-      "${t.profile.join_date}：${DisplayUtil.getDisplayDate(DateTime.parse(controller.profile.user!.createdAt))}",
+      "${t.profile.join_date}：${DisplayUtil.getDisplayDate(DateTime.parse(_controller.profile.user!.createdAt))}",
       style: const TextStyle(fontSize: 14),
     );
 
-    String? seenAt = controller.profile.user!.seenAt;
+    String? seenAt = _controller.profile.user!.seenAt;
 
     if (seenAt != null) {
       Duration difference = DateTime.now().difference(DateTime.parse(seenAt));
@@ -83,7 +89,7 @@ class ProfilePage extends GetWidget<ProfileController> {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader() {
     // bool isMyself = controller.profile.user!.username ==
     //     controller.userService.user?.username;
 
@@ -96,7 +102,7 @@ class ProfilePage extends GetWidget<ProfileController> {
             children: [
               ClipOval(
                 child: NetworkImg(
-                  imageUrl: controller.profile.user!.avatarUrl,
+                  imageUrl: _controller.profile.user!.avatarUrl,
                   width: 96,
                   height: 96,
                 ),
@@ -113,19 +119,14 @@ class ProfilePage extends GetWidget<ProfileController> {
                           onTap: () {
                             HapticFeedback.mediumImpact();
                             Get.toNamed(
-                              AppRoutes.followersFollowing,
-                              arguments: {
-                                "parentUser": controller.profile.user,
-                                "sourceType": UsersSourceType.following,
-                              },
-                              preventDuplicates: false,
+                              "/followersFollowing?type=following&userId=${_controller.profile.user!.id}",
                             );
                           },
                           child: Column(
                             children: [
                               Text(
                                 DisplayUtil.compactBigNumber(
-                                    controller.followingNum),
+                                    _controller.followingNum),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -143,19 +144,14 @@ class ProfilePage extends GetWidget<ProfileController> {
                           onTap: () {
                             HapticFeedback.mediumImpact();
                             Get.toNamed(
-                              AppRoutes.followersFollowing,
-                              arguments: {
-                                "parentUser": controller.profile.user,
-                                "sourceType": UsersSourceType.followers,
-                              },
-                              preventDuplicates: false,
+                              "/followersFollowing?type=followers&userId=${_controller.profile.user!.id}",
                             );
                           },
                           child: Column(
                             children: [
                               Text(
                                 DisplayUtil.compactBigNumber(
-                                    controller.followersNum),
+                                    _controller.followersNum),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -176,13 +172,15 @@ class ProfilePage extends GetWidget<ProfileController> {
                         children: [
                           Expanded(
                             child: FollowButton(
-                              user: controller.profile.user!,
+                              isSmall: true,
+                              user: _controller.profile.user!,
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: FriendButton(
-                              user: controller.profile.user!,
+                              isSmall: true,
+                              user: _controller.profile.user!,
                             ),
                           ),
                         ],
@@ -198,7 +196,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            controller.profile.user!.name,
+            _controller.profile.user!.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
@@ -210,7 +208,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            "@${controller.profile.user!.username}",
+            "@${_controller.profile.user!.username}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
@@ -223,7 +221,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           onTap: () {
             Get.to(
               () => ProfileDetailPage(
-                profile: controller.profile,
+                profile: _controller.profile,
               ),
             );
           },
@@ -234,9 +232,9 @@ class ProfilePage extends GetWidget<ProfileController> {
               children: [
                 Flexible(
                   child: Text(
-                    controller.profile.body.isEmpty
+                    _controller.profile.body.isEmpty
                         ? t.profile.no_description
-                        : controller.profile.body.trim(),
+                        : _controller.profile.body.trim(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -249,14 +247,14 @@ class ProfilePage extends GetWidget<ProfileController> {
             ),
           ),
         ),
-        _buildJoinSeenAtDate(context),
+        _buildJoinSeenAtDate(),
       ],
     );
   }
 
-  List<Widget> _buildUserWorksPreviews(BuildContext context) {
+  List<Widget> _buildUserWorksPreviews() {
     return [
-      if (controller.popularVideos.count != 0) ...[
+      if (_controller.popularVideos.count != 0) ...[
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -272,29 +270,29 @@ class ProfilePage extends GetWidget<ProfileController> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return MediaPreview(
-                  media: controller.popularVideos.results[index],
+                  media: _controller.popularVideos.results[index],
                 );
               },
-              childCount: controller.popularVideos.results.length,
+              childCount: _controller.popularVideos.results.length,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: controller.configService.gridChildAspectRatio,
-              crossAxisCount: controller.configService.crossAxisCount,
+              childAspectRatio: _controller.configService.gridChildAspectRatio,
+              crossAxisCount: _controller.configService.crossAxisCount,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
             ),
           ),
         ),
-        if (controller.popularVideos.results.length >= 8)
+        if (_controller.popularVideos.results.length >= 8)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: OutlinedButton(
                 onPressed: () {
                   Get.toNamed(
-                    AppRoutes.uploadedMedia,
+                    "/uploadedMedia?userId=${_controller.profile.user!.id}&type=uploaderVideos",
                     arguments: {
-                      "user": controller.profile.user,
+                      "user": _controller.profile.user,
                       "sourceType": MediaSourceType.uploaderVideos,
                     },
                     preventDuplicates: false,
@@ -305,7 +303,7 @@ class ProfilePage extends GetWidget<ProfileController> {
             ),
           )
       ],
-      if (controller.popularImages.count != 0) ...[
+      if (_controller.popularImages.count != 0) ...[
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -321,29 +319,29 @@ class ProfilePage extends GetWidget<ProfileController> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return MediaPreview(
-                  media: controller.popularImages.results[index],
+                  media: _controller.popularImages.results[index],
                 );
               },
-              childCount: controller.popularImages.results.length,
+              childCount: _controller.popularImages.results.length,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: controller.configService.gridChildAspectRatio,
-              crossAxisCount: controller.configService.crossAxisCount,
+              childAspectRatio: _controller.configService.gridChildAspectRatio,
+              crossAxisCount: _controller.configService.crossAxisCount,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
             ),
           ),
         ),
-        if (controller.popularImages.results.length >= 8)
+        if (_controller.popularImages.results.length >= 8)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: OutlinedButton(
                 onPressed: () {
                   Get.toNamed(
-                    AppRoutes.uploadedMedia,
+                    "/uploadedMedia?userId=${_controller.profile.user!.id}&type=uploaderImages",
                     arguments: {
-                      "user": controller.profile.user,
+                      "user": _controller.profile.user,
                       "sourceType": MediaSourceType.uploaderImages,
                     },
                     preventDuplicates: false,
@@ -361,20 +359,20 @@ class ProfilePage extends GetWidget<ProfileController> {
     return ListTile(
       leading: ClipOval(
         child: NetworkImg(
-          imageUrl: controller.profile.user!.avatarUrl,
+          imageUrl: _controller.profile.user!.avatarUrl,
           width: 40,
           height: 40,
         ),
       ),
       title: Text(
-        controller.profile.user!.name,
+        _controller.profile.user!.name,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  Widget _buildDataWidget(BuildContext context) {
+  Widget _buildDataWidget() {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -392,7 +390,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                     children: <Widget>[
                       Positioned.fill(
                         child: NetworkImg(
-                          imageUrl: controller.profile.bannerUrl,
+                          imageUrl: _controller.profile.bannerUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -430,7 +428,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           () => CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: _buildHeader(context),
+                child: _buildHeader(),
               ),
               SliverToBoxAdapter(
                 child: Padding(
@@ -439,7 +437,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                     onTap: () {
                       Get.to(
                         () => GuestbookPage(
-                          user: controller.profile.user!,
+                          user: _controller.profile.user!,
                         ),
                       );
                     },
@@ -453,7 +451,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                   ),
                 ),
               ),
-              if (controller.isFetchingWorksPreview)
+              if (_controller.isFetchingWorksPreview)
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 54),
@@ -462,19 +460,19 @@ class ProfilePage extends GetWidget<ProfileController> {
                     ),
                   ),
                 )
-              else if (controller.fetchWorksPreviewMessage != null)
+              else if (_controller.fetchWorksPreviewMessage != null)
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 54),
                     child: LoadFail(
-                      errorMessage: controller.fetchWorksPreviewMessage!,
-                      onRefresh: controller.fetchWorksPreview,
+                      errorMessage: _controller.fetchWorksPreviewMessage!,
+                      onRefresh: _controller.fetchWorksPreview,
                     ),
                   ),
                 ),
-              if (!controller.isFetchingWorksPreview &&
-                  controller.fetchWorksPreviewMessage == null)
-                ..._buildUserWorksPreviews(context),
+              if (!_controller.isFetchingWorksPreview &&
+                  _controller.fetchWorksPreviewMessage == null)
+                ..._buildUserWorksPreviews(),
               SliverToBoxAdapter(
                 child: SizedBox(height: Get.mediaQuery.padding.bottom + 32),
               )
@@ -487,9 +485,9 @@ class ProfilePage extends GetWidget<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
+    return _controller.obx(
       (state) {
-        return _buildDataWidget(context);
+        return _buildDataWidget();
       },
       onError: (error) {
         return Scaffold(
@@ -498,7 +496,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           ),
           body: LoadFail(
             errorMessage: error.toString(),
-            onRefresh: controller.loadData,
+            onRefresh: _controller.loadData,
           ),
         );
       },

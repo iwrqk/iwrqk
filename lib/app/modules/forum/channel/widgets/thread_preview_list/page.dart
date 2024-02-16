@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../../../components/iwr_refresh/widget.dart';
 import '../../../../../components/network_image.dart';
 import '../../../../../data/models/forum/thread.dart';
-import '../../../../../routes/pages.dart';
 import '../../../../../utils/display_util.dart';
 import 'controller.dart';
 
@@ -42,16 +41,10 @@ class _ThreadPreviewListState extends State<ThreadPreviewList> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
         onTap: () {
-          Get.toNamed(AppRoutes.thread, arguments: {
-            'title': thread.title,
-            'starterUserName': thread.user.username,
-            'starterName': thread.user.name,
-            'timestamp': thread.createdAt,
-            'starterAvatarUrl': thread.user.avatarUrl,
-            'channelName': channelName,
-            'threadId': thread.id,
-            'locked': thread.locked,
-          });
+          Get.toNamed("/thread?channelName=$channelName&threadId=${thread.id}",
+              arguments: {
+                'threadModel': thread,
+              });
         },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),

@@ -14,6 +14,7 @@ import 'package:status_bar_control/status_bar_control.dart';
 
 import '../../../data/providers/storage_provider.dart';
 import '../../../data/services/plugin/pl_player/service_locator.dart';
+import '../../../utils/log_util.dart';
 import 'index.dart';
 
 class PlPlayerController {
@@ -326,9 +327,9 @@ class PlPlayerController {
 
         loaded = true;
       });
-    } catch (err) {
+    } catch (err, stackTrace) {
       dataStatus.status.value = DataStatus.error;
-      print('plPlayer err:  $err');
+      LogUtil.error('plPlayer err', err, stackTrace);
     }
   }
 
@@ -586,7 +587,7 @@ class PlPlayerController {
       //   play();
       // }
     } else {
-      print('seek duration else');
+      LogUtil.info('seek duration else');
       _timerForSeek?.cancel();
       _timerForSeek =
           Timer.periodic(const Duration(milliseconds: 200), (Timer t) async {
@@ -739,8 +740,8 @@ class PlPlayerController {
     try {
       FlutterVolumeController.updateShowSystemUI(false);
       await FlutterVolumeController.setVolume(volumeNew);
-    } catch (err) {
-      print(err);
+    } catch (err, stackTrace) {
+      LogUtil.error('setVolume', err, stackTrace);
     }
   }
 
@@ -824,7 +825,7 @@ class PlPlayerController {
       setPlaybackSpeed(
           enableAutoLongPressSpeed ? playbackSpeed * 2 : longPressSpeed);
     } else {
-      print(playbackSpeed);
+      LogUtil.info(playbackSpeed);
       setPlaybackSpeed(playbackSpeed);
     }
   }
@@ -955,8 +956,8 @@ class PlPlayerController {
       // 关闭所有视频页面恢复亮度
       resetBrightness();
       videoPlayerServiceHandler.clear();
-    } catch (err) {
-      print(err);
+    } catch (err, stackTrace) {
+      LogUtil.error('dispose', err, stackTrace);
     }
   }
 }

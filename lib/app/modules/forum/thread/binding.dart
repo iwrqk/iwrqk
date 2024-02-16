@@ -5,6 +5,6 @@ import 'controller.dart';
 class ThreadBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ThreadController>(() => ThreadController());
+    Get.create<ThreadController>(() => ThreadController());
   }
 }

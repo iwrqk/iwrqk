@@ -10,11 +10,7 @@ class UrlUtil {
     RegExp profile = RegExp(r"/profile/([^/]+)");
     if (profile.hasMatch(url)) {
       String username = profile.firstMatch(url)!.group(1)!.split("/").last;
-      Get.toNamed(
-        AppRoutes.profile,
-        arguments: username,
-        preventDuplicates: true,
-      );
+      Get.toNamed("/profile?userName=$username");
       return true;
     }
     // iwara.tv/users/{userid}/xxx (old)
@@ -25,11 +21,7 @@ class UrlUtil {
       return await ApiProvider.getMigrationUserName(oldUserName: username)
           .then((value) {
         if (value.success) {
-          Get.toNamed(
-            AppRoutes.profile,
-            arguments: value.data,
-            preventDuplicates: true,
-          );
+          Get.toNamed("/profile?userName=${value.data}");
           return true;
         }
         return false;
@@ -68,6 +60,31 @@ class UrlUtil {
         preventDuplicates: true,
       );
       return true;
+    }
+    // iwara.tv/forum/{channelName}/{threadId} (new)
+    RegExp thread = RegExp(r"/forum/([^/]+)/([^/]+)");
+    if (thread.hasMatch(url)) {
+      String channelName = thread.firstMatch(url)!.group(1)!.split("/").last;
+      String threadId = thread.firstMatch(url)!.group(2)!.split("/").last;
+      Get.toNamed("/thread?channelName=$channelName&threadId=$threadId");
+      return true;
+    }
+    // iwara.tv/forums/{threadTitle} (old)
+    RegExp threadTitle = RegExp(r"/forums?/([^/]+)");
+    if (threadTitle.hasMatch(url)) {
+      String oldThreadTitle = Uri.decodeComponent(
+          threadTitle.firstMatch(url)!.group(1)!.split("/").last);
+      return await ApiProvider.getMigrationThreadUrl(
+              oldThreadTitle: oldThreadTitle)
+          .then((value) {
+        if (value.success) {
+          String channelName = value.data!.split("/").elementAt(2);
+          String threadId = value.data!.split("/").last;
+          Get.toNamed("/thread?channelName=$channelName&threadId=$threadId");
+          return true;
+        }
+        return false;
+      });
     }
     return false;
   }

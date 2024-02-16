@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../components/load_fail.dart';
 import '../../../components/network_image.dart';
 import '../../../utils/display_util.dart';
 import 'controller.dart';
 import 'widgets/posts_list/widget.dart';
 import 'widgets/send_post_bottom_sheet/widget.dart';
 
-class ThreadPage extends GetWidget<ThreadController> {
+class ThreadPage extends StatefulWidget {
   const ThreadPage({super.key});
+
+  @override
+  State<ThreadPage> createState() => _ThreadPageState();
+}
+
+class _ThreadPageState extends State<ThreadPage> {
+  final ThreadController _controller = Get.find();
 
   Widget _buildTitle() {
     return ListTile(
       leading: ClipOval(
         child: NetworkImg(
-          imageUrl: controller.starterAvatarUrl,
+          imageUrl: _controller.thread.user.avatarUrl,
           width: 30,
           height: 30,
         ),
       ),
       title: Text(
-        controller.starteName,
+        _controller.thread.user.name,
         style: const TextStyle(fontSize: 14),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        DisplayUtil.getDisplayTime(DateTime.parse(controller.timestamp)),
+        DisplayUtil.getDisplayTime(
+            DateTime.parse(_controller.thread.createdAt)),
         style: const TextStyle(fontSize: 12),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -34,14 +43,13 @@ class ThreadPage extends GetWidget<ThreadController> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildDataWidget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: Obx(
           () => AnimatedOpacity(
-            opacity: controller.showTitle ? 1 : 0,
+            opacity: _controller.showTitle ? 1 : 0,
             duration: const Duration(milliseconds: 300),
             child: _buildTitle(),
           ),
@@ -53,13 +61,13 @@ class ThreadPage extends GetWidget<ThreadController> {
           begin: const Offset(0, 2),
           end: const Offset(0, 0),
         ).animate(CurvedAnimation(
-          parent: controller.fabAnimationController,
+          parent: _controller.fabAnimationController,
           curve: Curves.easeInOut,
         )),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 64),
           child: FloatingActionButton(
-            onPressed: controller.locked
+            onPressed: _controller.thread.locked
                 ? null
                 : () {
                     showModalBottomSheet(
@@ -69,12 +77,12 @@ class ThreadPage extends GetWidget<ThreadController> {
                         padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom),
                         child: SendPostBottomSheet(
-                          threadId: controller.threadId,
+                          threadId: _controller.thread.id,
                         ),
                       ),
                     );
                   },
-            child: controller.locked
+            child: _controller.thread.locked
                 ? const Icon(Icons.lock)
                 : const Icon(Icons.reply),
           ),
@@ -84,15 +92,47 @@ class ThreadPage extends GetWidget<ThreadController> {
         children: [
           Expanded(
             child: PostList(
-              title: controller.title,
-              starterUserName: controller.starterUserName,
-              channelName: controller.channelName,
-              threadId: controller.threadId,
-              scrollController: controller.scrollController,
+              title: _controller.thread.title,
+              starterUserName: _controller.thread.user.name,
+              channelName: _controller.channelName,
+              threadId: _controller.thread.id,
+              scrollController: _controller.scrollController,
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_controller.fromExternal) {
+      return _controller.obx(
+        (state) {
+          return _buildDataWidget(context);
+        },
+        onError: (error) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: LoadFail(
+                errorMessage: error!,
+                onRefresh: () {
+                  _controller.refreshData(showSplash: true);
+                },
+              ),
+            ),
+          );
+        },
+        onLoading: Scaffold(
+          appBar: AppBar(),
+          body: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    } else {
+      return _buildDataWidget(context);
+    }
   }
 }

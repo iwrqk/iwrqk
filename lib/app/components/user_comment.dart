@@ -5,7 +5,6 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../data/enums/types.dart';
 import '../data/models/comment.dart';
 import '../data/models/user.dart';
-import '../routes/pages.dart';
 import '../utils/display_util.dart';
 import 'iwr_markdown.dart';
 import 'network_image.dart';
@@ -42,11 +41,7 @@ class _UserCommentState extends State<UserComment>
   String? translatedContent;
 
   void _gotoUserProfile(String userName) {
-    Get.toNamed(
-      AppRoutes.profile,
-      arguments: userName,
-      preventDuplicates: false,
-    );
+    Get.toNamed("/profile?userName=$userName");
   }
 
   void _getTranslatedContent() async {
