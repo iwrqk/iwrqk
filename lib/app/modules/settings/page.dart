@@ -22,6 +22,8 @@ class SettingsPage extends GetView<SettingsController> {
     required Map<T, String> options,
     required void Function(T) onSelected,
   }) {
+    Rx<T> selected = currentOption.obs;
+
     return _buildButton(
       context,
       title: title,
@@ -46,14 +48,17 @@ class SettingsPage extends GetView<SettingsController> {
                 shrinkWrap: true,
                 children: options.entries
                     .map(
-                      (entry) => RadioListTile<T>(
-                        value: entry.key,
-                        title: Text(entry.value),
-                        groupValue: currentOption,
-                        onChanged: (T? value) {
-                          onSelected(value as T);
-                          Get.back();
-                        },
+                      (entry) => Obx(
+                        () => RadioListTile<T>(
+                          value: entry.key,
+                          title: Text(entry.value),
+                          groupValue: selected.value,
+                          onChanged: (T? value) {
+                            if (value != null) {
+                              selected.value = value;
+                            }
+                          },
+                        ),
                       ),
                     )
                     .toList(),
@@ -64,7 +69,19 @@ class SettingsPage extends GetView<SettingsController> {
                 onPressed: () {
                   Get.back();
                 },
-                child: Text(t.notifications.cancel),
+                child: Text(
+                  t.notifications.cancel,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  onSelected(selected.value);
+                  Get.back();
+                },
+                child: Text(t.notifications.confirm),
               ),
             ],
           ),
@@ -436,7 +453,7 @@ class SettingsPage extends GetView<SettingsController> {
           SettingTitle(title: t.settings.player),
           _buildAutoPlaySetting(context),
           _buildBackgroundPlaySetting(context),
-          SettingTitle(title: t.settings.download),
+          if (!GetPlatform.isIOS) SettingTitle(title: t.settings.download),
           if (!GetPlatform.isIOS) _buildDownloadPathSetting(context),
           if (GetPlatform.isAndroid) _buildMediaScanSetting(context),
           SettingTitle(title: t.settings.logging),

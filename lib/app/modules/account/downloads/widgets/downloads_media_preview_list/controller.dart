@@ -42,7 +42,7 @@ class DownloadsMediaPreviewListController
       await downloadFile.delete();
     }
     Directory downloadDir = downloadFile.parent;
-    if (await downloadDir.exists()) {
+    if (await downloadDir.exists() && downloadDir.listSync().isEmpty) {
       await downloadDir.delete();
     }
 

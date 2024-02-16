@@ -100,8 +100,7 @@ class SettingsController extends GetxController {
     _autoPlay.value =
         configService.setting[PLPlayerConfigKey.enableQuickDouble] ?? true;
 
-    downloadService.downloadDirectory
-        .then((value) => _downloadPath.value = value ?? '');
+    _downloadPath.value = downloadService.downloadDirectory ?? "N/A";
 
     _backgroundPlay.value =
         configService.setting[PLPlayerConfigKey.enableBackgroundPlay] ?? false;
@@ -124,7 +123,7 @@ class SettingsController extends GetxController {
   }
 
   void changeDownloadPath() async {
-    if (!await downloadService.checkPermission()) return;
+    if (!await downloadService.checkPermission(true)) return;
 
     String? result;
 

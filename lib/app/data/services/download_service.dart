@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -32,6 +33,9 @@ class DownloadService extends GetxService {
       _downloadTasksStatus;
 
   List<DownloadTask> currentTasks = [];
+
+  // Stream for download completion
+  RxInt currentDownloading = 0.obs;
 
   final ReceivePort _port = ReceivePort();
   static const String _portName = 'downloader_send_port';
@@ -82,6 +86,14 @@ class DownloadService extends GetxService {
         progress: progress,
       );
 
+      if (status == DownloadTaskStatus.enqueued) {
+        currentDownloading++;
+      } else if (status == DownloadTaskStatus.complete ||
+          status == DownloadTaskStatus.failed ||
+          status == DownloadTaskStatus.canceled) {
+        currentDownloading--;
+      }
+
       _downloadTasksStatus.refresh();
     });
   }
@@ -91,7 +103,7 @@ class DownloadService extends GetxService {
   }
 
   Future<void> allowMediaScan(bool allow) async {
-    final downloadPath = await downloadDirectory;
+    final downloadPath = downloadDirectory;
 
     if (downloadPath == null) {
       return;
@@ -106,7 +118,7 @@ class DownloadService extends GetxService {
     }
   }
 
-  Future<String?> get downloadDirectory async {
+  String? get downloadDirectory {
     final String? savedDir = StorageProvider.config
         .get(StorageKey.downloadDirectory, defaultValue: null);
 
@@ -116,6 +128,10 @@ class DownloadService extends GetxService {
 
     return join(PathUtil.getVisibleDir().path, 'downloads');
   }
+
+  // User has chosen a directory that is not in the SAF
+  bool get downloadPathInSAF =>
+      downloadDirectory != join(PathUtil.getVisibleDir().path, 'downloads');
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
@@ -140,22 +156,24 @@ class DownloadService extends GetxService {
     _downloadTasksStatus.refresh();
   }
 
-  Future<bool> checkPermission() async {
+  Future<bool> checkPermission([bool checkExternalStorage = false]) async {
     if (!GetPlatform.isMacOS) {
-      try {
-        await Permission.manageExternalStorage.request();
-        LogUtil.info(await Permission.manageExternalStorage.status);
-        if (!await Permission.manageExternalStorage.isGranted) {
+      if (GetPlatform.isAndroid && checkExternalStorage) {
+        try {
+          await Permission.manageExternalStorage.request();
+          LogUtil.info(await Permission.manageExternalStorage.status);
+          if (!await Permission.manageExternalStorage.isGranted) {
+            return false;
+          }
+        } on Exception catch (e) {
+          LogUtil.error('Request manageExternalStorage permission failed!', e);
           return false;
         }
-      } on Exception catch (e) {
-        LogUtil.error('Request manageExternalStorage permission failed!', e);
-        return false;
       }
 
       try {
         await Permission.storage.request().isGranted;
-        LogUtil.error(await Permission.storage.status);
+        LogUtil.info(await Permission.storage.status);
         return await Permission.storage.isGranted;
       } on Exception catch (e) {
         LogUtil.error('Request storage permission failed!', e);
@@ -184,7 +202,7 @@ class DownloadService extends GetxService {
     required String fileName,
     required String subDirectory,
   }) async {
-    bool isStorage = await checkPermission();
+    bool isStorage = await checkPermission(!downloadPathInSAF);
     if (!isStorage) {
       SmartDialog.showToast(t.message.download.no_provide_storage_permission);
       return null;
@@ -200,7 +218,7 @@ class DownloadService extends GetxService {
       }
     }
 
-    String? directory = await downloadDirectory;
+    String? directory = downloadDirectory;
 
     if (directory == null) {
       SmartDialog.showToast(t.message.download.no_provide_storage_permission);
