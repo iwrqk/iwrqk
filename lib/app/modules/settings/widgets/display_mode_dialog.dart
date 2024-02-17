@@ -65,7 +65,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
       title: Text(t.settings.display_mode),
       contentPadding: const EdgeInsets.symmetric(vertical: 16),
       content: Container(
-        width: Get.width * 0.8,
+        width: Get.width * 0.6,
         constraints: const BoxConstraints(maxHeight: 400),
         decoration: BoxDecoration(
           border: Border.symmetric(
@@ -116,7 +116,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
           onPressed: () {
             Get.back();
           },
-          child: Text(t.notifications.cancel),
+          child: Text(t.notifications.ok),
         ),
       ],
     );

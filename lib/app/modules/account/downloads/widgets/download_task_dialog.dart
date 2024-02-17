@@ -215,6 +215,7 @@ class DownloadTaskDialog extends StatelessWidget {
                         onRetry?.call(taskId);
                         Get.back();
                       },
+                      tooltip: t.download.retry,
                       icon: const Icon(Icons.refresh),
                     ),
                     IconButton(
@@ -222,6 +223,7 @@ class DownloadTaskDialog extends StatelessWidget {
                         onDeleted?.call(taskId);
                         Get.back();
                       },
+                      tooltip: t.download.delete,
                       icon: const Icon(Icons.delete),
                     ),
                   ] else if (taskStatus?.value.status ==
@@ -231,18 +233,21 @@ class DownloadTaskDialog extends StatelessWidget {
                         onDeleted?.call(taskId);
                         Get.back();
                       },
+                      tooltip: t.download.delete,
                       icon: const Icon(Icons.delete),
                     ),
                     IconButton(
                       onPressed: () {
                         onOpen?.call(taskId);
                       },
+                      tooltip: t.download.open_with,
                       icon: const Icon(Icons.folder),
                     ),
                     IconButton(
                       onPressed: () {
                         onShare?.call(taskId);
                       },
+                      tooltip: t.media.share,
                       icon: const Icon(Icons.share),
                     ),
                   ] else ...[
@@ -260,12 +265,14 @@ class DownloadTaskDialog extends StatelessWidget {
                                 }
                               });
                             },
+                            tooltip: t.download.resume,
                             icon: const Icon(Icons.play_arrow),
                           )
                         : IconButton(
                             onPressed: () {
                               onPaused?.call(taskId);
                             },
+                            tooltip: t.download.pause,
                             icon: const Icon(Icons.pause),
                           ),
                     IconButton(
@@ -273,11 +280,13 @@ class DownloadTaskDialog extends StatelessWidget {
                         onDeleted?.call(taskId);
                         Get.back();
                       },
+                      tooltip: t.download.delete,
                       icon: const Icon(Icons.delete),
                     ),
                   ],
                   IconButton(
                     onPressed: gotoDetail,
+                    tooltip: t.download.jump_to_detail,
                     icon: const Icon(Icons.open_in_browser),
                   ),
                 ],

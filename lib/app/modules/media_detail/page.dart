@@ -19,6 +19,7 @@ import '../../components/media_preview/media_flat_preview.dart';
 import '../../components/network_image.dart';
 import '../../components/plugin/pl_player/index.dart';
 import '../../components/send_comment_bottom_sheet/widget.dart';
+import '../../components/user_preview/user_preview.dart';
 import '../../const/iwara.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/media/image.dart';
@@ -238,27 +239,24 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Icon(
+              Icons.lock,
+              size: 56,
+              color: Theme.of(context).colorScheme.outline,
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.lock,
-                      size: 42,
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                  Text(
-                    t.media.private,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).colorScheme.outline),
-                  ),
-                ],
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                t.media.private,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
               ),
+            ),
+            UserPreview(
+              user: _controller.user,
+              showFriendButton: true,
             ),
           ],
         ),
@@ -813,12 +811,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             return _buildPlayer(true);
           } else {
             Widget child;
-            if (Get.mediaQuery.orientation == Orientation.landscape &&
-                _controller.mediaType == MediaType.image) {
-              child = _buildGallery();
-            } else if (plPlayerController?.isFullScreen.value == true &&
-                _controller.mediaType == MediaType.video) {
-              child = _buildPlayer();
+            if (plPlayerController?.isFullScreen.value == true ||
+                Get.mediaQuery.orientation == Orientation.landscape) {
+              child = _controller.mediaType == MediaType.video
+                  ? _buildPlayer()
+                  : _buildGallery();
             } else {
               child = AspectRatio(
                 aspectRatio: 16 / 9,
@@ -849,7 +846,8 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     elevation: 0,
                   ),
                 ),
-                body: plPlayerController?.isFullScreen.value == true
+                body: plPlayerController?.isFullScreen.value == true ||
+                        Get.mediaQuery.orientation == Orientation.landscape
                     ? buildMedia()
                     : Column(
                         children: [

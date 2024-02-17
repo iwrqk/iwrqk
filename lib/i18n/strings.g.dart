@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 765 (255 per locale)
+/// Strings: 780 (260 per locale)
 ///
-/// Built on 2024-02-16 at 06:58 UTC
+/// Built on 2024-02-17 at 06:31 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -456,6 +456,11 @@ class _StringsDownloadEn {
 	String get paused => 'Paused';
 	String get finished => 'Finished';
 	String get failed => 'Failed';
+	String get retry => 'Retry';
+	String get delete => 'Delete';
+	String get pause => 'Pause';
+	String get resume => 'Resume';
+	String get open_with => 'Open with';
 	String get jump_to_detail => 'Jump to detail page';
 }
 
@@ -1109,6 +1114,11 @@ class _StringsDownloadJa implements _StringsDownloadEn {
 	@override String get paused => '一時停止済み';
 	@override String get finished => '完了';
 	@override String get failed => 'ダウンロード失敗';
+	@override String get retry => '再試行';
+	@override String get delete => '削除';
+	@override String get pause => '一時停止';
+	@override String get resume => '再開';
+	@override String get open_with => '開く';
 	@override String get jump_to_detail => '詳細ページに移動';
 }
 
@@ -1762,6 +1772,11 @@ class _StringsDownloadZhCn implements _StringsDownloadEn {
 	@override String get paused => '已暂停';
 	@override String get finished => '已完成';
 	@override String get failed => '下载失败';
+	@override String get retry => '重新下载';
+	@override String get delete => '删除下载任务';
+	@override String get pause => '暂停';
+	@override String get resume => '继续';
+	@override String get open_with => '用...打开';
 	@override String get jump_to_detail => '查看详情页';
 }
 
@@ -2219,6 +2234,11 @@ extension on Translations {
 			case 'download.paused': return 'Paused';
 			case 'download.finished': return 'Finished';
 			case 'download.failed': return 'Failed';
+			case 'download.retry': return 'Retry';
+			case 'download.delete': return 'Delete';
+			case 'download.pause': return 'Pause';
+			case 'download.resume': return 'Resume';
+			case 'download.open_with': return 'Open with';
 			case 'download.jump_to_detail': return 'Jump to detail page';
 			case 'playlist.title': return 'Playlist title';
 			case 'playlist.create': return 'Create playlist';
@@ -2482,6 +2502,11 @@ extension on _StringsJa {
 			case 'download.paused': return '一時停止済み';
 			case 'download.finished': return '完了';
 			case 'download.failed': return 'ダウンロード失敗';
+			case 'download.retry': return '再試行';
+			case 'download.delete': return '削除';
+			case 'download.pause': return '一時停止';
+			case 'download.resume': return '再開';
+			case 'download.open_with': return '開く';
 			case 'download.jump_to_detail': return '詳細ページに移動';
 			case 'playlist.title': return 'プレイリストのタイトル';
 			case 'playlist.create': return 'プレイリストの作成';
@@ -2745,6 +2770,11 @@ extension on _StringsZhCn {
 			case 'download.paused': return '已暂停';
 			case 'download.finished': return '已完成';
 			case 'download.failed': return '下载失败';
+			case 'download.retry': return '重新下载';
+			case 'download.delete': return '删除下载任务';
+			case 'download.pause': return '暂停';
+			case 'download.resume': return '继续';
+			case 'download.open_with': return '用...打开';
 			case 'download.jump_to_detail': return '查看详情页';
 			case 'playlist.title': return '播放列表标题';
 			case 'playlist.create': return '创建播放列表';

@@ -202,7 +202,7 @@ class DownloadService extends GetxService {
     required String fileName,
     required String subDirectory,
   }) async {
-    bool isStorage = await checkPermission(!downloadPathInSAF);
+    bool isStorage = await checkPermission(downloadPathInSAF);
     if (!isStorage) {
       SmartDialog.showToast(t.message.download.no_provide_storage_permission);
       return null;

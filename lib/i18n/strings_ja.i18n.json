@@ -167,6 +167,11 @@
         "paused": "一時停止済み",
         "finished": "完了",
         "failed": "ダウンロード失敗",
+        "retry": "再試行",
+        "delete": "削除",
+        "pause": "一時停止",
+        "resume": "再開",
+        "open_with": "開く",
         "jump_to_detail": "詳細ページに移動"
     },
     "playlist": {

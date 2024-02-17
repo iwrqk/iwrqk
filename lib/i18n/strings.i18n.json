@@ -167,6 +167,11 @@
         "paused": "Paused",
         "finished": "Finished",
         "failed": "Failed",
+        "retry": "Retry",
+        "delete": "Delete",
+        "pause": "Pause",
+        "resume": "Resume",
+        "open_with": "Open with",
         "jump_to_detail": "Jump to detail page"
     },
     "playlist": {

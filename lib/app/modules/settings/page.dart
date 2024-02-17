@@ -55,6 +55,7 @@ class SettingsPage extends GetView<SettingsController> {
                           groupValue: selected.value,
                           onChanged: (T? value) {
                             if (value != null) {
+                              HapticFeedback.mediumImpact();
                               selected.value = value;
                             }
                           },

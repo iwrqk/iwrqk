@@ -167,6 +167,11 @@
         "paused": "已暂停",
         "finished": "已完成",
         "failed": "下载失败",
+        "retry": "重新下载",
+        "delete": "删除下载任务",
+        "pause": "暂停",
+        "resume": "继续",
+        "open_with": "用...打开",
         "jump_to_detail": "查看详情页"
     },
     "playlist": {
