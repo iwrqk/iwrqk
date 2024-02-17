@@ -45,7 +45,7 @@ dependencies:
   package_info_plus: ^5.0.1
   logger: ^2.0.2+1
   device_info_plus: ^9.1.1
-  permission_handler: ^10.2.0
+  permission_handler: ^11.2.0
   url_launcher: ^6.2.2
   markdown_widget: ^2.3.2+3
   photo_view: ^0.14.0

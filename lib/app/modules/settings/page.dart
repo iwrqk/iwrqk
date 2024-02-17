@@ -369,8 +369,8 @@ class SettingsPage extends GetView<SettingsController> {
   Widget _buildLicenseButton(BuildContext context) {
     return _buildButton(
       context,
-      title: t.settings.thrid_party_license,
-      description: t.settings.thrid_party_license_desc,
+      title: t.settings.third_party_license,
+      description: t.settings.third_party_license,
       iconData: Icons.info,
       onPressed: () async {
         PackageInfo packageInfo = await PackageInfo.fromPlatform();

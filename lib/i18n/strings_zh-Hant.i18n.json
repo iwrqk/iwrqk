@@ -1,0 +1,333 @@
+{
+  "nav": {
+    "subscriptions": "訂閱",
+    "videos": "影片",
+    "images": "圖片",
+    "forum": "論壇",
+    "search": "搜尋"
+  },
+  "common": {
+    "video": "影片",
+    "image": "圖片",
+    "collapse": "收合",
+    "expand": "展開",
+    "translate": "翻譯",
+    "open": "打開"
+  },
+  "refresh": {
+    "empty": "空空如也",
+    "drag_to_load": "下拉載入",
+    "release_to_load": "釋放載入",
+    "success": "載入成功",
+    "failed": "載入失敗",
+    "no_more": "沒有更多了",
+    "last_load": "上次載入於 %T"
+  },
+  "records": {
+    "select_all": "全選",
+    "select_inverse": "反選",
+    "selected_num": "已選擇 $num 項",
+    "multiple_selection_mode": "多選模式",
+    "delete": "刪除",
+    "delete_all": "刪除所有"
+  },
+  "account": {
+    "captcha": "驗證碼",
+    "login": "登入",
+    "logout": "登出",
+    "register": "註冊",
+    "email": "電子郵件",
+    "email_or_username": "電子郵件或使用者名稱",
+    "password": "密碼",
+    "forgot_password": "忘記密碼",
+    "require_login": "請先登入"
+  },
+  "profile": {
+    "profile": "個人檔案",
+    "follow": "追蹤",
+    "followers": "粉絲",
+    "following": "正在追蹤",
+    "nickname": "暱稱",
+    "username": "使用者名稱",
+    "user_id": "使用者 ID",
+    "description": "個人簡介",
+    "no_description": "該使用者是個神秘人，不喜歡被人圍觀。",
+    "join_date": "加入日期",
+    "last_active_time": "最後上線時間",
+    "online": "在線上",
+    "message": "私訊",
+    "guestbook": "留言板",
+    "view_more": "查看更多"
+  },
+  "sort": {
+    "latest": "最新",
+    "trending": "趨勢",
+    "popularity": "熱門",
+    "most_views": "最多觀看",
+    "most_likes": "最多按讚"
+  },
+  "filter": {
+    "all": "全部",
+    "filter": "篩選",
+    "rating": "分級",
+    "tag": "標籤",
+    "tags": "標籤",
+    "date": "日期",
+    "general": "普遍級",
+    "ecchi": "成人級",
+    "select_rating": "選擇分級",
+    "select_year": "選擇年份",
+    "select_month": "選擇月份"
+  },
+  "search": {
+    "users": "使用者",
+    "search": "搜尋",
+    "history": {
+      "delete": "刪除所有紀錄"
+    }
+  },
+  "time": {
+    "seconds_ago": "$time 秒前",
+    "minutes_ago": "$time 分鐘前",
+    "hours_ago": "$time 小時前",
+    "days_ago": "$time 天前"
+  },
+  "media": {
+    "private": "私人",
+    "add_to_playlist": "加入播放清單",
+    "external_video": "外部影片",
+    "share": "分享",
+    "download": "下載",
+    "more_from": "更多來自 $username",
+    "more_like_this": "類似作品",
+    "updated_at": "更新於 $time"
+  },
+  "player": {
+    "current_item": "目前: $item",
+    "quality": "畫質",
+    "select_quality": "選擇畫質",
+    "playback_speed": "播放速度",
+    "select_playback_speed": "選擇播放速度",
+    "aspect_ratio": "長寬比",
+    "select_aspect_ratio": "選擇長寬比",
+    "aspect_ratios": {
+      "contain": "包含",
+      "cover": "覆蓋",
+      "fill": "填滿",
+      "fit_height": "適應高度",
+      "fit_width": "適應寬度",
+      "scale_down": "縮小適應"
+    },
+    "seconds": "$value 秒",
+    "double_speed": "2 倍"
+  },
+  "comment": {
+    "comment": "評論",
+    "comments": "評論",
+    "comment_detail": "評論詳情",
+    "edit_comment": "編輯評論",
+    "delete_comment": "刪除評論",
+    "reply": "回覆",
+    "replies_in_total": "共 $numReply 條回覆",
+    "show_all_replies": "顯示全部 $numReply 條回覆"
+  },
+  "user": {
+    "following": "正在關注",
+    "history": "歷史紀錄",
+    "blocked_tags": "封鎖標籤",
+    "friends": "好友",
+    "downloads": "下載記錄",
+    "favorites": "收藏",
+    "playlists": "播放清單",
+    "settings": "設置",
+    "about": "關於"
+  },
+  "friend": {
+    "friend_requests": "好友請求",
+    "add_friend": "新增好友",
+    "pending": "待處理",
+    "unfriend": "解除好友關係",
+    "accept": "接受",
+    "reject": "拒絕"
+  },
+  "blocked_tags": {
+    "add_blocked_tag": "新增封鎖標籤",
+    "blocked_tag": "封鎖標籤"
+  },
+  "download": {
+    "create_download_task": "建立下載任務",
+    "unknown": "未知",
+    "enqueued": "等待中",
+    "downloading": "下載中",
+    "paused": "已暫停",
+    "finished": "已完成",
+    "failed": "下載失敗",
+    "retry": "重新下載",
+    "delete": "刪除下載任務",
+    "pause": "暫停",
+    "resume": "繼續",
+    "open_with": "用...開啟",
+    "jump_to_detail": "查看詳情"
+  },
+  "playlist": {
+    "title": "播放清單標題",
+    "create": "創建播放清單",
+    "select": "選擇播放清單",
+    "videos_count": "$numVideo 個影片",
+    "videos_count_plural": "$numVideo 個影片"
+  },
+  "channel": {
+    "administration": "管理者",
+    "announcements": "公告",
+    "feedback": "回饋",
+    "support": "支援",
+    "global": "全域",
+    "general": "一般",
+    "guides": "指南",
+    "questions": "幫助/問題",
+    "requests": "請求",
+    "sharing": "分享",
+    "label": "${numThread} 個帖子 ${numPosts} 個回覆"
+  },
+  "create_thread": {
+    "create_thread": "發帖",
+    "title": "標題",
+    "content": "內容"
+  },
+  "notifications": {
+    "ok": "好的",
+    "success": "成功",
+    "error": "錯誤",
+    "loading": "載入中...",
+    "cancel": "取消",
+    "confirm": "確認",
+    "apply": "應用"
+  },
+  "settings": {
+    "appearance": "外觀設定",
+    "theme": "主題",
+    "theme_desc": "設定應用的主題",
+    "dynamic_color": "動態取色",
+    "dynamic_color_desc": "根據系統主題改變應用的主題色",
+    "custom_color": "自定義顏色",
+    "custom_color_desc": "自定義應用的主題色",
+    "language": "語言",
+    "language_desc": "設定應用的語言",
+    "display_mode": "顯示模式",
+    "display_mode_desc": "設定應用的顯示模式",
+    "work_mode": "工作模式",
+    "work_mode_desc": "隱藏所有 NSFW 內容的封面",
+    "network": "網路設定",
+    "enable_proxy": "啟用代理",
+    "enable_proxy_desc": "啟用代理服務",
+    "proxy": "代理設定",
+    "proxy_desc": "設定代理伺服器",
+    "player": "播放器設定",
+    "autoplay": "自動播放",
+    "autoplay_desc": "打開影片頁面時自動播放影片",
+    "background_play": "背景播放",
+    "background_play_desc": "允許應用在背景播放影片",
+    "download": "下載設定",
+    "download_path": "下載路徑",
+    "allow_media_scan": "允許媒體掃描",
+    "allow_media_scan_desc": "允許媒體掃描程式讀取下載的媒體檔案",
+    "logging": "日誌設定",
+    "enable_logging": "啟用日誌",
+    "enable_logging_desc": "啟用應用的日誌記錄",
+    "clear_log": "清除日誌",
+    "clear_log_desc": "目前日誌大小: $size",
+    "enable_verbose_logging": "啟用詳細日誌",
+    "enable_verbose_logging_desc": "記錄更詳細的日誌",
+    "about": "關於",
+    "third_party_license": "第三方庫許可",
+    "third_party_license_desc": "查看第三方庫的許可證"
+  },
+  "theme": {
+    "system": "跟隨系統",
+    "light": "淺色",
+    "dark": "深色"
+  },
+  "colors": {
+    "pink": "粉紅",
+    "red": "紅色",
+    "orange": "橙色",
+    "amber": "琥珀",
+    "yellow": "黃色",
+    "lime": "青檸",
+    "lightGreen": "淺綠",
+    "green": "綠色",
+    "teal": "青色",
+    "cyan": "藍綠",
+    "lightBlue": "淺藍",
+    "blue": "藍色",
+    "indigo": "藍靛",
+    "purple": "紫色",
+    "deepPurple": "深紫",
+    "blueGrey": "藍灰",
+    "brown": "棕色",
+    "grey": "灰色"
+  },
+  "display_mode": {
+    "no_available": "無可用顯示模式",
+    "auto": "自動",
+    "system": "系統"
+  },
+  "proxy": {
+    "host": "主機名",
+    "port": "端口"
+  },
+  "message": {
+    "exit_app": "再按一次退出應用",
+    "are_you_sure_to_do_that": "你確定要這麼做嗎？",
+    "restart_required": "重啟後生效",
+    "please_type_host": "請輸入主機名",
+    "please_type_port": "請輸入端口",
+    "account": {
+      "login_success": "登入成功！",
+      "register_success": "註冊成功，請查看郵箱激活帳號。",
+      "login_password_longer_than_6": "密碼長度至少為 6 位",
+      "please_type_email": "請輸入郵箱",
+      "please_type_email_or_username": "請輸入郵箱或用戶名",
+      "please_type_valid_email": "請輸入正確的郵箱",
+      "please_type_password": "請輸入密碼",
+      "please_type_captcha": "請輸入驗證碼"
+    },
+    "comment": {
+      "content_empty": "內容不能為空。",
+      "content_too_long": "內容不能超過 1000 個字符。",
+      "sent": "回覆已發送。"
+    },
+    "create_thread": {
+      "title_empty": "標題不能為空。",
+      "title_too_long": "標題不能太長。",
+      "content_empty": "內容不能為空。",
+      "content_too_long": "內容不能超過 20000 個字符。",
+      "created": "帖子已發送。"
+    },
+    "blocked_tags": {
+      "save_confirm": "確定保存屏蔽標籤嗎？",
+      "saved": "屏蔽標籤已保存。",
+      "reached_limit": "屏蔽標籤數量已達到上限。"
+    },
+    "playlist": {
+      "empty_playlist_title": "播放列表標題不能為空。",
+      "playlist_created": "播放列表已創建。"
+    },
+    "download": {
+      "no_provide_storage_permission": "未提供存儲權限。",
+      "task_already_exists": "下載任務已存在。",
+      "task_created": "下載任務已創建。",
+      "maximum_simultaneous_download_reached": "已達到最大同時下載數。"
+    }
+  },
+  "error": {
+    "retry": "載入失敗，點擊重試",
+    "fetch_failed": "無法獲取影片連結",
+    "fetch_user_info_failed": "無法獲取使用者資訊",
+    "account": {
+      "invalid_login": "郵箱或密碼錯誤",
+      "invalid_host": "無效的主機名",
+      "invalid_captcha": "驗證碼錯誤"
+    }
+  }
+}

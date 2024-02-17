@@ -1,338 +1,339 @@
 {
-    "locales(map)": {
-        "en": "English",
-        "ja": "日本語",
-        "zh-CN": "简体中文"
+  "locales(map)": {
+    "en": "English",
+    "ja": "日本語",
+    "zh-Hans": "简体中文",
+    "zh-Hant": "繁體中文"
+  },
+  "nav": {
+    "subscriptions": "Subscriptions",
+    "videos": "Videos",
+    "images": "Images",
+    "forum": "Forum",
+    "search": "Search"
+  },
+  "common": {
+    "video": "Video",
+    "image": "Image",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "translate": "Translate",
+    "open": "Open"
+  },
+  "refresh": {
+    "empty": "Nothing here",
+    "drag_to_load": "Pull to load",
+    "release_to_load": "Release to load",
+    "success": "Succeeded",
+    "failed": "Failed",
+    "no_more": "No more",
+    "last_load": "Last updated at %T"
+  },
+  "records": {
+    "select_all": "Select all",
+    "select_inverse": "Select inverse",
+    "selected_num": "$num selected",
+    "multiple_selection_mode": "Multiple selection mode",
+    "delete": "Delete",
+    "delete_all": "Delete all"
+  },
+  "account": {
+    "captcha": "Captcha",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "email_or_username": "Email or username",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "require_login": "You must be logged in to do that."
+  },
+  "profile": {
+    "profile": "Profile",
+    "follow": "Follow",
+    "followers": "Followers",
+    "following": "Following",
+    "nickname": "Nickname",
+    "username": "Username",
+    "user_id": "User ID",
+    "description": "Description",
+    "no_description": "This user prefers to keep an air of mystery around them.",
+    "join_date": "Join date",
+    "last_active_time": "Last active time",
+    "online": "Online",
+    "message": "Message",
+    "guestbook": "Guestbook",
+    "view_more": "View more"
+  },
+  "sort": {
+    "latest": "Latest",
+    "trending": "Trending",
+    "popularity": "Popularity",
+    "most_views": "Most views",
+    "most_likes": "Most likes"
+  },
+  "filter": {
+    "all": "All",
+    "filter": "Filter",
+    "rating": "Rating",
+    "tag": "Tag",
+    "tags": "Tags",
+    "date": "Date",
+    "general": "General",
+    "ecchi": "Ecchi",
+    "select_rating": "Select rating",
+    "select_year": "Select year",
+    "select_month": "Select month"
+  },
+  "search": {
+    "users": "Users",
+    "search": "Search",
+    "history": {
+      "delete": "Delete All"
+    }
+  },
+  "time": {
+    "seconds_ago": "$time seconds ago",
+    "minutes_ago": "$time minutes ago",
+    "hours_ago": "$time hours ago",
+    "days_ago": "$time days ago"
+  },
+  "media": {
+    "private": "Private",
+    "add_to_playlist": "Add to playlist",
+    "external_video": "External video",
+    "share": "Share",
+    "download": "Download",
+    "more_from": "More from $username",
+    "more_like_this": "More like this",
+    "updated_at": "Updated at $time"
+  },
+  "player": {
+    "current_item": "Current: $item",
+    "quality": "Quality",
+    "select_quality": "Select quality",
+    "playback_speed": "Playback speed",
+    "select_playback_speed": "Select playback speed",
+    "aspect_ratio": "Aspect ratio",
+    "select_aspect_ratio": "Select aspect ratio",
+    "aspect_ratios": {
+      "contain": "Contain",
+      "cover": "Cover",
+      "fill": "Fill",
+      "fit_height": "Fit height",
+      "fit_width": "Fit width",
+      "scale_down": "Scale down"
     },
-    "nav": {
-        "subscriptions": "Subscriptions",
-        "videos": "Videos",
-        "images": "Images",
-        "forum": "Forum",
-        "search": "Search"
-    },
-    "common": {
-        "video": "Video",
-        "image": "Image",
-        "collapse": "Collapse",
-        "expand": "Expand",
-        "translate": "Translate",
-        "open": "Open"
-    },
-    "refresh": {
-        "empty": "Nothing here",
-        "drag_to_load": "Pull to load",
-        "release_to_load": "Release to load",
-        "success": "Succeeded",
-        "failed": "Failed",
-        "no_more": "No more",
-        "last_load": "Last updated at %T"
-    },
-    "records": {
-        "select_all": "Select all",
-        "select_inverse": "Select inverse",
-        "selected_num": "$num selected",
-        "multiple_selection_mode": "Multiple selection mode",
-        "delete": "Delete",
-        "delete_all": "Delete all"
-    },
+    "seconds": "${value}s",
+    "double_speed": "2x"
+  },
+  "comment": {
+    "comment": "Comment",
+    "comments": "Comments",
+    "comment_detail": "Comment detail",
+    "edit_comment": "Edit comment",
+    "delete_comment": "Delete comment",
+    "reply": "Reply",
+    "replies_in_total": "$numReply replies in total",
+    "show_all_replies": "Show all $numReply replies"
+  },
+  "user": {
+    "following": "Following",
+    "history": "History",
+    "blocked_tags": "Blocked Tags",
+    "friends": "Friends",
+    "downloads": "Downloads",
+    "favorites": "Favorites",
+    "playlists": "Playlists",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "friend": {
+    "friend_requests": "Friend Requests",
+    "add_friend": "Add friend",
+    "pending": "Pending",
+    "unfriend": "Unfriend",
+    "accept": "Accept",
+    "reject": "Reject"
+  },
+  "blocked_tags": {
+    "add_blocked_tag": "Add blocked tag",
+    "blocked_tag": "Blocked tag"
+  },
+  "download": {
+    "create_download_task": "Create download task",
+    "unknown": "Unknown",
+    "enqueued": "Enqueued",
+    "downloading": "Downloading",
+    "paused": "Paused",
+    "finished": "Finished",
+    "failed": "Failed",
+    "retry": "Retry",
+    "delete": "Delete",
+    "pause": "Pause",
+    "resume": "Resume",
+    "open_with": "Open with",
+    "jump_to_detail": "Jump to detail page"
+  },
+  "playlist": {
+    "title": "Playlist title",
+    "create": "Create playlist",
+    "select": "Select playlist",
+    "videos_count": "$numVideo video",
+    "videos_count_plural": "$numVideo videos"
+  },
+  "channel": {
+    "administration": "Administration",
+    "announcements": "Announcements",
+    "feedback": "Feedback",
+    "support": "Support",
+    "global": "Global",
+    "general": "General",
+    "guides": "Guides",
+    "questions": "Questions",
+    "requests": "Requests",
+    "sharing": "Sharing",
+    "label": "$numThread Threads $numPosts Posts"
+  },
+  "create_thread": {
+    "create_thread": "Create thread",
+    "title": "Title",
+    "content": "Content"
+  },
+  "notifications": {
+    "ok": "OK",
+    "success": "Success",
+    "error": "Error",
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "apply": "Apply"
+  },
+  "settings": {
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "theme_desc": "Change the theme of the App",
+    "dynamic_color": "Dynamic Color",
+    "dynamic_color_desc": "Change the color of the App according to the device theme",
+    "custom_color": "Custom Color",
+    "custom_color_desc": "Customize the color of the App",
+    "language": "Language",
+    "language_desc": "Change the language of the App",
+    "display_mode": "Display Mode",
+    "display_mode_desc": "Change the display mode of the App",
+    "work_mode": "Work Mode",
+    "work_mode_desc": "Hide all covers of NSFW content",
+    "network": "Network",
+    "enable_proxy": "Enable Proxy",
+    "enable_proxy_desc": "Enable proxy for the App",
+    "proxy": "Proxy",
+    "proxy_desc": "Set the host and port of the proxy",
+    "player": "Player",
+    "autoplay": "Autoplay",
+    "autoplay_desc": "Autoplay video when opening a video page",
+    "background_play": "Background Play",
+    "background_play_desc": "Allow the App to play video in the background",
+    "download": "Download",
+    "download_path": "Download Path",
+    "allow_media_scan": "Allow Media Scan",
+    "allow_media_scan_desc": "Allow media scanner to read downloaded media files",
+    "logging": "Logging",
+    "enable_logging": "Enable Logging",
+    "enable_logging_desc": "Enable logging for the App",
+    "clear_log": "Clear Log",
+    "clear_log_desc": "Current log size: $size",
+    "enable_verbose_logging": "Enable Verbose Logging",
+    "enable_verbose_logging_desc": "Record more detailed logs",
+    "about": "About",
+    "third_party_license": "Third Party License",
+    "third_party_license_desc": "View the license of third party libraries"
+  },
+  "theme": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "colors": {
+    "pink": "Pink",
+    "red": "Red",
+    "orange": "Orange",
+    "amber": "Amber",
+    "yellow": "Yellow",
+    "lime": "Lime",
+    "lightGreen": "Light Green",
+    "green": "Green",
+    "teal": "Teal",
+    "cyan": "Cyan",
+    "lightBlue": "Light Blue",
+    "blue": "Blue",
+    "indigo": "Indigo",
+    "purple": "Purple",
+    "deepPurple": "Deep Purple",
+    "blueGrey": "Blue Grey",
+    "brown": "Brown",
+    "grey": "Grey"
+  },
+  "display_mode": {
+    "no_available": "No available display mode",
+    "auto": "Auto",
+    "system": "System"
+  },
+  "proxy": {
+    "host": "Host",
+    "port": "Port"
+  },
+  "message": {
+    "exit_app": "Press again to exit the App",
+    "are_you_sure_to_do_that": "Are you sure to do that?",
+    "restart_required": "Restart the App to apply the changes.",
+    "please_type_host": "Please type the host",
+    "please_type_port": "Please type the port",
     "account": {
-        "captcha": "Captcha",
-        "login": "Login",
-        "logout": "Logout",
-        "register": "Register",
-        "email": "Email",
-        "email_or_username": "Email or username",
-        "password": "Password",
-        "forgot_password": "Forgot password?",
-        "require_login": "You must be logged in to do that."
-    },
-    "profile": {
-        "profile": "Profile",
-        "follow": "Follow",
-        "followers": "Followers",
-        "following": "Following",
-        "nickname": "Nickname",
-        "username": "Username",
-        "user_id": "User ID",
-        "description": "Description",
-        "no_description": "This user prefers to keep an air of mystery around them.",
-        "join_date": "Join date",
-        "last_active_time": "Last active time",
-        "online": "Online",
-        "message": "Message",
-        "guestbook": "Guestbook",
-        "view_more": "View more"
-    },
-    "sort": {
-        "latest": "Latest",
-        "trending": "Trending",
-        "popularity": "Popularity",
-        "most_views": "Most views",
-        "most_likes": "Most likes"
-    },
-    "filter": {
-        "all": "All",
-        "filter": "Filter",
-        "rating": "Rating",
-        "tag": "Tag",
-        "tags": "Tags",
-        "date": "Date",
-        "general": "General",
-        "ecchi": "Ecchi",
-        "select_rating": "Select rating",
-        "select_year": "Select year",
-        "select_month": "Select month"
-    },
-    "search": {
-        "users": "Users",
-        "search": "Search",
-        "history": {
-            "delete": "Delete All"
-        }
-    },
-    "time": {
-        "seconds_ago": "$time seconds ago",
-        "minutes_ago": "$time minutes ago",
-        "hours_ago": "$time hours ago",
-        "days_ago": "$time days ago"
-    },
-    "media": {
-        "private": "Private",
-        "add_to_playlist": "Add to playlist",
-        "external_video": "External video",
-        "share": "Share",
-        "download": "Download",
-        "more_from": "More from $username",
-        "more_like_this": "More like this",
-        "updated_at": "Updated at $time"
-    },
-    "player": {
-        "current_item": "Current: $item",
-        "quality": "Quality",
-        "select_quality": "Select quality",
-        "playback_speed": "Playback speed",
-        "select_playback_speed": "Select playback speed",
-        "aspect_ratio": "Aspect ratio",
-        "select_aspect_ratio": "Select aspect ratio",
-        "aspect_ratios": {
-            "contain": "Contain",
-            "cover": "Cover",
-            "fill": "Fill",
-            "fit_height": "Fit height",
-            "fit_width": "Fit width",
-            "scale_down": "Scale down"
-        },
-        "seconds": "${value}s",
-        "double_speed": "2x"
+      "login_success": "Login success.",
+      "register_success": "Register success, further instructions have been sent to your email.",
+      "login_password_longer_than_6": "Password must be longer than 6 characters",
+      "please_type_email": "Please type your email",
+      "please_type_email_or_username": "Please type your email or username",
+      "please_type_valid_email": "Please type a valid email",
+      "please_type_password": "Please type your password",
+      "please_type_captcha": "Please type the captcha"
     },
     "comment": {
-        "comment": "Comment",
-        "comments": "Comments",
-        "comment_detail": "Comment detail",
-        "edit_comment": "Edit comment",
-        "delete_comment": "Delete comment",
-        "reply": "Reply",
-        "replies_in_total": "$numReply replies in total",
-        "show_all_replies": "Show all $numReply replies"
-    },
-    "user": {
-        "following": "Following",
-        "history": "History",
-        "blocked_tags": "Blocked Tags",
-        "friends": "Friends",
-        "downloads": "Downloads",
-        "favorites": "Favorites",
-        "playlists": "Playlists",
-        "settings": "Settings",
-        "about": "About"
-    },
-    "friend": {
-        "friend_requests": "Friend Requests",
-        "add_friend": "Add friend",
-        "pending": "Pending",
-        "unfriend": "Unfriend",
-        "accept": "Accept",
-        "reject": "Reject"
-    },
-    "blocked_tags": {
-        "add_blocked_tag": "Add blocked tag",
-        "blocked_tag": "Blocked tag"
-    },
-    "download": {
-        "create_download_task": "Create download task",
-        "unknown": "Unknown",
-        "enqueued": "Enqueued",
-        "downloading": "Downloading",
-        "paused": "Paused",
-        "finished": "Finished",
-        "failed": "Failed",
-        "retry": "Retry",
-        "delete": "Delete",
-        "pause": "Pause",
-        "resume": "Resume",
-        "open_with": "Open with",
-        "jump_to_detail": "Jump to detail page"
-    },
-    "playlist": {
-        "title": "Playlist title",
-        "create": "Create playlist",
-        "select": "Select playlist",
-        "videos_count": "$numVideo video",
-        "videos_count_plural": "$numVideo videos"
-    },
-    "channel": {
-        "administration": "Administration",
-        "announcements": "Announcements",
-        "feedback": "Feedback",
-        "support": "Support",
-        "global": "Global",
-        "general": "General",
-        "guides": "Guides",
-        "questions": "Questions",
-        "requests": "Requests",
-        "sharing": "Sharing",
-        "label": "$numThread Threads $numPosts Posts"
+      "content_empty": "Content can not be empty.",
+      "content_too_long": "Content can not be longer than 1000 characters.",
+      "sent": "Reply sent."
     },
     "create_thread": {
-        "create_thread": "Create thread",
-        "title": "Title",
-        "content": "Content"
+      "title_empty": "Title can not be empty.",
+      "title_too_long": "Title is too long.",
+      "content_empty": "Content can not be empty.",
+      "content_too_long": "Content can not be longer than 20000 characters.",
+      "created": "Thread Created."
     },
-    "notifications": {
-        "ok": "OK",
-        "success": "Success",
-        "error": "Error",
-        "loading": "Loading...",
-        "cancel": "Cancel",
-        "confirm": "Confirm",
-        "apply": "Apply"
+    "blocked_tags": {
+      "save_confirm": "Are you sure to save the blocked tags?",
+      "saved": "Blocked tags saved.",
+      "reached_limit": "Blocked tags reached limit."
     },
-    "settings": {
-        "appearance": "Appearance",
-        "theme": "Theme",
-        "theme_desc": "Change the theme of the App",
-        "dynamic_color": "Dynamic Color",
-        "dynamic_color_desc": "Change the color of the App according to the device theme",
-        "custom_color": "Custom Color",
-        "custom_color_desc": "Customize the color of the App",
-        "language": "Language",
-        "language_desc": "Change the language of the App",
-        "display_mode": "Display Mode",
-        "display_mode_desc": "Change the display mode of the App",
-        "work_mode": "Work Mode",
-        "work_mode_desc": "Hide all covers of NSFW content",
-        "network": "Network",
-        "enable_proxy": "Enable Proxy",
-        "enable_proxy_desc": "Enable proxy for the App",
-        "proxy": "Proxy",
-        "proxy_desc": "Set the host and port of the proxy",
-        "player": "Player",
-        "autoplay": "Autoplay",
-        "autoplay_desc": "Autoplay video when opening a video page",
-        "background_play": "Background Play",
-        "background_play_desc": "Allow the App to play video in the background",
-        "download": "Download",
-        "download_path": "Download Path",
-        "allow_media_scan": "Allow Media Scan",
-        "allow_media_scan_desc": "Allow media scanner to read downloaded media files",
-        "logging": "Logging",
-        "enable_logging": "Enable Logging",
-        "enable_logging_desc": "Enable logging for the App",
-        "clear_log": "Clear Log",
-        "clear_log_desc": "Current log size: $size",
-        "enable_verbose_logging": "Enable Verbose Logging",
-        "enable_verbose_logging_desc": "Record more detailed logs",
-        "about": "About",
-        "thrid_party_license": "Third Party License",
-        "thrid_party_license_desc": "View the license of third party libraries"
+    "playlist": {
+      "empty_playlist_title": "Playlist title can not be empty.",
+      "playlist_created": "Playlist created."
     },
-    "theme": {
-        "system": "System",
-        "light": "Light",
-        "dark": "Dark"
-    },
-    "colors": {
-        "pink": "Pink",
-        "red": "Red",
-        "orange": "Orange",
-        "amber": "Amber",
-        "yellow": "Yellow",
-        "lime": "Lime",
-        "lightGreen": "Light Green",
-        "green": "Green",
-        "teal": "Teal",
-        "cyan": "Cyan",
-        "lightBlue": "Light Blue",
-        "blue": "Blue",
-        "indigo": "Indigo",
-        "purple": "Purple",
-        "deepPurple": "Deep Purple",
-        "blueGrey": "Blue Grey",
-        "brown": "Brown",
-        "grey": "Grey"
-    },
-    "display_mode": {
-        "no_available": "No available display mode",
-        "auto": "Auto",
-        "system": "System"
-    },
-    "proxy": {
-        "host": "Host",
-        "port": "Port"
-    },
-    "message": {
-        "exit_app": "Press again to exit the App",
-        "are_you_sure_to_do_that": "Are you sure to do that?",
-        "restart_required": "Restart the App to apply the changes.",
-        "please_type_host": "Please type the host",
-        "please_type_port": "Please type the port",
-        "account": {
-            "login_success": "Login success.",
-            "register_success": "Register success, further instructions have been sent to your email.",
-            "login_password_longer_than_6": "Password must be longer than 6 characters",
-            "please_type_email": "Please type your email",
-            "please_type_email_or_username": "Please type your email or username",
-            "please_type_valid_email": "Please type a valid email",
-            "please_type_password": "Please type your password",
-            "please_type_captcha": "Please type the captcha"
-        },
-        "comment": {
-            "content_empty": "Content can not be empty.",
-            "content_too_long": "Content can not be longer than 1000 characters.",
-            "sent": "Reply sent."
-        },
-        "create_thread": {
-            "title_empty": "Title can not be empty.",
-            "title_too_long": "Title is too long.",
-            "content_empty": "Content can not be empty.",
-            "content_too_long": "Content can not be longer than 20000 characters.",
-            "created": "Thread Created."
-        },
-        "blocked_tags": {
-            "save_confirm": "Are you sure to save the blocked tags?",
-            "saved": "Blocked tags saved.",
-            "reached_limit": "Blocked tags reached limit."
-        },
-        "playlist": {
-            "empty_playlist_title": "Playlist title can not be empty.",
-            "playlist_created": "Playlist created."
-        },
-        "download": {
-            "no_provide_storage_permission": "No storage permission provided.",
-            "task_already_exists": "Download task already exists.",
-            "task_created": "Download task created.",
-            "maximum_simultaneous_download_reached": "Maximum simultaneous download reached."
-        }
-    },
-    "error": {
-        "retry": "Load failed, click to retry.",
-        "fetch_failed": "Failed to fetch video links.",
-        "fetch_user_info_failed": "Failed to fetch user info.",
-        "account": {
-            "invalid_login": "Invalid email or password.",
-            "invalid_host": "Invalid host.",
-            "invalid_captcha": "Invalid captcha."
-        }
+    "download": {
+      "no_provide_storage_permission": "No storage permission provided.",
+      "task_already_exists": "Download task already exists.",
+      "task_created": "Download task created.",
+      "maximum_simultaneous_download_reached": "Maximum simultaneous download reached."
     }
+  },
+  "error": {
+    "retry": "Load failed, click to retry.",
+    "fetch_failed": "Failed to fetch video links.",
+    "fetch_user_info_failed": "Failed to fetch user info.",
+    "account": {
+      "invalid_login": "Invalid email or password.",
+      "invalid_host": "Invalid host.",
+      "invalid_captcha": "Invalid captcha."
+    }
+  }
 }

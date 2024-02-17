@@ -3,10 +3,10 @@
 /// Original: lib/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 3
-/// Strings: 780 (260 per locale)
+/// Locales: 4
+/// Strings: 1032 (258 per locale)
 ///
-/// Built on 2024-02-17 at 06:31 UTC
+/// Built on 2024-02-17 at 08:17 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -27,7 +27,8 @@ const AppLocale _baseLocale = AppLocale.en;
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en', build: Translations.build),
 	ja(languageCode: 'ja', build: _StringsJa.build),
-	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build);
+	zhHans(languageCode: 'zh', scriptCode: 'Hans', build: _StringsZhHans.build),
+	zhHant(languageCode: 'zh', scriptCode: 'Hant', build: _StringsZhHant.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
@@ -152,7 +153,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Map<String, String> get locales => {
 		'en': 'English',
 		'ja': '日本語',
-		'zh-CN': '简体中文',
+		'zh-Hans': '简体中文',
+		'zh-Hant': '繁體中文',
 	};
 	late final _StringsNavEn nav = _StringsNavEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
@@ -568,8 +570,8 @@ class _StringsSettingsEn {
 	String get enable_verbose_logging => 'Enable Verbose Logging';
 	String get enable_verbose_logging_desc => 'Record more detailed logs';
 	String get about => 'About';
-	String get thrid_party_license => 'Third Party License';
-	String get thrid_party_license_desc => 'View the license of third party libraries';
+	String get third_party_license => 'Third Party License';
+	String get third_party_license_desc => 'View the license of third party libraries';
 }
 
 // Path: theme
@@ -784,7 +786,7 @@ class _StringsErrorAccountEn {
 }
 
 // Path: <root>
-class _StringsJa implements Translations {
+class _StringsJa extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	_StringsJa.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -794,7 +796,9 @@ class _StringsJa implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -802,16 +806,11 @@ class _StringsJa implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	@override late final _StringsJa _root = this; // ignore: unused_field
 
 	// Translations
-	@override Map<String, String> get locales => {
-		'en': 'English',
-		'ja': '日本語',
-		'zh-CN': '简体中文',
-	};
 	@override late final _StringsNavJa nav = _StringsNavJa._(_root);
 	@override late final _StringsCommonJa common = _StringsCommonJa._(_root);
 	@override late final _StringsRefreshJa refresh = _StringsRefreshJa._(_root);
@@ -843,8 +842,8 @@ class _StringsJa implements Translations {
 }
 
 // Path: nav
-class _StringsNavJa implements _StringsNavEn {
-	_StringsNavJa._(this._root);
+class _StringsNavJa extends _StringsNavEn {
+	_StringsNavJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -857,8 +856,8 @@ class _StringsNavJa implements _StringsNavEn {
 }
 
 // Path: common
-class _StringsCommonJa implements _StringsCommonEn {
-	_StringsCommonJa._(this._root);
+class _StringsCommonJa extends _StringsCommonEn {
+	_StringsCommonJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -872,8 +871,8 @@ class _StringsCommonJa implements _StringsCommonEn {
 }
 
 // Path: refresh
-class _StringsRefreshJa implements _StringsRefreshEn {
-	_StringsRefreshJa._(this._root);
+class _StringsRefreshJa extends _StringsRefreshEn {
+	_StringsRefreshJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -888,8 +887,8 @@ class _StringsRefreshJa implements _StringsRefreshEn {
 }
 
 // Path: records
-class _StringsRecordsJa implements _StringsRecordsEn {
-	_StringsRecordsJa._(this._root);
+class _StringsRecordsJa extends _StringsRecordsEn {
+	_StringsRecordsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -903,8 +902,8 @@ class _StringsRecordsJa implements _StringsRecordsEn {
 }
 
 // Path: account
-class _StringsAccountJa implements _StringsAccountEn {
-	_StringsAccountJa._(this._root);
+class _StringsAccountJa extends _StringsAccountEn {
+	_StringsAccountJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -921,8 +920,8 @@ class _StringsAccountJa implements _StringsAccountEn {
 }
 
 // Path: profile
-class _StringsProfileJa implements _StringsProfileEn {
-	_StringsProfileJa._(this._root);
+class _StringsProfileJa extends _StringsProfileEn {
+	_StringsProfileJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -945,8 +944,8 @@ class _StringsProfileJa implements _StringsProfileEn {
 }
 
 // Path: sort
-class _StringsSortJa implements _StringsSortEn {
-	_StringsSortJa._(this._root);
+class _StringsSortJa extends _StringsSortEn {
+	_StringsSortJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -959,8 +958,8 @@ class _StringsSortJa implements _StringsSortEn {
 }
 
 // Path: filter
-class _StringsFilterJa implements _StringsFilterEn {
-	_StringsFilterJa._(this._root);
+class _StringsFilterJa extends _StringsFilterEn {
+	_StringsFilterJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -979,8 +978,8 @@ class _StringsFilterJa implements _StringsFilterEn {
 }
 
 // Path: search
-class _StringsSearchJa implements _StringsSearchEn {
-	_StringsSearchJa._(this._root);
+class _StringsSearchJa extends _StringsSearchEn {
+	_StringsSearchJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -991,8 +990,8 @@ class _StringsSearchJa implements _StringsSearchEn {
 }
 
 // Path: time
-class _StringsTimeJa implements _StringsTimeEn {
-	_StringsTimeJa._(this._root);
+class _StringsTimeJa extends _StringsTimeEn {
+	_StringsTimeJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1004,8 +1003,8 @@ class _StringsTimeJa implements _StringsTimeEn {
 }
 
 // Path: media
-class _StringsMediaJa implements _StringsMediaEn {
-	_StringsMediaJa._(this._root);
+class _StringsMediaJa extends _StringsMediaEn {
+	_StringsMediaJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1021,8 +1020,8 @@ class _StringsMediaJa implements _StringsMediaEn {
 }
 
 // Path: player
-class _StringsPlayerJa implements _StringsPlayerEn {
-	_StringsPlayerJa._(this._root);
+class _StringsPlayerJa extends _StringsPlayerEn {
+	_StringsPlayerJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1040,8 +1039,8 @@ class _StringsPlayerJa implements _StringsPlayerEn {
 }
 
 // Path: comment
-class _StringsCommentJa implements _StringsCommentEn {
-	_StringsCommentJa._(this._root);
+class _StringsCommentJa extends _StringsCommentEn {
+	_StringsCommentJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1057,8 +1056,8 @@ class _StringsCommentJa implements _StringsCommentEn {
 }
 
 // Path: user
-class _StringsUserJa implements _StringsUserEn {
-	_StringsUserJa._(this._root);
+class _StringsUserJa extends _StringsUserEn {
+	_StringsUserJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1075,8 +1074,8 @@ class _StringsUserJa implements _StringsUserEn {
 }
 
 // Path: friend
-class _StringsFriendJa implements _StringsFriendEn {
-	_StringsFriendJa._(this._root);
+class _StringsFriendJa extends _StringsFriendEn {
+	_StringsFriendJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1090,8 +1089,8 @@ class _StringsFriendJa implements _StringsFriendEn {
 }
 
 // Path: blocked_tags
-class _StringsBlockedTagsJa implements _StringsBlockedTagsEn {
-	_StringsBlockedTagsJa._(this._root);
+class _StringsBlockedTagsJa extends _StringsBlockedTagsEn {
+	_StringsBlockedTagsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1101,8 +1100,8 @@ class _StringsBlockedTagsJa implements _StringsBlockedTagsEn {
 }
 
 // Path: download
-class _StringsDownloadJa implements _StringsDownloadEn {
-	_StringsDownloadJa._(this._root);
+class _StringsDownloadJa extends _StringsDownloadEn {
+	_StringsDownloadJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1123,8 +1122,8 @@ class _StringsDownloadJa implements _StringsDownloadEn {
 }
 
 // Path: playlist
-class _StringsPlaylistJa implements _StringsPlaylistEn {
-	_StringsPlaylistJa._(this._root);
+class _StringsPlaylistJa extends _StringsPlaylistEn {
+	_StringsPlaylistJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1137,8 +1136,8 @@ class _StringsPlaylistJa implements _StringsPlaylistEn {
 }
 
 // Path: channel
-class _StringsChannelJa implements _StringsChannelEn {
-	_StringsChannelJa._(this._root);
+class _StringsChannelJa extends _StringsChannelEn {
+	_StringsChannelJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1157,8 +1156,8 @@ class _StringsChannelJa implements _StringsChannelEn {
 }
 
 // Path: create_thread
-class _StringsCreateThreadJa implements _StringsCreateThreadEn {
-	_StringsCreateThreadJa._(this._root);
+class _StringsCreateThreadJa extends _StringsCreateThreadEn {
+	_StringsCreateThreadJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1169,8 +1168,8 @@ class _StringsCreateThreadJa implements _StringsCreateThreadEn {
 }
 
 // Path: notifications
-class _StringsNotificationsJa implements _StringsNotificationsEn {
-	_StringsNotificationsJa._(this._root);
+class _StringsNotificationsJa extends _StringsNotificationsEn {
+	_StringsNotificationsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1185,8 +1184,8 @@ class _StringsNotificationsJa implements _StringsNotificationsEn {
 }
 
 // Path: settings
-class _StringsSettingsJa implements _StringsSettingsEn {
-	_StringsSettingsJa._(this._root);
+class _StringsSettingsJa extends _StringsSettingsEn {
+	_StringsSettingsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1226,13 +1225,13 @@ class _StringsSettingsJa implements _StringsSettingsEn {
 	@override String get enable_verbose_logging => '詳細なログを有効にする';
 	@override String get enable_verbose_logging_desc => 'より詳細なログを記録します';
 	@override String get about => '情報';
-	@override String get thrid_party_license => 'サードパーティのライセンス';
-	@override String get thrid_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
+	@override String get third_party_license => 'サードパーティのライセンス';
+	@override String get third_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
 }
 
 // Path: theme
-class _StringsThemeJa implements _StringsThemeEn {
-	_StringsThemeJa._(this._root);
+class _StringsThemeJa extends _StringsThemeEn {
+	_StringsThemeJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1243,8 +1242,8 @@ class _StringsThemeJa implements _StringsThemeEn {
 }
 
 // Path: colors
-class _StringsColorsJa implements _StringsColorsEn {
-	_StringsColorsJa._(this._root);
+class _StringsColorsJa extends _StringsColorsEn {
+	_StringsColorsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1270,8 +1269,8 @@ class _StringsColorsJa implements _StringsColorsEn {
 }
 
 // Path: display_mode
-class _StringsDisplayModeJa implements _StringsDisplayModeEn {
-	_StringsDisplayModeJa._(this._root);
+class _StringsDisplayModeJa extends _StringsDisplayModeEn {
+	_StringsDisplayModeJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1282,8 +1281,8 @@ class _StringsDisplayModeJa implements _StringsDisplayModeEn {
 }
 
 // Path: proxy
-class _StringsProxyJa implements _StringsProxyEn {
-	_StringsProxyJa._(this._root);
+class _StringsProxyJa extends _StringsProxyEn {
+	_StringsProxyJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1293,8 +1292,8 @@ class _StringsProxyJa implements _StringsProxyEn {
 }
 
 // Path: message
-class _StringsMessageJa implements _StringsMessageEn {
-	_StringsMessageJa._(this._root);
+class _StringsMessageJa extends _StringsMessageEn {
+	_StringsMessageJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1313,8 +1312,8 @@ class _StringsMessageJa implements _StringsMessageEn {
 }
 
 // Path: error
-class _StringsErrorJa implements _StringsErrorEn {
-	_StringsErrorJa._(this._root);
+class _StringsErrorJa extends _StringsErrorEn {
+	_StringsErrorJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1326,8 +1325,8 @@ class _StringsErrorJa implements _StringsErrorEn {
 }
 
 // Path: search.history
-class _StringsSearchHistoryJa implements _StringsSearchHistoryEn {
-	_StringsSearchHistoryJa._(this._root);
+class _StringsSearchHistoryJa extends _StringsSearchHistoryEn {
+	_StringsSearchHistoryJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1336,8 +1335,8 @@ class _StringsSearchHistoryJa implements _StringsSearchHistoryEn {
 }
 
 // Path: player.aspect_ratios
-class _StringsPlayerAspectRatiosJa implements _StringsPlayerAspectRatiosEn {
-	_StringsPlayerAspectRatiosJa._(this._root);
+class _StringsPlayerAspectRatiosJa extends _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1351,8 +1350,8 @@ class _StringsPlayerAspectRatiosJa implements _StringsPlayerAspectRatiosEn {
 }
 
 // Path: message.account
-class _StringsMessageAccountJa implements _StringsMessageAccountEn {
-	_StringsMessageAccountJa._(this._root);
+class _StringsMessageAccountJa extends _StringsMessageAccountEn {
+	_StringsMessageAccountJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1368,8 +1367,8 @@ class _StringsMessageAccountJa implements _StringsMessageAccountEn {
 }
 
 // Path: message.comment
-class _StringsMessageCommentJa implements _StringsMessageCommentEn {
-	_StringsMessageCommentJa._(this._root);
+class _StringsMessageCommentJa extends _StringsMessageCommentEn {
+	_StringsMessageCommentJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1380,8 +1379,8 @@ class _StringsMessageCommentJa implements _StringsMessageCommentEn {
 }
 
 // Path: message.create_thread
-class _StringsMessageCreateThreadJa implements _StringsMessageCreateThreadEn {
-	_StringsMessageCreateThreadJa._(this._root);
+class _StringsMessageCreateThreadJa extends _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1394,8 +1393,8 @@ class _StringsMessageCreateThreadJa implements _StringsMessageCreateThreadEn {
 }
 
 // Path: message.blocked_tags
-class _StringsMessageBlockedTagsJa implements _StringsMessageBlockedTagsEn {
-	_StringsMessageBlockedTagsJa._(this._root);
+class _StringsMessageBlockedTagsJa extends _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1406,8 +1405,8 @@ class _StringsMessageBlockedTagsJa implements _StringsMessageBlockedTagsEn {
 }
 
 // Path: message.playlist
-class _StringsMessagePlaylistJa implements _StringsMessagePlaylistEn {
-	_StringsMessagePlaylistJa._(this._root);
+class _StringsMessagePlaylistJa extends _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1417,8 +1416,8 @@ class _StringsMessagePlaylistJa implements _StringsMessagePlaylistEn {
 }
 
 // Path: message.download
-class _StringsMessageDownloadJa implements _StringsMessageDownloadEn {
-	_StringsMessageDownloadJa._(this._root);
+class _StringsMessageDownloadJa extends _StringsMessageDownloadEn {
+	_StringsMessageDownloadJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1430,8 +1429,8 @@ class _StringsMessageDownloadJa implements _StringsMessageDownloadEn {
 }
 
 // Path: error.account
-class _StringsErrorAccountJa implements _StringsErrorAccountEn {
-	_StringsErrorAccountJa._(this._root);
+class _StringsErrorAccountJa extends _StringsErrorAccountEn {
+	_StringsErrorAccountJa._(_StringsJa root) : this._root = root, super._(root);
 
 	@override final _StringsJa _root; // ignore: unused_field
 
@@ -1442,69 +1441,66 @@ class _StringsErrorAccountJa implements _StringsErrorAccountEn {
 }
 
 // Path: <root>
-class _StringsZhCn implements Translations {
+class _StringsZhHans extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	_StringsZhCn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	_StringsZhHans.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
-		    locale: AppLocale.zhCn,
+		    locale: AppLocale.zhHans,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <zh-CN>.
+	/// Metadata for the translations of <zh-Hans>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
-	@override late final _StringsZhCn _root = this; // ignore: unused_field
+	@override late final _StringsZhHans _root = this; // ignore: unused_field
 
 	// Translations
-	@override Map<String, String> get locales => {
-		'en': 'English',
-		'ja': '日本語',
-		'zh-CN': '简体中文',
-	};
-	@override late final _StringsNavZhCn nav = _StringsNavZhCn._(_root);
-	@override late final _StringsCommonZhCn common = _StringsCommonZhCn._(_root);
-	@override late final _StringsRefreshZhCn refresh = _StringsRefreshZhCn._(_root);
-	@override late final _StringsRecordsZhCn records = _StringsRecordsZhCn._(_root);
-	@override late final _StringsAccountZhCn account = _StringsAccountZhCn._(_root);
-	@override late final _StringsProfileZhCn profile = _StringsProfileZhCn._(_root);
-	@override late final _StringsSortZhCn sort = _StringsSortZhCn._(_root);
-	@override late final _StringsFilterZhCn filter = _StringsFilterZhCn._(_root);
-	@override late final _StringsSearchZhCn search = _StringsSearchZhCn._(_root);
-	@override late final _StringsTimeZhCn time = _StringsTimeZhCn._(_root);
-	@override late final _StringsMediaZhCn media = _StringsMediaZhCn._(_root);
-	@override late final _StringsPlayerZhCn player = _StringsPlayerZhCn._(_root);
-	@override late final _StringsCommentZhCn comment = _StringsCommentZhCn._(_root);
-	@override late final _StringsUserZhCn user = _StringsUserZhCn._(_root);
-	@override late final _StringsFriendZhCn friend = _StringsFriendZhCn._(_root);
-	@override late final _StringsBlockedTagsZhCn blocked_tags = _StringsBlockedTagsZhCn._(_root);
-	@override late final _StringsDownloadZhCn download = _StringsDownloadZhCn._(_root);
-	@override late final _StringsPlaylistZhCn playlist = _StringsPlaylistZhCn._(_root);
-	@override late final _StringsChannelZhCn channel = _StringsChannelZhCn._(_root);
-	@override late final _StringsCreateThreadZhCn create_thread = _StringsCreateThreadZhCn._(_root);
-	@override late final _StringsNotificationsZhCn notifications = _StringsNotificationsZhCn._(_root);
-	@override late final _StringsSettingsZhCn settings = _StringsSettingsZhCn._(_root);
-	@override late final _StringsThemeZhCn theme = _StringsThemeZhCn._(_root);
-	@override late final _StringsColorsZhCn colors = _StringsColorsZhCn._(_root);
-	@override late final _StringsDisplayModeZhCn display_mode = _StringsDisplayModeZhCn._(_root);
-	@override late final _StringsProxyZhCn proxy = _StringsProxyZhCn._(_root);
-	@override late final _StringsMessageZhCn message = _StringsMessageZhCn._(_root);
-	@override late final _StringsErrorZhCn error = _StringsErrorZhCn._(_root);
+	@override late final _StringsNavZhHans nav = _StringsNavZhHans._(_root);
+	@override late final _StringsCommonZhHans common = _StringsCommonZhHans._(_root);
+	@override late final _StringsRefreshZhHans refresh = _StringsRefreshZhHans._(_root);
+	@override late final _StringsRecordsZhHans records = _StringsRecordsZhHans._(_root);
+	@override late final _StringsAccountZhHans account = _StringsAccountZhHans._(_root);
+	@override late final _StringsProfileZhHans profile = _StringsProfileZhHans._(_root);
+	@override late final _StringsSortZhHans sort = _StringsSortZhHans._(_root);
+	@override late final _StringsFilterZhHans filter = _StringsFilterZhHans._(_root);
+	@override late final _StringsSearchZhHans search = _StringsSearchZhHans._(_root);
+	@override late final _StringsTimeZhHans time = _StringsTimeZhHans._(_root);
+	@override late final _StringsMediaZhHans media = _StringsMediaZhHans._(_root);
+	@override late final _StringsPlayerZhHans player = _StringsPlayerZhHans._(_root);
+	@override late final _StringsCommentZhHans comment = _StringsCommentZhHans._(_root);
+	@override late final _StringsUserZhHans user = _StringsUserZhHans._(_root);
+	@override late final _StringsFriendZhHans friend = _StringsFriendZhHans._(_root);
+	@override late final _StringsBlockedTagsZhHans blocked_tags = _StringsBlockedTagsZhHans._(_root);
+	@override late final _StringsDownloadZhHans download = _StringsDownloadZhHans._(_root);
+	@override late final _StringsPlaylistZhHans playlist = _StringsPlaylistZhHans._(_root);
+	@override late final _StringsChannelZhHans channel = _StringsChannelZhHans._(_root);
+	@override late final _StringsCreateThreadZhHans create_thread = _StringsCreateThreadZhHans._(_root);
+	@override late final _StringsNotificationsZhHans notifications = _StringsNotificationsZhHans._(_root);
+	@override late final _StringsSettingsZhHans settings = _StringsSettingsZhHans._(_root);
+	@override late final _StringsThemeZhHans theme = _StringsThemeZhHans._(_root);
+	@override late final _StringsColorsZhHans colors = _StringsColorsZhHans._(_root);
+	@override late final _StringsDisplayModeZhHans display_mode = _StringsDisplayModeZhHans._(_root);
+	@override late final _StringsProxyZhHans proxy = _StringsProxyZhHans._(_root);
+	@override late final _StringsMessageZhHans message = _StringsMessageZhHans._(_root);
+	@override late final _StringsErrorZhHans error = _StringsErrorZhHans._(_root);
 }
 
 // Path: nav
-class _StringsNavZhCn implements _StringsNavEn {
-	_StringsNavZhCn._(this._root);
+class _StringsNavZhHans extends _StringsNavEn {
+	_StringsNavZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get subscriptions => '订阅';
@@ -1515,10 +1511,10 @@ class _StringsNavZhCn implements _StringsNavEn {
 }
 
 // Path: common
-class _StringsCommonZhCn implements _StringsCommonEn {
-	_StringsCommonZhCn._(this._root);
+class _StringsCommonZhHans extends _StringsCommonEn {
+	_StringsCommonZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get video => '视频';
@@ -1530,10 +1526,10 @@ class _StringsCommonZhCn implements _StringsCommonEn {
 }
 
 // Path: refresh
-class _StringsRefreshZhCn implements _StringsRefreshEn {
-	_StringsRefreshZhCn._(this._root);
+class _StringsRefreshZhHans extends _StringsRefreshEn {
+	_StringsRefreshZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty => '空空如也';
@@ -1546,10 +1542,10 @@ class _StringsRefreshZhCn implements _StringsRefreshEn {
 }
 
 // Path: records
-class _StringsRecordsZhCn implements _StringsRecordsEn {
-	_StringsRecordsZhCn._(this._root);
+class _StringsRecordsZhHans extends _StringsRecordsEn {
+	_StringsRecordsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get select_all => '全选';
@@ -1561,10 +1557,10 @@ class _StringsRecordsZhCn implements _StringsRecordsEn {
 }
 
 // Path: account
-class _StringsAccountZhCn implements _StringsAccountEn {
-	_StringsAccountZhCn._(this._root);
+class _StringsAccountZhHans extends _StringsAccountEn {
+	_StringsAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get captcha => '验证码';
@@ -1579,10 +1575,10 @@ class _StringsAccountZhCn implements _StringsAccountEn {
 }
 
 // Path: profile
-class _StringsProfileZhCn implements _StringsProfileEn {
-	_StringsProfileZhCn._(this._root);
+class _StringsProfileZhHans extends _StringsProfileEn {
+	_StringsProfileZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get profile => '个人资料';
@@ -1603,10 +1599,10 @@ class _StringsProfileZhCn implements _StringsProfileEn {
 }
 
 // Path: sort
-class _StringsSortZhCn implements _StringsSortEn {
-	_StringsSortZhCn._(this._root);
+class _StringsSortZhHans extends _StringsSortEn {
+	_StringsSortZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get latest => '最新';
@@ -1617,10 +1613,10 @@ class _StringsSortZhCn implements _StringsSortEn {
 }
 
 // Path: filter
-class _StringsFilterZhCn implements _StringsFilterEn {
-	_StringsFilterZhCn._(this._root);
+class _StringsFilterZhHans extends _StringsFilterEn {
+	_StringsFilterZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get all => '全部';
@@ -1637,22 +1633,22 @@ class _StringsFilterZhCn implements _StringsFilterEn {
 }
 
 // Path: search
-class _StringsSearchZhCn implements _StringsSearchEn {
-	_StringsSearchZhCn._(this._root);
+class _StringsSearchZhHans extends _StringsSearchEn {
+	_StringsSearchZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get users => '用户';
 	@override String get search => '搜索';
-	@override late final _StringsSearchHistoryZhCn history = _StringsSearchHistoryZhCn._(_root);
+	@override late final _StringsSearchHistoryZhHans history = _StringsSearchHistoryZhHans._(_root);
 }
 
 // Path: time
-class _StringsTimeZhCn implements _StringsTimeEn {
-	_StringsTimeZhCn._(this._root);
+class _StringsTimeZhHans extends _StringsTimeEn {
+	_StringsTimeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String seconds_ago({required Object time}) => '${time} 秒前';
@@ -1662,10 +1658,10 @@ class _StringsTimeZhCn implements _StringsTimeEn {
 }
 
 // Path: media
-class _StringsMediaZhCn implements _StringsMediaEn {
-	_StringsMediaZhCn._(this._root);
+class _StringsMediaZhHans extends _StringsMediaEn {
+	_StringsMediaZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get private => '私有';
@@ -1679,10 +1675,10 @@ class _StringsMediaZhCn implements _StringsMediaEn {
 }
 
 // Path: player
-class _StringsPlayerZhCn implements _StringsPlayerEn {
-	_StringsPlayerZhCn._(this._root);
+class _StringsPlayerZhHans extends _StringsPlayerEn {
+	_StringsPlayerZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String current_item({required Object item}) => '当前: ${item}';
@@ -1692,16 +1688,16 @@ class _StringsPlayerZhCn implements _StringsPlayerEn {
 	@override String get select_playback_speed => '选择播放速度';
 	@override String get aspect_ratio => '宽高比';
 	@override String get select_aspect_ratio => '选择宽高比';
-	@override late final _StringsPlayerAspectRatiosZhCn aspect_ratios = _StringsPlayerAspectRatiosZhCn._(_root);
+	@override late final _StringsPlayerAspectRatiosZhHans aspect_ratios = _StringsPlayerAspectRatiosZhHans._(_root);
 	@override String seconds({required Object value}) => '${value} 秒';
 	@override String get double_speed => '2 倍';
 }
 
 // Path: comment
-class _StringsCommentZhCn implements _StringsCommentEn {
-	_StringsCommentZhCn._(this._root);
+class _StringsCommentZhHans extends _StringsCommentEn {
+	_StringsCommentZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get comment => '评论';
@@ -1715,10 +1711,10 @@ class _StringsCommentZhCn implements _StringsCommentEn {
 }
 
 // Path: user
-class _StringsUserZhCn implements _StringsUserEn {
-	_StringsUserZhCn._(this._root);
+class _StringsUserZhHans extends _StringsUserEn {
+	_StringsUserZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get following => '关注中';
@@ -1733,10 +1729,10 @@ class _StringsUserZhCn implements _StringsUserEn {
 }
 
 // Path: friend
-class _StringsFriendZhCn implements _StringsFriendEn {
-	_StringsFriendZhCn._(this._root);
+class _StringsFriendZhHans extends _StringsFriendEn {
+	_StringsFriendZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get friend_requests => '好友请求';
@@ -1748,10 +1744,10 @@ class _StringsFriendZhCn implements _StringsFriendEn {
 }
 
 // Path: blocked_tags
-class _StringsBlockedTagsZhCn implements _StringsBlockedTagsEn {
-	_StringsBlockedTagsZhCn._(this._root);
+class _StringsBlockedTagsZhHans extends _StringsBlockedTagsEn {
+	_StringsBlockedTagsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get add_blocked_tag => '添加屏蔽标签';
@@ -1759,10 +1755,10 @@ class _StringsBlockedTagsZhCn implements _StringsBlockedTagsEn {
 }
 
 // Path: download
-class _StringsDownloadZhCn implements _StringsDownloadEn {
-	_StringsDownloadZhCn._(this._root);
+class _StringsDownloadZhHans extends _StringsDownloadEn {
+	_StringsDownloadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_download_task => '创建下载任务';
@@ -1781,10 +1777,10 @@ class _StringsDownloadZhCn implements _StringsDownloadEn {
 }
 
 // Path: playlist
-class _StringsPlaylistZhCn implements _StringsPlaylistEn {
-	_StringsPlaylistZhCn._(this._root);
+class _StringsPlaylistZhHans extends _StringsPlaylistEn {
+	_StringsPlaylistZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '播放列表标题';
@@ -1795,10 +1791,10 @@ class _StringsPlaylistZhCn implements _StringsPlaylistEn {
 }
 
 // Path: channel
-class _StringsChannelZhCn implements _StringsChannelEn {
-	_StringsChannelZhCn._(this._root);
+class _StringsChannelZhHans extends _StringsChannelEn {
+	_StringsChannelZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get administration => '管理者';
@@ -1815,10 +1811,10 @@ class _StringsChannelZhCn implements _StringsChannelEn {
 }
 
 // Path: create_thread
-class _StringsCreateThreadZhCn implements _StringsCreateThreadEn {
-	_StringsCreateThreadZhCn._(this._root);
+class _StringsCreateThreadZhHans extends _StringsCreateThreadEn {
+	_StringsCreateThreadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_thread => '发帖';
@@ -1827,10 +1823,10 @@ class _StringsCreateThreadZhCn implements _StringsCreateThreadEn {
 }
 
 // Path: notifications
-class _StringsNotificationsZhCn implements _StringsNotificationsEn {
-	_StringsNotificationsZhCn._(this._root);
+class _StringsNotificationsZhHans extends _StringsNotificationsEn {
+	_StringsNotificationsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get ok => '好的';
@@ -1843,10 +1839,10 @@ class _StringsNotificationsZhCn implements _StringsNotificationsEn {
 }
 
 // Path: settings
-class _StringsSettingsZhCn implements _StringsSettingsEn {
-	_StringsSettingsZhCn._(this._root);
+class _StringsSettingsZhHans extends _StringsSettingsEn {
+	_StringsSettingsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get appearance => '外观设置';
@@ -1884,15 +1880,15 @@ class _StringsSettingsZhCn implements _StringsSettingsEn {
 	@override String get enable_verbose_logging => '启用详细日志';
 	@override String get enable_verbose_logging_desc => '记录更详细的日志';
 	@override String get about => '关于';
-	@override String get thrid_party_license => '第三方库许可';
-	@override String get thrid_party_license_desc => '查看第三方库的许可证';
+	@override String get third_party_license => '第三方库许可';
+	@override String get third_party_license_desc => '查看第三方库的许可证';
 }
 
 // Path: theme
-class _StringsThemeZhCn implements _StringsThemeEn {
-	_StringsThemeZhCn._(this._root);
+class _StringsThemeZhHans extends _StringsThemeEn {
+	_StringsThemeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => '跟随系统';
@@ -1901,10 +1897,10 @@ class _StringsThemeZhCn implements _StringsThemeEn {
 }
 
 // Path: colors
-class _StringsColorsZhCn implements _StringsColorsEn {
-	_StringsColorsZhCn._(this._root);
+class _StringsColorsZhHans extends _StringsColorsEn {
+	_StringsColorsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get pink => '粉红';
@@ -1928,10 +1924,10 @@ class _StringsColorsZhCn implements _StringsColorsEn {
 }
 
 // Path: display_mode
-class _StringsDisplayModeZhCn implements _StringsDisplayModeEn {
-	_StringsDisplayModeZhCn._(this._root);
+class _StringsDisplayModeZhHans extends _StringsDisplayModeEn {
+	_StringsDisplayModeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_available => '无可用显示模式';
@@ -1940,10 +1936,10 @@ class _StringsDisplayModeZhCn implements _StringsDisplayModeEn {
 }
 
 // Path: proxy
-class _StringsProxyZhCn implements _StringsProxyEn {
-	_StringsProxyZhCn._(this._root);
+class _StringsProxyZhHans extends _StringsProxyEn {
+	_StringsProxyZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get host => '主机名';
@@ -1951,10 +1947,10 @@ class _StringsProxyZhCn implements _StringsProxyEn {
 }
 
 // Path: message
-class _StringsMessageZhCn implements _StringsMessageEn {
-	_StringsMessageZhCn._(this._root);
+class _StringsMessageZhHans extends _StringsMessageEn {
+	_StringsMessageZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get exit_app => '再按一次退出应用';
@@ -1962,42 +1958,42 @@ class _StringsMessageZhCn implements _StringsMessageEn {
 	@override String get restart_required => '重启后生效';
 	@override String get please_type_host => '请输入主机名';
 	@override String get please_type_port => '请输入端口';
-	@override late final _StringsMessageAccountZhCn account = _StringsMessageAccountZhCn._(_root);
-	@override late final _StringsMessageCommentZhCn comment = _StringsMessageCommentZhCn._(_root);
-	@override late final _StringsMessageCreateThreadZhCn create_thread = _StringsMessageCreateThreadZhCn._(_root);
-	@override late final _StringsMessageBlockedTagsZhCn blocked_tags = _StringsMessageBlockedTagsZhCn._(_root);
-	@override late final _StringsMessagePlaylistZhCn playlist = _StringsMessagePlaylistZhCn._(_root);
-	@override late final _StringsMessageDownloadZhCn download = _StringsMessageDownloadZhCn._(_root);
+	@override late final _StringsMessageAccountZhHans account = _StringsMessageAccountZhHans._(_root);
+	@override late final _StringsMessageCommentZhHans comment = _StringsMessageCommentZhHans._(_root);
+	@override late final _StringsMessageCreateThreadZhHans create_thread = _StringsMessageCreateThreadZhHans._(_root);
+	@override late final _StringsMessageBlockedTagsZhHans blocked_tags = _StringsMessageBlockedTagsZhHans._(_root);
+	@override late final _StringsMessagePlaylistZhHans playlist = _StringsMessagePlaylistZhHans._(_root);
+	@override late final _StringsMessageDownloadZhHans download = _StringsMessageDownloadZhHans._(_root);
 }
 
 // Path: error
-class _StringsErrorZhCn implements _StringsErrorEn {
-	_StringsErrorZhCn._(this._root);
+class _StringsErrorZhHans extends _StringsErrorEn {
+	_StringsErrorZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get retry => '加载失败，点击重试';
 	@override String get fetch_failed => '无法获取视频链接';
 	@override String get fetch_user_info_failed => '无法获取用户信息';
-	@override late final _StringsErrorAccountZhCn account = _StringsErrorAccountZhCn._(_root);
+	@override late final _StringsErrorAccountZhHans account = _StringsErrorAccountZhHans._(_root);
 }
 
 // Path: search.history
-class _StringsSearchHistoryZhCn implements _StringsSearchHistoryEn {
-	_StringsSearchHistoryZhCn._(this._root);
+class _StringsSearchHistoryZhHans extends _StringsSearchHistoryEn {
+	_StringsSearchHistoryZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get delete => '删除所有记录';
 }
 
 // Path: player.aspect_ratios
-class _StringsPlayerAspectRatiosZhCn implements _StringsPlayerAspectRatiosEn {
-	_StringsPlayerAspectRatiosZhCn._(this._root);
+class _StringsPlayerAspectRatiosZhHans extends _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get contain => '包含';
@@ -2009,10 +2005,10 @@ class _StringsPlayerAspectRatiosZhCn implements _StringsPlayerAspectRatiosEn {
 }
 
 // Path: message.account
-class _StringsMessageAccountZhCn implements _StringsMessageAccountEn {
-	_StringsMessageAccountZhCn._(this._root);
+class _StringsMessageAccountZhHans extends _StringsMessageAccountEn {
+	_StringsMessageAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get login_success => '登入成功！';
@@ -2026,10 +2022,10 @@ class _StringsMessageAccountZhCn implements _StringsMessageAccountEn {
 }
 
 // Path: message.comment
-class _StringsMessageCommentZhCn implements _StringsMessageCommentEn {
-	_StringsMessageCommentZhCn._(this._root);
+class _StringsMessageCommentZhHans extends _StringsMessageCommentEn {
+	_StringsMessageCommentZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get content_empty => '内容不能为空。';
@@ -2038,10 +2034,10 @@ class _StringsMessageCommentZhCn implements _StringsMessageCommentEn {
 }
 
 // Path: message.create_thread
-class _StringsMessageCreateThreadZhCn implements _StringsMessageCreateThreadEn {
-	_StringsMessageCreateThreadZhCn._(this._root);
+class _StringsMessageCreateThreadZhHans extends _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get title_empty => '标题不能为空。';
@@ -2052,10 +2048,10 @@ class _StringsMessageCreateThreadZhCn implements _StringsMessageCreateThreadEn {
 }
 
 // Path: message.blocked_tags
-class _StringsMessageBlockedTagsZhCn implements _StringsMessageBlockedTagsEn {
-	_StringsMessageBlockedTagsZhCn._(this._root);
+class _StringsMessageBlockedTagsZhHans extends _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get save_confirm => '确定保存屏蔽标签吗？';
@@ -2064,10 +2060,10 @@ class _StringsMessageBlockedTagsZhCn implements _StringsMessageBlockedTagsEn {
 }
 
 // Path: message.playlist
-class _StringsMessagePlaylistZhCn implements _StringsMessagePlaylistEn {
-	_StringsMessagePlaylistZhCn._(this._root);
+class _StringsMessagePlaylistZhHans extends _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty_playlist_title => '播放列表标题不能为空。';
@@ -2075,10 +2071,10 @@ class _StringsMessagePlaylistZhCn implements _StringsMessagePlaylistEn {
 }
 
 // Path: message.download
-class _StringsMessageDownloadZhCn implements _StringsMessageDownloadEn {
-	_StringsMessageDownloadZhCn._(this._root);
+class _StringsMessageDownloadZhHans extends _StringsMessageDownloadEn {
+	_StringsMessageDownloadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_provide_storage_permission => '未提供存储权限。';
@@ -2088,15 +2084,670 @@ class _StringsMessageDownloadZhCn implements _StringsMessageDownloadEn {
 }
 
 // Path: error.account
-class _StringsErrorAccountZhCn implements _StringsErrorAccountEn {
-	_StringsErrorAccountZhCn._(this._root);
+class _StringsErrorAccountZhHans extends _StringsErrorAccountEn {
+	_StringsErrorAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
 
-	@override final _StringsZhCn _root; // ignore: unused_field
+	@override final _StringsZhHans _root; // ignore: unused_field
 
 	// Translations
 	@override String get invalid_login => '邮箱或密码错误';
 	@override String get invalid_host => '无效的主机名';
 	@override String get invalid_captcha => '验证码错误';
+}
+
+// Path: <root>
+class _StringsZhHant extends Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsZhHant.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.zhHant,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <zh-Hant>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	@override late final _StringsZhHant _root = this; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsNavZhHant nav = _StringsNavZhHant._(_root);
+	@override late final _StringsCommonZhHant common = _StringsCommonZhHant._(_root);
+	@override late final _StringsRefreshZhHant refresh = _StringsRefreshZhHant._(_root);
+	@override late final _StringsRecordsZhHant records = _StringsRecordsZhHant._(_root);
+	@override late final _StringsAccountZhHant account = _StringsAccountZhHant._(_root);
+	@override late final _StringsProfileZhHant profile = _StringsProfileZhHant._(_root);
+	@override late final _StringsSortZhHant sort = _StringsSortZhHant._(_root);
+	@override late final _StringsFilterZhHant filter = _StringsFilterZhHant._(_root);
+	@override late final _StringsSearchZhHant search = _StringsSearchZhHant._(_root);
+	@override late final _StringsTimeZhHant time = _StringsTimeZhHant._(_root);
+	@override late final _StringsMediaZhHant media = _StringsMediaZhHant._(_root);
+	@override late final _StringsPlayerZhHant player = _StringsPlayerZhHant._(_root);
+	@override late final _StringsCommentZhHant comment = _StringsCommentZhHant._(_root);
+	@override late final _StringsUserZhHant user = _StringsUserZhHant._(_root);
+	@override late final _StringsFriendZhHant friend = _StringsFriendZhHant._(_root);
+	@override late final _StringsBlockedTagsZhHant blocked_tags = _StringsBlockedTagsZhHant._(_root);
+	@override late final _StringsDownloadZhHant download = _StringsDownloadZhHant._(_root);
+	@override late final _StringsPlaylistZhHant playlist = _StringsPlaylistZhHant._(_root);
+	@override late final _StringsChannelZhHant channel = _StringsChannelZhHant._(_root);
+	@override late final _StringsCreateThreadZhHant create_thread = _StringsCreateThreadZhHant._(_root);
+	@override late final _StringsNotificationsZhHant notifications = _StringsNotificationsZhHant._(_root);
+	@override late final _StringsSettingsZhHant settings = _StringsSettingsZhHant._(_root);
+	@override late final _StringsThemeZhHant theme = _StringsThemeZhHant._(_root);
+	@override late final _StringsColorsZhHant colors = _StringsColorsZhHant._(_root);
+	@override late final _StringsDisplayModeZhHant display_mode = _StringsDisplayModeZhHant._(_root);
+	@override late final _StringsProxyZhHant proxy = _StringsProxyZhHant._(_root);
+	@override late final _StringsMessageZhHant message = _StringsMessageZhHant._(_root);
+	@override late final _StringsErrorZhHant error = _StringsErrorZhHant._(_root);
+}
+
+// Path: nav
+class _StringsNavZhHant extends _StringsNavEn {
+	_StringsNavZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get subscriptions => '訂閱';
+	@override String get videos => '影片';
+	@override String get images => '圖片';
+	@override String get forum => '論壇';
+	@override String get search => '搜尋';
+}
+
+// Path: common
+class _StringsCommonZhHant extends _StringsCommonEn {
+	_StringsCommonZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get video => '影片';
+	@override String get image => '圖片';
+	@override String get collapse => '收合';
+	@override String get expand => '展開';
+	@override String get translate => '翻譯';
+	@override String get open => '打開';
+}
+
+// Path: refresh
+class _StringsRefreshZhHant extends _StringsRefreshEn {
+	_StringsRefreshZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '空空如也';
+	@override String get drag_to_load => '下拉載入';
+	@override String get release_to_load => '釋放載入';
+	@override String get success => '載入成功';
+	@override String get failed => '載入失敗';
+	@override String get no_more => '沒有更多了';
+	@override String get last_load => '上次載入於 %T';
+}
+
+// Path: records
+class _StringsRecordsZhHant extends _StringsRecordsEn {
+	_StringsRecordsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get select_all => '全選';
+	@override String get select_inverse => '反選';
+	@override String selected_num({required Object num}) => '已選擇 ${num} 項';
+	@override String get multiple_selection_mode => '多選模式';
+	@override String get delete => '刪除';
+	@override String get delete_all => '刪除所有';
+}
+
+// Path: account
+class _StringsAccountZhHant extends _StringsAccountEn {
+	_StringsAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get captcha => '驗證碼';
+	@override String get login => '登入';
+	@override String get logout => '登出';
+	@override String get register => '註冊';
+	@override String get email => '電子郵件';
+	@override String get email_or_username => '電子郵件或使用者名稱';
+	@override String get password => '密碼';
+	@override String get forgot_password => '忘記密碼';
+	@override String get require_login => '請先登入';
+}
+
+// Path: profile
+class _StringsProfileZhHant extends _StringsProfileEn {
+	_StringsProfileZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get profile => '個人檔案';
+	@override String get follow => '追蹤';
+	@override String get followers => '粉絲';
+	@override String get following => '正在追蹤';
+	@override String get nickname => '暱稱';
+	@override String get username => '使用者名稱';
+	@override String get user_id => '使用者 ID';
+	@override String get description => '個人簡介';
+	@override String get no_description => '該使用者是個神秘人，不喜歡被人圍觀。';
+	@override String get join_date => '加入日期';
+	@override String get last_active_time => '最後上線時間';
+	@override String get online => '在線上';
+	@override String get message => '私訊';
+	@override String get guestbook => '留言板';
+	@override String get view_more => '查看更多';
+}
+
+// Path: sort
+class _StringsSortZhHant extends _StringsSortEn {
+	_StringsSortZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get latest => '最新';
+	@override String get trending => '趨勢';
+	@override String get popularity => '熱門';
+	@override String get most_views => '最多觀看';
+	@override String get most_likes => '最多按讚';
+}
+
+// Path: filter
+class _StringsFilterZhHant extends _StringsFilterEn {
+	_StringsFilterZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => '全部';
+	@override String get filter => '篩選';
+	@override String get rating => '分級';
+	@override String get tag => '標籤';
+	@override String get tags => '標籤';
+	@override String get date => '日期';
+	@override String get general => '普遍級';
+	@override String get ecchi => '成人級';
+	@override String get select_rating => '選擇分級';
+	@override String get select_year => '選擇年份';
+	@override String get select_month => '選擇月份';
+}
+
+// Path: search
+class _StringsSearchZhHant extends _StringsSearchEn {
+	_StringsSearchZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get users => '使用者';
+	@override String get search => '搜尋';
+	@override late final _StringsSearchHistoryZhHant history = _StringsSearchHistoryZhHant._(_root);
+}
+
+// Path: time
+class _StringsTimeZhHant extends _StringsTimeEn {
+	_StringsTimeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String seconds_ago({required Object time}) => '${time} 秒前';
+	@override String minutes_ago({required Object time}) => '${time} 分鐘前';
+	@override String hours_ago({required Object time}) => '${time} 小時前';
+	@override String days_ago({required Object time}) => '${time} 天前';
+}
+
+// Path: media
+class _StringsMediaZhHant extends _StringsMediaEn {
+	_StringsMediaZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get private => '私人';
+	@override String get add_to_playlist => '加入播放清單';
+	@override String get external_video => '外部影片';
+	@override String get share => '分享';
+	@override String get download => '下載';
+	@override String more_from({required Object username}) => '更多來自 ${username}';
+	@override String get more_like_this => '類似作品';
+	@override String updated_at({required Object time}) => '更新於 ${time}';
+}
+
+// Path: player
+class _StringsPlayerZhHant extends _StringsPlayerEn {
+	_StringsPlayerZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String current_item({required Object item}) => '目前: ${item}';
+	@override String get quality => '畫質';
+	@override String get select_quality => '選擇畫質';
+	@override String get playback_speed => '播放速度';
+	@override String get select_playback_speed => '選擇播放速度';
+	@override String get aspect_ratio => '長寬比';
+	@override String get select_aspect_ratio => '選擇長寬比';
+	@override late final _StringsPlayerAspectRatiosZhHant aspect_ratios = _StringsPlayerAspectRatiosZhHant._(_root);
+	@override String seconds({required Object value}) => '${value} 秒';
+	@override String get double_speed => '2 倍';
+}
+
+// Path: comment
+class _StringsCommentZhHant extends _StringsCommentEn {
+	_StringsCommentZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get comment => '評論';
+	@override String get comments => '評論';
+	@override String get comment_detail => '評論詳情';
+	@override String get edit_comment => '編輯評論';
+	@override String get delete_comment => '刪除評論';
+	@override String get reply => '回覆';
+	@override String replies_in_total({required Object numReply}) => '共 ${numReply} 條回覆';
+	@override String show_all_replies({required Object numReply}) => '顯示全部 ${numReply} 條回覆';
+}
+
+// Path: user
+class _StringsUserZhHant extends _StringsUserEn {
+	_StringsUserZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get following => '正在關注';
+	@override String get history => '歷史紀錄';
+	@override String get blocked_tags => '封鎖標籤';
+	@override String get friends => '好友';
+	@override String get downloads => '下載記錄';
+	@override String get favorites => '收藏';
+	@override String get playlists => '播放清單';
+	@override String get settings => '設置';
+	@override String get about => '關於';
+}
+
+// Path: friend
+class _StringsFriendZhHant extends _StringsFriendEn {
+	_StringsFriendZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get friend_requests => '好友請求';
+	@override String get add_friend => '新增好友';
+	@override String get pending => '待處理';
+	@override String get unfriend => '解除好友關係';
+	@override String get accept => '接受';
+	@override String get reject => '拒絕';
+}
+
+// Path: blocked_tags
+class _StringsBlockedTagsZhHant extends _StringsBlockedTagsEn {
+	_StringsBlockedTagsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_blocked_tag => '新增封鎖標籤';
+	@override String get blocked_tag => '封鎖標籤';
+}
+
+// Path: download
+class _StringsDownloadZhHant extends _StringsDownloadEn {
+	_StringsDownloadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get create_download_task => '建立下載任務';
+	@override String get unknown => '未知';
+	@override String get enqueued => '等待中';
+	@override String get downloading => '下載中';
+	@override String get paused => '已暫停';
+	@override String get finished => '已完成';
+	@override String get failed => '下載失敗';
+	@override String get retry => '重新下載';
+	@override String get delete => '刪除下載任務';
+	@override String get pause => '暫停';
+	@override String get resume => '繼續';
+	@override String get open_with => '用...開啟';
+	@override String get jump_to_detail => '查看詳情';
+}
+
+// Path: playlist
+class _StringsPlaylistZhHant extends _StringsPlaylistEn {
+	_StringsPlaylistZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '播放清單標題';
+	@override String get create => '創建播放清單';
+	@override String get select => '選擇播放清單';
+	@override String videos_count({required Object numVideo}) => '${numVideo} 個影片';
+	@override String videos_count_plural({required Object numVideo}) => '${numVideo} 個影片';
+}
+
+// Path: channel
+class _StringsChannelZhHant extends _StringsChannelEn {
+	_StringsChannelZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get administration => '管理者';
+	@override String get announcements => '公告';
+	@override String get feedback => '回饋';
+	@override String get support => '支援';
+	@override String get global => '全域';
+	@override String get general => '一般';
+	@override String get guides => '指南';
+	@override String get questions => '幫助/問題';
+	@override String get requests => '請求';
+	@override String get sharing => '分享';
+	@override String label({required Object numThread, required Object numPosts}) => '${numThread} 個帖子 ${numPosts} 個回覆';
+}
+
+// Path: create_thread
+class _StringsCreateThreadZhHant extends _StringsCreateThreadEn {
+	_StringsCreateThreadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get create_thread => '發帖';
+	@override String get title => '標題';
+	@override String get content => '內容';
+}
+
+// Path: notifications
+class _StringsNotificationsZhHant extends _StringsNotificationsEn {
+	_StringsNotificationsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get ok => '好的';
+	@override String get success => '成功';
+	@override String get error => '錯誤';
+	@override String get loading => '載入中...';
+	@override String get cancel => '取消';
+	@override String get confirm => '確認';
+	@override String get apply => '應用';
+}
+
+// Path: settings
+class _StringsSettingsZhHant extends _StringsSettingsEn {
+	_StringsSettingsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get appearance => '外觀設定';
+	@override String get theme => '主題';
+	@override String get theme_desc => '設定應用的主題';
+	@override String get dynamic_color => '動態取色';
+	@override String get dynamic_color_desc => '根據系統主題改變應用的主題色';
+	@override String get custom_color => '自定義顏色';
+	@override String get custom_color_desc => '自定義應用的主題色';
+	@override String get language => '語言';
+	@override String get language_desc => '設定應用的語言';
+	@override String get display_mode => '顯示模式';
+	@override String get display_mode_desc => '設定應用的顯示模式';
+	@override String get work_mode => '工作模式';
+	@override String get work_mode_desc => '隱藏所有 NSFW 內容的封面';
+	@override String get network => '網路設定';
+	@override String get enable_proxy => '啟用代理';
+	@override String get enable_proxy_desc => '啟用代理服務';
+	@override String get proxy => '代理設定';
+	@override String get proxy_desc => '設定代理伺服器';
+	@override String get player => '播放器設定';
+	@override String get autoplay => '自動播放';
+	@override String get autoplay_desc => '打開影片頁面時自動播放影片';
+	@override String get background_play => '背景播放';
+	@override String get background_play_desc => '允許應用在背景播放影片';
+	@override String get download => '下載設定';
+	@override String get download_path => '下載路徑';
+	@override String get allow_media_scan => '允許媒體掃描';
+	@override String get allow_media_scan_desc => '允許媒體掃描程式讀取下載的媒體檔案';
+	@override String get logging => '日誌設定';
+	@override String get enable_logging => '啟用日誌';
+	@override String get enable_logging_desc => '啟用應用的日誌記錄';
+	@override String get clear_log => '清除日誌';
+	@override String clear_log_desc({required Object size}) => '目前日誌大小: ${size}';
+	@override String get enable_verbose_logging => '啟用詳細日誌';
+	@override String get enable_verbose_logging_desc => '記錄更詳細的日誌';
+	@override String get about => '關於';
+	@override String get third_party_license => '第三方庫許可';
+	@override String get third_party_license_desc => '查看第三方庫的許可證';
+}
+
+// Path: theme
+class _StringsThemeZhHant extends _StringsThemeEn {
+	_StringsThemeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get system => '跟隨系統';
+	@override String get light => '淺色';
+	@override String get dark => '深色';
+}
+
+// Path: colors
+class _StringsColorsZhHant extends _StringsColorsEn {
+	_StringsColorsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get pink => '粉紅';
+	@override String get red => '紅色';
+	@override String get orange => '橙色';
+	@override String get amber => '琥珀';
+	@override String get yellow => '黃色';
+	@override String get lime => '青檸';
+	@override String get lightGreen => '淺綠';
+	@override String get green => '綠色';
+	@override String get teal => '青色';
+	@override String get cyan => '藍綠';
+	@override String get lightBlue => '淺藍';
+	@override String get blue => '藍色';
+	@override String get indigo => '藍靛';
+	@override String get purple => '紫色';
+	@override String get deepPurple => '深紫';
+	@override String get blueGrey => '藍灰';
+	@override String get brown => '棕色';
+	@override String get grey => '灰色';
+}
+
+// Path: display_mode
+class _StringsDisplayModeZhHant extends _StringsDisplayModeEn {
+	_StringsDisplayModeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get no_available => '無可用顯示模式';
+	@override String get auto => '自動';
+	@override String get system => '系統';
+}
+
+// Path: proxy
+class _StringsProxyZhHant extends _StringsProxyEn {
+	_StringsProxyZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get host => '主機名';
+	@override String get port => '端口';
+}
+
+// Path: message
+class _StringsMessageZhHant extends _StringsMessageEn {
+	_StringsMessageZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get exit_app => '再按一次退出應用';
+	@override String get are_you_sure_to_do_that => '你確定要這麼做嗎？';
+	@override String get restart_required => '重啟後生效';
+	@override String get please_type_host => '請輸入主機名';
+	@override String get please_type_port => '請輸入端口';
+	@override late final _StringsMessageAccountZhHant account = _StringsMessageAccountZhHant._(_root);
+	@override late final _StringsMessageCommentZhHant comment = _StringsMessageCommentZhHant._(_root);
+	@override late final _StringsMessageCreateThreadZhHant create_thread = _StringsMessageCreateThreadZhHant._(_root);
+	@override late final _StringsMessageBlockedTagsZhHant blocked_tags = _StringsMessageBlockedTagsZhHant._(_root);
+	@override late final _StringsMessagePlaylistZhHant playlist = _StringsMessagePlaylistZhHant._(_root);
+	@override late final _StringsMessageDownloadZhHant download = _StringsMessageDownloadZhHant._(_root);
+}
+
+// Path: error
+class _StringsErrorZhHant extends _StringsErrorEn {
+	_StringsErrorZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get retry => '載入失敗，點擊重試';
+	@override String get fetch_failed => '無法獲取影片連結';
+	@override String get fetch_user_info_failed => '無法獲取使用者資訊';
+	@override late final _StringsErrorAccountZhHant account = _StringsErrorAccountZhHant._(_root);
+}
+
+// Path: search.history
+class _StringsSearchHistoryZhHant extends _StringsSearchHistoryEn {
+	_StringsSearchHistoryZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get delete => '刪除所有紀錄';
+}
+
+// Path: player.aspect_ratios
+class _StringsPlayerAspectRatiosZhHant extends _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get contain => '包含';
+	@override String get cover => '覆蓋';
+	@override String get fill => '填滿';
+	@override String get fit_height => '適應高度';
+	@override String get fit_width => '適應寬度';
+	@override String get scale_down => '縮小適應';
+}
+
+// Path: message.account
+class _StringsMessageAccountZhHant extends _StringsMessageAccountEn {
+	_StringsMessageAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get login_success => '登入成功！';
+	@override String get register_success => '註冊成功，請查看郵箱激活帳號。';
+	@override String get login_password_longer_than_6 => '密碼長度至少為 6 位';
+	@override String get please_type_email => '請輸入郵箱';
+	@override String get please_type_email_or_username => '請輸入郵箱或用戶名';
+	@override String get please_type_valid_email => '請輸入正確的郵箱';
+	@override String get please_type_password => '請輸入密碼';
+	@override String get please_type_captcha => '請輸入驗證碼';
+}
+
+// Path: message.comment
+class _StringsMessageCommentZhHant extends _StringsMessageCommentEn {
+	_StringsMessageCommentZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get content_empty => '內容不能為空。';
+	@override String get content_too_long => '內容不能超過 1000 個字符。';
+	@override String get sent => '回覆已發送。';
+}
+
+// Path: message.create_thread
+class _StringsMessageCreateThreadZhHant extends _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get title_empty => '標題不能為空。';
+	@override String get title_too_long => '標題不能太長。';
+	@override String get content_empty => '內容不能為空。';
+	@override String get content_too_long => '內容不能超過 20000 個字符。';
+	@override String get created => '帖子已發送。';
+}
+
+// Path: message.blocked_tags
+class _StringsMessageBlockedTagsZhHant extends _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get save_confirm => '確定保存屏蔽標籤嗎？';
+	@override String get saved => '屏蔽標籤已保存。';
+	@override String get reached_limit => '屏蔽標籤數量已達到上限。';
+}
+
+// Path: message.playlist
+class _StringsMessagePlaylistZhHant extends _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_playlist_title => '播放列表標題不能為空。';
+	@override String get playlist_created => '播放列表已創建。';
+}
+
+// Path: message.download
+class _StringsMessageDownloadZhHant extends _StringsMessageDownloadEn {
+	_StringsMessageDownloadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get no_provide_storage_permission => '未提供存儲權限。';
+	@override String get task_already_exists => '下載任務已存在。';
+	@override String get task_created => '下載任務已創建。';
+	@override String get maximum_simultaneous_download_reached => '已達到最大同時下載數。';
+}
+
+// Path: error.account
+class _StringsErrorAccountZhHant extends _StringsErrorAccountEn {
+	_StringsErrorAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+
+	@override final _StringsZhHant _root; // ignore: unused_field
+
+	// Translations
+	@override String get invalid_login => '郵箱或密碼錯誤';
+	@override String get invalid_host => '無效的主機名';
+	@override String get invalid_captcha => '驗證碼錯誤';
 }
 
 /// Flat map(s) containing all translations.
@@ -2107,7 +2758,8 @@ extension on Translations {
 		switch (path) {
 			case 'locales.en': return 'English';
 			case 'locales.ja': return '日本語';
-			case 'locales.zh-CN': return '简体中文';
+			case 'locales.zh-Hans': return '简体中文';
+			case 'locales.zh-Hant': return '繁體中文';
 			case 'nav.subscriptions': return 'Subscriptions';
 			case 'nav.videos': return 'Videos';
 			case 'nav.images': return 'Images';
@@ -2301,8 +2953,8 @@ extension on Translations {
 			case 'settings.enable_verbose_logging': return 'Enable Verbose Logging';
 			case 'settings.enable_verbose_logging_desc': return 'Record more detailed logs';
 			case 'settings.about': return 'About';
-			case 'settings.thrid_party_license': return 'Third Party License';
-			case 'settings.thrid_party_license_desc': return 'View the license of third party libraries';
+			case 'settings.third_party_license': return 'Third Party License';
+			case 'settings.third_party_license_desc': return 'View the license of third party libraries';
 			case 'theme.system': return 'System';
 			case 'theme.light': return 'Light';
 			case 'theme.dark': return 'Dark';
@@ -2373,9 +3025,6 @@ extension on Translations {
 extension on _StringsJa {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'locales.en': return 'English';
-			case 'locales.ja': return '日本語';
-			case 'locales.zh-CN': return '简体中文';
 			case 'nav.subscriptions': return 'サブスク';
 			case 'nav.videos': return '動画';
 			case 'nav.images': return '画像';
@@ -2569,8 +3218,8 @@ extension on _StringsJa {
 			case 'settings.enable_verbose_logging': return '詳細なログを有効にする';
 			case 'settings.enable_verbose_logging_desc': return 'より詳細なログを記録します';
 			case 'settings.about': return '情報';
-			case 'settings.thrid_party_license': return 'サードパーティのライセンス';
-			case 'settings.thrid_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
+			case 'settings.third_party_license': return 'サードパーティのライセンス';
+			case 'settings.third_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
 			case 'theme.system': return 'システムに従う';
 			case 'theme.light': return 'ライト';
 			case 'theme.dark': return 'ダーク';
@@ -2638,12 +3287,9 @@ extension on _StringsJa {
 	}
 }
 
-extension on _StringsZhCn {
+extension on _StringsZhHans {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'locales.en': return 'English';
-			case 'locales.ja': return '日本語';
-			case 'locales.zh-CN': return '简体中文';
 			case 'nav.subscriptions': return '订阅';
 			case 'nav.videos': return '视频';
 			case 'nav.images': return '图片';
@@ -2837,8 +3483,8 @@ extension on _StringsZhCn {
 			case 'settings.enable_verbose_logging': return '启用详细日志';
 			case 'settings.enable_verbose_logging_desc': return '记录更详细的日志';
 			case 'settings.about': return '关于';
-			case 'settings.thrid_party_license': return '第三方库许可';
-			case 'settings.thrid_party_license_desc': return '查看第三方库的许可证';
+			case 'settings.third_party_license': return '第三方库许可';
+			case 'settings.third_party_license_desc': return '查看第三方库的许可证';
 			case 'theme.system': return '跟随系统';
 			case 'theme.light': return '浅色';
 			case 'theme.dark': return '深色';
@@ -2901,6 +3547,271 @@ extension on _StringsZhCn {
 			case 'error.account.invalid_login': return '邮箱或密码错误';
 			case 'error.account.invalid_host': return '无效的主机名';
 			case 'error.account.invalid_captcha': return '验证码错误';
+			default: return null;
+		}
+	}
+}
+
+extension on _StringsZhHant {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'nav.subscriptions': return '訂閱';
+			case 'nav.videos': return '影片';
+			case 'nav.images': return '圖片';
+			case 'nav.forum': return '論壇';
+			case 'nav.search': return '搜尋';
+			case 'common.video': return '影片';
+			case 'common.image': return '圖片';
+			case 'common.collapse': return '收合';
+			case 'common.expand': return '展開';
+			case 'common.translate': return '翻譯';
+			case 'common.open': return '打開';
+			case 'refresh.empty': return '空空如也';
+			case 'refresh.drag_to_load': return '下拉載入';
+			case 'refresh.release_to_load': return '釋放載入';
+			case 'refresh.success': return '載入成功';
+			case 'refresh.failed': return '載入失敗';
+			case 'refresh.no_more': return '沒有更多了';
+			case 'refresh.last_load': return '上次載入於 %T';
+			case 'records.select_all': return '全選';
+			case 'records.select_inverse': return '反選';
+			case 'records.selected_num': return ({required Object num}) => '已選擇 ${num} 項';
+			case 'records.multiple_selection_mode': return '多選模式';
+			case 'records.delete': return '刪除';
+			case 'records.delete_all': return '刪除所有';
+			case 'account.captcha': return '驗證碼';
+			case 'account.login': return '登入';
+			case 'account.logout': return '登出';
+			case 'account.register': return '註冊';
+			case 'account.email': return '電子郵件';
+			case 'account.email_or_username': return '電子郵件或使用者名稱';
+			case 'account.password': return '密碼';
+			case 'account.forgot_password': return '忘記密碼';
+			case 'account.require_login': return '請先登入';
+			case 'profile.profile': return '個人檔案';
+			case 'profile.follow': return '追蹤';
+			case 'profile.followers': return '粉絲';
+			case 'profile.following': return '正在追蹤';
+			case 'profile.nickname': return '暱稱';
+			case 'profile.username': return '使用者名稱';
+			case 'profile.user_id': return '使用者 ID';
+			case 'profile.description': return '個人簡介';
+			case 'profile.no_description': return '該使用者是個神秘人，不喜歡被人圍觀。';
+			case 'profile.join_date': return '加入日期';
+			case 'profile.last_active_time': return '最後上線時間';
+			case 'profile.online': return '在線上';
+			case 'profile.message': return '私訊';
+			case 'profile.guestbook': return '留言板';
+			case 'profile.view_more': return '查看更多';
+			case 'sort.latest': return '最新';
+			case 'sort.trending': return '趨勢';
+			case 'sort.popularity': return '熱門';
+			case 'sort.most_views': return '最多觀看';
+			case 'sort.most_likes': return '最多按讚';
+			case 'filter.all': return '全部';
+			case 'filter.filter': return '篩選';
+			case 'filter.rating': return '分級';
+			case 'filter.tag': return '標籤';
+			case 'filter.tags': return '標籤';
+			case 'filter.date': return '日期';
+			case 'filter.general': return '普遍級';
+			case 'filter.ecchi': return '成人級';
+			case 'filter.select_rating': return '選擇分級';
+			case 'filter.select_year': return '選擇年份';
+			case 'filter.select_month': return '選擇月份';
+			case 'search.users': return '使用者';
+			case 'search.search': return '搜尋';
+			case 'search.history.delete': return '刪除所有紀錄';
+			case 'time.seconds_ago': return ({required Object time}) => '${time} 秒前';
+			case 'time.minutes_ago': return ({required Object time}) => '${time} 分鐘前';
+			case 'time.hours_ago': return ({required Object time}) => '${time} 小時前';
+			case 'time.days_ago': return ({required Object time}) => '${time} 天前';
+			case 'media.private': return '私人';
+			case 'media.add_to_playlist': return '加入播放清單';
+			case 'media.external_video': return '外部影片';
+			case 'media.share': return '分享';
+			case 'media.download': return '下載';
+			case 'media.more_from': return ({required Object username}) => '更多來自 ${username}';
+			case 'media.more_like_this': return '類似作品';
+			case 'media.updated_at': return ({required Object time}) => '更新於 ${time}';
+			case 'player.current_item': return ({required Object item}) => '目前: ${item}';
+			case 'player.quality': return '畫質';
+			case 'player.select_quality': return '選擇畫質';
+			case 'player.playback_speed': return '播放速度';
+			case 'player.select_playback_speed': return '選擇播放速度';
+			case 'player.aspect_ratio': return '長寬比';
+			case 'player.select_aspect_ratio': return '選擇長寬比';
+			case 'player.aspect_ratios.contain': return '包含';
+			case 'player.aspect_ratios.cover': return '覆蓋';
+			case 'player.aspect_ratios.fill': return '填滿';
+			case 'player.aspect_ratios.fit_height': return '適應高度';
+			case 'player.aspect_ratios.fit_width': return '適應寬度';
+			case 'player.aspect_ratios.scale_down': return '縮小適應';
+			case 'player.seconds': return ({required Object value}) => '${value} 秒';
+			case 'player.double_speed': return '2 倍';
+			case 'comment.comment': return '評論';
+			case 'comment.comments': return '評論';
+			case 'comment.comment_detail': return '評論詳情';
+			case 'comment.edit_comment': return '編輯評論';
+			case 'comment.delete_comment': return '刪除評論';
+			case 'comment.reply': return '回覆';
+			case 'comment.replies_in_total': return ({required Object numReply}) => '共 ${numReply} 條回覆';
+			case 'comment.show_all_replies': return ({required Object numReply}) => '顯示全部 ${numReply} 條回覆';
+			case 'user.following': return '正在關注';
+			case 'user.history': return '歷史紀錄';
+			case 'user.blocked_tags': return '封鎖標籤';
+			case 'user.friends': return '好友';
+			case 'user.downloads': return '下載記錄';
+			case 'user.favorites': return '收藏';
+			case 'user.playlists': return '播放清單';
+			case 'user.settings': return '設置';
+			case 'user.about': return '關於';
+			case 'friend.friend_requests': return '好友請求';
+			case 'friend.add_friend': return '新增好友';
+			case 'friend.pending': return '待處理';
+			case 'friend.unfriend': return '解除好友關係';
+			case 'friend.accept': return '接受';
+			case 'friend.reject': return '拒絕';
+			case 'blocked_tags.add_blocked_tag': return '新增封鎖標籤';
+			case 'blocked_tags.blocked_tag': return '封鎖標籤';
+			case 'download.create_download_task': return '建立下載任務';
+			case 'download.unknown': return '未知';
+			case 'download.enqueued': return '等待中';
+			case 'download.downloading': return '下載中';
+			case 'download.paused': return '已暫停';
+			case 'download.finished': return '已完成';
+			case 'download.failed': return '下載失敗';
+			case 'download.retry': return '重新下載';
+			case 'download.delete': return '刪除下載任務';
+			case 'download.pause': return '暫停';
+			case 'download.resume': return '繼續';
+			case 'download.open_with': return '用...開啟';
+			case 'download.jump_to_detail': return '查看詳情';
+			case 'playlist.title': return '播放清單標題';
+			case 'playlist.create': return '創建播放清單';
+			case 'playlist.select': return '選擇播放清單';
+			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 個影片';
+			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 個影片';
+			case 'channel.administration': return '管理者';
+			case 'channel.announcements': return '公告';
+			case 'channel.feedback': return '回饋';
+			case 'channel.support': return '支援';
+			case 'channel.global': return '全域';
+			case 'channel.general': return '一般';
+			case 'channel.guides': return '指南';
+			case 'channel.questions': return '幫助/問題';
+			case 'channel.requests': return '請求';
+			case 'channel.sharing': return '分享';
+			case 'channel.label': return ({required Object numThread, required Object numPosts}) => '${numThread} 個帖子 ${numPosts} 個回覆';
+			case 'create_thread.create_thread': return '發帖';
+			case 'create_thread.title': return '標題';
+			case 'create_thread.content': return '內容';
+			case 'notifications.ok': return '好的';
+			case 'notifications.success': return '成功';
+			case 'notifications.error': return '錯誤';
+			case 'notifications.loading': return '載入中...';
+			case 'notifications.cancel': return '取消';
+			case 'notifications.confirm': return '確認';
+			case 'notifications.apply': return '應用';
+			case 'settings.appearance': return '外觀設定';
+			case 'settings.theme': return '主題';
+			case 'settings.theme_desc': return '設定應用的主題';
+			case 'settings.dynamic_color': return '動態取色';
+			case 'settings.dynamic_color_desc': return '根據系統主題改變應用的主題色';
+			case 'settings.custom_color': return '自定義顏色';
+			case 'settings.custom_color_desc': return '自定義應用的主題色';
+			case 'settings.language': return '語言';
+			case 'settings.language_desc': return '設定應用的語言';
+			case 'settings.display_mode': return '顯示模式';
+			case 'settings.display_mode_desc': return '設定應用的顯示模式';
+			case 'settings.work_mode': return '工作模式';
+			case 'settings.work_mode_desc': return '隱藏所有 NSFW 內容的封面';
+			case 'settings.network': return '網路設定';
+			case 'settings.enable_proxy': return '啟用代理';
+			case 'settings.enable_proxy_desc': return '啟用代理服務';
+			case 'settings.proxy': return '代理設定';
+			case 'settings.proxy_desc': return '設定代理伺服器';
+			case 'settings.player': return '播放器設定';
+			case 'settings.autoplay': return '自動播放';
+			case 'settings.autoplay_desc': return '打開影片頁面時自動播放影片';
+			case 'settings.background_play': return '背景播放';
+			case 'settings.background_play_desc': return '允許應用在背景播放影片';
+			case 'settings.download': return '下載設定';
+			case 'settings.download_path': return '下載路徑';
+			case 'settings.allow_media_scan': return '允許媒體掃描';
+			case 'settings.allow_media_scan_desc': return '允許媒體掃描程式讀取下載的媒體檔案';
+			case 'settings.logging': return '日誌設定';
+			case 'settings.enable_logging': return '啟用日誌';
+			case 'settings.enable_logging_desc': return '啟用應用的日誌記錄';
+			case 'settings.clear_log': return '清除日誌';
+			case 'settings.clear_log_desc': return ({required Object size}) => '目前日誌大小: ${size}';
+			case 'settings.enable_verbose_logging': return '啟用詳細日誌';
+			case 'settings.enable_verbose_logging_desc': return '記錄更詳細的日誌';
+			case 'settings.about': return '關於';
+			case 'settings.third_party_license': return '第三方庫許可';
+			case 'settings.third_party_license_desc': return '查看第三方庫的許可證';
+			case 'theme.system': return '跟隨系統';
+			case 'theme.light': return '淺色';
+			case 'theme.dark': return '深色';
+			case 'colors.pink': return '粉紅';
+			case 'colors.red': return '紅色';
+			case 'colors.orange': return '橙色';
+			case 'colors.amber': return '琥珀';
+			case 'colors.yellow': return '黃色';
+			case 'colors.lime': return '青檸';
+			case 'colors.lightGreen': return '淺綠';
+			case 'colors.green': return '綠色';
+			case 'colors.teal': return '青色';
+			case 'colors.cyan': return '藍綠';
+			case 'colors.lightBlue': return '淺藍';
+			case 'colors.blue': return '藍色';
+			case 'colors.indigo': return '藍靛';
+			case 'colors.purple': return '紫色';
+			case 'colors.deepPurple': return '深紫';
+			case 'colors.blueGrey': return '藍灰';
+			case 'colors.brown': return '棕色';
+			case 'colors.grey': return '灰色';
+			case 'display_mode.no_available': return '無可用顯示模式';
+			case 'display_mode.auto': return '自動';
+			case 'display_mode.system': return '系統';
+			case 'proxy.host': return '主機名';
+			case 'proxy.port': return '端口';
+			case 'message.exit_app': return '再按一次退出應用';
+			case 'message.are_you_sure_to_do_that': return '你確定要這麼做嗎？';
+			case 'message.restart_required': return '重啟後生效';
+			case 'message.please_type_host': return '請輸入主機名';
+			case 'message.please_type_port': return '請輸入端口';
+			case 'message.account.login_success': return '登入成功！';
+			case 'message.account.register_success': return '註冊成功，請查看郵箱激活帳號。';
+			case 'message.account.login_password_longer_than_6': return '密碼長度至少為 6 位';
+			case 'message.account.please_type_email': return '請輸入郵箱';
+			case 'message.account.please_type_email_or_username': return '請輸入郵箱或用戶名';
+			case 'message.account.please_type_valid_email': return '請輸入正確的郵箱';
+			case 'message.account.please_type_password': return '請輸入密碼';
+			case 'message.account.please_type_captcha': return '請輸入驗證碼';
+			case 'message.comment.content_empty': return '內容不能為空。';
+			case 'message.comment.content_too_long': return '內容不能超過 1000 個字符。';
+			case 'message.comment.sent': return '回覆已發送。';
+			case 'message.create_thread.title_empty': return '標題不能為空。';
+			case 'message.create_thread.title_too_long': return '標題不能太長。';
+			case 'message.create_thread.content_empty': return '內容不能為空。';
+			case 'message.create_thread.content_too_long': return '內容不能超過 20000 個字符。';
+			case 'message.create_thread.created': return '帖子已發送。';
+			case 'message.blocked_tags.save_confirm': return '確定保存屏蔽標籤嗎？';
+			case 'message.blocked_tags.saved': return '屏蔽標籤已保存。';
+			case 'message.blocked_tags.reached_limit': return '屏蔽標籤數量已達到上限。';
+			case 'message.playlist.empty_playlist_title': return '播放列表標題不能為空。';
+			case 'message.playlist.playlist_created': return '播放列表已創建。';
+			case 'message.download.no_provide_storage_permission': return '未提供存儲權限。';
+			case 'message.download.task_already_exists': return '下載任務已存在。';
+			case 'message.download.task_created': return '下載任務已創建。';
+			case 'message.download.maximum_simultaneous_download_reached': return '已達到最大同時下載數。';
+			case 'error.retry': return '載入失敗，點擊重試';
+			case 'error.fetch_failed': return '無法獲取影片連結';
+			case 'error.fetch_user_info_failed': return '無法獲取使用者資訊';
+			case 'error.account.invalid_login': return '郵箱或密碼錯誤';
+			case 'error.account.invalid_host': return '無效的主機名';
+			case 'error.account.invalid_captcha': return '驗證碼錯誤';
 			default: return null;
 		}
 	}
