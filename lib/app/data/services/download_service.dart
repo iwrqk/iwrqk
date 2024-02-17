@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -157,8 +158,10 @@ class DownloadService extends GetxService {
   }
 
   Future<bool> checkPermission([bool checkExternalStorage = false]) async {
-    if (!GetPlatform.isMacOS) {
-      if (GetPlatform.isAndroid && checkExternalStorage) {
+    if (GetPlatform.isMacOS) return true;
+
+    if (GetPlatform.isAndroid) {
+      if (checkExternalStorage) {
         try {
           await Permission.manageExternalStorage.request();
           LogUtil.info(await Permission.manageExternalStorage.status);
@@ -171,16 +174,17 @@ class DownloadService extends GetxService {
         }
       }
 
-      try {
-        await Permission.storage.request().isGranted;
-        LogUtil.info(await Permission.storage.status);
-        return await Permission.storage.isGranted;
-      } on Exception catch (e) {
-        LogUtil.error('Request storage permission failed!', e);
-        return false;
-      }
-    } else {
-      return true;
+      AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt > 32) return true;
+    }
+
+    try {
+      await Permission.storage.request().isGranted;
+      LogUtil.info(await Permission.storage.status);
+      return await Permission.storage.isGranted;
+    } on Exception catch (e) {
+      LogUtil.error('Request storage permission failed!', e);
+      return false;
     }
   }
 
