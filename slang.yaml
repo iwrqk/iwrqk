@@ -1,4 +1,3 @@
-# existing config
 base_locale: en
 fallback_strategy: base_locale
 input_directory: lib/i18n

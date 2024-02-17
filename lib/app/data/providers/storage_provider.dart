@@ -152,6 +152,11 @@ class GStorageRecord<T> {
   Future<void> clean() async {
     await set([]);
   }
+
+  T findWhere(bool Function(T item) test) {
+    List<T> list = get();
+    return list.firstWhere(test);
+  }
 }
 
 class SecStorageObject {

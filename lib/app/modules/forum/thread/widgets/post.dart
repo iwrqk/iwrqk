@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../../components/iwr_markdown.dart';
 import '../../../../components/network_image.dart';
+import '../../../../components/translated_content.dart';
 import '../../../../data/models/forum/post.dart';
+import '../../../../data/providers/translate_provider.dart';
 import '../../../../utils/display_util.dart';
 
 class Post extends StatefulWidget {
@@ -98,7 +101,7 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                   child: Text(
                     t.common.translate,
                   ),
-                )
+                ),
               ];
             },
           ),
@@ -108,17 +111,19 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
   }
 
   void _getTranslatedContent() async {
-    // TranslateProvider.google(
-    //   text: widget.post.body,
-    // ).then((value) {
-    //   if (value.success) {
-    //     setState(() {
-    //       translatedContent = value.data;
-    //     });
-    //   } else {
-    //     showToast(value.message!);
-    //   }
-    // });
+    if (translatedContent != null) return;
+
+    TranslateProvider.google(
+      text: widget.post.body,
+    ).then((value) {
+      if (value.success) {
+        setState(() {
+          translatedContent = value.data;
+        });
+      } else {
+        SmartDialog.showToast(value.message!);
+      }
+    });
   }
 
   Widget _buildBottomWidget(BuildContext context) {
@@ -163,11 +168,11 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
             selectable: true,
             data: widget.post.body,
           ),
-          // if (translatedContent != null)
-          //   TranslatedContent(
-          //     padding: const EdgeInsets.only(top: 10),
-          //     translatedContent: translatedContent!,
-          //   ),
+          if (translatedContent != null)
+            TranslatedContent(
+              padding: const EdgeInsets.only(top: 12),
+              translatedContent: translatedContent!,
+            ),
           _buildBottomWidget(context),
           if (widget.showDivider) const SizedBox(height: 12),
           if (widget.showDivider) const Divider(height: 0),

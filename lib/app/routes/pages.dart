@@ -118,7 +118,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.playlistDetail,
-      page: () => PlaylistDetailPage(),
+      page: () => const PlaylistDetailPage(),
       binding: PlayListDetailBinding(),
     ),
     GetPage(

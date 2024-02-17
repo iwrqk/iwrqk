@@ -1085,6 +1085,27 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> editPlaylistTitle({
+    required String playlistId,
+    required String title,
+  }) async {
+    String? message;
+
+    await networkProvider.put("/playlists/$playlistId", data: {
+      "title": title,
+    }).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<GroupResult<PlaylistModel>>> getPlaylists({
     required String userId,
     required int pageNum,
@@ -1238,8 +1259,28 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> editComment({
+    required String id,
+    required String content,
+  }) async {
+    String? message;
+
+    await networkProvider.put("/comment/$id", data: {
+      "body": content,
+    }).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<void>> deleteComment({
-    required String sourceType,
     required String id,
   }) async {
     String? message;

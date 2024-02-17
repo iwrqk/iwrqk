@@ -2,11 +2,9 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../const/widget.dart';
 import '../models/account/settings/filter_setting.dart';
-import '../providers/config_provider.dart';
 import '../providers/storage_provider.dart';
 
 abstract class DynamicConfigKey {
@@ -125,23 +123,5 @@ class ConfigService extends GetxService {
 
     _workMode.value =
         setting.get(DynamicConfigKey.workMode, defaultValue: false);
-  }
-
-  Future<void> checkLatestVersion(
-      {bool showNoAvailable = false, String? noAvailableMessage}) async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String currentVersion = packageInfo.version;
-
-    await ConfigProvider.getConfig().then((value) async {
-      if (value.success) {
-        if (value.data!.latestVersion != currentVersion) {
-          // todo:
-        } else {
-          if (showNoAvailable) {
-            // todo:
-          }
-        }
-      }
-    });
   }
 }

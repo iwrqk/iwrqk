@@ -11,9 +11,14 @@ import 'controller.dart';
 class HistoryMediaPreviewList extends StatefulWidget {
   final MediaType? filterType;
   final String tag;
+  final String? keyword;
 
-  const HistoryMediaPreviewList(
-      {super.key, this.filterType, required this.tag});
+  const HistoryMediaPreviewList({
+    super.key,
+    this.filterType,
+    required this.tag,
+    this.keyword,
+  });
 
   @override
   State<HistoryMediaPreviewList> createState() =>
@@ -49,6 +54,13 @@ class _HistoryMediaPreviewListState extends State<HistoryMediaPreviewList>
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final item = data[index];
+
+                    if (widget.keyword != null) {
+                      if (widget.keyword!.isEmpty ||
+                          !item.contains(widget.keyword!)) {
+                        return const SizedBox.shrink();
+                      }
+                    }
 
                     if (widget.filterType != null) {
                       if (widget.filterType != item.type) {

@@ -1,4 +1,3 @@
-
 import '../../enums/types.dart';
 import '../media/image.dart';
 import '../media/media.dart';
@@ -89,5 +88,10 @@ class OfflineMediaModel {
       duration: model.duration,
       ratingType: model.ratingType,
     );
+  }
+
+  bool contains(String query) {
+    return title.toLowerCase().contains(query.toLowerCase()) ||
+        uploader.name.toLowerCase().contains(query.toLowerCase());
   }
 }

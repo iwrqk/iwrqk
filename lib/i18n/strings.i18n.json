@@ -245,6 +245,8 @@
     "enable_verbose_logging": "Enable Verbose Logging",
     "enable_verbose_logging_desc": "Record more detailed logs",
     "about": "About",
+    "check_update": "Check Update",
+    "check_update_desc": "Check if there is a new version available",
     "third_party_license": "Third Party License",
     "third_party_license_desc": "View the license of third party libraries"
   },
@@ -324,12 +326,21 @@
       "task_already_exists": "Download task already exists.",
       "task_created": "Download task created.",
       "maximum_simultaneous_download_reached": "Maximum simultaneous download reached."
+    },
+    "update": {
+      "check_update_failed": "Failed to check update.",
+      "update_available": "Update available",
+      "already_latest_version": "Already the latest version",
+      "current_version": "Current version: $version",
+      "latest_version": "Latest version: $version",
+      "view_update": "View update"
     }
   },
   "error": {
     "retry": "Load failed, click to retry.",
     "fetch_failed": "Failed to fetch video links.",
     "fetch_user_info_failed": "Failed to fetch user info.",
+    "invalid_path": "Invalid path.",
     "account": {
       "invalid_login": "Invalid email or password.",
       "invalid_host": "Invalid host.",

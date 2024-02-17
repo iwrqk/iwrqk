@@ -10,6 +10,8 @@ class MediaDownloadTask {
     required this.offlineMedia,
     required this.taskId,
   });
+
+  String get hash => "${offlineMedia.id}_$createTime";
 }
 
 class VideoDownloadTask extends MediaDownloadTask {
@@ -44,6 +46,9 @@ class VideoDownloadTask extends MediaDownloadTask {
       taskId: json['taskId'],
     );
   }
+
+  @override
+  String get hash => "${offlineMedia.id}_$resolutionName";
 }
 
 class ImageDownloadTask extends MediaDownloadTask {

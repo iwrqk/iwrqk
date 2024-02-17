@@ -239,6 +239,8 @@
     "enable_verbose_logging": "詳細なログを有効にする",
     "enable_verbose_logging_desc": "より詳細なログを記録します",
     "about": "情報",
+    "check_update": "更新を確認",
+    "check_update_desc": "新しいバージョンが利用可能かどうかを確認します",
     "third_party_license": "サードパーティのライセンス",
     "third_party_license_desc": "サードパーティのライブラリのライセンスを確認します"
   },
@@ -318,12 +320,21 @@
       "task_already_exists": "ダウンロードタスクはすでに存在します。",
       "task_created": "ダウンロードタスクが作成されました。",
       "maximum_simultaneous_download_reached": "最大同時ダウンロード数に達しました。"
+    },
+    "update": {
+      "check_update_failed": "更新の確認に失敗しました",
+      "update_available": "新しいバージョンが利用可能です",
+      "already_latest_version": "すでに最新バージョンです",
+      "current_version": "現在のバージョン：$version",
+      "latest_version": "最新バージョン：$version",
+      "view_update": "更新を表示"
     }
   },
   "error": {
     "retry": "読み込みに失敗しました。再試行する",
     "fetch_failed": "ビデオリンクを取得できません",
     "fetch_user_info_failed": "ユーザー情報を取得できません",
+    "invalid_path": "無効なパス",
     "account": {
       "invalid_login": "無効なメールアドレスまたはパスワード",
       "invalid_host": "無効なホスト名",

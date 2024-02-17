@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 4
-/// Strings: 1032 (258 per locale)
+/// Strings: 1068 (267 per locale)
 ///
-/// Built on 2024-02-17 at 08:34 UTC
+/// Built on 2024-02-17 at 12:43 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -570,6 +570,8 @@ class _StringsSettingsEn {
 	String get enable_verbose_logging => 'Enable Verbose Logging';
 	String get enable_verbose_logging_desc => 'Record more detailed logs';
 	String get about => 'About';
+	String get check_update => 'Check Update';
+	String get check_update_desc => 'Check if there is a new version available';
 	String get third_party_license => 'Third Party License';
 	String get third_party_license_desc => 'View the license of third party libraries';
 }
@@ -654,6 +656,7 @@ class _StringsMessageEn {
 	late final _StringsMessageBlockedTagsEn blocked_tags = _StringsMessageBlockedTagsEn._(_root);
 	late final _StringsMessagePlaylistEn playlist = _StringsMessagePlaylistEn._(_root);
 	late final _StringsMessageDownloadEn download = _StringsMessageDownloadEn._(_root);
+	late final _StringsMessageUpdateEn update = _StringsMessageUpdateEn._(_root);
 }
 
 // Path: error
@@ -666,6 +669,7 @@ class _StringsErrorEn {
 	String get retry => 'Load failed, click to retry.';
 	String get fetch_failed => 'Failed to fetch video links.';
 	String get fetch_user_info_failed => 'Failed to fetch user info.';
+	String get invalid_path => 'Invalid path.';
 	late final _StringsErrorAccountEn account = _StringsErrorAccountEn._(_root);
 }
 
@@ -771,6 +775,21 @@ class _StringsMessageDownloadEn {
 	String get task_already_exists => 'Download task already exists.';
 	String get task_created => 'Download task created.';
 	String get maximum_simultaneous_download_reached => 'Maximum simultaneous download reached.';
+}
+
+// Path: message.update
+class _StringsMessageUpdateEn {
+	_StringsMessageUpdateEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get check_update_failed => 'Failed to check update.';
+	String get update_available => 'Update available';
+	String get already_latest_version => 'Already the latest version';
+	String current_version({required Object version}) => 'Current version: ${version}';
+	String latest_version({required Object version}) => 'Latest version: ${version}';
+	String get view_update => 'View update';
 }
 
 // Path: error.account
@@ -1225,6 +1244,8 @@ class _StringsSettingsJa extends _StringsSettingsEn {
 	@override String get enable_verbose_logging => '詳細なログを有効にする';
 	@override String get enable_verbose_logging_desc => 'より詳細なログを記録します';
 	@override String get about => '情報';
+	@override String get check_update => '更新を確認';
+	@override String get check_update_desc => '新しいバージョンが利用可能かどうかを確認します';
 	@override String get third_party_license => 'サードパーティのライセンス';
 	@override String get third_party_license_desc => 'サードパーティのライブラリのライセンスを確認します';
 }
@@ -1309,6 +1330,7 @@ class _StringsMessageJa extends _StringsMessageEn {
 	@override late final _StringsMessageBlockedTagsJa blocked_tags = _StringsMessageBlockedTagsJa._(_root);
 	@override late final _StringsMessagePlaylistJa playlist = _StringsMessagePlaylistJa._(_root);
 	@override late final _StringsMessageDownloadJa download = _StringsMessageDownloadJa._(_root);
+	@override late final _StringsMessageUpdateJa update = _StringsMessageUpdateJa._(_root);
 }
 
 // Path: error
@@ -1321,6 +1343,7 @@ class _StringsErrorJa extends _StringsErrorEn {
 	@override String get retry => '読み込みに失敗しました。再試行する';
 	@override String get fetch_failed => 'ビデオリンクを取得できません';
 	@override String get fetch_user_info_failed => 'ユーザー情報を取得できません';
+	@override String get invalid_path => '無効なパス';
 	@override late final _StringsErrorAccountJa account = _StringsErrorAccountJa._(_root);
 }
 
@@ -1426,6 +1449,21 @@ class _StringsMessageDownloadJa extends _StringsMessageDownloadEn {
 	@override String get task_already_exists => 'ダウンロードタスクはすでに存在します。';
 	@override String get task_created => 'ダウンロードタスクが作成されました。';
 	@override String get maximum_simultaneous_download_reached => '最大同時ダウンロード数に達しました。';
+}
+
+// Path: message.update
+class _StringsMessageUpdateJa extends _StringsMessageUpdateEn {
+	_StringsMessageUpdateJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get check_update_failed => '更新の確認に失敗しました';
+	@override String get update_available => '新しいバージョンが利用可能です';
+	@override String get already_latest_version => 'すでに最新バージョンです';
+	@override String current_version({required Object version}) => '現在のバージョン：${version}';
+	@override String latest_version({required Object version}) => '最新バージョン：${version}';
+	@override String get view_update => '更新を表示';
 }
 
 // Path: error.account
@@ -1880,6 +1918,8 @@ class _StringsSettingsZhCn extends _StringsSettingsEn {
 	@override String get enable_verbose_logging => '启用详细日志';
 	@override String get enable_verbose_logging_desc => '记录更详细的日志';
 	@override String get about => '关于';
+	@override String get check_update => '检查更新';
+	@override String get check_update_desc => '检查是否有新版本可用';
 	@override String get third_party_license => '第三方库许可';
 	@override String get third_party_license_desc => '查看第三方库的许可证';
 }
@@ -1964,6 +2004,7 @@ class _StringsMessageZhCn extends _StringsMessageEn {
 	@override late final _StringsMessageBlockedTagsZhCn blocked_tags = _StringsMessageBlockedTagsZhCn._(_root);
 	@override late final _StringsMessagePlaylistZhCn playlist = _StringsMessagePlaylistZhCn._(_root);
 	@override late final _StringsMessageDownloadZhCn download = _StringsMessageDownloadZhCn._(_root);
+	@override late final _StringsMessageUpdateZhCn update = _StringsMessageUpdateZhCn._(_root);
 }
 
 // Path: error
@@ -1976,6 +2017,7 @@ class _StringsErrorZhCn extends _StringsErrorEn {
 	@override String get retry => '加载失败，点击重试';
 	@override String get fetch_failed => '无法获取视频链接';
 	@override String get fetch_user_info_failed => '无法获取用户信息';
+	@override String get invalid_path => '无效的路径';
 	@override late final _StringsErrorAccountZhCn account = _StringsErrorAccountZhCn._(_root);
 }
 
@@ -2081,6 +2123,21 @@ class _StringsMessageDownloadZhCn extends _StringsMessageDownloadEn {
 	@override String get task_already_exists => '下载任务已存在。';
 	@override String get task_created => '下载任务已创建。';
 	@override String get maximum_simultaneous_download_reached => '已达到最大同时下载数。';
+}
+
+// Path: message.update
+class _StringsMessageUpdateZhCn extends _StringsMessageUpdateEn {
+	_StringsMessageUpdateZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get check_update_failed => '检查更新失败';
+	@override String get update_available => '有新版本可用';
+	@override String get already_latest_version => '已是最新版本';
+	@override String current_version({required Object version}) => '当前版本：${version}';
+	@override String latest_version({required Object version}) => '最新版本：${version}';
+	@override String get view_update => '查看更新';
 }
 
 // Path: error.account
@@ -2535,6 +2592,8 @@ class _StringsSettingsZhTw extends _StringsSettingsEn {
 	@override String get enable_verbose_logging => '啟用詳細日誌';
 	@override String get enable_verbose_logging_desc => '記錄更詳細的日誌';
 	@override String get about => '關於';
+	@override String get check_update => '檢查更新';
+	@override String get check_update_desc => '檢查是否有新版本可用';
 	@override String get third_party_license => '第三方庫許可';
 	@override String get third_party_license_desc => '查看第三方庫的許可證';
 }
@@ -2619,6 +2678,7 @@ class _StringsMessageZhTw extends _StringsMessageEn {
 	@override late final _StringsMessageBlockedTagsZhTw blocked_tags = _StringsMessageBlockedTagsZhTw._(_root);
 	@override late final _StringsMessagePlaylistZhTw playlist = _StringsMessagePlaylistZhTw._(_root);
 	@override late final _StringsMessageDownloadZhTw download = _StringsMessageDownloadZhTw._(_root);
+	@override late final _StringsMessageUpdateZhTw update = _StringsMessageUpdateZhTw._(_root);
 }
 
 // Path: error
@@ -2631,6 +2691,7 @@ class _StringsErrorZhTw extends _StringsErrorEn {
 	@override String get retry => '載入失敗，點擊重試';
 	@override String get fetch_failed => '無法獲取影片連結';
 	@override String get fetch_user_info_failed => '無法獲取使用者資訊';
+	@override String get invalid_path => '無效的路徑';
 	@override late final _StringsErrorAccountZhTw account = _StringsErrorAccountZhTw._(_root);
 }
 
@@ -2736,6 +2797,21 @@ class _StringsMessageDownloadZhTw extends _StringsMessageDownloadEn {
 	@override String get task_already_exists => '下載任務已存在。';
 	@override String get task_created => '下載任務已創建。';
 	@override String get maximum_simultaneous_download_reached => '已達到最大同時下載數。';
+}
+
+// Path: message.update
+class _StringsMessageUpdateZhTw extends _StringsMessageUpdateEn {
+	_StringsMessageUpdateZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get check_update_failed => '檢查更新失敗';
+	@override String get update_available => '有新版本可用';
+	@override String get already_latest_version => '已經是最新版本';
+	@override String current_version({required Object version}) => '當前版本：${version}';
+	@override String latest_version({required Object version}) => '最新版本：${version}';
+	@override String get view_update => '查看更新';
 }
 
 // Path: error.account
@@ -2953,6 +3029,8 @@ extension on Translations {
 			case 'settings.enable_verbose_logging': return 'Enable Verbose Logging';
 			case 'settings.enable_verbose_logging_desc': return 'Record more detailed logs';
 			case 'settings.about': return 'About';
+			case 'settings.check_update': return 'Check Update';
+			case 'settings.check_update_desc': return 'Check if there is a new version available';
 			case 'settings.third_party_license': return 'Third Party License';
 			case 'settings.third_party_license_desc': return 'View the license of third party libraries';
 			case 'theme.system': return 'System';
@@ -3011,9 +3089,16 @@ extension on Translations {
 			case 'message.download.task_already_exists': return 'Download task already exists.';
 			case 'message.download.task_created': return 'Download task created.';
 			case 'message.download.maximum_simultaneous_download_reached': return 'Maximum simultaneous download reached.';
+			case 'message.update.check_update_failed': return 'Failed to check update.';
+			case 'message.update.update_available': return 'Update available';
+			case 'message.update.already_latest_version': return 'Already the latest version';
+			case 'message.update.current_version': return ({required Object version}) => 'Current version: ${version}';
+			case 'message.update.latest_version': return ({required Object version}) => 'Latest version: ${version}';
+			case 'message.update.view_update': return 'View update';
 			case 'error.retry': return 'Load failed, click to retry.';
 			case 'error.fetch_failed': return 'Failed to fetch video links.';
 			case 'error.fetch_user_info_failed': return 'Failed to fetch user info.';
+			case 'error.invalid_path': return 'Invalid path.';
 			case 'error.account.invalid_login': return 'Invalid email or password.';
 			case 'error.account.invalid_host': return 'Invalid host.';
 			case 'error.account.invalid_captcha': return 'Invalid captcha.';
@@ -3218,6 +3303,8 @@ extension on _StringsJa {
 			case 'settings.enable_verbose_logging': return '詳細なログを有効にする';
 			case 'settings.enable_verbose_logging_desc': return 'より詳細なログを記録します';
 			case 'settings.about': return '情報';
+			case 'settings.check_update': return '更新を確認';
+			case 'settings.check_update_desc': return '新しいバージョンが利用可能かどうかを確認します';
 			case 'settings.third_party_license': return 'サードパーティのライセンス';
 			case 'settings.third_party_license_desc': return 'サードパーティのライブラリのライセンスを確認します';
 			case 'theme.system': return 'システムに従う';
@@ -3276,9 +3363,16 @@ extension on _StringsJa {
 			case 'message.download.task_already_exists': return 'ダウンロードタスクはすでに存在します。';
 			case 'message.download.task_created': return 'ダウンロードタスクが作成されました。';
 			case 'message.download.maximum_simultaneous_download_reached': return '最大同時ダウンロード数に達しました。';
+			case 'message.update.check_update_failed': return '更新の確認に失敗しました';
+			case 'message.update.update_available': return '新しいバージョンが利用可能です';
+			case 'message.update.already_latest_version': return 'すでに最新バージョンです';
+			case 'message.update.current_version': return ({required Object version}) => '現在のバージョン：${version}';
+			case 'message.update.latest_version': return ({required Object version}) => '最新バージョン：${version}';
+			case 'message.update.view_update': return '更新を表示';
 			case 'error.retry': return '読み込みに失敗しました。再試行する';
 			case 'error.fetch_failed': return 'ビデオリンクを取得できません';
 			case 'error.fetch_user_info_failed': return 'ユーザー情報を取得できません';
+			case 'error.invalid_path': return '無効なパス';
 			case 'error.account.invalid_login': return '無効なメールアドレスまたはパスワード';
 			case 'error.account.invalid_host': return '無効なホスト名';
 			case 'error.account.invalid_captcha': return '無効なキャプチャ';
@@ -3483,6 +3577,8 @@ extension on _StringsZhCn {
 			case 'settings.enable_verbose_logging': return '启用详细日志';
 			case 'settings.enable_verbose_logging_desc': return '记录更详细的日志';
 			case 'settings.about': return '关于';
+			case 'settings.check_update': return '检查更新';
+			case 'settings.check_update_desc': return '检查是否有新版本可用';
 			case 'settings.third_party_license': return '第三方库许可';
 			case 'settings.third_party_license_desc': return '查看第三方库的许可证';
 			case 'theme.system': return '跟随系统';
@@ -3541,9 +3637,16 @@ extension on _StringsZhCn {
 			case 'message.download.task_already_exists': return '下载任务已存在。';
 			case 'message.download.task_created': return '下载任务已创建。';
 			case 'message.download.maximum_simultaneous_download_reached': return '已达到最大同时下载数。';
+			case 'message.update.check_update_failed': return '检查更新失败';
+			case 'message.update.update_available': return '有新版本可用';
+			case 'message.update.already_latest_version': return '已是最新版本';
+			case 'message.update.current_version': return ({required Object version}) => '当前版本：${version}';
+			case 'message.update.latest_version': return ({required Object version}) => '最新版本：${version}';
+			case 'message.update.view_update': return '查看更新';
 			case 'error.retry': return '加载失败，点击重试';
 			case 'error.fetch_failed': return '无法获取视频链接';
 			case 'error.fetch_user_info_failed': return '无法获取用户信息';
+			case 'error.invalid_path': return '无效的路径';
 			case 'error.account.invalid_login': return '邮箱或密码错误';
 			case 'error.account.invalid_host': return '无效的主机名';
 			case 'error.account.invalid_captcha': return '验证码错误';
@@ -3748,6 +3851,8 @@ extension on _StringsZhTw {
 			case 'settings.enable_verbose_logging': return '啟用詳細日誌';
 			case 'settings.enable_verbose_logging_desc': return '記錄更詳細的日誌';
 			case 'settings.about': return '關於';
+			case 'settings.check_update': return '檢查更新';
+			case 'settings.check_update_desc': return '檢查是否有新版本可用';
 			case 'settings.third_party_license': return '第三方庫許可';
 			case 'settings.third_party_license_desc': return '查看第三方庫的許可證';
 			case 'theme.system': return '跟隨系統';
@@ -3806,9 +3911,16 @@ extension on _StringsZhTw {
 			case 'message.download.task_already_exists': return '下載任務已存在。';
 			case 'message.download.task_created': return '下載任務已創建。';
 			case 'message.download.maximum_simultaneous_download_reached': return '已達到最大同時下載數。';
+			case 'message.update.check_update_failed': return '檢查更新失敗';
+			case 'message.update.update_available': return '有新版本可用';
+			case 'message.update.already_latest_version': return '已經是最新版本';
+			case 'message.update.current_version': return ({required Object version}) => '當前版本：${version}';
+			case 'message.update.latest_version': return ({required Object version}) => '最新版本：${version}';
+			case 'message.update.view_update': return '查看更新';
 			case 'error.retry': return '載入失敗，點擊重試';
 			case 'error.fetch_failed': return '無法獲取影片連結';
 			case 'error.fetch_user_info_failed': return '無法獲取使用者資訊';
+			case 'error.invalid_path': return '無效的路徑';
 			case 'error.account.invalid_login': return '郵箱或密碼錯誤';
 			case 'error.account.invalid_host': return '無效的主機名';
 			case 'error.account.invalid_captcha': return '驗證碼錯誤';

@@ -29,14 +29,15 @@ class FavoriteMediaPreviewListController
     update();
   }
 
-  Future<bool> unfavorite(int index) {
-    return userService.unfavoriteMedia(data[index].id).then((value) {
-      if (value) {
-        data.removeAt(index);
-        update();
-      }
+  void showLoading() {
+    change({"state": "loading"}, status: RxStatus.success());
+  }
 
-      return value;
+  Future<void> unfavoriteAll() {
+    showLoading();
+    return Future.wait(data.map((e) => userService.unfavoriteMedia(e.id)))
+        .then((value) {
+      refreshData(showSplash: true);
     });
   }
 

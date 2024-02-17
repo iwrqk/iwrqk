@@ -38,15 +38,15 @@ class FavoritesPage extends GetView<FavoritesController> {
           primary: AppBar(
             title: Text(t.user.favorites),
             actions: [
-              IconButton(
-                onPressed: () => Get.toNamed('/favoritesSearch'),
-                icon: const Icon(Icons.search),
-              ),
+              // IconButton(
+              //   onPressed: () => Get.toNamed('/favoritesSearch'),
+              //   icon: const Icon(Icons.search),
+              // ),
               PopupMenuButton<String>(
                 onSelected: (String type) {
                   switch (type) {
                     case 'all':
-                      // controller.cleanHistoryList
+                      controller.unfavoriteAll();
                       break;
                     case 'multiple':
                       controller.enableMultipleSelection = true;

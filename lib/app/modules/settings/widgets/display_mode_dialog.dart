@@ -116,7 +116,7 @@ class _DisplayModeDialogState extends State<DisplayModeDialog> {
           onPressed: () {
             Get.back();
           },
-          child: Text(t.notifications.ok),
+          child: Text(t.notifications.confirm),
         ),
       ],
     );

@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:media_kit/media_kit.dart';
 
 import 'app/const/colors.dart';
+import 'app/data/providers/config_provider.dart';
 import 'app/data/services/plugin/pl_player/service_locator.dart';
 import 'app/modules/media_detail/page.dart';
 import 'app/utils/path_util.dart';
@@ -31,6 +32,7 @@ Future<void> main() async {
   await FlutterDownloader.initialize(debug: kDebugMode);
   ProxyUtil.init();
   await setupServiceLocator();
+  ConfigProvider.init();
 
   initGetx();
 

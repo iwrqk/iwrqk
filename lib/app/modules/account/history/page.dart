@@ -5,6 +5,7 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../../../components/app_bar_switcher.dart';
 import '../../../data/enums/types.dart';
 import 'controller.dart';
+import 'history_search/page.dart';
 import 'widgets/history_media_preview_list/widget.dart';
 
 class HistoryPage extends GetView<HistoryController> {
@@ -42,7 +43,7 @@ class HistoryPage extends GetView<HistoryController> {
             title: Text(t.user.history),
             actions: [
               IconButton(
-                onPressed: () => Get.toNamed('/historySearch'),
+                onPressed: () => Get.to(() => const HistorySearchPage()),
                 icon: const Icon(Icons.search),
               ),
               PopupMenuButton<String>(

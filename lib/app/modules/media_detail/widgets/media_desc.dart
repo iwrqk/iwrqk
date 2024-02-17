@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../components/iwr_markdown.dart';
+import '../../../components/translated_content.dart';
 import '../../../data/models/media/media.dart';
+import '../../../data/providers/translate_provider.dart';
 import '../../../utils/display_util.dart';
 
-class MeidaDescription extends StatelessWidget {
+class MeidaDescription extends StatefulWidget {
   final MediaModel media;
 
   const MeidaDescription({
@@ -14,8 +18,32 @@ class MeidaDescription extends StatelessWidget {
     required this.media,
   });
 
+  @override
+  State<MeidaDescription> createState() => _MeidaDescriptionState();
+}
+
+class _MeidaDescriptionState extends State<MeidaDescription> {
+  String? translatedContent;
+
+  void _getTranslatedContent() async {
+    if (translatedContent != null || widget.media.body == null) {
+      return;
+    }
+    TranslateProvider.google(
+      text: widget.media.body!,
+    ).then((value) {
+      if (value.success) {
+        setState(() {
+          translatedContent = value.data;
+        });
+      } else {
+        SmartDialog.showToast(value.message!);
+      }
+    });
+  }
+
   Widget _buildTagClip(BuildContext context, int index) {
-    var tag = media.tags[index];
+    var tag = widget.media.tags[index];
 
     return Card(
       elevation: 0,
@@ -71,11 +99,12 @@ class MeidaDescription extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: double.infinity,
                     child: Text(
-                      media.title,
+                      widget.media.title,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
@@ -96,7 +125,8 @@ class MeidaDescription extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: DisplayUtil.compactBigNumber(media.numViews),
+                            text: DisplayUtil.compactBigNumber(
+                                widget.media.numViews),
                             style: TextStyle(
                               fontSize: 14,
                               color: Theme.of(context).colorScheme.primary,
@@ -107,7 +137,7 @@ class MeidaDescription extends StatelessWidget {
                           ),
                           TextSpan(
                             text: DisplayUtil.getDetailedTime(
-                              DateTime.parse(media.createdAt),
+                              DateTime.parse(widget.media.createdAt),
                             ),
                             style: TextStyle(
                               fontSize: 14,
@@ -120,15 +150,35 @@ class MeidaDescription extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: IwrMarkdown(
-                      selectable: true,
-                      data: media.body ?? "",
+                  if (widget.media.body != null)
+                    SizedBox(
+                      width: double.infinity,
+                      child: IwrMarkdown(
+                        selectable: true,
+                        data: widget.media.body ?? "",
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  if (media.tags.isNotEmpty)
+                  if (translatedContent == null &&
+                      widget.media.body != null) ...[
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Theme.of(context).colorScheme.primary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onInverseSurface,
+                      ),
+                      onPressed: () {
+                        _getTranslatedContent();
+                      },
+                      child: Text(t.common.translate),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                  if (translatedContent != null)
+                    TranslatedContent(
+                      padding: const EdgeInsets.only(top: 12),
+                      translatedContent: translatedContent!,
+                    ),
+                  if (widget.media.tags.isNotEmpty)
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.only(bottom: 16),
@@ -137,7 +187,7 @@ class MeidaDescription extends StatelessWidget {
                         runSpacing: 8,
                         alignment: WrapAlignment.start,
                         children: List.generate(
-                          media.tags.length,
+                          widget.media.tags.length,
                           (index) => _buildTagClip(context, index),
                         ),
                       ),

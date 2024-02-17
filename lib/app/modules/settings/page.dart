@@ -366,6 +366,16 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
+  Widget _buildCheckUpdateButton(BuildContext context) {
+    return _buildButton(
+      context,
+      title: t.settings.check_update,
+      description: t.settings.check_update_desc,
+      iconData: Icons.system_update_alt,
+      onPressed: controller.checkLatestVersion,
+    );
+  }
+
   Widget _buildLicenseButton(BuildContext context) {
     return _buildButton(
       context,
@@ -462,6 +472,7 @@ class SettingsPage extends GetView<SettingsController> {
           __buildClearLogsButton(context),
           _buildVerboseLoggingSetting(context),
           SettingTitle(title: t.settings.about),
+          _buildCheckUpdateButton(context),
           _buildLicenseButton(context),
         ],
       ),

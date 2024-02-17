@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 
 import '../../../data/models/media/media.dart';
 import '../../../data/models/media/video.dart';
+import '../../../data/services/user_service.dart';
 import 'widgets/favorite_media_preview_list/controller.dart';
 
 class FavoritesController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  final UserService _userService = Get.find();
+
   Map<String, FavoriteMediaPreviewListController> childrenControllers = {};
   late List<String> childrenControllerTags;
 
@@ -82,13 +85,33 @@ class FavoritesController extends GetxController
     update();
   }
 
+  Future<void> unfavoriteMedia(String id) async {
+    await _userService.unfavoriteMedia(id);
+  }
+
+  Future<void> unfavoriteAll() async {
+    await childrenControllers[childrenControllerTags[tabController.index]]
+        ?.unfavoriteAll();
+  }
+
   void deleteChecked() async {
-    // for (String id in checkedList) {
-    //   await StorageProvider.historyList
-    //       .deleteWhere((element) => element.id == id);
-    // }
-    // checkedList.clear();
-    // checkedCount = 0;
-    // await refreshHistoryList();
+    childrenControllers.forEach((_, ctr) {
+      ctr.showLoading();
+    });
+    for (String id in checkedVideoList) {
+      await unfavoriteMedia(id);
+    }
+    for (String id in checkedImageList) {
+      await unfavoriteMedia(id);
+    }
+    checkedVideoList.clear();
+    checkedImageList.clear();
+    checkedCount = 0;
+    await refreshFavoritelist();
+  }
+
+  Future<void> refreshFavoritelist() async {
+    childrenControllers[childrenControllerTags[tabController.index]]
+        ?.refreshData(showSplash: true);
   }
 }

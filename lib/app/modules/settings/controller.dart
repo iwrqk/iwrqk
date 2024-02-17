@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../const/config.dart';
+import '../../data/providers/config_provider.dart';
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
 import '../../data/services/config_service.dart';
@@ -137,7 +141,7 @@ class SettingsController extends GetxController {
     if (result == null) return;
 
     if (!downloadService.checkPermissionForPath(result)) {
-      SmartDialog.showToast('invalidPath');
+      SmartDialog.showToast(t.error.invalid_path);
       return;
     }
 
@@ -147,5 +151,68 @@ class SettingsController extends GetxController {
   void clearLogs() async {
     await LogUtil.clear();
     _logSize.value = await LogUtil.getSize();
+  }
+
+  Future<void> checkLatestVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String currentVersion = packageInfo.version;
+
+    await ConfigProvider.getLatestVersion().then((value) async {
+      if (value.success) {
+        if (compareVersion(currentVersion, value.data!) < 0) {
+          Get.dialog(AlertDialog(
+            title: Text(t.message.update.update_available),
+            content: Column(
+              children: [
+                Text(t.message.update.current_version(version: currentVersion)),
+                Text(t.message.update.latest_version(version: value.data!)),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(t.notifications.cancel),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                  launchUrlString(ConfigConst.updateUrl,
+                      mode: LaunchMode.externalApplication);
+                },
+                child: Text(t.message.update.view_update),
+              ),
+            ],
+          ));
+        } else {
+          SmartDialog.showToast(t.message.update.already_latest_version);
+        }
+      } else {
+        LogUtil.error('Check update failed', value.message);
+        SmartDialog.showToast(t.message.update.check_update_failed);
+      }
+    });
+  }
+
+  int compareVersion(String a, String b) {
+    List<String> numberA = a.replaceFirst('v', '').split('.');
+    List<String> numberB = b.replaceFirst('v', '').split('.');
+
+    if (numberA.length != numberB.length) {
+      return 0;
+    }
+
+    for (int i = 0; i < numberA.length; i++) {
+      int a = int.parse(numberA[i]);
+      int b = int.parse(numberB[i]);
+      if (a > b) {
+        return 1;
+      } else if (a < b) {
+        return -1;
+      }
+    }
+
+    return 0;
   }
 }

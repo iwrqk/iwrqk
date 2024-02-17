@@ -11,12 +11,15 @@ import '../../../../data/models/media/video.dart';
 import '../../../../data/models/offline/download_task_media.dart';
 import '../../../../data/services/download_service.dart';
 import '../../../../utils/display_util.dart';
+import '../controller.dart';
 
 class DownloadMediaPreview extends StatelessWidget {
+  final DownloadsController? downloadsController;
+  final bool checked;
+
   final MediaDownloadTask taskData;
   final bool isPlaying;
   final bool isPlaylist;
-  final Widget? coverOverlay;
   final void Function()? onTap;
   final void Function()? gotoPlayer;
   final void Function()? gotoDetail;
@@ -25,10 +28,11 @@ class DownloadMediaPreview extends StatelessWidget {
 
   DownloadMediaPreview({
     super.key,
+    this.downloadsController,
+    this.checked = false,
     required this.taskData,
     this.isPlaying = false,
     this.isPlaylist = false,
-    this.coverOverlay,
     this.onTap,
     this.gotoPlayer,
     this.gotoDetail,
@@ -331,7 +335,52 @@ class DownloadMediaPreview extends StatelessWidget {
             right: 6,
             child: _buildTopBadge(context),
           ),
-          if (coverOverlay != null) coverOverlay!,
+          if (downloadsController != null) ...[
+            Obx(
+              () => Positioned.fill(
+                child: AnimatedOpacity(
+                  opacity: downloadsController!.enableMultipleSelection ? 1 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.black.withOpacity(
+                          downloadsController!.enableMultipleSelection &&
+                                  checked
+                              ? 0.6
+                              : 0),
+                    ),
+                    child: Center(
+                      child: SizedBox(
+                        width: 34,
+                        height: 34,
+                        child: AnimatedScale(
+                          scale: checked ? 1 : 0,
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut,
+                          child: Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(0.8),
+                            ),
+                            child: Icon(
+                              Icons.check,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

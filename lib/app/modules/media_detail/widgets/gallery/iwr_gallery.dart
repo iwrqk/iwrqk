@@ -90,7 +90,11 @@ class _IwrGalleryState extends State<IwrGallery> {
               shape: BoxShape.circle,
               color: _currentIndex == index
                   ? Colors.white
-                  : Theme.of(context).colorScheme.outline,
+                  : Theme.of(context).colorScheme.outline.withOpacity(0.5),
+              border: Border.all(
+                width: 1,
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
           ),
         );
@@ -157,13 +161,15 @@ class _IwrGalleryState extends State<IwrGallery> {
             children: [
               _buildGallery(),
               Positioned(
-                left: 0,
-                top: 0,
+                left: 4,
+                top: 4,
                 child: IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.black.withOpacity(0.3),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  padding: const EdgeInsets.all(16),
                   icon: Icon(
                     Icons.arrow_back,
                     color: Colors.white,

@@ -54,7 +54,7 @@ class _CustomColorPageState extends State<CustomColorPage> {
                                 height: 46,
                                 decoration: BoxDecoration(
                                   color: e['color'].withOpacity(0.8),
-                                  borderRadius: BorderRadius.circular(50),
+                                  shape: BoxShape.circle,
                                   border: Border.all(
                                     width: 2,
                                     color: _configService.customColor == index

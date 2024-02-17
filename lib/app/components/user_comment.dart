@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../data/enums/types.dart';
 import '../data/models/comment.dart';
 import '../data/models/user.dart';
+import '../data/providers/translate_provider.dart';
+import '../data/services/user_service.dart';
 import '../utils/display_util.dart';
 import 'iwr_markdown.dart';
 import 'network_image.dart';
 import 'replies_detail.dart';
+import 'translated_content.dart';
 
 class UserComment extends StatefulWidget {
   final CommentModel comment;
@@ -45,17 +49,18 @@ class _UserCommentState extends State<UserComment>
   }
 
   void _getTranslatedContent() async {
-    // TranslateProvider.google(
-    //   text: widget.comment.body,
-    // ).then((value) {
-    //   if (value.success) {
-    //     setState(() {
-    //       translatedContent = value.data;
-    //     });
-    //   } else {
-    //     showToast(value.message!);
-    //   }
-    // });
+    if (translatedContent != null) return;
+    TranslateProvider.google(
+      text: widget.comment.body,
+    ).then((value) {
+      if (value.success) {
+        setState(() {
+          translatedContent = value.data;
+        });
+      } else {
+        SmartDialog.showToast(value.message!);
+      }
+    });
   }
 
   Widget _buildUploaderBadge(BuildContext context, [bool small = false]) {
@@ -137,6 +142,12 @@ class _UserCommentState extends State<UserComment>
                   ),
                   PopupMenuItem<String>(
                     value: "delete",
+                    onTap: () {
+                      final UserService userService = Get.find();
+                      userService.deleteComment(
+                        id: widget.comment.id,
+                      );
+                    },
                     child: Text(
                       t.comment.delete_comment,
                     ),
@@ -211,11 +222,11 @@ class _UserCommentState extends State<UserComment>
             selectable: true,
             data: widget.comment.body,
           ),
-          // if (translatedContent != null)
-          //   TranslatedContent(
-          //     padding: const EdgeInsets.only(top: 10),
-          //     translatedContent: translatedContent!,
-          //   ),
+          if (translatedContent != null)
+            TranslatedContent(
+              padding: const EdgeInsets.only(top: 12),
+              translatedContent: translatedContent!,
+            ),
           _buildBottomWidget(context),
           if (!(widget.comment.children.isEmpty || widget.showReplies == false))
             Card(
@@ -262,23 +273,23 @@ class _UserCommentState extends State<UserComment>
     );
   }
 
+  CommentsSourceType getDetailSourceType() {
+    switch (widget.sourceType) {
+      case CommentsSourceType.video:
+        return CommentsSourceType.videoReplies;
+      case CommentsSourceType.image:
+        return CommentsSourceType.imageReplies;
+      case CommentsSourceType.profile:
+        return CommentsSourceType.profileReplies;
+      default:
+        return CommentsSourceType.videoReplies;
+    }
+  }
+
   void _jumpToDetail() {
     if (widget.canJumpToDetail) {
-      late CommentsSourceType detailSourceType;
-      bool showInPage = false;
-      switch (widget.sourceType!) {
-        case CommentsSourceType.video:
-          detailSourceType = CommentsSourceType.videoReplies;
-          break;
-        case CommentsSourceType.image:
-          detailSourceType = CommentsSourceType.imageReplies;
-          break;
-        case CommentsSourceType.profile:
-          showInPage = true;
-          detailSourceType = CommentsSourceType.profileReplies;
-          break;
-        default:
-      }
+      CommentsSourceType detailSourceType = getDetailSourceType();
+      bool showInPage = detailSourceType == CommentsSourceType.profile;
       if (showInPage) {
         Get.to(
           () => RepliesDetail(

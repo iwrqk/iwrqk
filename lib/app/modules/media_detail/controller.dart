@@ -74,15 +74,11 @@ class MediaDetailController extends GetxController
 
   final RxString _errorMessageRecommendation = "".obs;
 
-  final RxString _translatedContent = "".obs;
-
   bool get fetchFailed => _fetchFailed.value;
 
   String get errorMessage => _errorMessage.value;
 
   String get errorMessageRecommendation => _errorMessageRecommendation.value;
-
-  String get translatedContent => _translatedContent.value;
 
   set errorMessage(String errorMessage) {
     _errorMessage.value = errorMessage;
@@ -363,20 +359,5 @@ class MediaDetailController extends GetxController
         _isFavorite.value = false;
       }
     });
-  }
-
-  void getTranslatedContent() async {
-    if (translatedContent.isNotEmpty || media.body == null) {
-      return;
-    }
-    // TranslateProvider.google(
-    //   text: media.body!,
-    // ).then((value) {
-    //   if (value.success) {
-    //     _translatedContent.value = value.data!;
-    //   } else {
-    //     showToast(value.message!);
-    //   }
-    // });
   }
 }

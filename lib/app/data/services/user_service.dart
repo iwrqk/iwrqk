@@ -299,6 +299,25 @@ class UserService extends GetxService {
     return flag;
   }
 
+  Future<bool> editPlaylistTitle(String playlistId, String title) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      SmartDialog.showToast(t.account.require_login);
+      flag = false;
+      return flag;
+    }
+    await ApiProvider.editPlaylistTitle(playlistId: playlistId, title: title)
+        .then((value) {
+      if (!value.success) {
+        SmartDialog.showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
   Future<bool> addToPlaylist(String videoId, List<String> playlistIds) async {
     bool flag = true;
     if (!accountService.isLogin) {
@@ -371,15 +390,42 @@ class UserService extends GetxService {
     return flag;
   }
 
-  Future<bool> deleteComment(String sourceType, String commentId) async {
+  Future<bool> editComment({
+    required String id,
+    required String content,
+  }) async {
     bool flag = false;
     if (!accountService.isLogin) {
       SmartDialog.showToast(t.account.require_login);
       flag = false;
       return flag;
     }
-    await ApiProvider.deleteComment(sourceType: sourceType, id: commentId)
-        .then((value) {
+    await ApiProvider.editComment(
+      id: id,
+      content: content,
+    ).then((value) {
+      if (!value.success) {
+        SmartDialog.showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  Future<bool> deleteComment({
+    required String id,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      SmartDialog.showToast(t.account.require_login);
+      flag = false;
+      return flag;
+    }
+    await ApiProvider.deleteComment(
+      id: id,
+    ).then((value) {
       if (!value.success) {
         SmartDialog.showToast(value.message!);
         flag = false;

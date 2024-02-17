@@ -7,9 +7,7 @@ import 'controller.dart';
 import 'widgets/playlists_preview_list/widget.dart';
 
 class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
-  const PlaylistsPreviewPage({
-    super.key,
-  });
+  const PlaylistsPreviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {

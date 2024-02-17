@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
 import '../../const/config.dart';
 import '../enums/result.dart';
-import '../models/config.dart';
 
 class ConfigProvider {
   static late Dio _dio;
@@ -18,12 +15,12 @@ class ConfigProvider {
     };
   }
 
-  static Future<ApiResult<ConfigModel>> getConfig() async {
+  static Future<ApiResult<String>> getLatestVersion() async {
     String? message;
-    ConfigModel? data;
+    String? data;
     try {
-      final response = await _dio.get(ConfigConst.githubUrl);
-      data = ConfigModel.fromJson(jsonDecode(response.data));
+      final response = await _dio.get(ConfigConst.checkUpdateUrl);
+      data = response.data[0]["tag_name"];
     } catch (e) {
       message = e.toString();
     }

@@ -16,6 +16,7 @@ class DownloadsMediaPreviewList extends StatefulWidget {
   final String tag;
   final bool isPlaylist;
   final String? initialMediaId;
+  final String? keyword;
   final Function(MediaDownloadTask data)? onChangeVideo;
 
   const DownloadsMediaPreviewList({
@@ -23,6 +24,7 @@ class DownloadsMediaPreviewList extends StatefulWidget {
     this.showCompleted = false,
     required this.tag,
     this.isPlaylist = false,
+    this.keyword,
     this.initialMediaId,
     this.onChangeVideo,
   });
@@ -70,6 +72,13 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final item = _controller.data[index];
+
+                    if (widget.keyword != null) {
+                      if (widget.keyword!.isEmpty ||
+                          !item.offlineMedia.contains(widget.keyword!)) {
+                        return const SizedBox.shrink();
+                      }
+                    }
 
                     return Obx(() {
                       final DownloadTaskStatus status = _controller
@@ -143,19 +152,19 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           onRetry: (taskId) async {
                             await _controller.retryTask(
                               index,
-                              item.taskId,
+                              taskId,
                             );
                           },
                           onDeleted: (taskId) async {
                             await _controller.deleteVideoTask(
                               index,
-                              item.taskId,
+                              taskId,
                             );
                           },
                           onOpen: (taskId) async {
                             OpenFile.open(
                                 (await _controller.downloadService
-                                    .getTaskFilePath(item.taskId))!,
+                                    .getTaskFilePath(taskId))!,
                                 type: 'video/mp4',
                                 uti: 'public.mpeg-4');
                           },
@@ -163,7 +172,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                             Share.shareXFiles([
                               XFile(
                                   (await _controller.downloadService
-                                      .getTaskFilePath(item.taskId))!,
+                                      .getTaskFilePath(taskId))!,
                                   mimeType: 'video/mp4')
                             ]);
                           },
@@ -173,7 +182,25 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                       }
 
                       return DownloadMediaPreview(
-                        onTap: popupDialog,
+                        downloadsController: _parentController,
+                        checked:
+                            _parentController.checkedList.contains(item.hash),
+                        onTap: () {
+                          if (_parentController.enableMultipleSelection) {
+                            _parentController.toggleChecked(item.hash);
+                            setState(() {});
+                          } else {
+                            popupDialog.call();
+                          }
+                        },
+                        onLongPress: _parentController.enableMultipleSelection
+                            ? null
+                            : () {
+                                _parentController.enableMultipleSelection =
+                                    true;
+                                _parentController.toggleChecked(item.hash);
+                                setState(() {});
+                              },
                         gotoDetail: gotoDetail,
                         taskData: item,
                       );

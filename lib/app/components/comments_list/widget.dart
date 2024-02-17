@@ -123,55 +123,58 @@ class _CommentsListState extends State<CommentsList>
             scrollController: widget.scrollController,
             paginated: widget.paginated,
             builder: (data, scrollController) {
-              return CustomScrollView(
-                controller: scrollController,
-                slivers: [
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 16),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        Widget comment = UserComment(
-                          comment: data[index],
-                          uploaderUserName: widget.uploaderUserName,
-                          sourceId: widget.sourceId,
-                          sourceType: widget.sourceType,
-                          showReplies: widget.showReplies,
-                          showDivider: index != data.length - 1,
-                          canJumpToDetail: widget.canJumpToDetail,
-                          isMyComment: _controller.userService.user?.id ==
-                              data[index].user.id,
-                        );
-
-                        if (index == 0 && widget.parentComment != null) {
-                          return Column(
-                            children: [
-                              widget.parentComment!,
-                              Container(
-                                height: 12,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 4,
-                                ),
-                                color: Theme.of(context)
-                                    .dividerColor
-                                    .withOpacity(0.1),
-                              ),
-                              comment,
-                            ],
-                          );
-                        }
-
-                        return comment;
-                      },
-                      childCount: data.length,
+              return Obx(
+                () => CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 16),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child:
-                        SizedBox(height: MediaQuery.of(context).padding.bottom),
-                  ),
-                ],
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          Widget comment = UserComment(
+                            comment: data[index],
+                            uploaderUserName: widget.uploaderUserName,
+                            sourceId: widget.sourceId,
+                            sourceType: widget.sourceType,
+                            showReplies: widget.showReplies,
+                            showDivider: index != data.length - 1,
+                            canJumpToDetail: widget.canJumpToDetail,
+                            isMyComment: _controller.userService.user?.id ==
+                                data[index].user.id,
+                          );
+
+                          if (index == 0 && widget.parentComment != null) {
+                            return Column(
+                              children: [
+                                widget.parentComment!,
+                                Container(
+                                  height: 12,
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 4,
+                                  ),
+                                  color: Theme.of(context)
+                                      .dividerColor
+                                      .withOpacity(0.1),
+                                ),
+                                comment,
+                              ],
+                            );
+                          }
+
+                          return comment;
+                        },
+                        childCount: data.length,
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).padding.bottom,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
