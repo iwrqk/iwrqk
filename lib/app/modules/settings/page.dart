@@ -361,7 +361,7 @@ class SettingsPage extends GetView<SettingsController> {
       currentOption: controller.getCurrentLocalecode(),
       options: t.locales,
       onSelected: (value) {
-        controller.setLanguage(value);
+        controller.setLanguage(AppLocaleUtils.parse(value));
       },
     );
   }

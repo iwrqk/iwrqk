@@ -94,9 +94,9 @@ class ConfigService extends GetxService {
     crossAxisCount = number;
   }
 
-  void setLocale(String localeCode) {
-    LocaleSettings.setLocaleRaw(localeCode);
-    setting[ConfigKey.localeCode] = localeCode;
+  void setLocale(AppLocale locale) {
+    LocaleSettings.setLocale(locale);
+    setting[ConfigKey.localeCode] = locale.languageTag;
   }
 
   void resetEasyRefresh() {

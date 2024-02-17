@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../data/providers/storage_provider.dart';
 import '../../data/services/account_service.dart';
@@ -29,9 +30,9 @@ class SettingsController extends GetxController {
     return DisplayUtil.getLocalecode();
   }
 
-  void setLanguage(String localeCode) {
-    configService.setLocale(localeCode);
-    Get.updateLocale(Locale(localeCode));
+  void setLanguage(AppLocale locale) {
+    configService.setLocale(locale);
+    Get.updateLocale(locale.flutterLocale);
   }
 
   final RxBool _enableLogging = false.obs;

@@ -6,7 +6,7 @@
 /// Locales: 4
 /// Strings: 1032 (258 per locale)
 ///
-/// Built on 2024-02-17 at 08:17 UTC
+/// Built on 2024-02-17 at 08:34 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -27,8 +27,8 @@ const AppLocale _baseLocale = AppLocale.en;
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en', build: Translations.build),
 	ja(languageCode: 'ja', build: _StringsJa.build),
-	zhHans(languageCode: 'zh', scriptCode: 'Hans', build: _StringsZhHans.build),
-	zhHant(languageCode: 'zh', scriptCode: 'Hant', build: _StringsZhHant.build);
+	zhCn(languageCode: 'zh', countryCode: 'CN', build: _StringsZhCn.build),
+	zhTw(languageCode: 'zh', countryCode: 'TW', build: _StringsZhTw.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
@@ -153,8 +153,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Map<String, String> get locales => {
 		'en': 'English',
 		'ja': '日本語',
-		'zh-Hans': '简体中文',
-		'zh-Hant': '繁體中文',
+		'zh-CN': '简体中文',
+		'zh-TW': '繁體中文',
 	};
 	late final _StringsNavEn nav = _StringsNavEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
@@ -1441,13 +1441,13 @@ class _StringsErrorAccountJa extends _StringsErrorAccountEn {
 }
 
 // Path: <root>
-class _StringsZhHans extends Translations {
+class _StringsZhCn extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	_StringsZhHans.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	_StringsZhCn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
-		    locale: AppLocale.zhHans,
+		    locale: AppLocale.zhCn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
@@ -1457,50 +1457,50 @@ class _StringsZhHans extends Translations {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <zh-Hans>.
+	/// Metadata for the translations of <zh-CN>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
 	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
-	@override late final _StringsZhHans _root = this; // ignore: unused_field
+	@override late final _StringsZhCn _root = this; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsNavZhHans nav = _StringsNavZhHans._(_root);
-	@override late final _StringsCommonZhHans common = _StringsCommonZhHans._(_root);
-	@override late final _StringsRefreshZhHans refresh = _StringsRefreshZhHans._(_root);
-	@override late final _StringsRecordsZhHans records = _StringsRecordsZhHans._(_root);
-	@override late final _StringsAccountZhHans account = _StringsAccountZhHans._(_root);
-	@override late final _StringsProfileZhHans profile = _StringsProfileZhHans._(_root);
-	@override late final _StringsSortZhHans sort = _StringsSortZhHans._(_root);
-	@override late final _StringsFilterZhHans filter = _StringsFilterZhHans._(_root);
-	@override late final _StringsSearchZhHans search = _StringsSearchZhHans._(_root);
-	@override late final _StringsTimeZhHans time = _StringsTimeZhHans._(_root);
-	@override late final _StringsMediaZhHans media = _StringsMediaZhHans._(_root);
-	@override late final _StringsPlayerZhHans player = _StringsPlayerZhHans._(_root);
-	@override late final _StringsCommentZhHans comment = _StringsCommentZhHans._(_root);
-	@override late final _StringsUserZhHans user = _StringsUserZhHans._(_root);
-	@override late final _StringsFriendZhHans friend = _StringsFriendZhHans._(_root);
-	@override late final _StringsBlockedTagsZhHans blocked_tags = _StringsBlockedTagsZhHans._(_root);
-	@override late final _StringsDownloadZhHans download = _StringsDownloadZhHans._(_root);
-	@override late final _StringsPlaylistZhHans playlist = _StringsPlaylistZhHans._(_root);
-	@override late final _StringsChannelZhHans channel = _StringsChannelZhHans._(_root);
-	@override late final _StringsCreateThreadZhHans create_thread = _StringsCreateThreadZhHans._(_root);
-	@override late final _StringsNotificationsZhHans notifications = _StringsNotificationsZhHans._(_root);
-	@override late final _StringsSettingsZhHans settings = _StringsSettingsZhHans._(_root);
-	@override late final _StringsThemeZhHans theme = _StringsThemeZhHans._(_root);
-	@override late final _StringsColorsZhHans colors = _StringsColorsZhHans._(_root);
-	@override late final _StringsDisplayModeZhHans display_mode = _StringsDisplayModeZhHans._(_root);
-	@override late final _StringsProxyZhHans proxy = _StringsProxyZhHans._(_root);
-	@override late final _StringsMessageZhHans message = _StringsMessageZhHans._(_root);
-	@override late final _StringsErrorZhHans error = _StringsErrorZhHans._(_root);
+	@override late final _StringsNavZhCn nav = _StringsNavZhCn._(_root);
+	@override late final _StringsCommonZhCn common = _StringsCommonZhCn._(_root);
+	@override late final _StringsRefreshZhCn refresh = _StringsRefreshZhCn._(_root);
+	@override late final _StringsRecordsZhCn records = _StringsRecordsZhCn._(_root);
+	@override late final _StringsAccountZhCn account = _StringsAccountZhCn._(_root);
+	@override late final _StringsProfileZhCn profile = _StringsProfileZhCn._(_root);
+	@override late final _StringsSortZhCn sort = _StringsSortZhCn._(_root);
+	@override late final _StringsFilterZhCn filter = _StringsFilterZhCn._(_root);
+	@override late final _StringsSearchZhCn search = _StringsSearchZhCn._(_root);
+	@override late final _StringsTimeZhCn time = _StringsTimeZhCn._(_root);
+	@override late final _StringsMediaZhCn media = _StringsMediaZhCn._(_root);
+	@override late final _StringsPlayerZhCn player = _StringsPlayerZhCn._(_root);
+	@override late final _StringsCommentZhCn comment = _StringsCommentZhCn._(_root);
+	@override late final _StringsUserZhCn user = _StringsUserZhCn._(_root);
+	@override late final _StringsFriendZhCn friend = _StringsFriendZhCn._(_root);
+	@override late final _StringsBlockedTagsZhCn blocked_tags = _StringsBlockedTagsZhCn._(_root);
+	@override late final _StringsDownloadZhCn download = _StringsDownloadZhCn._(_root);
+	@override late final _StringsPlaylistZhCn playlist = _StringsPlaylistZhCn._(_root);
+	@override late final _StringsChannelZhCn channel = _StringsChannelZhCn._(_root);
+	@override late final _StringsCreateThreadZhCn create_thread = _StringsCreateThreadZhCn._(_root);
+	@override late final _StringsNotificationsZhCn notifications = _StringsNotificationsZhCn._(_root);
+	@override late final _StringsSettingsZhCn settings = _StringsSettingsZhCn._(_root);
+	@override late final _StringsThemeZhCn theme = _StringsThemeZhCn._(_root);
+	@override late final _StringsColorsZhCn colors = _StringsColorsZhCn._(_root);
+	@override late final _StringsDisplayModeZhCn display_mode = _StringsDisplayModeZhCn._(_root);
+	@override late final _StringsProxyZhCn proxy = _StringsProxyZhCn._(_root);
+	@override late final _StringsMessageZhCn message = _StringsMessageZhCn._(_root);
+	@override late final _StringsErrorZhCn error = _StringsErrorZhCn._(_root);
 }
 
 // Path: nav
-class _StringsNavZhHans extends _StringsNavEn {
-	_StringsNavZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsNavZhCn extends _StringsNavEn {
+	_StringsNavZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get subscriptions => '订阅';
@@ -1511,10 +1511,10 @@ class _StringsNavZhHans extends _StringsNavEn {
 }
 
 // Path: common
-class _StringsCommonZhHans extends _StringsCommonEn {
-	_StringsCommonZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsCommonZhCn extends _StringsCommonEn {
+	_StringsCommonZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get video => '视频';
@@ -1526,10 +1526,10 @@ class _StringsCommonZhHans extends _StringsCommonEn {
 }
 
 // Path: refresh
-class _StringsRefreshZhHans extends _StringsRefreshEn {
-	_StringsRefreshZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsRefreshZhCn extends _StringsRefreshEn {
+	_StringsRefreshZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty => '空空如也';
@@ -1542,10 +1542,10 @@ class _StringsRefreshZhHans extends _StringsRefreshEn {
 }
 
 // Path: records
-class _StringsRecordsZhHans extends _StringsRecordsEn {
-	_StringsRecordsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsRecordsZhCn extends _StringsRecordsEn {
+	_StringsRecordsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get select_all => '全选';
@@ -1557,10 +1557,10 @@ class _StringsRecordsZhHans extends _StringsRecordsEn {
 }
 
 // Path: account
-class _StringsAccountZhHans extends _StringsAccountEn {
-	_StringsAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsAccountZhCn extends _StringsAccountEn {
+	_StringsAccountZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get captcha => '验证码';
@@ -1575,10 +1575,10 @@ class _StringsAccountZhHans extends _StringsAccountEn {
 }
 
 // Path: profile
-class _StringsProfileZhHans extends _StringsProfileEn {
-	_StringsProfileZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsProfileZhCn extends _StringsProfileEn {
+	_StringsProfileZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get profile => '个人资料';
@@ -1599,10 +1599,10 @@ class _StringsProfileZhHans extends _StringsProfileEn {
 }
 
 // Path: sort
-class _StringsSortZhHans extends _StringsSortEn {
-	_StringsSortZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsSortZhCn extends _StringsSortEn {
+	_StringsSortZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get latest => '最新';
@@ -1613,10 +1613,10 @@ class _StringsSortZhHans extends _StringsSortEn {
 }
 
 // Path: filter
-class _StringsFilterZhHans extends _StringsFilterEn {
-	_StringsFilterZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsFilterZhCn extends _StringsFilterEn {
+	_StringsFilterZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get all => '全部';
@@ -1633,22 +1633,22 @@ class _StringsFilterZhHans extends _StringsFilterEn {
 }
 
 // Path: search
-class _StringsSearchZhHans extends _StringsSearchEn {
-	_StringsSearchZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsSearchZhCn extends _StringsSearchEn {
+	_StringsSearchZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get users => '用户';
 	@override String get search => '搜索';
-	@override late final _StringsSearchHistoryZhHans history = _StringsSearchHistoryZhHans._(_root);
+	@override late final _StringsSearchHistoryZhCn history = _StringsSearchHistoryZhCn._(_root);
 }
 
 // Path: time
-class _StringsTimeZhHans extends _StringsTimeEn {
-	_StringsTimeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsTimeZhCn extends _StringsTimeEn {
+	_StringsTimeZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String seconds_ago({required Object time}) => '${time} 秒前';
@@ -1658,10 +1658,10 @@ class _StringsTimeZhHans extends _StringsTimeEn {
 }
 
 // Path: media
-class _StringsMediaZhHans extends _StringsMediaEn {
-	_StringsMediaZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMediaZhCn extends _StringsMediaEn {
+	_StringsMediaZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get private => '私有';
@@ -1675,10 +1675,10 @@ class _StringsMediaZhHans extends _StringsMediaEn {
 }
 
 // Path: player
-class _StringsPlayerZhHans extends _StringsPlayerEn {
-	_StringsPlayerZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsPlayerZhCn extends _StringsPlayerEn {
+	_StringsPlayerZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String current_item({required Object item}) => '当前: ${item}';
@@ -1688,16 +1688,16 @@ class _StringsPlayerZhHans extends _StringsPlayerEn {
 	@override String get select_playback_speed => '选择播放速度';
 	@override String get aspect_ratio => '宽高比';
 	@override String get select_aspect_ratio => '选择宽高比';
-	@override late final _StringsPlayerAspectRatiosZhHans aspect_ratios = _StringsPlayerAspectRatiosZhHans._(_root);
+	@override late final _StringsPlayerAspectRatiosZhCn aspect_ratios = _StringsPlayerAspectRatiosZhCn._(_root);
 	@override String seconds({required Object value}) => '${value} 秒';
 	@override String get double_speed => '2 倍';
 }
 
 // Path: comment
-class _StringsCommentZhHans extends _StringsCommentEn {
-	_StringsCommentZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsCommentZhCn extends _StringsCommentEn {
+	_StringsCommentZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get comment => '评论';
@@ -1711,10 +1711,10 @@ class _StringsCommentZhHans extends _StringsCommentEn {
 }
 
 // Path: user
-class _StringsUserZhHans extends _StringsUserEn {
-	_StringsUserZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsUserZhCn extends _StringsUserEn {
+	_StringsUserZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get following => '关注中';
@@ -1729,10 +1729,10 @@ class _StringsUserZhHans extends _StringsUserEn {
 }
 
 // Path: friend
-class _StringsFriendZhHans extends _StringsFriendEn {
-	_StringsFriendZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsFriendZhCn extends _StringsFriendEn {
+	_StringsFriendZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get friend_requests => '好友请求';
@@ -1744,10 +1744,10 @@ class _StringsFriendZhHans extends _StringsFriendEn {
 }
 
 // Path: blocked_tags
-class _StringsBlockedTagsZhHans extends _StringsBlockedTagsEn {
-	_StringsBlockedTagsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsBlockedTagsZhCn extends _StringsBlockedTagsEn {
+	_StringsBlockedTagsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get add_blocked_tag => '添加屏蔽标签';
@@ -1755,10 +1755,10 @@ class _StringsBlockedTagsZhHans extends _StringsBlockedTagsEn {
 }
 
 // Path: download
-class _StringsDownloadZhHans extends _StringsDownloadEn {
-	_StringsDownloadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsDownloadZhCn extends _StringsDownloadEn {
+	_StringsDownloadZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_download_task => '创建下载任务';
@@ -1777,10 +1777,10 @@ class _StringsDownloadZhHans extends _StringsDownloadEn {
 }
 
 // Path: playlist
-class _StringsPlaylistZhHans extends _StringsPlaylistEn {
-	_StringsPlaylistZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsPlaylistZhCn extends _StringsPlaylistEn {
+	_StringsPlaylistZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '播放列表标题';
@@ -1791,10 +1791,10 @@ class _StringsPlaylistZhHans extends _StringsPlaylistEn {
 }
 
 // Path: channel
-class _StringsChannelZhHans extends _StringsChannelEn {
-	_StringsChannelZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsChannelZhCn extends _StringsChannelEn {
+	_StringsChannelZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get administration => '管理者';
@@ -1811,10 +1811,10 @@ class _StringsChannelZhHans extends _StringsChannelEn {
 }
 
 // Path: create_thread
-class _StringsCreateThreadZhHans extends _StringsCreateThreadEn {
-	_StringsCreateThreadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsCreateThreadZhCn extends _StringsCreateThreadEn {
+	_StringsCreateThreadZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_thread => '发帖';
@@ -1823,10 +1823,10 @@ class _StringsCreateThreadZhHans extends _StringsCreateThreadEn {
 }
 
 // Path: notifications
-class _StringsNotificationsZhHans extends _StringsNotificationsEn {
-	_StringsNotificationsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsNotificationsZhCn extends _StringsNotificationsEn {
+	_StringsNotificationsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get ok => '好的';
@@ -1839,10 +1839,10 @@ class _StringsNotificationsZhHans extends _StringsNotificationsEn {
 }
 
 // Path: settings
-class _StringsSettingsZhHans extends _StringsSettingsEn {
-	_StringsSettingsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsSettingsZhCn extends _StringsSettingsEn {
+	_StringsSettingsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get appearance => '外观设置';
@@ -1885,10 +1885,10 @@ class _StringsSettingsZhHans extends _StringsSettingsEn {
 }
 
 // Path: theme
-class _StringsThemeZhHans extends _StringsThemeEn {
-	_StringsThemeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsThemeZhCn extends _StringsThemeEn {
+	_StringsThemeZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => '跟随系统';
@@ -1897,10 +1897,10 @@ class _StringsThemeZhHans extends _StringsThemeEn {
 }
 
 // Path: colors
-class _StringsColorsZhHans extends _StringsColorsEn {
-	_StringsColorsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsColorsZhCn extends _StringsColorsEn {
+	_StringsColorsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get pink => '粉红';
@@ -1924,10 +1924,10 @@ class _StringsColorsZhHans extends _StringsColorsEn {
 }
 
 // Path: display_mode
-class _StringsDisplayModeZhHans extends _StringsDisplayModeEn {
-	_StringsDisplayModeZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsDisplayModeZhCn extends _StringsDisplayModeEn {
+	_StringsDisplayModeZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_available => '无可用显示模式';
@@ -1936,10 +1936,10 @@ class _StringsDisplayModeZhHans extends _StringsDisplayModeEn {
 }
 
 // Path: proxy
-class _StringsProxyZhHans extends _StringsProxyEn {
-	_StringsProxyZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsProxyZhCn extends _StringsProxyEn {
+	_StringsProxyZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get host => '主机名';
@@ -1947,10 +1947,10 @@ class _StringsProxyZhHans extends _StringsProxyEn {
 }
 
 // Path: message
-class _StringsMessageZhHans extends _StringsMessageEn {
-	_StringsMessageZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageZhCn extends _StringsMessageEn {
+	_StringsMessageZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get exit_app => '再按一次退出应用';
@@ -1958,42 +1958,42 @@ class _StringsMessageZhHans extends _StringsMessageEn {
 	@override String get restart_required => '重启后生效';
 	@override String get please_type_host => '请输入主机名';
 	@override String get please_type_port => '请输入端口';
-	@override late final _StringsMessageAccountZhHans account = _StringsMessageAccountZhHans._(_root);
-	@override late final _StringsMessageCommentZhHans comment = _StringsMessageCommentZhHans._(_root);
-	@override late final _StringsMessageCreateThreadZhHans create_thread = _StringsMessageCreateThreadZhHans._(_root);
-	@override late final _StringsMessageBlockedTagsZhHans blocked_tags = _StringsMessageBlockedTagsZhHans._(_root);
-	@override late final _StringsMessagePlaylistZhHans playlist = _StringsMessagePlaylistZhHans._(_root);
-	@override late final _StringsMessageDownloadZhHans download = _StringsMessageDownloadZhHans._(_root);
+	@override late final _StringsMessageAccountZhCn account = _StringsMessageAccountZhCn._(_root);
+	@override late final _StringsMessageCommentZhCn comment = _StringsMessageCommentZhCn._(_root);
+	@override late final _StringsMessageCreateThreadZhCn create_thread = _StringsMessageCreateThreadZhCn._(_root);
+	@override late final _StringsMessageBlockedTagsZhCn blocked_tags = _StringsMessageBlockedTagsZhCn._(_root);
+	@override late final _StringsMessagePlaylistZhCn playlist = _StringsMessagePlaylistZhCn._(_root);
+	@override late final _StringsMessageDownloadZhCn download = _StringsMessageDownloadZhCn._(_root);
 }
 
 // Path: error
-class _StringsErrorZhHans extends _StringsErrorEn {
-	_StringsErrorZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsErrorZhCn extends _StringsErrorEn {
+	_StringsErrorZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get retry => '加载失败，点击重试';
 	@override String get fetch_failed => '无法获取视频链接';
 	@override String get fetch_user_info_failed => '无法获取用户信息';
-	@override late final _StringsErrorAccountZhHans account = _StringsErrorAccountZhHans._(_root);
+	@override late final _StringsErrorAccountZhCn account = _StringsErrorAccountZhCn._(_root);
 }
 
 // Path: search.history
-class _StringsSearchHistoryZhHans extends _StringsSearchHistoryEn {
-	_StringsSearchHistoryZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsSearchHistoryZhCn extends _StringsSearchHistoryEn {
+	_StringsSearchHistoryZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get delete => '删除所有记录';
 }
 
 // Path: player.aspect_ratios
-class _StringsPlayerAspectRatiosZhHans extends _StringsPlayerAspectRatiosEn {
-	_StringsPlayerAspectRatiosZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsPlayerAspectRatiosZhCn extends _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get contain => '包含';
@@ -2005,10 +2005,10 @@ class _StringsPlayerAspectRatiosZhHans extends _StringsPlayerAspectRatiosEn {
 }
 
 // Path: message.account
-class _StringsMessageAccountZhHans extends _StringsMessageAccountEn {
-	_StringsMessageAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageAccountZhCn extends _StringsMessageAccountEn {
+	_StringsMessageAccountZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get login_success => '登入成功！';
@@ -2022,10 +2022,10 @@ class _StringsMessageAccountZhHans extends _StringsMessageAccountEn {
 }
 
 // Path: message.comment
-class _StringsMessageCommentZhHans extends _StringsMessageCommentEn {
-	_StringsMessageCommentZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageCommentZhCn extends _StringsMessageCommentEn {
+	_StringsMessageCommentZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get content_empty => '内容不能为空。';
@@ -2034,10 +2034,10 @@ class _StringsMessageCommentZhHans extends _StringsMessageCommentEn {
 }
 
 // Path: message.create_thread
-class _StringsMessageCreateThreadZhHans extends _StringsMessageCreateThreadEn {
-	_StringsMessageCreateThreadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageCreateThreadZhCn extends _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get title_empty => '标题不能为空。';
@@ -2048,10 +2048,10 @@ class _StringsMessageCreateThreadZhHans extends _StringsMessageCreateThreadEn {
 }
 
 // Path: message.blocked_tags
-class _StringsMessageBlockedTagsZhHans extends _StringsMessageBlockedTagsEn {
-	_StringsMessageBlockedTagsZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageBlockedTagsZhCn extends _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get save_confirm => '确定保存屏蔽标签吗？';
@@ -2060,10 +2060,10 @@ class _StringsMessageBlockedTagsZhHans extends _StringsMessageBlockedTagsEn {
 }
 
 // Path: message.playlist
-class _StringsMessagePlaylistZhHans extends _StringsMessagePlaylistEn {
-	_StringsMessagePlaylistZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessagePlaylistZhCn extends _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty_playlist_title => '播放列表标题不能为空。';
@@ -2071,10 +2071,10 @@ class _StringsMessagePlaylistZhHans extends _StringsMessagePlaylistEn {
 }
 
 // Path: message.download
-class _StringsMessageDownloadZhHans extends _StringsMessageDownloadEn {
-	_StringsMessageDownloadZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsMessageDownloadZhCn extends _StringsMessageDownloadEn {
+	_StringsMessageDownloadZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_provide_storage_permission => '未提供存储权限。';
@@ -2084,10 +2084,10 @@ class _StringsMessageDownloadZhHans extends _StringsMessageDownloadEn {
 }
 
 // Path: error.account
-class _StringsErrorAccountZhHans extends _StringsErrorAccountEn {
-	_StringsErrorAccountZhHans._(_StringsZhHans root) : this._root = root, super._(root);
+class _StringsErrorAccountZhCn extends _StringsErrorAccountEn {
+	_StringsErrorAccountZhCn._(_StringsZhCn root) : this._root = root, super._(root);
 
-	@override final _StringsZhHans _root; // ignore: unused_field
+	@override final _StringsZhCn _root; // ignore: unused_field
 
 	// Translations
 	@override String get invalid_login => '邮箱或密码错误';
@@ -2096,13 +2096,13 @@ class _StringsErrorAccountZhHans extends _StringsErrorAccountEn {
 }
 
 // Path: <root>
-class _StringsZhHant extends Translations {
+class _StringsZhTw extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	_StringsZhHant.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	_StringsZhTw.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
-		    locale: AppLocale.zhHant,
+		    locale: AppLocale.zhTw,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
@@ -2112,50 +2112,50 @@ class _StringsZhHant extends Translations {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <zh-Hant>.
+	/// Metadata for the translations of <zh-TW>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
 	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
-	@override late final _StringsZhHant _root = this; // ignore: unused_field
+	@override late final _StringsZhTw _root = this; // ignore: unused_field
 
 	// Translations
-	@override late final _StringsNavZhHant nav = _StringsNavZhHant._(_root);
-	@override late final _StringsCommonZhHant common = _StringsCommonZhHant._(_root);
-	@override late final _StringsRefreshZhHant refresh = _StringsRefreshZhHant._(_root);
-	@override late final _StringsRecordsZhHant records = _StringsRecordsZhHant._(_root);
-	@override late final _StringsAccountZhHant account = _StringsAccountZhHant._(_root);
-	@override late final _StringsProfileZhHant profile = _StringsProfileZhHant._(_root);
-	@override late final _StringsSortZhHant sort = _StringsSortZhHant._(_root);
-	@override late final _StringsFilterZhHant filter = _StringsFilterZhHant._(_root);
-	@override late final _StringsSearchZhHant search = _StringsSearchZhHant._(_root);
-	@override late final _StringsTimeZhHant time = _StringsTimeZhHant._(_root);
-	@override late final _StringsMediaZhHant media = _StringsMediaZhHant._(_root);
-	@override late final _StringsPlayerZhHant player = _StringsPlayerZhHant._(_root);
-	@override late final _StringsCommentZhHant comment = _StringsCommentZhHant._(_root);
-	@override late final _StringsUserZhHant user = _StringsUserZhHant._(_root);
-	@override late final _StringsFriendZhHant friend = _StringsFriendZhHant._(_root);
-	@override late final _StringsBlockedTagsZhHant blocked_tags = _StringsBlockedTagsZhHant._(_root);
-	@override late final _StringsDownloadZhHant download = _StringsDownloadZhHant._(_root);
-	@override late final _StringsPlaylistZhHant playlist = _StringsPlaylistZhHant._(_root);
-	@override late final _StringsChannelZhHant channel = _StringsChannelZhHant._(_root);
-	@override late final _StringsCreateThreadZhHant create_thread = _StringsCreateThreadZhHant._(_root);
-	@override late final _StringsNotificationsZhHant notifications = _StringsNotificationsZhHant._(_root);
-	@override late final _StringsSettingsZhHant settings = _StringsSettingsZhHant._(_root);
-	@override late final _StringsThemeZhHant theme = _StringsThemeZhHant._(_root);
-	@override late final _StringsColorsZhHant colors = _StringsColorsZhHant._(_root);
-	@override late final _StringsDisplayModeZhHant display_mode = _StringsDisplayModeZhHant._(_root);
-	@override late final _StringsProxyZhHant proxy = _StringsProxyZhHant._(_root);
-	@override late final _StringsMessageZhHant message = _StringsMessageZhHant._(_root);
-	@override late final _StringsErrorZhHant error = _StringsErrorZhHant._(_root);
+	@override late final _StringsNavZhTw nav = _StringsNavZhTw._(_root);
+	@override late final _StringsCommonZhTw common = _StringsCommonZhTw._(_root);
+	@override late final _StringsRefreshZhTw refresh = _StringsRefreshZhTw._(_root);
+	@override late final _StringsRecordsZhTw records = _StringsRecordsZhTw._(_root);
+	@override late final _StringsAccountZhTw account = _StringsAccountZhTw._(_root);
+	@override late final _StringsProfileZhTw profile = _StringsProfileZhTw._(_root);
+	@override late final _StringsSortZhTw sort = _StringsSortZhTw._(_root);
+	@override late final _StringsFilterZhTw filter = _StringsFilterZhTw._(_root);
+	@override late final _StringsSearchZhTw search = _StringsSearchZhTw._(_root);
+	@override late final _StringsTimeZhTw time = _StringsTimeZhTw._(_root);
+	@override late final _StringsMediaZhTw media = _StringsMediaZhTw._(_root);
+	@override late final _StringsPlayerZhTw player = _StringsPlayerZhTw._(_root);
+	@override late final _StringsCommentZhTw comment = _StringsCommentZhTw._(_root);
+	@override late final _StringsUserZhTw user = _StringsUserZhTw._(_root);
+	@override late final _StringsFriendZhTw friend = _StringsFriendZhTw._(_root);
+	@override late final _StringsBlockedTagsZhTw blocked_tags = _StringsBlockedTagsZhTw._(_root);
+	@override late final _StringsDownloadZhTw download = _StringsDownloadZhTw._(_root);
+	@override late final _StringsPlaylistZhTw playlist = _StringsPlaylistZhTw._(_root);
+	@override late final _StringsChannelZhTw channel = _StringsChannelZhTw._(_root);
+	@override late final _StringsCreateThreadZhTw create_thread = _StringsCreateThreadZhTw._(_root);
+	@override late final _StringsNotificationsZhTw notifications = _StringsNotificationsZhTw._(_root);
+	@override late final _StringsSettingsZhTw settings = _StringsSettingsZhTw._(_root);
+	@override late final _StringsThemeZhTw theme = _StringsThemeZhTw._(_root);
+	@override late final _StringsColorsZhTw colors = _StringsColorsZhTw._(_root);
+	@override late final _StringsDisplayModeZhTw display_mode = _StringsDisplayModeZhTw._(_root);
+	@override late final _StringsProxyZhTw proxy = _StringsProxyZhTw._(_root);
+	@override late final _StringsMessageZhTw message = _StringsMessageZhTw._(_root);
+	@override late final _StringsErrorZhTw error = _StringsErrorZhTw._(_root);
 }
 
 // Path: nav
-class _StringsNavZhHant extends _StringsNavEn {
-	_StringsNavZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsNavZhTw extends _StringsNavEn {
+	_StringsNavZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get subscriptions => '訂閱';
@@ -2166,10 +2166,10 @@ class _StringsNavZhHant extends _StringsNavEn {
 }
 
 // Path: common
-class _StringsCommonZhHant extends _StringsCommonEn {
-	_StringsCommonZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsCommonZhTw extends _StringsCommonEn {
+	_StringsCommonZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get video => '影片';
@@ -2181,10 +2181,10 @@ class _StringsCommonZhHant extends _StringsCommonEn {
 }
 
 // Path: refresh
-class _StringsRefreshZhHant extends _StringsRefreshEn {
-	_StringsRefreshZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsRefreshZhTw extends _StringsRefreshEn {
+	_StringsRefreshZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty => '空空如也';
@@ -2197,10 +2197,10 @@ class _StringsRefreshZhHant extends _StringsRefreshEn {
 }
 
 // Path: records
-class _StringsRecordsZhHant extends _StringsRecordsEn {
-	_StringsRecordsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsRecordsZhTw extends _StringsRecordsEn {
+	_StringsRecordsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get select_all => '全選';
@@ -2212,10 +2212,10 @@ class _StringsRecordsZhHant extends _StringsRecordsEn {
 }
 
 // Path: account
-class _StringsAccountZhHant extends _StringsAccountEn {
-	_StringsAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsAccountZhTw extends _StringsAccountEn {
+	_StringsAccountZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get captcha => '驗證碼';
@@ -2230,10 +2230,10 @@ class _StringsAccountZhHant extends _StringsAccountEn {
 }
 
 // Path: profile
-class _StringsProfileZhHant extends _StringsProfileEn {
-	_StringsProfileZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsProfileZhTw extends _StringsProfileEn {
+	_StringsProfileZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get profile => '個人檔案';
@@ -2254,10 +2254,10 @@ class _StringsProfileZhHant extends _StringsProfileEn {
 }
 
 // Path: sort
-class _StringsSortZhHant extends _StringsSortEn {
-	_StringsSortZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsSortZhTw extends _StringsSortEn {
+	_StringsSortZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get latest => '最新';
@@ -2268,10 +2268,10 @@ class _StringsSortZhHant extends _StringsSortEn {
 }
 
 // Path: filter
-class _StringsFilterZhHant extends _StringsFilterEn {
-	_StringsFilterZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsFilterZhTw extends _StringsFilterEn {
+	_StringsFilterZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get all => '全部';
@@ -2288,22 +2288,22 @@ class _StringsFilterZhHant extends _StringsFilterEn {
 }
 
 // Path: search
-class _StringsSearchZhHant extends _StringsSearchEn {
-	_StringsSearchZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsSearchZhTw extends _StringsSearchEn {
+	_StringsSearchZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get users => '使用者';
 	@override String get search => '搜尋';
-	@override late final _StringsSearchHistoryZhHant history = _StringsSearchHistoryZhHant._(_root);
+	@override late final _StringsSearchHistoryZhTw history = _StringsSearchHistoryZhTw._(_root);
 }
 
 // Path: time
-class _StringsTimeZhHant extends _StringsTimeEn {
-	_StringsTimeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsTimeZhTw extends _StringsTimeEn {
+	_StringsTimeZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String seconds_ago({required Object time}) => '${time} 秒前';
@@ -2313,10 +2313,10 @@ class _StringsTimeZhHant extends _StringsTimeEn {
 }
 
 // Path: media
-class _StringsMediaZhHant extends _StringsMediaEn {
-	_StringsMediaZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMediaZhTw extends _StringsMediaEn {
+	_StringsMediaZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get private => '私人';
@@ -2330,10 +2330,10 @@ class _StringsMediaZhHant extends _StringsMediaEn {
 }
 
 // Path: player
-class _StringsPlayerZhHant extends _StringsPlayerEn {
-	_StringsPlayerZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsPlayerZhTw extends _StringsPlayerEn {
+	_StringsPlayerZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String current_item({required Object item}) => '目前: ${item}';
@@ -2343,16 +2343,16 @@ class _StringsPlayerZhHant extends _StringsPlayerEn {
 	@override String get select_playback_speed => '選擇播放速度';
 	@override String get aspect_ratio => '長寬比';
 	@override String get select_aspect_ratio => '選擇長寬比';
-	@override late final _StringsPlayerAspectRatiosZhHant aspect_ratios = _StringsPlayerAspectRatiosZhHant._(_root);
+	@override late final _StringsPlayerAspectRatiosZhTw aspect_ratios = _StringsPlayerAspectRatiosZhTw._(_root);
 	@override String seconds({required Object value}) => '${value} 秒';
 	@override String get double_speed => '2 倍';
 }
 
 // Path: comment
-class _StringsCommentZhHant extends _StringsCommentEn {
-	_StringsCommentZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsCommentZhTw extends _StringsCommentEn {
+	_StringsCommentZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get comment => '評論';
@@ -2366,10 +2366,10 @@ class _StringsCommentZhHant extends _StringsCommentEn {
 }
 
 // Path: user
-class _StringsUserZhHant extends _StringsUserEn {
-	_StringsUserZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsUserZhTw extends _StringsUserEn {
+	_StringsUserZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get following => '正在關注';
@@ -2384,10 +2384,10 @@ class _StringsUserZhHant extends _StringsUserEn {
 }
 
 // Path: friend
-class _StringsFriendZhHant extends _StringsFriendEn {
-	_StringsFriendZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsFriendZhTw extends _StringsFriendEn {
+	_StringsFriendZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get friend_requests => '好友請求';
@@ -2399,10 +2399,10 @@ class _StringsFriendZhHant extends _StringsFriendEn {
 }
 
 // Path: blocked_tags
-class _StringsBlockedTagsZhHant extends _StringsBlockedTagsEn {
-	_StringsBlockedTagsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsBlockedTagsZhTw extends _StringsBlockedTagsEn {
+	_StringsBlockedTagsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get add_blocked_tag => '新增封鎖標籤';
@@ -2410,10 +2410,10 @@ class _StringsBlockedTagsZhHant extends _StringsBlockedTagsEn {
 }
 
 // Path: download
-class _StringsDownloadZhHant extends _StringsDownloadEn {
-	_StringsDownloadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsDownloadZhTw extends _StringsDownloadEn {
+	_StringsDownloadZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_download_task => '建立下載任務';
@@ -2432,10 +2432,10 @@ class _StringsDownloadZhHant extends _StringsDownloadEn {
 }
 
 // Path: playlist
-class _StringsPlaylistZhHant extends _StringsPlaylistEn {
-	_StringsPlaylistZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsPlaylistZhTw extends _StringsPlaylistEn {
+	_StringsPlaylistZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => '播放清單標題';
@@ -2446,10 +2446,10 @@ class _StringsPlaylistZhHant extends _StringsPlaylistEn {
 }
 
 // Path: channel
-class _StringsChannelZhHant extends _StringsChannelEn {
-	_StringsChannelZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsChannelZhTw extends _StringsChannelEn {
+	_StringsChannelZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get administration => '管理者';
@@ -2466,10 +2466,10 @@ class _StringsChannelZhHant extends _StringsChannelEn {
 }
 
 // Path: create_thread
-class _StringsCreateThreadZhHant extends _StringsCreateThreadEn {
-	_StringsCreateThreadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsCreateThreadZhTw extends _StringsCreateThreadEn {
+	_StringsCreateThreadZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get create_thread => '發帖';
@@ -2478,10 +2478,10 @@ class _StringsCreateThreadZhHant extends _StringsCreateThreadEn {
 }
 
 // Path: notifications
-class _StringsNotificationsZhHant extends _StringsNotificationsEn {
-	_StringsNotificationsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsNotificationsZhTw extends _StringsNotificationsEn {
+	_StringsNotificationsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get ok => '好的';
@@ -2494,10 +2494,10 @@ class _StringsNotificationsZhHant extends _StringsNotificationsEn {
 }
 
 // Path: settings
-class _StringsSettingsZhHant extends _StringsSettingsEn {
-	_StringsSettingsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsSettingsZhTw extends _StringsSettingsEn {
+	_StringsSettingsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get appearance => '外觀設定';
@@ -2540,10 +2540,10 @@ class _StringsSettingsZhHant extends _StringsSettingsEn {
 }
 
 // Path: theme
-class _StringsThemeZhHant extends _StringsThemeEn {
-	_StringsThemeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsThemeZhTw extends _StringsThemeEn {
+	_StringsThemeZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get system => '跟隨系統';
@@ -2552,10 +2552,10 @@ class _StringsThemeZhHant extends _StringsThemeEn {
 }
 
 // Path: colors
-class _StringsColorsZhHant extends _StringsColorsEn {
-	_StringsColorsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsColorsZhTw extends _StringsColorsEn {
+	_StringsColorsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get pink => '粉紅';
@@ -2579,10 +2579,10 @@ class _StringsColorsZhHant extends _StringsColorsEn {
 }
 
 // Path: display_mode
-class _StringsDisplayModeZhHant extends _StringsDisplayModeEn {
-	_StringsDisplayModeZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsDisplayModeZhTw extends _StringsDisplayModeEn {
+	_StringsDisplayModeZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_available => '無可用顯示模式';
@@ -2591,10 +2591,10 @@ class _StringsDisplayModeZhHant extends _StringsDisplayModeEn {
 }
 
 // Path: proxy
-class _StringsProxyZhHant extends _StringsProxyEn {
-	_StringsProxyZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsProxyZhTw extends _StringsProxyEn {
+	_StringsProxyZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get host => '主機名';
@@ -2602,10 +2602,10 @@ class _StringsProxyZhHant extends _StringsProxyEn {
 }
 
 // Path: message
-class _StringsMessageZhHant extends _StringsMessageEn {
-	_StringsMessageZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageZhTw extends _StringsMessageEn {
+	_StringsMessageZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get exit_app => '再按一次退出應用';
@@ -2613,42 +2613,42 @@ class _StringsMessageZhHant extends _StringsMessageEn {
 	@override String get restart_required => '重啟後生效';
 	@override String get please_type_host => '請輸入主機名';
 	@override String get please_type_port => '請輸入端口';
-	@override late final _StringsMessageAccountZhHant account = _StringsMessageAccountZhHant._(_root);
-	@override late final _StringsMessageCommentZhHant comment = _StringsMessageCommentZhHant._(_root);
-	@override late final _StringsMessageCreateThreadZhHant create_thread = _StringsMessageCreateThreadZhHant._(_root);
-	@override late final _StringsMessageBlockedTagsZhHant blocked_tags = _StringsMessageBlockedTagsZhHant._(_root);
-	@override late final _StringsMessagePlaylistZhHant playlist = _StringsMessagePlaylistZhHant._(_root);
-	@override late final _StringsMessageDownloadZhHant download = _StringsMessageDownloadZhHant._(_root);
+	@override late final _StringsMessageAccountZhTw account = _StringsMessageAccountZhTw._(_root);
+	@override late final _StringsMessageCommentZhTw comment = _StringsMessageCommentZhTw._(_root);
+	@override late final _StringsMessageCreateThreadZhTw create_thread = _StringsMessageCreateThreadZhTw._(_root);
+	@override late final _StringsMessageBlockedTagsZhTw blocked_tags = _StringsMessageBlockedTagsZhTw._(_root);
+	@override late final _StringsMessagePlaylistZhTw playlist = _StringsMessagePlaylistZhTw._(_root);
+	@override late final _StringsMessageDownloadZhTw download = _StringsMessageDownloadZhTw._(_root);
 }
 
 // Path: error
-class _StringsErrorZhHant extends _StringsErrorEn {
-	_StringsErrorZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsErrorZhTw extends _StringsErrorEn {
+	_StringsErrorZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get retry => '載入失敗，點擊重試';
 	@override String get fetch_failed => '無法獲取影片連結';
 	@override String get fetch_user_info_failed => '無法獲取使用者資訊';
-	@override late final _StringsErrorAccountZhHant account = _StringsErrorAccountZhHant._(_root);
+	@override late final _StringsErrorAccountZhTw account = _StringsErrorAccountZhTw._(_root);
 }
 
 // Path: search.history
-class _StringsSearchHistoryZhHant extends _StringsSearchHistoryEn {
-	_StringsSearchHistoryZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsSearchHistoryZhTw extends _StringsSearchHistoryEn {
+	_StringsSearchHistoryZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get delete => '刪除所有紀錄';
 }
 
 // Path: player.aspect_ratios
-class _StringsPlayerAspectRatiosZhHant extends _StringsPlayerAspectRatiosEn {
-	_StringsPlayerAspectRatiosZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsPlayerAspectRatiosZhTw extends _StringsPlayerAspectRatiosEn {
+	_StringsPlayerAspectRatiosZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get contain => '包含';
@@ -2660,10 +2660,10 @@ class _StringsPlayerAspectRatiosZhHant extends _StringsPlayerAspectRatiosEn {
 }
 
 // Path: message.account
-class _StringsMessageAccountZhHant extends _StringsMessageAccountEn {
-	_StringsMessageAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageAccountZhTw extends _StringsMessageAccountEn {
+	_StringsMessageAccountZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get login_success => '登入成功！';
@@ -2677,10 +2677,10 @@ class _StringsMessageAccountZhHant extends _StringsMessageAccountEn {
 }
 
 // Path: message.comment
-class _StringsMessageCommentZhHant extends _StringsMessageCommentEn {
-	_StringsMessageCommentZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageCommentZhTw extends _StringsMessageCommentEn {
+	_StringsMessageCommentZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get content_empty => '內容不能為空。';
@@ -2689,10 +2689,10 @@ class _StringsMessageCommentZhHant extends _StringsMessageCommentEn {
 }
 
 // Path: message.create_thread
-class _StringsMessageCreateThreadZhHant extends _StringsMessageCreateThreadEn {
-	_StringsMessageCreateThreadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageCreateThreadZhTw extends _StringsMessageCreateThreadEn {
+	_StringsMessageCreateThreadZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get title_empty => '標題不能為空。';
@@ -2703,10 +2703,10 @@ class _StringsMessageCreateThreadZhHant extends _StringsMessageCreateThreadEn {
 }
 
 // Path: message.blocked_tags
-class _StringsMessageBlockedTagsZhHant extends _StringsMessageBlockedTagsEn {
-	_StringsMessageBlockedTagsZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageBlockedTagsZhTw extends _StringsMessageBlockedTagsEn {
+	_StringsMessageBlockedTagsZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get save_confirm => '確定保存屏蔽標籤嗎？';
@@ -2715,10 +2715,10 @@ class _StringsMessageBlockedTagsZhHant extends _StringsMessageBlockedTagsEn {
 }
 
 // Path: message.playlist
-class _StringsMessagePlaylistZhHant extends _StringsMessagePlaylistEn {
-	_StringsMessagePlaylistZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessagePlaylistZhTw extends _StringsMessagePlaylistEn {
+	_StringsMessagePlaylistZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get empty_playlist_title => '播放列表標題不能為空。';
@@ -2726,10 +2726,10 @@ class _StringsMessagePlaylistZhHant extends _StringsMessagePlaylistEn {
 }
 
 // Path: message.download
-class _StringsMessageDownloadZhHant extends _StringsMessageDownloadEn {
-	_StringsMessageDownloadZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsMessageDownloadZhTw extends _StringsMessageDownloadEn {
+	_StringsMessageDownloadZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get no_provide_storage_permission => '未提供存儲權限。';
@@ -2739,10 +2739,10 @@ class _StringsMessageDownloadZhHant extends _StringsMessageDownloadEn {
 }
 
 // Path: error.account
-class _StringsErrorAccountZhHant extends _StringsErrorAccountEn {
-	_StringsErrorAccountZhHant._(_StringsZhHant root) : this._root = root, super._(root);
+class _StringsErrorAccountZhTw extends _StringsErrorAccountEn {
+	_StringsErrorAccountZhTw._(_StringsZhTw root) : this._root = root, super._(root);
 
-	@override final _StringsZhHant _root; // ignore: unused_field
+	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
 	@override String get invalid_login => '郵箱或密碼錯誤';
@@ -2758,8 +2758,8 @@ extension on Translations {
 		switch (path) {
 			case 'locales.en': return 'English';
 			case 'locales.ja': return '日本語';
-			case 'locales.zh-Hans': return '简体中文';
-			case 'locales.zh-Hant': return '繁體中文';
+			case 'locales.zh-CN': return '简体中文';
+			case 'locales.zh-TW': return '繁體中文';
 			case 'nav.subscriptions': return 'Subscriptions';
 			case 'nav.videos': return 'Videos';
 			case 'nav.images': return 'Images';
@@ -3287,7 +3287,7 @@ extension on _StringsJa {
 	}
 }
 
-extension on _StringsZhHans {
+extension on _StringsZhCn {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'nav.subscriptions': return '订阅';
@@ -3552,7 +3552,7 @@ extension on _StringsZhHans {
 	}
 }
 
-extension on _StringsZhHant {
+extension on _StringsZhTw {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'nav.subscriptions': return '訂閱';
