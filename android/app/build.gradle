@@ -64,7 +64,7 @@ android {
         versionName flutterVersionName
         minSdkVersion 24
         multiDexEnabled true
-        archivesBaseName = "iwrqk-$versionName"
+        archivesBaseName = "iwrqk-$versionName+$versionCode"
         splits {
             abi {
                 enable true
