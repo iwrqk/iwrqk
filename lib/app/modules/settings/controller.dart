@@ -163,6 +163,8 @@ class SettingsController extends GetxController {
           Get.dialog(AlertDialog(
             title: Text(t.message.update.update_available),
             content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(t.message.update.current_version(version: currentVersion)),
                 Text(t.message.update.latest_version(version: value.data!)),
