@@ -714,7 +714,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                         },
                         icon: Icon(
                           Icons.refresh,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           size: 42,
                         ),
                       ),

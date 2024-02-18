@@ -34,7 +34,10 @@ class _SearchPageState extends State<SearchPage> {
           _controller.searchFocusNode.requestFocus();
           _controller.searchEditingController.selection =
               TextSelection.fromPosition(
-                  TextPosition(offset: currentText.length));
+            TextPosition(
+              offset: currentText.length,
+            ),
+          );
         },
         onLongPress: () async {
           HapticFeedback.mediumImpact();
@@ -45,7 +48,8 @@ class _SearchPageState extends State<SearchPage> {
           child: Text(
             keyword,
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
         ),
       ),
@@ -117,7 +121,9 @@ class _SearchPageState extends State<SearchPage> {
                         _controller.clipsExpanded
                             ? t.common.collapse
                             : t.common.expand,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ),
                   )
