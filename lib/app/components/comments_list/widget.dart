@@ -125,14 +125,12 @@ class _CommentsListState extends State<CommentsList>
             controller: _controller,
             scrollController: widget.scrollController,
             paginated: widget.paginated,
+            customEmptyWidget: widget.parentComment,
             builder: (data, scrollController) {
               return Obx(
                 () => CustomScrollView(
                   controller: scrollController,
                   slivers: [
-                    const SliverToBoxAdapter(
-                      child: SizedBox(height: 16),
-                    ),
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {

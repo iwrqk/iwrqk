@@ -16,6 +16,7 @@ class IwrRefresh<T> extends StatefulWidget {
   final bool requireLogin;
   final int pageSize;
   final bool paginated;
+  final Widget? customEmptyWidget;
 
   const IwrRefresh({
     super.key,
@@ -25,6 +26,7 @@ class IwrRefresh<T> extends StatefulWidget {
     this.requireLogin = false,
     this.pageSize = 32,
     this.paginated = false,
+    this.customEmptyWidget,
   });
 
   @override
@@ -58,9 +60,10 @@ class _IwrRefreshState<T> extends State<IwrRefresh<T>> {
           if (state["state"] == "requireLogin") {
             return _buildRequireLoginWidget();
           } else if (state["state"] == "empty") {
-            return const Center(
-              child: LoadEmpty(),
-            );
+            return widget.customEmptyWidget ??
+                const Center(
+                  child: LoadEmpty(),
+                );
           } else if (state["state"] == "fail") {
             return Center(
               child: LoadFail(

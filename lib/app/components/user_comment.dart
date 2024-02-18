@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
@@ -241,7 +242,7 @@ class _UserCommentState extends State<UserComment>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IwrMarkdown(
-            selectable: true,
+            selectable: !widget.canJumpToDetail,
             data: widget.comment.body,
           ),
           if (translatedContent != null)
@@ -288,7 +289,7 @@ class _UserCommentState extends State<UserComment>
                 ],
               ),
             ),
-          if (widget.showDivider) const SizedBox(height: 12),
+          SizedBox(height: widget.showDivider ? 12 : 8),
           if (widget.showDivider) const Divider(height: 0),
         ],
       ),
@@ -310,8 +311,8 @@ class _UserCommentState extends State<UserComment>
 
   void _jumpToDetail() {
     if (widget.canJumpToDetail) {
+      bool showInPage = widget.sourceType == CommentsSourceType.profile;
       CommentsSourceType detailSourceType = getDetailSourceType();
-      bool showInPage = detailSourceType == CommentsSourceType.profile;
       if (showInPage) {
         Get.to(
           () => RepliesDetail(
@@ -348,13 +349,29 @@ class _UserCommentState extends State<UserComment>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+    Widget child = Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildUserWidget(context), _buildContent(context)],
+        children: [
+          _buildUserWidget(context),
+          _buildContent(context),
+        ],
       ),
     );
+
+    return widget.canJumpToDetail
+        ? Material(
+            child: InkWell(
+                onTap: () {
+                  _jumpToDetail();
+                },
+                onLongPress: () {
+                  Clipboard.setData(ClipboardData(text: widget.comment.body));
+                },
+                child: child),
+          )
+        : Material(child: child);
   }
 
   @override

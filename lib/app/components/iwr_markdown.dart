@@ -16,7 +16,7 @@ class IwrMarkdown extends StatelessWidget {
     final config =
         isDark ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
 
-    return Column(
+    Widget child = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: MarkdownGenerator().buildWidgets(
@@ -50,5 +50,7 @@ class IwrMarkdown extends StatelessWidget {
         ),
       ),
     );
+
+    return selectable ? SelectionArea(child: child) : child;
   }
 }

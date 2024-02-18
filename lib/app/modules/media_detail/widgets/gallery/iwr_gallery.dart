@@ -70,44 +70,54 @@ class _IwrGalleryState extends State<IwrGallery> {
   }
 
   Widget _buildDotPageFooter() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(widget.imageUrls.length, (index) {
-        return GestureDetector(
-          onTap: () {
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 150),
-              curve: Curves.bounceIn,
-            );
-          },
-          child: Container(
-            width: 8,
-            height: 8,
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _currentIndex == index
-                  ? Colors.white
-                  : Theme.of(context).colorScheme.outline.withOpacity(0.5),
-              border: Border.all(
-                width: 1,
-                color: Theme.of(context).colorScheme.outline,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(widget.imageUrls.length, (index) {
+          return GestureDetector(
+            onTap: () {
+              _pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.bounceIn,
+              );
+            },
+            child: Container(
+              width: 8,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentIndex == index
+                    ? Colors.white
+                    : Colors.white.withOpacity(0.3),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 
   Widget _buildTextPageFooter() {
-    return Text(
-      "${_currentIndex + 1} / ${widget.imageUrls.length}",
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      child: Text(
+        "${_currentIndex + 1} / ${widget.imageUrls.length}",
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -178,16 +188,10 @@ class _IwrGalleryState extends State<IwrGallery> {
                 ),
               ),
               if (widget.imageUrls.length > 15)
-                Positioned(
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    child: _buildTextPageFooter()),
+                Positioned(bottom: 10, child: _buildTextPageFooter()),
               if (widget.imageUrls.length <= 15 && widget.imageUrls.length > 1)
                 Positioned(
                   bottom: 10,
-                  left: 0,
-                  right: 0,
                   child: _buildDotPageFooter(),
                 ),
             ],

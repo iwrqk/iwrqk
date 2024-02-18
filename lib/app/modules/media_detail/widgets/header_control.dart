@@ -276,32 +276,30 @@ class _HeaderControlState extends State<HeaderControl> {
               ),
               Expanded(
                 child: Material(
-                  child: Scrollbar(
-                    child: ListView(
-                      children: [
-                        for (final double i in speedsList) ...<Widget>[
-                          if (i == currentSpeed) ...<Widget>[
-                            ListTile(
-                              title: Text(i.toString()),
-                              trailing: Icon(Icons.check,
-                                  color: Theme.of(context).colorScheme.primary),
-                              onTap: () async {
-                                await widget.controller!.setPlaybackSpeed(i);
-                                Get.back();
-                              },
-                            ),
-                          ] else ...[
-                            ListTile(
-                              title: Text(i.toString()),
-                              onTap: () async {
-                                await widget.controller!.setPlaybackSpeed(i);
-                                Get.back();
-                              },
-                            ),
-                          ]
+                  child: ListView(
+                    children: [
+                      for (final double i in speedsList) ...<Widget>[
+                        if (i == currentSpeed) ...<Widget>[
+                          ListTile(
+                            title: Text(i.toString()),
+                            trailing: Icon(Icons.check,
+                                color: Theme.of(context).colorScheme.primary),
+                            onTap: () async {
+                              await widget.controller!.setPlaybackSpeed(i);
+                              Get.back();
+                            },
+                          ),
+                        ] else ...[
+                          ListTile(
+                            title: Text(i.toString()),
+                            onTap: () async {
+                              await widget.controller!.setPlaybackSpeed(i);
+                              Get.back();
+                            },
+                          ),
                         ]
-                      ],
-                    ),
+                      ]
+                    ],
                   ),
                 ),
               )
@@ -334,27 +332,24 @@ class _HeaderControlState extends State<HeaderControl> {
               ),
               Expanded(
                 child: Material(
-                  child: Scrollbar(
-                    child: ListView(
-                      children: [
-                        for (final i in widget.controller!.videoFitType)
-                          ListTile(
-                            title: Text(i['desc']),
-                            trailing: i['attr'] ==
-                                    widget.controller!.videoFit.value
-                                ? Icon(Icons.check,
-                                    color:
-                                        Theme.of(context).colorScheme.primary)
-                                : null,
-                            onTap: () async {
-                              widget.controller!.videoFit.value = i['attr'];
-                              widget.controller!.videoFitDEsc.value = i['desc'];
-                              widget.controller!.setVideoFit();
-                              Get.back();
-                            },
-                          ),
-                      ],
-                    ),
+                  child: ListView(
+                    children: [
+                      for (final i in widget.controller!.videoFitType)
+                        ListTile(
+                          title: Text(i['desc']),
+                          trailing: i['attr'] ==
+                                  widget.controller!.videoFit.value
+                              ? Icon(Icons.check,
+                                  color: Theme.of(context).colorScheme.primary)
+                              : null,
+                          onTap: () async {
+                            widget.controller!.videoFit.value = i['attr'];
+                            widget.controller!.videoFitDEsc.value = i['desc'];
+                            widget.controller!.setVideoFit();
+                            Get.back();
+                          },
+                        ),
+                    ],
                   ),
                 ),
               )
@@ -389,40 +384,36 @@ class _HeaderControlState extends State<HeaderControl> {
               ),
               Expanded(
                 child: Material(
-                  child: Scrollbar(
-                    child: ListView(
-                      children: [
-                        for (final ResolutionModel i
-                            in resolutions) ...<Widget>[
-                          ListTile(
-                            title: Text(i.name),
-                            trailing: i ==
-                                    widget.videoDetailCtr!.resolutions[
-                                        widget.videoDetailCtr!.resolutionIndex]
-                                ? Icon(
-                                    Icons.check,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  )
-                                : null,
-                            onTap: () async {
-                              int index = resolutions.indexOf(i);
+                  child: ListView(
+                    children: [
+                      for (final ResolutionModel i in resolutions) ...<Widget>[
+                        ListTile(
+                          title: Text(i.name),
+                          trailing: i ==
+                                  widget.videoDetailCtr!.resolutions[
+                                      widget.videoDetailCtr!.resolutionIndex]
+                              ? Icon(
+                                  Icons.check,
+                                  color: Theme.of(context).colorScheme.primary,
+                                )
+                              : null,
+                          onTap: () async {
+                            int index = resolutions.indexOf(i);
 
-                              widget.videoDetailCtr!.resolutionIndex = index;
-                              widget.videoDetailCtr!.updatePlayer();
+                            widget.videoDetailCtr!.resolutionIndex = index;
+                            widget.videoDetailCtr!.updatePlayer();
 
-                              setting[PLPlayerConfigKey
-                                  .qualityIndexSaved] = index ==
-                                      resolutions.length - 1
-                                  ? 99 /* Source is always the last, use 99 to represent it */
-                                  : index;
+                            setting[
+                                PLPlayerConfigKey.qualityIndexSaved] = index ==
+                                    resolutions.length - 1
+                                ? 99 /* Source is always the last, use 99 to represent it */
+                                : index;
 
-                              Get.back();
-                            },
-                          ),
-                        ]
-                      ],
-                    ),
+                            Get.back();
+                          },
+                        ),
+                      ]
+                    ],
                   ),
                 ),
               )
