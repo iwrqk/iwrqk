@@ -145,6 +145,7 @@ class MediaDetailController extends GetxController
     }
 
     if (isOffline) {
+      taskData = Get.arguments["taskData"];
       id = taskData.offlineMedia.id;
     } else {
       id = Get.parameters["id"]!;
@@ -155,7 +156,6 @@ class MediaDetailController extends GetxController
     Get.lazyPut(() => CommentsListController(), tag: commentsListTag);
 
     if (isOffline) {
-      taskData = Get.arguments["taskData"];
       if (taskData.offlineMedia.type == MediaType.video) {
         offlinePlaylistTag = "download_playlist_${taskData.offlineMedia.id}";
 
