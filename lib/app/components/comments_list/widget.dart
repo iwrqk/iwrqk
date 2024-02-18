@@ -8,6 +8,7 @@ import '../user_comment.dart';
 import 'controller.dart';
 
 class CommentsList extends StatefulWidget {
+  final String tag;
   final CommentsSourceType sourceType;
   final String sourceId;
   final String uploaderUserName;
@@ -21,6 +22,7 @@ class CommentsList extends StatefulWidget {
 
   const CommentsList({
     Key? key,
+    required this.tag,
     required this.sourceType,
     required this.sourceId,
     required this.uploaderUserName,
@@ -39,11 +41,12 @@ class CommentsList extends StatefulWidget {
 
 class _CommentsListState extends State<CommentsList>
     with AutomaticKeepAliveClientMixin {
-  final CommentsListController _controller = Get.find();
+  late CommentsListController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = Get.find<CommentsListController>(tag: widget.tag);
     _controller.initConfig(widget.sourceId, widget.sourceType, widget.parentId);
   }
 
@@ -143,6 +146,14 @@ class _CommentsListState extends State<CommentsList>
                             canJumpToDetail: widget.canJumpToDetail,
                             isMyComment: _controller.userService.user?.id ==
                                 data[index].user.id,
+                            onUpdated: (Map data) {
+                              if (data["state"] == "delete") {
+                                _controller.deleteComment(index);
+                              } else if (data["state"] == "edit") {
+                                _controller.updateContent(
+                                    index, data["content"]);
+                              }
+                            },
                           );
 
                           if (index == 0 && widget.parentComment != null) {

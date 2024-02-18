@@ -4,16 +4,25 @@ import 'package:iwrqk/i18n/strings.g.dart';
 
 import 'controller.dart';
 
-class SendPostBottomSheet extends GetWidget<SendPostBottomSheetController> {
-  final String threadId;
+class EditPostBottomSheet extends GetWidget<EditPostBottomSheetController> {
+  final String? threadId;
+  final bool isEdit;
+  final String? editId;
+  final String? editInitialContent;
+  final void Function(String)? onChanged;
 
-  const SendPostBottomSheet({
+  const EditPostBottomSheet({
     super.key,
-    required this.threadId,
+    this.threadId,
+    this.isEdit = false,
+    this.editId,
+    this.editInitialContent,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    controller.contentController.text = editInitialContent ?? '';
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -62,7 +71,12 @@ class SendPostBottomSheet extends GetWidget<SendPostBottomSheetController> {
                   icon: const Icon(Icons.keyboard),
                 ),
                 TextButton(
-                  onPressed: () => controller.sendPost(threadId),
+                  onPressed: () => controller.editPost(
+                    threadId: threadId,
+                    isEdit: isEdit,
+                    editId: editId,
+                    onChanged: onChanged,
+                  ),
                   child: Text(t.comment.reply),
                 ),
               ],

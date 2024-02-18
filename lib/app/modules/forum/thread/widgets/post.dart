@@ -8,13 +8,17 @@ import '../../../../components/network_image.dart';
 import '../../../../components/translated_content.dart';
 import '../../../../data/models/forum/post.dart';
 import '../../../../data/providers/translate_provider.dart';
+import '../../../../data/services/user_service.dart';
 import '../../../../utils/display_util.dart';
+import 'edit_post_bottom_sheet/widget.dart';
 
 class Post extends StatefulWidget {
   final PostModel post;
   final int index;
   final bool showDivider;
   final String starterUserName;
+  final bool isMyComment;
+  final void Function(Map)? onUpdated;
 
   const Post({
     Key? key,
@@ -22,6 +26,8 @@ class Post extends StatefulWidget {
     required this.index,
     this.showDivider = true,
     required this.starterUserName,
+    this.isMyComment = false,
+    this.onUpdated,
   }) : super(key: key);
 
   @override
@@ -102,6 +108,45 @@ class _PostState extends State<Post> with AutomaticKeepAliveClientMixin {
                     t.common.translate,
                   ),
                 ),
+                if (widget.isMyComment) ...[
+                  PopupMenuItem<String>(
+                    value: "edit",
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: EditPostBottomSheet(
+                            isEdit: true,
+                            editId: widget.post.id,
+                            editInitialContent: widget.post.body,
+                            onChanged: (String content) => widget.onUpdated
+                                ?.call({"state": "edit", "content": content}),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      t.comment.edit_comment,
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: "delete",
+                    onTap: () {
+                      final UserService userService = Get.find();
+                      userService.deletePost(
+                        id: widget.post.id,
+                      );
+                      widget.onUpdated?.call({"state": "delete"});
+                    },
+                    child: Text(
+                      t.comment.delete_comment,
+                    ),
+                  ),
+                ]
               ];
             },
           ),

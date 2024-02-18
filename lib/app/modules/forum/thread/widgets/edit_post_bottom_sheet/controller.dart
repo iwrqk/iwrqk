@@ -5,7 +5,7 @@ import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../../../data/services/user_service.dart';
 
-class SendPostBottomSheetController extends GetxController {
+class EditPostBottomSheetController extends GetxController {
   final UserService _userService = Get.find();
   final formKey = GlobalKey<FormState>();
 
@@ -17,7 +17,12 @@ class SendPostBottomSheetController extends GetxController {
 
   final FocusNode contentFocusNode = FocusNode();
 
-  Future<void> sendPost(String threadId) async {
+  Future<void> editPost({
+    String? threadId,
+    bool isEdit = false,
+    String? editId,
+    void Function(String)? onChanged,
+  }) async {
     String content = contentController.text;
     bool success = false;
 
@@ -28,20 +33,32 @@ class SendPostBottomSheetController extends GetxController {
 
     _sending.value = true;
 
-    await _userService
-        .sendPost(
-      threadId: threadId,
-      content: content,
-    )
-        .then((value) {
-      success = value;
-    });
+    if (isEdit) {
+      await _userService
+          .editPost(
+        id: editId!,
+        content: content,
+      )
+          .then((value) {
+        success = value;
+      });
+    } else {
+      await _userService
+          .sendPost(
+        threadId: threadId!,
+        content: content,
+      )
+          .then((value) {
+        success = value;
+      });
+    }
 
     _sending.value = false;
 
     if (success) {
       SmartDialog.showToast(t.message.comment.sent);
       Get.back();
+      onChanged?.call(content);
     }
   }
 }

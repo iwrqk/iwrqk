@@ -179,6 +179,7 @@
     "title": "Playlist title",
     "create": "Create playlist",
     "select": "Select playlist",
+    "edit_title": "Edit title",
     "videos_count": "$numVideo video",
     "videos_count_plural": "$numVideo videos"
   },
@@ -319,7 +320,8 @@
     },
     "playlist": {
       "empty_playlist_title": "Playlist title can not be empty.",
-      "playlist_created": "Playlist created."
+      "playlist_created": "Playlist created.",
+      "playlist_title_edited": "Playlist title edited."
     },
     "download": {
       "no_provide_storage_permission": "No storage permission provided.",

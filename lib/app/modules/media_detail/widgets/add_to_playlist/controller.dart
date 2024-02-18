@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../components/dialogs/create_playlis_dialog/widget.dart';
+import '../../../../components/dialogs/edit_playlis_dialog/widget.dart';
 import '../../../../data/models/playlist/light_playlist.dart';
 import '../../../../data/services/user_service.dart';
 
@@ -116,7 +116,7 @@ class AddToPlaylistBottomSheetController extends GetxController
       return;
     }
     Get.dialog(
-      CreatePlaylistDialog(
+      EditPlaylistDialog(
         onChanged: () {
           refreshData();
         },

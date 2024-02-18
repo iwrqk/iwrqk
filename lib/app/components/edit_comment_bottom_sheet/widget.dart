@@ -5,24 +5,30 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../../data/enums/types.dart';
 import 'controller.dart';
 
-class SendCommentBottomSheet
-    extends GetWidget<SendCommentBottomSheetController> {
-  final CommentsSourceType sourceType;
-  final String sourceId;
+class EditCommentBottomSheet
+    extends GetWidget<EditCommentBottomSheetController> {
+  final CommentsSourceType? sourceType;
+  final String? sourceId;
   final String? parentId;
+  final bool isEdit;
+  final String? editId;
+  final String? editInitialContent;
+  final void Function(String)? onChanged;
 
-  const SendCommentBottomSheet({
+  const EditCommentBottomSheet({
     super.key,
-    required this.sourceType,
-    required this.sourceId,
+    this.sourceType,
+    this.sourceId,
     this.parentId,
+    this.isEdit = false,
+    this.editId,
+    this.editInitialContent,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    controller.init(
-        sourceType: sourceType, sourceId: sourceId, parentId: parentId);
-
+    controller.contentController.text = editInitialContent ?? '';
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -71,7 +77,21 @@ class SendCommentBottomSheet
                   icon: const Icon(Icons.keyboard),
                 ),
                 TextButton(
-                  onPressed: controller.sendComment,
+                  onPressed: () {
+                    if (isEdit) {
+                      controller.editComment(
+                        editId: editId!,
+                        onChanged: onChanged,
+                      );
+                    } else {
+                      controller.sendComment(
+                        sourceType: sourceType!,
+                        sourceId: sourceId!,
+                        parentId: parentId,
+                        onChanged: onChanged,
+                      );
+                    }
+                  },
                   child: Text(t.comment.reply),
                 ),
               ],

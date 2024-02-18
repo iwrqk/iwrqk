@@ -5,17 +5,19 @@ import 'package:iwrqk/i18n/strings.g.dart';
 
 import '../../../data/services/user_service.dart';
 
-class CreatePlaylistDialogController extends GetxController {
+class EditPlaylistDialogController extends GetxController {
   final UserService _userService = Get.find();
 
   TextEditingController titleEditingController = TextEditingController();
-  final RxBool _addingPlaylist = false.obs;
 
-  bool get addingPlaylist => _addingPlaylist.value;
+  final RxBool _editingPlaylist = false.obs;
+  bool get editingPlaylist => _editingPlaylist.value;
 
-  Future<void> createPlaylist(
+  Future<void> editPlaylist({
+    bool isEdit = false,
+    String? editId,
     Function()? onChanged,
-  ) async {
+  }) async {
     String title = titleEditingController.text;
     bool success = false;
 
@@ -24,15 +26,21 @@ class CreatePlaylistDialogController extends GetxController {
       return;
     }
 
-    _addingPlaylist.value = true;
+    _editingPlaylist.value = true;
 
-    success = await _userService.createPlaylist(title);
+    if (isEdit) {
+      success = await _userService.editPlaylistTitle(editId!, title);
+    } else {
+      success = await _userService.createPlaylist(title);
+    }
 
-    _addingPlaylist.value = false;
+    _editingPlaylist.value = false;
 
     if (success) {
       Get.back();
-      SmartDialog.showToast(t.message.playlist.playlist_created);
+      SmartDialog.showToast(isEdit
+          ? t.message.playlist.playlist_title_edited
+          : t.message.playlist.playlist_created);
       onChanged?.call();
     }
   }

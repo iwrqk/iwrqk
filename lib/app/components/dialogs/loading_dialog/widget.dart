@@ -50,7 +50,7 @@ class LoadingDialog extends GetWidget<LoadingDialogController> {
             height: 150,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Theme.of(context).canvasColor,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(

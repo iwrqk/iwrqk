@@ -12,13 +12,14 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../i18n/strings.g.dart';
 import '../../components/buttons/follow_button/widget.dart';
+import '../../components/comments_list/controller.dart';
 import '../../components/comments_list/widget.dart';
+import '../../components/edit_comment_bottom_sheet/widget.dart';
 import '../../components/load_empty.dart';
 import '../../components/load_fail.dart';
 import '../../components/media_preview/media_flat_preview.dart';
 import '../../components/network_image.dart';
 import '../../components/plugin/pl_player/index.dart';
-import '../../components/send_comment_bottom_sheet/widget.dart';
 import '../../components/user_preview/user_preview.dart';
 import '../../const/iwara.dart';
 import '../../data/enums/types.dart';
@@ -557,6 +558,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   Widget _buildCommentsTab() {
     return Stack(children: [
       CommentsList(
+        tag: _controller.commentsListTag,
         scrollController: commentsScrollController,
         uploaderUserName: _controller.media.user.username,
         sourceId: _controller.media.id,
@@ -583,11 +585,17 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 builder: (context) => Padding(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: SendCommentBottomSheet(
+                  child: EditCommentBottomSheet(
                     sourceId: _controller.media.id,
                     sourceType: _controller.mediaType == MediaType.video
                         ? CommentsSourceType.video
                         : CommentsSourceType.image,
+                    onChanged: (_) {
+                      CommentsListController controller = Get.find(
+                        tag: _controller.commentsListTag,
+                      );
+                      controller.updateAfterSend();
+                    },
                   ),
                 ),
               );

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 4
-/// Strings: 1068 (267 per locale)
+/// Strings: 1076 (269 per locale)
 ///
-/// Built on 2024-02-17 at 12:43 UTC
+/// Built on 2024-02-18 at 06:08 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -476,6 +476,7 @@ class _StringsPlaylistEn {
 	String get title => 'Playlist title';
 	String get create => 'Create playlist';
 	String get select => 'Select playlist';
+	String get edit_title => 'Edit title';
 	String videos_count({required Object numVideo}) => '${numVideo} video';
 	String videos_count_plural({required Object numVideo}) => '${numVideo} videos';
 }
@@ -762,6 +763,7 @@ class _StringsMessagePlaylistEn {
 	// Translations
 	String get empty_playlist_title => 'Playlist title can not be empty.';
 	String get playlist_created => 'Playlist created.';
+	String get playlist_title_edited => 'Playlist title edited.';
 }
 
 // Path: message.download
@@ -1150,6 +1152,7 @@ class _StringsPlaylistJa extends _StringsPlaylistEn {
 	@override String get title => 'プレイリストのタイトル';
 	@override String get create => 'プレイリストの作成';
 	@override String get select => 'プレイリストの選択';
+	@override String get edit_title => 'タイトルを編集';
 	@override String videos_count({required Object numVideo}) => '${numVideo} 本のビデオ';
 	@override String videos_count_plural({required Object numVideo}) => '${numVideo} 本のビデオ';
 }
@@ -1436,6 +1439,7 @@ class _StringsMessagePlaylistJa extends _StringsMessagePlaylistEn {
 	// Translations
 	@override String get empty_playlist_title => 'プレイリストのタイトルは空であってはいけません。';
 	@override String get playlist_created => 'プレイリストが作成されました。';
+	@override String get playlist_title_edited => 'プレイリストのタイトルが編集されました。';
 }
 
 // Path: message.download
@@ -1824,6 +1828,7 @@ class _StringsPlaylistZhCn extends _StringsPlaylistEn {
 	@override String get title => '播放列表标题';
 	@override String get create => '创建播放列表';
 	@override String get select => '选择播放列表';
+	@override String get edit_title => '编辑标题';
 	@override String videos_count({required Object numVideo}) => '${numVideo} 个视频';
 	@override String videos_count_plural({required Object numVideo}) => '${numVideo} 个视频';
 }
@@ -2110,6 +2115,7 @@ class _StringsMessagePlaylistZhCn extends _StringsMessagePlaylistEn {
 	// Translations
 	@override String get empty_playlist_title => '播放列表标题不能为空。';
 	@override String get playlist_created => '播放列表已创建。';
+	@override String get playlist_title_edited => '播放列表标题已修改。';
 }
 
 // Path: message.download
@@ -2498,6 +2504,7 @@ class _StringsPlaylistZhTw extends _StringsPlaylistEn {
 	@override String get title => '播放清單標題';
 	@override String get create => '創建播放清單';
 	@override String get select => '選擇播放清單';
+	@override String get edit_title => '編輯標題';
 	@override String videos_count({required Object numVideo}) => '${numVideo} 個影片';
 	@override String videos_count_plural({required Object numVideo}) => '${numVideo} 個影片';
 }
@@ -2784,6 +2791,7 @@ class _StringsMessagePlaylistZhTw extends _StringsMessagePlaylistEn {
 	// Translations
 	@override String get empty_playlist_title => '播放列表標題不能為空。';
 	@override String get playlist_created => '播放列表已創建。';
+	@override String get playlist_title_edited => '播放列表標題已修改。';
 }
 
 // Path: message.download
@@ -2971,6 +2979,7 @@ extension on Translations {
 			case 'playlist.title': return 'Playlist title';
 			case 'playlist.create': return 'Create playlist';
 			case 'playlist.select': return 'Select playlist';
+			case 'playlist.edit_title': return 'Edit title';
 			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} video';
 			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} videos';
 			case 'channel.administration': return 'Administration';
@@ -3085,6 +3094,7 @@ extension on Translations {
 			case 'message.blocked_tags.reached_limit': return 'Blocked tags reached limit.';
 			case 'message.playlist.empty_playlist_title': return 'Playlist title can not be empty.';
 			case 'message.playlist.playlist_created': return 'Playlist created.';
+			case 'message.playlist.playlist_title_edited': return 'Playlist title edited.';
 			case 'message.download.no_provide_storage_permission': return 'No storage permission provided.';
 			case 'message.download.task_already_exists': return 'Download task already exists.';
 			case 'message.download.task_created': return 'Download task created.';
@@ -3245,6 +3255,7 @@ extension on _StringsJa {
 			case 'playlist.title': return 'プレイリストのタイトル';
 			case 'playlist.create': return 'プレイリストの作成';
 			case 'playlist.select': return 'プレイリストの選択';
+			case 'playlist.edit_title': return 'タイトルを編集';
 			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
 			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 本のビデオ';
 			case 'channel.administration': return '管理者';
@@ -3359,6 +3370,7 @@ extension on _StringsJa {
 			case 'message.blocked_tags.reached_limit': return 'ブロックされたタグの数が上限に達しました。';
 			case 'message.playlist.empty_playlist_title': return 'プレイリストのタイトルは空であってはいけません。';
 			case 'message.playlist.playlist_created': return 'プレイリストが作成されました。';
+			case 'message.playlist.playlist_title_edited': return 'プレイリストのタイトルが編集されました。';
 			case 'message.download.no_provide_storage_permission': return 'ストレージの許可がありません。';
 			case 'message.download.task_already_exists': return 'ダウンロードタスクはすでに存在します。';
 			case 'message.download.task_created': return 'ダウンロードタスクが作成されました。';
@@ -3519,6 +3531,7 @@ extension on _StringsZhCn {
 			case 'playlist.title': return '播放列表标题';
 			case 'playlist.create': return '创建播放列表';
 			case 'playlist.select': return '选择播放列表';
+			case 'playlist.edit_title': return '编辑标题';
 			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 个视频';
 			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 个视频';
 			case 'channel.administration': return '管理者';
@@ -3633,6 +3646,7 @@ extension on _StringsZhCn {
 			case 'message.blocked_tags.reached_limit': return '屏蔽标签数量已达到上限。';
 			case 'message.playlist.empty_playlist_title': return '播放列表标题不能为空。';
 			case 'message.playlist.playlist_created': return '播放列表已创建。';
+			case 'message.playlist.playlist_title_edited': return '播放列表标题已修改。';
 			case 'message.download.no_provide_storage_permission': return '未提供存储权限。';
 			case 'message.download.task_already_exists': return '下载任务已存在。';
 			case 'message.download.task_created': return '下载任务已创建。';
@@ -3793,6 +3807,7 @@ extension on _StringsZhTw {
 			case 'playlist.title': return '播放清單標題';
 			case 'playlist.create': return '創建播放清單';
 			case 'playlist.select': return '選擇播放清單';
+			case 'playlist.edit_title': return '編輯標題';
 			case 'playlist.videos_count': return ({required Object numVideo}) => '${numVideo} 個影片';
 			case 'playlist.videos_count_plural': return ({required Object numVideo}) => '${numVideo} 個影片';
 			case 'channel.administration': return '管理者';
@@ -3907,6 +3922,7 @@ extension on _StringsZhTw {
 			case 'message.blocked_tags.reached_limit': return '屏蔽標籤數量已達到上限。';
 			case 'message.playlist.empty_playlist_title': return '播放列表標題不能為空。';
 			case 'message.playlist.playlist_created': return '播放列表已創建。';
+			case 'message.playlist.playlist_title_edited': return '播放列表標題已修改。';
 			case 'message.download.no_provide_storage_permission': return '未提供存儲權限。';
 			case 'message.download.task_already_exists': return '下載任務已存在。';
 			case 'message.download.task_created': return '下載任務已創建。';

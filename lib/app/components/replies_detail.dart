@@ -6,8 +6,9 @@ import 'package:iwrqk/i18n/strings.g.dart';
 import '../data/enums/types.dart';
 import '../data/models/comment.dart';
 import '../data/services/user_service.dart';
+import 'comments_list/controller.dart';
 import 'comments_list/widget.dart';
-import 'send_comment_bottom_sheet/widget.dart';
+import 'edit_comment_bottom_sheet/widget.dart';
 import 'user_comment.dart';
 
 class RepliesDetail extends StatefulWidget {
@@ -37,9 +38,18 @@ class _RepliesDetailState extends State<RepliesDetail>
   final ScrollController scrollController = ScrollController();
   late AnimationController fabAnimationController;
 
+  late String commentsListTag =
+      "replies_detail_${widget.parentComment.id}_${DateTime.now().millisecondsSinceEpoch}";
+
+  late CommentModel parentComment;
+
   @override
   void initState() {
     super.initState();
+
+    Get.lazyPut(() => CommentsListController(), tag: commentsListTag);
+
+    parentComment = widget.parentComment;
 
     fabAnimationController = AnimationController(
       vsync: this,
@@ -90,10 +100,15 @@ class _RepliesDetailState extends State<RepliesDetail>
             builder: (context) => Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: SendCommentBottomSheet(
+              child: EditCommentBottomSheet(
                 sourceId: widget.sourceId,
                 sourceType: widget.sourceType,
                 parentId: widget.parentComment.id,
+                onChanged: (_) {
+                  CommentsListController controller =
+                      Get.find(tag: commentsListTag);
+                  controller.updateAfterSend();
+                },
               ),
             ),
           );
@@ -109,6 +124,7 @@ class _RepliesDetailState extends State<RepliesDetail>
         ),
         floatingActionButton: fab,
         body: CommentsList(
+          tag: commentsListTag,
           scrollController: scrollController,
           uploaderUserName: widget.uploaderUserName,
           sourceType: widget.sourceType,
@@ -118,11 +134,19 @@ class _RepliesDetailState extends State<RepliesDetail>
           paginated: false,
           parentComment: UserComment(
             uploaderUserName: widget.uploaderUserName,
-            comment: widget.parentComment,
+            comment: parentComment,
             showReplies: false,
             canJumpToDetail: false,
             showDivider: false,
             isMyComment: userService.user?.id == widget.uploaderUserName,
+            onUpdated: (Map data) {
+              if (data["state"] == "delete") {
+                Get.back();
+              } else if (data["state"] == "edit") {
+                parentComment.body = data["content"];
+                setState(() {});
+              }
+            },
           ),
         ),
       );
@@ -153,6 +177,7 @@ class _RepliesDetailState extends State<RepliesDetail>
                 const Divider(height: 1),
                 Expanded(
                   child: CommentsList(
+                    tag: commentsListTag,
                     scrollController: scrollController,
                     uploaderUserName: widget.uploaderUserName,
                     sourceType: widget.sourceType,
@@ -162,12 +187,20 @@ class _RepliesDetailState extends State<RepliesDetail>
                     paginated: false,
                     parentComment: UserComment(
                       uploaderUserName: widget.uploaderUserName,
-                      comment: widget.parentComment,
+                      comment: parentComment,
                       showReplies: false,
                       canJumpToDetail: false,
                       showDivider: false,
                       isMyComment:
                           userService.user?.id == widget.uploaderUserName,
+                      onUpdated: (Map data) {
+                        if (data["state"] == "delete") {
+                          Get.back();
+                        } else if (data["state"] == "edit") {
+                          parentComment.body = data["content"];
+                          setState(() {});
+                        }
+                      },
                     ),
                   ),
                 ),

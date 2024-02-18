@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
-import '../../../components/dialogs/create_playlis_dialog/widget.dart';
+import '../../../components/dialogs/edit_playlis_dialog/widget.dart';
 import 'controller.dart';
 import 'widgets/playlists_preview_list/widget.dart';
 
@@ -19,7 +19,7 @@ class PlaylistsPreviewPage extends GetView<PlaylistsPreviewController> {
             IconButton(
               onPressed: () {
                 Get.dialog(
-                  CreatePlaylistDialog(
+                  EditPlaylistDialog(
                     onChanged: () {
                       controller.refreshData();
                     },

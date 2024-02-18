@@ -173,6 +173,7 @@
     "title": "播放清單標題",
     "create": "創建播放清單",
     "select": "選擇播放清單",
+    "edit_title": "編輯標題",
     "videos_count": "$numVideo 個影片",
     "videos_count_plural": "$numVideo 個影片"
   },
@@ -313,7 +314,8 @@
     },
     "playlist": {
       "empty_playlist_title": "播放列表標題不能為空。",
-      "playlist_created": "播放列表已創建。"
+      "playlist_created": "播放列表已創建。",
+      "playlist_title_edited": "播放列表標題已修改。"
     },
     "download": {
       "no_provide_storage_permission": "未提供存儲權限。",

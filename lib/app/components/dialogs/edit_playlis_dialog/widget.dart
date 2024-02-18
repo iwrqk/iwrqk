@@ -4,19 +4,23 @@ import 'package:iwrqk/i18n/strings.g.dart';
 
 import 'controller.dart';
 
-class CreatePlaylistDialog extends GetWidget<CreatePlaylistDialogController> {
+class EditPlaylistDialog extends GetWidget<EditPlaylistDialogController> {
   final Function()? onChanged;
+  final String? editId;
+  final bool isEdit;
 
-  const CreatePlaylistDialog({
+  const EditPlaylistDialog({
     Key? key,
     this.onChanged,
+    this.editId,
+    this.isEdit = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        t.playlist.create,
+        isEdit ? t.playlist.edit_title : t.playlist.create,
       ),
       content: Container(
         decoration: BoxDecoration(
@@ -41,10 +45,14 @@ class CreatePlaylistDialog extends GetWidget<CreatePlaylistDialogController> {
       actions: [
         Obx(
           () => TextButton(
-            onPressed: controller.addingPlaylist
+            onPressed: controller.editingPlaylist
                 ? null
                 : () {
-                    controller.createPlaylist(onChanged);
+                    controller.editPlaylist(
+                      isEdit: isEdit,
+                      editId: editId,
+                      onChanged: onChanged,
+                    );
                   },
             child: Text(t.notifications.confirm),
           ),

@@ -5,8 +5,9 @@ import '../../../components/load_fail.dart';
 import '../../../components/network_image.dart';
 import '../../../utils/display_util.dart';
 import 'controller.dart';
+import 'widgets/posts_list/controller.dart';
 import 'widgets/posts_list/widget.dart';
-import 'widgets/send_post_bottom_sheet/widget.dart';
+import 'widgets/edit_post_bottom_sheet/widget.dart';
 
 class ThreadPage extends StatefulWidget {
   const ThreadPage({super.key});
@@ -17,6 +18,16 @@ class ThreadPage extends StatefulWidget {
 
 class _ThreadPageState extends State<ThreadPage> {
   final ThreadController _controller = Get.find();
+
+  late String postsListTag =
+      "posts_list_${_controller.threadId}_${DateTime.now().millisecondsSinceEpoch}";
+
+  @override
+  void initState() {
+    super.initState();
+
+    Get.lazyPut(() => PostListController(), tag: postsListTag);
+  }
 
   Widget _buildTitle() {
     return ListTile(
@@ -76,8 +87,12 @@ class _ThreadPageState extends State<ThreadPage> {
                       builder: (context) => Padding(
                         padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: SendPostBottomSheet(
+                        child: EditPostBottomSheet(
                           threadId: _controller.thread.id,
+                          onChanged: (_) {
+                            PostListController controller = Get.find();
+                            controller.updateAfterSend();
+                          },
                         ),
                       ),
                     );
@@ -92,6 +107,7 @@ class _ThreadPageState extends State<ThreadPage> {
         children: [
           Expanded(
             child: PostList(
+              tag: postsListTag,
               title: _controller.thread.title,
               starterUserName: _controller.thread.user.name,
               channelName: _controller.channelName,

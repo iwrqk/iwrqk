@@ -1,10 +1,10 @@
 import 'file.dart';
 
-class AvatarModel extends FileModel {
+class ImageModel extends FileModel {
   bool? animatedPreview;
   String? mime;
 
-  AvatarModel({
+  ImageModel({
     required String id,
     this.animatedPreview,
     this.mime,
@@ -24,8 +24,8 @@ class AvatarModel extends FileModel {
           updatedAt: updatedAt,
         );
 
-  factory AvatarModel.fromJson(Map<String, dynamic> json) {
-    return AvatarModel(
+  factory ImageModel.fromJson(Map<String, dynamic> json) {
+    return ImageModel(
       id: json['id'],
       animatedPreview: json['animatedPreview'],
       mime: json['mime'],

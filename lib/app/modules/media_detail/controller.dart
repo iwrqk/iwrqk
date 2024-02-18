@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
+import '../../components/comments_list/controller.dart';
 import '../../components/plugin/pl_player/index.dart';
 import '../../data/enums/types.dart';
 import '../../data/models/download_task.dart';
@@ -28,6 +29,7 @@ class MediaDetailController extends GetxController
   final MediaDetailRepository repository = MediaDetailRepository();
 
   ScrollController scrollController = ScrollController();
+  late String commentsListTag;
 
   final UserService _userService = Get.find();
   final ConfigService configService = Get.find();
@@ -143,8 +145,17 @@ class MediaDetailController extends GetxController
     }
 
     if (isOffline) {
-      taskData = Get.arguments["taskData"];
       id = taskData.offlineMedia.id;
+    } else {
+      id = Get.parameters["id"]!;
+    }
+
+    commentsListTag =
+        "media_detail_comments_list_${id}_${DateTime.now().millisecondsSinceEpoch}";
+    Get.lazyPut(() => CommentsListController(), tag: commentsListTag);
+
+    if (isOffline) {
+      taskData = Get.arguments["taskData"];
       if (taskData.offlineMedia.type == MediaType.video) {
         offlinePlaylistTag = "download_playlist_${taskData.offlineMedia.id}";
 
@@ -156,7 +167,6 @@ class MediaDetailController extends GetxController
         _isLoading.value = false;
       }
     } else {
-      id = Get.parameters["id"]!;
       loadData();
     }
   }

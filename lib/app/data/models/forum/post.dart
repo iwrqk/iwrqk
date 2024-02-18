@@ -2,11 +2,11 @@ import '../user.dart';
 
 class PostModel {
   final String id;
-  final String body;
+  String body;
   final int replyNum;
   final UserModel user;
   final String createAt;
-  final String updateAt;
+  String updateAt;
 
   PostModel({
     required this.id,

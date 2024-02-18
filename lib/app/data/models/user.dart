@@ -1,5 +1,5 @@
 import '../../const/iwara.dart';
-import 'avatar.dart';
+import 'image.dart';
 
 class UserModel {
   String id;
@@ -12,7 +12,7 @@ class UserModel {
   bool friend;
   bool premium;
   String? seenAt;
-  AvatarModel? avatar;
+  ImageModel? avatar;
   String createdAt;
   String updatedAt;
 
@@ -40,7 +40,7 @@ class UserModel {
         avatar!.mime == "image/apng";
 
     if (animated) {
-      return IwaraConst.originalAvatarUrl
+      return IwaraConst.originalFileUrl
           .replaceFirst("{id}", avatar!.id)
           .replaceFirst("{name}", avatar!.name!);
     }
@@ -63,7 +63,7 @@ class UserModel {
       premium: json['premium'],
       seenAt: json['seenAt'],
       avatar:
-          json['avatar'] != null ? AvatarModel.fromJson(json['avatar']) : null,
+          json['avatar'] != null ? ImageModel.fromJson(json['avatar']) : null,
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );

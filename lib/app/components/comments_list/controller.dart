@@ -22,6 +22,27 @@ class CommentsListController extends IwrRefreshController<CommentModel> {
     _parentId = parentId;
   }
 
+  void updateAfterSend() {
+    if (totalPage == currentPage + 1 || totalPage == 0) {
+      refreshData(showSplash: true);
+    }
+  }
+
+  void updateContent(int index, String content) {
+    if (data.isNotEmpty) {
+      data[index].body = content;
+      data[index].updatedAt = DateTime.now().toIso8601String();
+      update();
+    }
+  }
+
+  void deleteComment(int index) {
+    if (data.isNotEmpty) {
+      data.removeAt(index);
+      update();
+    }
+  }
+
   @override
   Future<GroupResult<CommentModel>> getNewData(int currentPage) {
     return repository.getComments(

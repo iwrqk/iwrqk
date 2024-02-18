@@ -726,6 +726,45 @@ class ApiProvider {
     );
   }
 
+  static Future<ApiResult<void>> editPost({
+    required String id,
+    required String content,
+  }) async {
+    String? message;
+
+    await networkProvider.put("/forum/post/$id", data: {
+      "body": content,
+    }).then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
+  static Future<ApiResult<void>> deletePost({
+    required String id,
+  }) async {
+    String? message;
+
+    await networkProvider.delete("/forum/post/$id").then((value) {
+      message = value.data["message"];
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: null,
+      success: message == null,
+      message: message,
+    );
+  }
+
   static Future<ApiResult<List<TagModel>>> autoCompleteTags(
       {required String keyword}) {
     String? message;
@@ -1091,7 +1130,7 @@ class ApiProvider {
   }) async {
     String? message;
 
-    await networkProvider.put("/playlists/$playlistId", data: {
+    await networkProvider.put("/playlist/$playlistId", data: {
       "title": title,
     }).then((value) {
       message = value.data["message"];

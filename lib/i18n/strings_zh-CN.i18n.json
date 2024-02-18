@@ -173,6 +173,7 @@
     "title": "播放列表标题",
     "create": "创建播放列表",
     "select": "选择播放列表",
+    "edit_title": "编辑标题",
     "videos_count": "$numVideo 个视频",
     "videos_count_plural": "$numVideo 个视频"
   },
@@ -313,7 +314,8 @@
     },
     "playlist": {
       "empty_playlist_title": "播放列表标题不能为空。",
-      "playlist_created": "播放列表已创建。"
+      "playlist_created": "播放列表已创建。",
+      "playlist_title_edited": "播放列表标题已修改。"
     },
     "download": {
       "no_provide_storage_permission": "未提供存储权限。",

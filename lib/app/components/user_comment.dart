@@ -9,6 +9,7 @@ import '../data/models/user.dart';
 import '../data/providers/translate_provider.dart';
 import '../data/services/user_service.dart';
 import '../utils/display_util.dart';
+import 'edit_comment_bottom_sheet/widget.dart';
 import 'iwr_markdown.dart';
 import 'network_image.dart';
 import 'replies_detail.dart';
@@ -23,6 +24,7 @@ class UserComment extends StatefulWidget {
   final String? sourceId;
   final CommentsSourceType? sourceType;
   final bool isMyComment;
+  final void Function(Map)? onUpdated;
 
   const UserComment({
     Key? key,
@@ -34,6 +36,7 @@ class UserComment extends StatefulWidget {
     this.sourceId,
     this.sourceType,
     this.isMyComment = false,
+    this.onUpdated,
   }) : super(key: key);
 
   @override
@@ -136,6 +139,24 @@ class _UserCommentState extends State<UserComment>
                 if (widget.isMyComment) ...[
                   PopupMenuItem<String>(
                     value: "edit",
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: EditCommentBottomSheet(
+                            isEdit: true,
+                            editId: widget.comment.id,
+                            editInitialContent: widget.comment.body,
+                            onChanged: (String content) => widget.onUpdated
+                                ?.call({"state": "edit", "content": content}),
+                          ),
+                        ),
+                      );
+                    },
                     child: Text(
                       t.comment.edit_comment,
                     ),
@@ -147,6 +168,7 @@ class _UserCommentState extends State<UserComment>
                       userService.deleteComment(
                         id: widget.comment.id,
                       );
+                      widget.onUpdated?.call({"state": "delete"});
                     },
                     child: Text(
                       t.comment.delete_comment,

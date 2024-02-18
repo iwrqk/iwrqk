@@ -82,6 +82,7 @@ class PlaylistDetailController extends GetxController {
   Future<String?> getPlaylistName() {
     return ApiProvider.getPlaylistName(playlistId: playlistId).then((value) {
       if (value.success) {
+        title = value.data;
         return value.data;
       }
       return null;

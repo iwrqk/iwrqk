@@ -7,6 +7,7 @@ import '../post.dart';
 import 'controller.dart';
 
 class PostList extends StatefulWidget {
+  final String tag;
   final String title;
   final String starterUserName;
   final String channelName;
@@ -15,6 +16,7 @@ class PostList extends StatefulWidget {
 
   const PostList({
     Key? key,
+    required this.tag,
     required this.title,
     required this.starterUserName,
     required this.channelName,
@@ -32,8 +34,7 @@ class _PostListState extends State<PostList> {
   @override
   void initState() {
     super.initState();
-    Get.create(() => PostListController());
-    _controller = Get.find();
+    _controller = Get.find(tag: widget.tag);
     _controller.initConfig(widget.channelName, widget.threadId);
   }
 
@@ -63,6 +64,16 @@ class _PostListState extends State<PostList> {
                             index: realIndex,
                             showDivider: index != data.length - 1,
                             starterUserName: widget.starterUserName,
+                            isMyComment: _controller.userService.user?.id ==
+                                data[index].user.id,
+                            onUpdated: (Map data) {
+                              if (data["state"] == "delete") {
+                                _controller.deleteComment(index);
+                              } else if (data["state"] == "edit") {
+                                _controller.updateContent(
+                                    index, data["content"]);
+                              }
+                            },
                           );
 
                           if (realIndex == 0) {

@@ -173,6 +173,7 @@
     "title": "プレイリストのタイトル",
     "create": "プレイリストの作成",
     "select": "プレイリストの選択",
+    "edit_title": "タイトルを編集",
     "videos_count": "$numVideo 本のビデオ",
     "videos_count_plural": "$numVideo 本のビデオ"
   },
@@ -313,7 +314,8 @@
     },
     "playlist": {
       "empty_playlist_title": "プレイリストのタイトルは空であってはいけません。",
-      "playlist_created": "プレイリストが作成されました。"
+      "playlist_created": "プレイリストが作成されました。",
+      "playlist_title_edited": "プレイリストのタイトルが編集されました。"
     },
     "download": {
       "no_provide_storage_permission": "ストレージの許可がありません。",

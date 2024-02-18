@@ -33,16 +33,9 @@ class UserService extends GetxService {
     }
     return getUser().then((value) {
       if (!value) {
-        flag = false;
-        return Future.value(flag);
+        return Future.value(false);
       }
-      return getNotificationsCounts().then((value) {
-        if (!value) {
-          flag = false;
-          return Future.value(flag);
-        }
-        return Future.value(true);
-      });
+      return Future.value(true);
     });
   }
 
@@ -505,6 +498,56 @@ class UserService extends GetxService {
         flag = true;
       }
     });
+    return flag;
+  }
+
+  Future<bool> editPost({
+    required String id,
+    required String content,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      SmartDialog.showToast(t.account.require_login);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.editPost(
+      id: id,
+      content: content,
+    ).then((value) {
+      if (!value.success) {
+        SmartDialog.showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+
+    return flag;
+  }
+
+  Future<bool> deletePost({
+    required String id,
+  }) async {
+    bool flag = false;
+    if (!accountService.isLogin) {
+      SmartDialog.showToast(t.account.require_login);
+      flag = false;
+      return flag;
+    }
+
+    await ApiProvider.deletePost(
+      id: id,
+    ).then((value) {
+      if (!value.success) {
+        SmartDialog.showToast(value.message!);
+        flag = false;
+      } else {
+        flag = true;
+      }
+    });
+
     return flag;
   }
 

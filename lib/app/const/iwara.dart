@@ -29,7 +29,7 @@ class IwaraConst {
 
   static const avatarUrl = "https://i.iwara.tv/image/avatar/{id}/{name}";
 
-  static const originalAvatarUrl =
+  static const originalFileUrl =
       "https://i.iwara.tv/image/original/{id}/{name}";
 
   static const loginPath = "/user/login";

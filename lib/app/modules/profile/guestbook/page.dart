@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
+import '../../../components/comments_list/controller.dart';
 import '../../../components/comments_list/widget.dart';
+import '../../../components/edit_comment_bottom_sheet/widget.dart';
 import '../../../components/network_image.dart';
-import '../../../components/send_comment_bottom_sheet/widget.dart';
 import '../../../data/enums/types.dart';
 import '../../../data/models/user.dart';
 
@@ -23,9 +24,14 @@ class _GuestbookPageState extends State<GuestbookPage>
   final ScrollController scrollController = ScrollController();
   late AnimationController fabAnimationController;
 
+  late String commentsListTag =
+      "guestbook_${widget.user.id}_${DateTime.now().millisecondsSinceEpoch}";
+
   @override
   void initState() {
     super.initState();
+
+    Get.lazyPut(() => CommentsListController(), tag: commentsListTag);
 
     fabAnimationController = AnimationController(
       vsync: this,
@@ -84,6 +90,7 @@ class _GuestbookPageState extends State<GuestbookPage>
         titleSpacing: 0,
       ),
       body: CommentsList(
+        tag: commentsListTag,
         scrollController: scrollController,
         uploaderUserName: widget.user.username,
         sourceId: widget.user.id,
@@ -102,10 +109,23 @@ class _GuestbookPageState extends State<GuestbookPage>
           padding: const EdgeInsets.only(bottom: 64),
           child: FloatingActionButton(
             onPressed: () {
-              Get.bottomSheet(SendCommentBottomSheet(
-                sourceId: widget.user.id,
-                sourceType: CommentsSourceType.profile,
-              ));
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: EditCommentBottomSheet(
+                    sourceId: widget.user.id,
+                    sourceType: CommentsSourceType.profile,
+                    onChanged: (_) {
+                      CommentsListController controller =
+                          Get.find(tag: commentsListTag);
+                      controller.updateAfterSend();
+                    },
+                  ),
+                ),
+              );
             },
             child: const Icon(Icons.reply),
           ),
