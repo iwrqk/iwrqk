@@ -24,6 +24,14 @@ class IwrMarkdown extends StatelessWidget {
         config: config.copy(
           configs: [
             isDark ? PreConfig.darkConfig : const PreConfig(),
+            TableConfig(
+              wrapper: (child) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: child,
+                );
+              },
+            ),
             LinkConfig(
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,

@@ -3,6 +3,8 @@ part of './pages.dart';
 abstract class AppRoutes {
   static const splash = '/splash';
 
+  static const rules = '/rules';
+
   static const home = '/home';
   static const subscription = '/subscription';
   static const videos = '/videos';

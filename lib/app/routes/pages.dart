@@ -34,6 +34,8 @@ import '../modules/profile/followers_following/page.dart';
 import '../modules/profile/page.dart';
 import '../modules/profile/uploaded_media/binding.dart';
 import '../modules/profile/uploaded_media/page.dart';
+import '../modules/rules/binding.dart';
+import '../modules/rules/page.dart';
 import '../modules/search_result/binding.dart';
 import '../modules/search_result/view.dart';
 import '../modules/settings/binding.dart';
@@ -51,6 +53,11 @@ abstract class AppPages {
       name: AppRoutes.splash,
       page: () => const SplashPage(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.rules,
+      page: () => const RulesPage(),
+      binding: RulesBinding(),
     ),
     GetPage(
       name: AppRoutes.home,

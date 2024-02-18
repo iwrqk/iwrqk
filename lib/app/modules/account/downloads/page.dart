@@ -40,7 +40,7 @@ class DownloadsPage extends GetView<DownloadsController> {
         appBar: AppBarSwitcher(
           visible: controller.enableMultipleSelection,
           primary: AppBar(
-            title: Text(t.user.history),
+            title: Text(t.user.downloads),
             actions: [
               IconButton(
                 onPressed: () => Get.to(() => const DownloadsSearchPage()),

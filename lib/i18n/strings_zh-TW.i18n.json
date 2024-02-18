@@ -6,6 +6,11 @@
     "forum": "論壇",
     "search": "搜尋"
   },
+  "rules": {
+    "title": "規則",
+    "accept": "接受",
+    "accept_desc": "我同意：已閱讀規則並且會隨時留意未來的規則變更。"
+  },
   "common": {
     "video": "影片",
     "image": "圖片",

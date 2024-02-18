@@ -9,6 +9,9 @@ import '../models/offline/search_history.dart';
 
 abstract class StorageKey {
   static const String config = "config";
+
+  static const String accpetedRules = "accpetedRules";
+
   static const String savedUserAccountPassword = "savedUserAccountPassword";
   static const String autoLockConfig = "autoLockConfig";
   static const String userToken = "userToken";

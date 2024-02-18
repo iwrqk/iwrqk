@@ -16,6 +16,7 @@ import '../models/playlist/light_playlist.dart';
 import '../models/playlist/playlist.dart';
 import '../models/profile.dart';
 import '../models/resolution.dart';
+import '../models/rule.dart';
 import '../models/tag.dart';
 import '../models/user.dart';
 import 'network/network_provider.dart';
@@ -77,6 +78,29 @@ class ApiProvider {
     });
     return ApiResult(
         data: accessToken, success: message == null, message: message);
+  }
+
+  static Future<ApiResult<List<RuleModel>>> getRules() async {
+    String? message;
+    List<RuleModel> rules = [];
+
+    await networkProvider.get("/rules").then((value) {
+      if (value.data["message"] != null) {
+        message = value.data["message"];
+      } else {
+        for (var rule in value.data["results"]) {
+          rules.add(RuleModel.fromJson(rule));
+        }
+      }
+    }).catchError((e, stackTrace) {
+      message = e.toString();
+    });
+
+    return ApiResult(
+      data: rules,
+      success: message == null,
+      message: message,
+    );
   }
 
   static Future<ApiResult<AppUserModel>> getAppUser() async {

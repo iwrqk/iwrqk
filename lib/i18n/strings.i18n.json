@@ -5,6 +5,11 @@
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文"
   },
+  "rules": {
+    "title": "Rules",
+    "accept": "I accept the rules",
+    "accept_desc": "I agree to have read the rules and will stay up to date with any future rule changes."
+  },
   "nav": {
     "subscriptions": "Subscriptions",
     "videos": "Videos",

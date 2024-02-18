@@ -6,6 +6,11 @@
     "forum": "论坛",
     "search": "搜索"
   },
+  "rules": {
+    "title": "规则",
+    "accept": "接受",
+    "accept_desc": "我同意：已阅读规则并且会随时留意未来的规则变更。"
+  },
   "common": {
     "video": "视频",
     "image": "图片",

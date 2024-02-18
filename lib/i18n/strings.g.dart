@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 4
-/// Strings: 1076 (269 per locale)
+/// Strings: 1088 (272 per locale)
 ///
-/// Built on 2024-02-18 at 06:08 UTC
+/// Built on 2024-02-18 at 09:37 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -156,6 +156,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'zh-CN': '简体中文',
 		'zh-TW': '繁體中文',
 	};
+	late final _StringsRulesEn rules = _StringsRulesEn._(_root);
 	late final _StringsNavEn nav = _StringsNavEn._(_root);
 	late final _StringsCommonEn common = _StringsCommonEn._(_root);
 	late final _StringsRefreshEn refresh = _StringsRefreshEn._(_root);
@@ -184,6 +185,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsProxyEn proxy = _StringsProxyEn._(_root);
 	late final _StringsMessageEn message = _StringsMessageEn._(_root);
 	late final _StringsErrorEn error = _StringsErrorEn._(_root);
+}
+
+// Path: rules
+class _StringsRulesEn {
+	_StringsRulesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Rules';
+	String get accept => 'I accept the rules';
+	String get accept_desc => 'I agree to have read the rules and will stay up to date with any future rule changes.';
 }
 
 // Path: nav
@@ -833,6 +846,7 @@ class _StringsJa extends Translations {
 
 	// Translations
 	@override late final _StringsNavJa nav = _StringsNavJa._(_root);
+	@override late final _StringsRulesJa rules = _StringsRulesJa._(_root);
 	@override late final _StringsCommonJa common = _StringsCommonJa._(_root);
 	@override late final _StringsRefreshJa refresh = _StringsRefreshJa._(_root);
 	@override late final _StringsRecordsJa records = _StringsRecordsJa._(_root);
@@ -874,6 +888,18 @@ class _StringsNavJa extends _StringsNavEn {
 	@override String get images => '画像';
 	@override String get forum => 'フォーラム';
 	@override String get search => '検索';
+}
+
+// Path: rules
+class _StringsRulesJa extends _StringsRulesEn {
+	_StringsRulesJa._(_StringsJa root) : this._root = root, super._(root);
+
+	@override final _StringsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ルール';
+	@override String get accept => '同意する';
+	@override String get accept_desc => '私はルールを読み、これに同意し、今後のルール変更についても、最新の情報を確認することに同意します。';
 }
 
 // Path: common
@@ -1509,6 +1535,7 @@ class _StringsZhCn extends Translations {
 
 	// Translations
 	@override late final _StringsNavZhCn nav = _StringsNavZhCn._(_root);
+	@override late final _StringsRulesZhCn rules = _StringsRulesZhCn._(_root);
 	@override late final _StringsCommonZhCn common = _StringsCommonZhCn._(_root);
 	@override late final _StringsRefreshZhCn refresh = _StringsRefreshZhCn._(_root);
 	@override late final _StringsRecordsZhCn records = _StringsRecordsZhCn._(_root);
@@ -1550,6 +1577,18 @@ class _StringsNavZhCn extends _StringsNavEn {
 	@override String get images => '图片';
 	@override String get forum => '论坛';
 	@override String get search => '搜索';
+}
+
+// Path: rules
+class _StringsRulesZhCn extends _StringsRulesEn {
+	_StringsRulesZhCn._(_StringsZhCn root) : this._root = root, super._(root);
+
+	@override final _StringsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '规则';
+	@override String get accept => '接受';
+	@override String get accept_desc => '我同意：已阅读规则并且会随时留意未来的规则变更。';
 }
 
 // Path: common
@@ -2185,6 +2224,7 @@ class _StringsZhTw extends Translations {
 
 	// Translations
 	@override late final _StringsNavZhTw nav = _StringsNavZhTw._(_root);
+	@override late final _StringsRulesZhTw rules = _StringsRulesZhTw._(_root);
 	@override late final _StringsCommonZhTw common = _StringsCommonZhTw._(_root);
 	@override late final _StringsRefreshZhTw refresh = _StringsRefreshZhTw._(_root);
 	@override late final _StringsRecordsZhTw records = _StringsRecordsZhTw._(_root);
@@ -2226,6 +2266,18 @@ class _StringsNavZhTw extends _StringsNavEn {
 	@override String get images => '圖片';
 	@override String get forum => '論壇';
 	@override String get search => '搜尋';
+}
+
+// Path: rules
+class _StringsRulesZhTw extends _StringsRulesEn {
+	_StringsRulesZhTw._(_StringsZhTw root) : this._root = root, super._(root);
+
+	@override final _StringsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '規則';
+	@override String get accept => '接受';
+	@override String get accept_desc => '我同意：已閱讀規則並且會隨時留意未來的規則變更。';
 }
 
 // Path: common
@@ -2844,6 +2896,9 @@ extension on Translations {
 			case 'locales.ja': return '日本語';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.zh-TW': return '繁體中文';
+			case 'rules.title': return 'Rules';
+			case 'rules.accept': return 'I accept the rules';
+			case 'rules.accept_desc': return 'I agree to have read the rules and will stay up to date with any future rule changes.';
 			case 'nav.subscriptions': return 'Subscriptions';
 			case 'nav.videos': return 'Videos';
 			case 'nav.images': return 'Images';
@@ -3125,6 +3180,9 @@ extension on _StringsJa {
 			case 'nav.images': return '画像';
 			case 'nav.forum': return 'フォーラム';
 			case 'nav.search': return '検索';
+			case 'rules.title': return 'ルール';
+			case 'rules.accept': return '同意する';
+			case 'rules.accept_desc': return '私はルールを読み、これに同意し、今後のルール変更についても、最新の情報を確認することに同意します。';
 			case 'common.video': return '動画';
 			case 'common.image': return '画像';
 			case 'common.collapse': return '折りたたむ';
@@ -3401,6 +3459,9 @@ extension on _StringsZhCn {
 			case 'nav.images': return '图片';
 			case 'nav.forum': return '论坛';
 			case 'nav.search': return '搜索';
+			case 'rules.title': return '规则';
+			case 'rules.accept': return '接受';
+			case 'rules.accept_desc': return '我同意：已阅读规则并且会随时留意未来的规则变更。';
 			case 'common.video': return '视频';
 			case 'common.image': return '图片';
 			case 'common.collapse': return '收起';
@@ -3677,6 +3738,9 @@ extension on _StringsZhTw {
 			case 'nav.images': return '圖片';
 			case 'nav.forum': return '論壇';
 			case 'nav.search': return '搜尋';
+			case 'rules.title': return '規則';
+			case 'rules.accept': return '接受';
+			case 'rules.accept_desc': return '我同意：已閱讀規則並且會隨時留意未來的規則變更。';
 			case 'common.video': return '影片';
 			case 'common.image': return '圖片';
 			case 'common.collapse': return '收合';

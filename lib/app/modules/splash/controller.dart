@@ -4,6 +4,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
+import '../../data/providers/storage_provider.dart';
 import '../../data/services/user_service.dart';
 import '../../routes/pages.dart';
 
@@ -16,6 +17,12 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> _runInitTask() async {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!StorageProvider.config
+          .get(StorageKey.accpetedRules, defaultValue: false)) {
+        Get.offNamed(AppRoutes.rules);
+        return;
+      }
+
       if (await _userService.accountService.canLoginFromCache()) {
         bool success =
             await _userService.accountService.loginFromCache().then((value) {
