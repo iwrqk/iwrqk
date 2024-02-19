@@ -292,7 +292,7 @@ class DownloadMediaPreview extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.hd, size: 16),
+          const Icon(Icons.hd, size: 16, color: Colors.white),
           const SizedBox(width: 2),
           Text(
             (taskData as VideoDownloadTask).resolutionName,

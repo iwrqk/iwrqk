@@ -125,7 +125,8 @@ class DownloadTaskDialog extends StatelessWidget {
       elevation: 0,
       backgroundColor: Theme.of(context).colorScheme.background,
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Padding(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -168,19 +169,34 @@ class DownloadTaskDialog extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(24)),
                   child: Stack(
                     children: [
-                      Container(
-                        color: Colors.black,
-                        alignment: Alignment.center,
-                        child: media.coverUrl != null
-                            ? NetworkImg(
-                                imageUrl: media.coverUrl!,
-                                aspectRatio: 16 / 9,
-                                fit: BoxFit.cover,
-                                isAdult:
-                                    media.ratingType == RatingType.ecchi.value,
-                              )
-                            : const AspectRatio(aspectRatio: 16 / 9),
-                      ),
+                      if (Get.mediaQuery.orientation == Orientation.portrait)
+                        Container(
+                          color: Colors.black,
+                          alignment: Alignment.center,
+                          child: media.coverUrl != null
+                              ? NetworkImg(
+                                  imageUrl: media.coverUrl!,
+                                  aspectRatio: 16 / 9,
+                                  fit: BoxFit.cover,
+                                  isAdult: media.ratingType ==
+                                      RatingType.ecchi.value,
+                                )
+                              : const AspectRatio(aspectRatio: 16 / 9),
+                        )
+                      else
+                        Container(
+                          color: Colors.black,
+                          alignment: Alignment.center,
+                          child: media.coverUrl != null
+                              ? NetworkImg(
+                                  imageUrl: media.coverUrl!,
+                                  width: 300,
+                                  fit: BoxFit.cover,
+                                  isAdult: media.ratingType ==
+                                      RatingType.ecchi.value,
+                                )
+                              : const SizedBox(width: 300),
+                        ),
                       Positioned.fill(
                         child: Material(
                           color: Colors.black.withOpacity(0.4),

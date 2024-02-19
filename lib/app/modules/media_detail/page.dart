@@ -864,21 +864,24 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                             Expanded(
                               child: Container(
                                 color: Theme.of(context).colorScheme.surface,
-                                child: DownloadsMediaPreviewList(
-                                  isPlaylist: true,
-                                  showCompleted: true,
-                                  initialMediaId: _controller.id,
-                                  tag: _controller.offlinePlaylistTag,
-                                  onChangeVideo: (task) {
-                                    if (task.taskId ==
-                                        _controller.currentOfflineTaskId) {
-                                      return;
-                                    }
-                                    if (task.offlineMedia.type ==
-                                        MediaType.video) {
-                                      _controller.getOfflineMedia(task.taskId);
-                                    }
-                                  },
+                                child: Material(
+                                  child: DownloadsMediaPreviewList(
+                                    isPlaylist: true,
+                                    showCompleted: true,
+                                    initialMediaId: _controller.id,
+                                    tag: _controller.offlinePlaylistTag,
+                                    onChangeVideo: (task) {
+                                      if (task.taskId ==
+                                          _controller.currentOfflineTaskId) {
+                                        return;
+                                      }
+                                      if (task.offlineMedia.type ==
+                                          MediaType.video) {
+                                        _controller
+                                            .getOfflineMedia(task.taskId);
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

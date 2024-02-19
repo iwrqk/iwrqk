@@ -144,10 +144,17 @@ class _HeaderControlState extends State<HeaderControl> {
             SizedBox(
               height: 34,
               child: TextButton(
-                onPressed: () => showResolutionSheet(),
+                onPressed: widget.videoDetailCtr!.isOffline
+                    ? null
+                    : () => showResolutionSheet(),
                 child: Text(
-                  widget.videoDetailCtr!
-                      .resolutions[widget.videoDetailCtr!.resolutionIndex].name,
+                  widget.videoDetailCtr!.isOffline
+                      ? (widget.videoDetailCtr!.taskData as VideoDownloadTask)
+                          .resolutionName
+                      : widget
+                          .videoDetailCtr!
+                          .resolutions[widget.videoDetailCtr!.resolutionIndex]
+                          .name,
                   style: textStyle,
                 ),
               ),

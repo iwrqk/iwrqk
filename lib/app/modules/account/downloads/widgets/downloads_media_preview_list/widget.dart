@@ -52,7 +52,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
 
     _controller.downloadService.currentDownloading.listen((event) {
       Get.engine.addPostFrameCallback((_) {
-        setState(() {});
+        if (mounted) setState(() {});
       });
     });
   }

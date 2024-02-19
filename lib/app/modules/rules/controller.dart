@@ -49,10 +49,12 @@ class RulesController extends GetxController with StateMixin {
       change(null, status: RxStatus.error(message!));
       return;
     } else {
-      if (languages.contains(Get.deviceLocale!.languageCode)) {
-        _language.value = Get.deviceLocale!.languageCode;
-      } else {
-        _language.value = 'en';
+      if (Get.deviceLocale != null) {
+        if (languages.contains(Get.deviceLocale!.languageCode)) {
+          _language.value = Get.deviceLocale!.languageCode;
+        } else {
+          _language.value = 'en';
+        }
       }
       change(null, status: RxStatus.success());
     }
