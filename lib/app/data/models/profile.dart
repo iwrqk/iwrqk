@@ -27,9 +27,7 @@ class ProfileModel {
         header!.mime == "image/apng";
 
     if (animated) {
-      return IwaraConst.originalFileUrl
-          .replaceFirst("{id}", header!.id)
-          .replaceFirst("{name}", header!.name!);
+      return header!.getOriginalUrl();
     }
 
     return IwaraConst.bannerUrl

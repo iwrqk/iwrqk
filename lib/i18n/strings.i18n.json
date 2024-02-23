@@ -220,7 +220,7 @@
     "theme": "Theme",
     "theme_desc": "Change the theme of the App",
     "dynamic_color": "Dynamic Color",
-    "dynamic_color_desc": "Change the color of the App according to the device theme",
+    "dynamic_color_desc": "Change the color of the App according to the content",
     "custom_color": "Custom Color",
     "custom_color_desc": "Customize the color of the App",
     "language": "Language",

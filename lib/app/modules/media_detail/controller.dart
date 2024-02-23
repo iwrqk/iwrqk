@@ -1,7 +1,8 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floating/floating.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
@@ -20,6 +21,7 @@ import '../../data/services/config_service.dart';
 import '../../data/services/download_service.dart';
 import '../../data/services/plugin/pl_player/service_locator.dart';
 import '../../data/services/user_service.dart';
+import '../../utils/log_util.dart';
 import '../account/downloads/widgets/downloads_media_preview_list/controller.dart';
 import 'repository.dart';
 import 'widgets/header_control.dart';
@@ -107,6 +109,8 @@ class MediaDetailController extends GetxController
   String? currentOfflineVideoUrl;
   String? currentOfflineTaskId;
 
+  Rx<ColorScheme?> dominantColorScheme = Rx<ColorScheme?>(null);
+
   /// PL player
   PlPlayerController plPlayerController = PlPlayerController.getInstance();
   Duration defaultST = Duration.zero;
@@ -156,6 +160,9 @@ class MediaDetailController extends GetxController
     Get.lazyPut(() => CommentsListController(), tag: commentsListTag);
 
     if (isOffline) {
+      if (taskData.offlineMedia.coverUrl != null) {
+        generateColorScheme(taskData.offlineMedia.coverUrl!);
+      }
       if (taskData.offlineMedia.type == MediaType.video) {
         offlinePlaylistTag = "download_playlist_${taskData.offlineMedia.id}";
 
@@ -189,6 +196,8 @@ class MediaDetailController extends GetxController
         _isFavorite.value = media.liked;
         tempFavorite = media.liked;
 
+        if (media.hasCover()) generateColorScheme(media.getCoverUrl());
+
         StorageProvider.historyList.add(HistoryMediaModel.fromMediaData(media));
 
         refectchRecommendation();
@@ -211,6 +220,19 @@ class MediaDetailController extends GetxController
         refectchVideo();
       }
     }
+  }
+
+  void generateColorScheme(String uri) {
+    ColorScheme.fromImageProvider(
+      provider: CachedNetworkImageProvider(uri),
+      brightness: Get.theme.brightness,
+    ).then((value) {
+      Get.engine.addPostFrameCallback((_) {
+        dominantColorScheme.value = value;
+      });
+    }).catchError((e) {
+      LogUtil.error("Failed to generate color scheme", e);
+    });
   }
 
   /// 更新画质、音质

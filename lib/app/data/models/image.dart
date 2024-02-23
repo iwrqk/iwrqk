@@ -1,3 +1,4 @@
+import '../../const/iwara.dart';
 import 'file.dart';
 
 class ImageModel extends FileModel {
@@ -36,6 +37,12 @@ class ImageModel extends FileModel {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
+  }
+
+  String getOriginalUrl() {
+    return IwaraConst.originalFileUrl
+        .replaceFirst("{id}", id)
+        .replaceFirst("{name}", name!);
   }
 
   @override

@@ -6,7 +6,7 @@
 /// Locales: 4
 /// Strings: 1088 (272 per locale)
 ///
-/// Built on 2024-02-18 at 09:37 UTC
+/// Built on 2024-02-23 at 10:35 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -553,7 +553,7 @@ class _StringsSettingsEn {
 	String get theme => 'Theme';
 	String get theme_desc => 'Change the theme of the App';
 	String get dynamic_color => 'Dynamic Color';
-	String get dynamic_color_desc => 'Change the color of the App according to the device theme';
+	String get dynamic_color_desc => 'Change the color of the App according to the content';
 	String get custom_color => 'Custom Color';
 	String get custom_color_desc => 'Customize the color of the App';
 	String get language => 'Language';
@@ -1242,7 +1242,7 @@ class _StringsSettingsJa extends _StringsSettingsEn {
 	@override String get theme => 'テーマ';
 	@override String get theme_desc => 'アプリのテーマを設定します';
 	@override String get dynamic_color => 'ダイナミックカラー';
-	@override String get dynamic_color_desc => 'システムのテーマに従ってアプリのテーマカラーを変更します';
+	@override String get dynamic_color_desc => 'コンテンツに応じてアプリの色を変更します';
 	@override String get custom_color => 'カスタムカラー';
 	@override String get custom_color_desc => 'アプリのテーマカラーをカスタマイズします';
 	@override String get language => '言語';
@@ -1931,7 +1931,7 @@ class _StringsSettingsZhCn extends _StringsSettingsEn {
 	@override String get theme => '主题';
 	@override String get theme_desc => '设置应用的主题';
 	@override String get dynamic_color => '动态取色';
-	@override String get dynamic_color_desc => '根据系统主题改变应用的主题色';
+	@override String get dynamic_color_desc => '根据内容动态更改应用的颜色';
 	@override String get custom_color => '自定义颜色';
 	@override String get custom_color_desc => '自定义应用的主题色';
 	@override String get language => '语言';
@@ -2618,15 +2618,15 @@ class _StringsSettingsZhTw extends _StringsSettingsEn {
 	// Translations
 	@override String get appearance => '外觀設定';
 	@override String get theme => '主題';
-	@override String get theme_desc => '設定應用的主題';
+	@override String get theme_desc => '設定該軟體的主題';
 	@override String get dynamic_color => '動態取色';
-	@override String get dynamic_color_desc => '根據系統主題改變應用的主題色';
+	@override String get dynamic_color_desc => '根據內容動態更改該軟體的顏色';
 	@override String get custom_color => '自定義顏色';
-	@override String get custom_color_desc => '自定義應用的主題色';
+	@override String get custom_color_desc => '自定義該軟體的主題色';
 	@override String get language => '語言';
-	@override String get language_desc => '設定應用的語言';
+	@override String get language_desc => '設定該軟體的語言';
 	@override String get display_mode => '顯示模式';
-	@override String get display_mode_desc => '設定應用的顯示模式';
+	@override String get display_mode_desc => '設定該軟體的顯示模式';
 	@override String get work_mode => '工作模式';
 	@override String get work_mode_desc => '隱藏所有 NSFW 內容的封面';
 	@override String get network => '網路設定';
@@ -2638,14 +2638,14 @@ class _StringsSettingsZhTw extends _StringsSettingsEn {
 	@override String get autoplay => '自動播放';
 	@override String get autoplay_desc => '打開影片頁面時自動播放影片';
 	@override String get background_play => '背景播放';
-	@override String get background_play_desc => '允許應用在背景播放影片';
+	@override String get background_play_desc => '允許該軟體在後台播放影片';
 	@override String get download => '下載設定';
 	@override String get download_path => '下載路徑';
 	@override String get allow_media_scan => '允許媒體掃描';
 	@override String get allow_media_scan_desc => '允許媒體掃描程式讀取下載的媒體檔案';
 	@override String get logging => '日誌設定';
 	@override String get enable_logging => '啟用日誌';
-	@override String get enable_logging_desc => '啟用應用的日誌記錄';
+	@override String get enable_logging_desc => '啟用該軟體的日誌記錄';
 	@override String get clear_log => '清除日誌';
 	@override String clear_log_desc({required Object size}) => '目前日誌大小: ${size}';
 	@override String get enable_verbose_logging => '啟用詳細日誌';
@@ -2726,7 +2726,7 @@ class _StringsMessageZhTw extends _StringsMessageEn {
 	@override final _StringsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get exit_app => '再按一次退出應用';
+	@override String get exit_app => '再按一次退出該軟體';
 	@override String get are_you_sure_to_do_that => '你確定要這麼做嗎？';
 	@override String get restart_required => '重啟後生效';
 	@override String get please_type_host => '請輸入主機名';
@@ -3062,7 +3062,7 @@ extension on Translations {
 			case 'settings.theme': return 'Theme';
 			case 'settings.theme_desc': return 'Change the theme of the App';
 			case 'settings.dynamic_color': return 'Dynamic Color';
-			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the device theme';
+			case 'settings.dynamic_color_desc': return 'Change the color of the App according to the content';
 			case 'settings.custom_color': return 'Custom Color';
 			case 'settings.custom_color_desc': return 'Customize the color of the App';
 			case 'settings.language': return 'Language';
@@ -3341,7 +3341,7 @@ extension on _StringsJa {
 			case 'settings.theme': return 'テーマ';
 			case 'settings.theme_desc': return 'アプリのテーマを設定します';
 			case 'settings.dynamic_color': return 'ダイナミックカラー';
-			case 'settings.dynamic_color_desc': return 'システムのテーマに従ってアプリのテーマカラーを変更します';
+			case 'settings.dynamic_color_desc': return 'コンテンツに応じてアプリの色を変更します';
 			case 'settings.custom_color': return 'カスタムカラー';
 			case 'settings.custom_color_desc': return 'アプリのテーマカラーをカスタマイズします';
 			case 'settings.language': return '言語';
@@ -3620,7 +3620,7 @@ extension on _StringsZhCn {
 			case 'settings.theme': return '主题';
 			case 'settings.theme_desc': return '设置应用的主题';
 			case 'settings.dynamic_color': return '动态取色';
-			case 'settings.dynamic_color_desc': return '根据系统主题改变应用的主题色';
+			case 'settings.dynamic_color_desc': return '根据内容动态更改应用的颜色';
 			case 'settings.custom_color': return '自定义颜色';
 			case 'settings.custom_color_desc': return '自定义应用的主题色';
 			case 'settings.language': return '语言';
@@ -3897,15 +3897,15 @@ extension on _StringsZhTw {
 			case 'notifications.apply': return '應用';
 			case 'settings.appearance': return '外觀設定';
 			case 'settings.theme': return '主題';
-			case 'settings.theme_desc': return '設定應用的主題';
+			case 'settings.theme_desc': return '設定該軟體的主題';
 			case 'settings.dynamic_color': return '動態取色';
-			case 'settings.dynamic_color_desc': return '根據系統主題改變應用的主題色';
+			case 'settings.dynamic_color_desc': return '根據內容動態更改該軟體的顏色';
 			case 'settings.custom_color': return '自定義顏色';
-			case 'settings.custom_color_desc': return '自定義應用的主題色';
+			case 'settings.custom_color_desc': return '自定義該軟體的主題色';
 			case 'settings.language': return '語言';
-			case 'settings.language_desc': return '設定應用的語言';
+			case 'settings.language_desc': return '設定該軟體的語言';
 			case 'settings.display_mode': return '顯示模式';
-			case 'settings.display_mode_desc': return '設定應用的顯示模式';
+			case 'settings.display_mode_desc': return '設定該軟體的顯示模式';
 			case 'settings.work_mode': return '工作模式';
 			case 'settings.work_mode_desc': return '隱藏所有 NSFW 內容的封面';
 			case 'settings.network': return '網路設定';
@@ -3917,14 +3917,14 @@ extension on _StringsZhTw {
 			case 'settings.autoplay': return '自動播放';
 			case 'settings.autoplay_desc': return '打開影片頁面時自動播放影片';
 			case 'settings.background_play': return '背景播放';
-			case 'settings.background_play_desc': return '允許應用在背景播放影片';
+			case 'settings.background_play_desc': return '允許該軟體在後台播放影片';
 			case 'settings.download': return '下載設定';
 			case 'settings.download_path': return '下載路徑';
 			case 'settings.allow_media_scan': return '允許媒體掃描';
 			case 'settings.allow_media_scan_desc': return '允許媒體掃描程式讀取下載的媒體檔案';
 			case 'settings.logging': return '日誌設定';
 			case 'settings.enable_logging': return '啟用日誌';
-			case 'settings.enable_logging_desc': return '啟用應用的日誌記錄';
+			case 'settings.enable_logging_desc': return '啟用該軟體的日誌記錄';
 			case 'settings.clear_log': return '清除日誌';
 			case 'settings.clear_log_desc': return ({required Object size}) => '目前日誌大小: ${size}';
 			case 'settings.enable_verbose_logging': return '啟用詳細日誌';
@@ -3960,7 +3960,7 @@ extension on _StringsZhTw {
 			case 'display_mode.system': return '系統';
 			case 'proxy.host': return '主機名';
 			case 'proxy.port': return '端口';
-			case 'message.exit_app': return '再按一次退出應用';
+			case 'message.exit_app': return '再按一次退出該軟體';
 			case 'message.are_you_sure_to_do_that': return '你確定要這麼做嗎？';
 			case 'message.restart_required': return '重啟後生效';
 			case 'message.please_type_host': return '請輸入主機名';

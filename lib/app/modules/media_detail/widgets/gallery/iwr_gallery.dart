@@ -72,7 +72,7 @@ class _IwrGalleryState extends State<IwrGallery> {
   Widget _buildDotPageFooter() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -96,7 +96,7 @@ class _IwrGalleryState extends State<IwrGallery> {
                 shape: BoxShape.circle,
                 color: _currentIndex == index
                     ? Colors.white
-                    : Colors.white.withOpacity(0.3),
+                    : Colors.white.withOpacity(0.4),
               ),
             ),
           );
@@ -132,7 +132,15 @@ class _IwrGalleryState extends State<IwrGallery> {
           backgroundColor: Colors.black.withOpacity(0.5),
           elevation: 0,
           iconTheme: const IconThemeData(color: Colors.white),
-          title: widget.imageUrls.length > 1 ? _buildTextPageFooter() : null,
+          title: widget.imageUrls.length > 1
+              ? Text(
+                  "${_currentIndex + 1} / ${widget.imageUrls.length}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                )
+              : null,
           centerTitle: true,
         ),
         body: Padding(

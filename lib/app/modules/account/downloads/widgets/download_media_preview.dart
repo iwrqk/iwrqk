@@ -121,14 +121,15 @@ class DownloadMediaPreview extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
-                width: 24,
+                height: 20,
+                width: 20,
                 child: PopupMenuButton(
                   padding: EdgeInsets.zero,
                   position: PopupMenuPosition.under,
                   icon: Icon(
                     Icons.more_horiz,
                     color: Theme.of(context).colorScheme.outline,
+                    size: 20,
                   ),
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuEntry<String>>[

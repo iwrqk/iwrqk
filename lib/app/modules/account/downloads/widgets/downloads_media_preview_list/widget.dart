@@ -96,6 +96,15 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                         return const SizedBox.shrink();
                       }
 
+                      void gotoDetail() {
+                        Get.toNamed(
+                          "/mediaDetail?id=${item.offlineMedia.id}",
+                          arguments: {
+                            "mediaType": item.offlineMedia.type,
+                          },
+                        );
+                      }
+
                       if (widget.isPlaylist) {
                         return Obx(
                           () => DownloadMediaPreview(
@@ -105,6 +114,7 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                                 currentMediaId.value = item.offlineMedia.id;
                               }
                             },
+                            gotoDetail: gotoDetail,
                             taskData: item,
                             isPlaying:
                                 currentMediaId.value == item.offlineMedia.id,
@@ -119,15 +129,6 @@ class _DownloadsMediaPreviewListState extends State<DownloadsMediaPreviewList>
                           arguments: {
                             "mediaType": item.offlineMedia.type,
                             "taskData": item,
-                          },
-                        );
-                      }
-
-                      void gotoDetail() {
-                        Get.toNamed(
-                          "/mediaDetail?id=${item.offlineMedia.id}",
-                          arguments: {
-                            "mediaType": item.offlineMedia.type,
                           },
                         );
                       }

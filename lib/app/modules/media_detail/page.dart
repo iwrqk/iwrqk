@@ -68,6 +68,9 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   late final AppLifecycleListener _lifecycleListener;
   bool isShowing = true;
 
+  ColorScheme get colorScheme =>
+      _controller.dominantColorScheme.value ?? Theme.of(context).colorScheme;
+
   @override
   void initState() {
     super.initState();
@@ -243,7 +246,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
             Icon(
               Icons.lock,
               size: 56,
-              color: Theme.of(context).colorScheme.outline,
+              color: colorScheme.outline,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -251,7 +254,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 t.media.private,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Theme.of(context).colorScheme.outline,
+                  color: colorScheme.outline,
                 ),
               ),
             ),
@@ -283,12 +286,11 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: TextButton.icon(
           style: TextButton.styleFrom(
-            foregroundColor: active
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.inverseSurface,
+            foregroundColor:
+                active ? colorScheme.primary : colorScheme.inverseSurface,
             backgroundColor: active
-                ? Theme.of(context).colorScheme.primaryContainer
-                : Theme.of(context).colorScheme.onInverseSurface,
+                ? colorScheme.primaryContainer
+                : colorScheme.onInverseSurface,
           ),
           onPressed: onPressed,
           icon: Icon(iconData),
@@ -333,11 +335,17 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     context: context,
                     isScrollControlled: true,
                     enableDrag: true,
-                    builder: (context) => Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddToPlaylistBottomSheet(
-                          videoId: _controller.media.id),
+                    builder: (context) => Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: colorScheme,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: AddToPlaylistBottomSheet(
+                          videoId: _controller.media.id,
+                        ),
+                      ),
                     ),
                   );
                 },
@@ -352,9 +360,14 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                     return;
                   }
                   Get.dialog(
-                    CreateVideoDownloadDialog(
-                      resolutions: _controller.resolutions,
-                      previewData: _controller.offlineMedia,
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: colorScheme,
+                      ),
+                      child: CreateVideoDownloadDialog(
+                        resolutions: _controller.resolutions,
+                        previewData: _controller.offlineMedia,
+                      ),
                     ),
                   );
                 }
@@ -384,6 +397,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
+          color: colorScheme.surface,
           child: InkWell(
             onTap: () {
               showModalBottomSheet(
@@ -391,10 +405,17 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                 isScrollControlled: true,
                 enableDrag: true,
                 barrierColor: Colors.transparent,
-                builder: (context) => Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: MeidaDescription(media: _controller.media),
+                builder: (context) => Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: colorScheme,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: MeidaDescription(
+                      media: _controller.media,
+                    ),
+                  ),
                 ),
               );
             },
@@ -424,7 +445,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                               child: Icon(
                                 Icons.remove_red_eye,
                                 size: 16,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: colorScheme.primary,
                               ),
                             ),
                           ),
@@ -433,7 +454,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                                 _controller.media.numViews),
                             style: TextStyle(
                               fontSize: 14,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: colorScheme.primary,
                             ),
                           ),
                           const WidgetSpan(
@@ -445,7 +466,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                             ),
                             style: TextStyle(
                               fontSize: 14,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: colorScheme.primary,
                             ),
                           ),
                         ],
@@ -480,7 +501,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
               '@${_controller.media.user.username}',
               style: TextStyle(
                 fontSize: 12.5,
-                color: Theme.of(context).colorScheme.outline,
+                color: colorScheme.outline,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -556,55 +577,60 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildCommentsTab() {
-    return Stack(children: [
-      CommentsList(
-        tag: _controller.commentsListTag,
-        scrollController: commentsScrollController,
-        uploaderUserName: _controller.media.user.username,
-        sourceId: _controller.media.id,
-        sourceType: _controller.mediaType == MediaType.video
-            ? CommentsSourceType.video
-            : CommentsSourceType.image,
-      ),
-      Positioned(
-        bottom: MediaQuery.of(context).padding.bottom + 16,
-        right: 14,
-        child: SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, 2),
-            end: const Offset(0, 0),
-          ).animate(CurvedAnimation(
-            parent: fabAnimationController,
-            curve: Curves.easeInOut,
-          )),
-          child: FloatingActionButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: EditCommentBottomSheet(
-                    sourceId: _controller.media.id,
-                    sourceType: _controller.mediaType == MediaType.video
-                        ? CommentsSourceType.video
-                        : CommentsSourceType.image,
-                    onChanged: (_) {
-                      CommentsListController controller = Get.find(
-                        tag: _controller.commentsListTag,
-                      );
-                      controller.updateAfterSend();
-                    },
-                  ),
-                ),
-              );
-            },
-            child: const Icon(Icons.reply),
+    return Stack(
+      children: [
+        Material(
+          color: colorScheme.surface,
+          child: CommentsList(
+            tag: _controller.commentsListTag,
+            scrollController: commentsScrollController,
+            uploaderUserName: _controller.media.user.username,
+            sourceId: _controller.media.id,
+            sourceType: _controller.mediaType == MediaType.video
+                ? CommentsSourceType.video
+                : CommentsSourceType.image,
           ),
         ),
-      ),
-    ]);
+        Positioned(
+          bottom: MediaQuery.of(context).padding.bottom + 16,
+          right: 14,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 2),
+              end: const Offset(0, 0),
+            ).animate(CurvedAnimation(
+              parent: fabAnimationController,
+              curve: Curves.easeInOut,
+            )),
+            child: FloatingActionButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: EditCommentBottomSheet(
+                      sourceId: _controller.media.id,
+                      sourceType: _controller.mediaType == MediaType.video
+                          ? CommentsSourceType.video
+                          : CommentsSourceType.image,
+                      onChanged: (_) {
+                        CommentsListController controller = Get.find(
+                          tag: _controller.commentsListTag,
+                        );
+                        controller.updateAfterSend();
+                      },
+                    ),
+                  ),
+                );
+              },
+              child: const Icon(Icons.reply),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildDetailTab() {
@@ -652,6 +678,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
         } else {
           children.add(SliverToBoxAdapter(
             child: Material(
+              color: colorScheme.surface,
               child: Column(
                 children: _buildRecommendation(),
               ),
@@ -714,7 +741,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                         },
                         icon: Icon(
                           Icons.refresh,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: colorScheme.primary,
                           size: 42,
                         ),
                       ),
@@ -798,6 +825,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
   }
 
   Widget _buildPageFuture([bool inPip = false]) {
+    Widget child;
     return Obx(() {
       if (Get.mediaQuery.orientation == Orientation.landscape ||
           plPlayerController?.isFullScreen.value == true) {
@@ -807,7 +835,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
       }
 
       if (_controller.isLoading) {
-        return inPip
+        child = inPip
             ? _buildLoadingWidget()
             : Scaffold(
                 appBar: AppBar(),
@@ -842,7 +870,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
           }
         }
 
-        return inPip
+        child = inPip
             ? buildMedia()
             : Scaffold(
                 resizeToAvoidBottomInset: inPip ? null : false,
@@ -863,7 +891,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                           if (_controller.isOffline) ...[
                             Expanded(
                               child: Container(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: colorScheme.surface,
                                 child: Material(
                                   child: DownloadsMediaPreviewList(
                                     isPlaylist: true,
@@ -888,7 +916,7 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                           ] else ...[
                             Expanded(
                               child: Container(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: colorScheme.surface,
                                 child: DefaultTabController(
                                   length: 2,
                                   child: TabBarView(
@@ -904,6 +932,21 @@ class _MediaDetailPageState extends State<MediaDetailPage>
                         ],
                       ),
               );
+      }
+
+      if (_controller.configService.enableDynamicColor) {
+        if (_controller.dominantColorScheme.value != null) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: _controller.dominantColorScheme.value!,
+            ),
+            child: child,
+          );
+        } else {
+          return child;
+        }
+      } else {
+        return child;
       }
     });
   }

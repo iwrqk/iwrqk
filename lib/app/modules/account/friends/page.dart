@@ -12,7 +12,6 @@ class FriendsPage extends GetView<FriendsController> {
   Widget _buildTabBar(BuildContext context) {
     return Container(
       padding: MediaQuery.of(context).padding.copyWith(top: 0, bottom: 0),
-      alignment: Alignment.centerLeft,
       child: TabBar(
         isScrollable: true,
         indicatorSize: TabBarIndicatorSize.label,

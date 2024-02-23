@@ -40,14 +40,18 @@ class UserModel {
         avatar!.mime == "image/apng";
 
     if (animated) {
-      return IwaraConst.originalFileUrl
-          .replaceFirst("{id}", avatar!.id)
-          .replaceFirst("{name}", avatar!.name!);
+      return avatar!.getOriginalUrl();
     }
 
     return IwaraConst.avatarUrl
         .replaceFirst("{id}", avatar!.id)
         .replaceFirst("{name}", avatar!.name!);
+  }
+
+  String get avatarOriginalUrl {
+    if (avatar == null) return IwaraConst.defaultAvatarUrl;
+
+    return avatar!.getOriginalUrl();
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {

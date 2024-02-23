@@ -214,7 +214,7 @@
     "theme": "主题",
     "theme_desc": "设置应用的主题",
     "dynamic_color": "动态取色",
-    "dynamic_color_desc": "根据系统主题改变应用的主题色",
+    "dynamic_color_desc": "根据内容动态更改应用的颜色",
     "custom_color": "自定义颜色",
     "custom_color_desc": "自定义应用的主题色",
     "language": "语言",

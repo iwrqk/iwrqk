@@ -361,17 +361,15 @@ class _UserCommentState extends State<UserComment>
     );
 
     return widget.canJumpToDetail
-        ? Material(
-            child: InkWell(
-                onTap: () {
-                  _jumpToDetail();
-                },
-                onLongPress: () {
-                  Clipboard.setData(ClipboardData(text: widget.comment.body));
-                },
-                child: child),
-          )
-        : Material(child: child);
+        ? InkWell(
+            onTap: () {
+              _jumpToDetail();
+            },
+            onLongPress: () {
+              Clipboard.setData(ClipboardData(text: widget.comment.body));
+            },
+            child: child)
+        : child;
   }
 
   @override

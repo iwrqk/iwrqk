@@ -8,7 +8,11 @@ class IwrMarkdown extends StatelessWidget {
   final String data;
   final bool selectable;
 
-  const IwrMarkdown({super.key, required this.data, this.selectable = false});
+  const IwrMarkdown({
+    super.key,
+    required this.data,
+    this.selectable = false,
+  });
 
   @override
   Widget build(BuildContext context) {

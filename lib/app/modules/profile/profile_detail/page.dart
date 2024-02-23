@@ -34,13 +34,14 @@ class ProfileDetailPage extends StatelessWidget {
               onTap: () {
                 Get.to(
                   () => FullScreenAvatar(
-                    avatarUrl: profile.user!.avatarUrl,
+                    avatarUrl: profile.user!.avatarOriginalUrl,
                   ),
                 );
               },
               child: ClipOval(
                 child: NetworkImg(
-                  imageUrl: profile.user!.avatarUrl,
+                  imageUrl: profile.user!.avatarOriginalUrl,
+                  fit: BoxFit.cover,
                   width: 156,
                   height: 156,
                 ),
