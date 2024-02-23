@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iwrqk/i18n/strings.g.dart';
 
@@ -44,7 +45,15 @@ class CreateVideoDownloadDialog
                 title: Text(resolutions[index].name),
                 groupValue: controller.currentResolutionIndex,
                 onChanged: (_) {
-                  controller.currentResolutionIndex = index;
+                  if (controller.currentResolutionIndex != index) {
+                    controller.currentResolutionIndex = index;
+                  } else {
+                    Clipboard.setData(
+                      ClipboardData(
+                        text: resolutions[index].src.downloadUrl,
+                      ),
+                    );
+                  }
                 },
               ),
             );

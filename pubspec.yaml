@@ -72,6 +72,9 @@ dependencies:
   audio_session: ^0.1.18
   floating: ^2.0.1
 
+  # desktop
+  window_manager: ^0.3.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -91,3 +94,9 @@ flutter_launcher_icons:
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/launcher/foreground.png"
   adaptive_icon_monochrome: "assets/launcher/foreground.png"
+  windows:
+    generate: true
+    image_path: "assets/launcher/icon.png"
+  macos:
+    generate: true
+    image_path: "assets/launcher/icon.png"

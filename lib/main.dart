@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'app/const/colors.dart';
 import 'app/data/providers/config_provider.dart';
@@ -29,7 +30,9 @@ Future<void> main() async {
   await PathUtil.init();
   await StorageProvider.init();
   await LogUtil.init();
-  await FlutterDownloader.initialize(debug: kDebugMode);
+  if (GetPlatform.isAndroid || GetPlatform.isIOS) {
+    await FlutterDownloader.initialize(debug: kDebugMode);
+  }
   ProxyUtil.init();
   await setupServiceLocator();
   ConfigProvider.init();
@@ -56,6 +59,22 @@ Future<void> main() async {
     StorageProvider.config[DynamicConfigKey.firstRun] = false;
     StorageProvider.config[ConfigKey.localeCode] =
         LocaleSettings.useDeviceLocale().languageCode;
+  }
+
+  if (GetPlatform.isDesktop) {
+    WindowOptions windowOptions = WindowOptions(
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      title: 'IwrQk',
+      titleBarStyle:
+          GetPlatform.isWindows ? TitleBarStyle.hidden : TitleBarStyle.normal,
+    );
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
   }
 
   runApp(TranslationProvider(
